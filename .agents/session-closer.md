@@ -48,9 +48,9 @@ When called, you will execute the following workflow in order:
   - Ensure proper markdown formatting and indentation
    - Write the updated content back to CLAUDE.md
 
-5. **Sync GEMINI.md and AGENTS.md**:
+5. **Sync GEMINI.md and CONTEXT.md**:
    - Check if /GEMINI.md exists; if so, locate its Session Log section and append the same entry
-   - Check if /AGENTS.md exists; if so, locate its Session Log section and append the same entry
+   - Check if /CONTEXT.md exists; if so, locate its Session Log section and append the same entry
    - Maintain consistency in formatting across all three files
    - If these files don't exist or lack a Session Log section, note this but continue
 
