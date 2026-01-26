@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is iGaming payment processing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "iGaming payment processing refers to specialized financial infrastructure enabling online gambling operators to accept deposits and process withdrawals across multiple currencies, payment methods, and jurisdictions. It handles the €3.8+ trillion in annual payouts. Gambling is classified as 'high-risk' by banks, requiring specialized PSPs. Key components include payment gateway, multiple PSP integrations, multi-currency support, fraud detection, KYC/AML compliance, and smart routing optimization."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does iGaming payment processing cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Payment processing fees typically run 2-5% of deposits plus €0.10-€0.50 per transaction, withdrawal fees, and chargeback costs of €15-€70 per dispute. Total payment costs including chargebacks and rolling reserves often consume 4-8% of gross deposits. Cards cost 2.5-3.5%, e-wallets 2-3%, bank transfers 1.5-2%, and cryptocurrency 0.5-1%. Rolling reserves of 5-10% held for 6 months impact cash flow significantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of payment processing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hidden costs include: chargeback fees and fines (€15-€70 per dispute, plus €5,000-€25,000 fines if ratio exceeds 1%), rolling reserves (5-10% of deposits held 6 months), currency conversion spreads (1-3% hidden in rates), failed transaction fees (€0.10-€0.50 per attempt), monthly minimums (€500-€2,000 per PSP), compliance fees (€500-€1,500/month), and early termination fees (€5,000-€25,000). Budget for 4-8% of deposits total, not the quoted 2.5%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment methods should I offer players?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most successful operators offer 8-15 methods covering cards, e-wallets, bank transfers, and cryptocurrency. Cards command 45% of global iGaming turnover but are declining. Essential methods by region: Europe (Visa/Mastercard, Trustly, Skrill/Neteller), UK (debit cards, PayPal, Trustly), Latin America (PIX, Boleto, Mercado Pago), and crypto-focused (Bitcoin, Ethereum, USDT). Start with 8-10 core methods covering 90% of target market."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I reduce payment processing fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top operators negotiate rates 20-40% below published pricing through: multi-PSP setup (route to lowest-fee provider per transaction type), volume commitments (€500,000+ monthly for significant reductions), smart routing optimization (10-15% cost reduction), cryptocurrency integration (0.5-1% vs. 2.5-3.5% for cards—70% cost reduction reported), reducing chargebacks, negotiating rolling reserves after proving track record, and local acquiring to avoid cross-border fees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the biggest challenges in iGaming payment processing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Core challenges include: high-risk classification (limited provider options, higher fees—payment fraud up 90% in 2025), chargebacks threatening merchant accounts (Visa threshold 0.9%), regulatory restrictions varying by market (credit card bans in UK, Sweden from 2026), high decline rates (15-25% common with poor PSP setup), and cross-border complexity multiplying costs. Multi-PSP setups, smart routing, and cryptocurrency options help manage these issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are chargebacks and how do I prevent them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chargebacks occur when players dispute transactions with their bank, resulting in forced refunds plus €15-€70 fees per dispute. Gambling sees 2-3x higher rates than e-commerce. Prevention strategies: clear billing descriptors, strong KYC verification, documenting player activity, responsive support, velocity checks for unusual patterns, and 3D Secure authentication. Visa threshold is 0.9%; exceeding triggers monitoring, fines, and potential account termination."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long should deposits and withdrawals take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Current benchmarks: Deposits—e-wallets instant, bank transfers instant-2 hours, cards instant-30 minutes, crypto 1-30 minutes. Withdrawals—e-wallets 0-24 hours, bank transfers 1-3 business days, cards 2-5 business days, crypto 0-2 hours. Delays come from manual review queues, KYC verification, bonus verification, and bank processing. Instant withdrawals have become a marketing differentiator—3+ day withdrawals put you at significant competitive disadvantage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top iGaming payment providers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: Trustly (best for European bank transfers, ~1.5% fees, Pay N Play), Nuvei (global coverage, gaming-focused, fast settlement), Paysafe/Skrill/Neteller (gambling-native e-wallets, player familiarity), Corefy (payment orchestration, multi-PSP routing), and Praxis (emerging markets, strong LatAm coverage). Choice depends on target markets, volume, and payment method requirements. Request actual rates based on your specific volume and player profile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about cryptocurrency payments for casinos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "17% of gambling bets in 2024 were crypto, with 58% of industry respondents naming it key driver of future growth. Advantages: lower fees (0.5-1% vs. 2.5-3.5% for cards—70% cost reduction reported), no chargebacks, faster settlements, global accessibility. Challenges: volatility risk, increasing regulatory requirements, limited mainstream adoption. Most successful approach: hybrid accepting both crypto and fiat, with instant conversion to reduce volatility exposure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is iGaming payment processing changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key trends: instant payments becoming baseline, credit card bans spreading (Sweden April 2026), cryptocurrency normalization (17% of bets, stablecoins 30% of on-chain transactions), payment orchestration essential (multi-PSP with smart routing standard), KYC before first deposit (grace periods eliminated in UK, Germany), and fraud sophistication increasing (attempts up 90% in 2025). Operators need multiple PSP integrations, crypto implementation, KYC automation, and regular competitive benchmarking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my payment setup is performing well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key metrics: authorization rate (target 85-95%, warning below 80%), chargeback ratio (target below 0.5%, warning above 0.8%), cost per transaction (benchmark 3-5%), settlement timing vs. contractual terms, and payment method mix. Warning signs: declining authorization rate over 3+ weeks, chargeback ratio trending up, player complaints about failures, settlement delays. Top operators achieve 90%+ authorization, 0.3-0.5% chargebacks, and multi-PSP setups reduce costs 15-25%."
+      }
+    }
+  ]
+}

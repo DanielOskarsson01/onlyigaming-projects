@@ -1,0 +1,118 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a turnkey casino platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A turnkey casino platform is a complete, ready-to-launch online gambling solution that includes games, payments, back-office tools, and technical infrastructure—but requires you to obtain and hold your own gambling license. The provider delivers the technology stack including player account management, game integrations, payment gateways, CRM tools, and reporting dashboards. You bring the license, brand, and operational team. Unlike white label where you operate under someone else's license, turnkey gives you full ownership and control—your player database, your contracts with providers, your regulatory relationship."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a turnkey casino platform cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Turnkey casino platforms typically cost €50,000-€150,000+ for setup, plus €10,000-€25,000 monthly with 0-5% revenue share. However, licensing adds €80,000-€300,000+, and total first-year investment realistically runs €200,000-€500,000. The economics favor turnkey at scale: at €200,000 monthly NGR, white label's 20% revenue share costs €40,000/month, while turnkey's 3% share plus €15k fee costs €21,000—saving €19,000 monthly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of a turnkey platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The platform setup fee is often 30-40% of real first-year investment. Hidden costs include: license acquisition (€80,000-€180,000+), annual license renewal (€45,000-€70,000), legal and compliance team (€5,000-€15,000/month), technical team (€10,000-€30,000/month), security infrastructure (€10,000-€30,000 setup plus €1,000-€3,000/month), and QA testing cycles (€5,000-€20,000). Budget for €300,000-€500,000 total, not the €100,000 in the proposal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between turnkey and white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fundamental difference is ownership: with turnkey, you own your license, platform, player data, and business. With white label, you rent everything from the provider. Turnkey costs €50,000-€150,000 setup plus €80,000-€300,000+ for licensing, takes 2-6 months, but has only 0-5% revenue share and full exit value. White label costs €15,000-€60,000, launches in 4-8 weeks, but charges 15-30% revenue share with minimal exit value. Turnkey wins above €200,000 monthly NGR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does turnkey become more profitable than white label?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Turnkey typically becomes more profitable at €150,000-€200,000+ monthly NGR. At €200k NGR: white label's 20% share costs €40,000/month; turnkey's 3% share plus €15k fee costs €21,000/month—saving €19,000 monthly. The extra €150k setup costs pay back in about 8 months. Profitability accelerates faster if targeting regulated markets requiring your own license, running multiple brands, or focusing on high-LTV player segments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to launch a turnkey casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Turnkey launches take 2-6 months from contract to accepting players. Timeline includes: platform selection and contract (2-4 weeks), license application (2-4 months—Curacao 6-8 weeks, Malta 3-6 months), platform configuration (4-8 weeks, parallel to licensing), game and payment integration (4-8 weeks), testing and compliance (2-4 weeks), and soft launch (1-2 weeks). The license application is what extends the timeline compared to white label's 4-8 weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need my own gambling license for a turnkey platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes—that's the defining characteristic of turnkey. You must obtain and hold your own gambling license through the full regulatory application process. This involves choosing a jurisdiction (Curacao, Malta, Gibraltar, UK), forming a compliant legal entity, preparing documentation (business plans, AML policies), submitting applications (€80,000-€300,000+), undergoing background checks, and waiting for approval (6 weeks to 6+ months). Your license determines market access, banking relationships, and business value."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the risks and downsides of a turnkey platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key disadvantages: higher upfront capital (€200,000-€500,000+ needed), direct licensing responsibility and compliance risk, technical expertise requirements (in-house or contracted developers), longer time to market (2-6 months vs. 4-8 weeks), managing vendor relationships directly with less leverage, and scaling complexity as you add providers or jurisdictions. Despite these challenges, turnkey is right for operators building long-term, scalable businesses with adequate capital and expertise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are red flags when choosing a turnkey provider?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Red flags include: 'launch in 30 days' promises (impossible with licensing), no reference clients running their own licenses, vague source code ownership terms, limited game provider portfolio (fewer than 50), no compliance support for license applications, and unclear exit terms. Due diligence: request technical architecture review, speak with 3+ operators live for 12+ months, verify the provider's regulatory standing, and have a gaming lawyer review all contracts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What mistakes do operators make with turnkey platforms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common mistakes: underestimating compliance burden (budget €5,000-€15,000/month minimum), choosing the cheapest provider (€30k platforms often cost more over 3 years), skipping technical resources (need 20-40 hours/month developer time minimum), wrong jurisdiction choice (Curacao can't serve German players), and launching prematurely under investment pressure. Build an 18-month operational plan including compliance, technical, and support costs before committing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top turnkey casino providers in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: GR8 Tech (best for scalability, 99.96% uptime, €80k-€150k+ setup), SOFTSWISS (best for crypto, 36,000+ games, €60k-€120k), EveryMatrix (best for modular flexibility, 200+ provider aggregation, €80k-€180k), Digitain (best for sports-first operators, €50k-€100k), NuxGame (best for first-time turnkey, balanced casino-sports, €40k-€80k). Choose based on your primary vertical, target jurisdictions, and required game portfolio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about turnkey platforms for crypto casinos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Crypto-focused turnkey offers faster KYC, near-instant withdrawals, lower transaction fees (1-2% vs. 3-7%), and 'provably fair' gaming. However: crypto player acquisition is intensely competitive, regulations are tightening, volatility creates currency risk, and fiat support is increasingly expected. Leading crypto-capable providers: SOFTSWISS (50%+ of crypto casino volume), GR8 Tech, NuxGame. Most successful crypto casinos now operate 'crypto-first but fiat-friendly.'"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the turnkey platform market changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key trends: AI integration becoming standard for personalization and fraud detection, modular architecture allowing mix-and-match components, compliance automation replacing manual processes, mobile-native expectations (75%+ traffic), US market preparation raising technical standards, and consolidation reducing independent vendors by 20-30% by 2027. This means higher baseline expectations, more sophisticated tooling, but also higher minimum investment to compete professionally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my turnkey casino is performing well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key metrics: CPA (healthy €80-€180, warning above €250), LTV (healthy €250-€600, warning below €180), LTV:CPA ratio (should be 3:1+), gross margin (healthy 65-80%, warning below 55%), technical uptime (should exceed 99.5%). Turnkey-specific: compliance cost as % of NGR should decrease as you scale (above 8% at €200k+ NGR suggests inefficiency), integration maintenance hours should be stable, and you should improve provider contract terms as volume grows."
+      }
+    }
+  ]
+}

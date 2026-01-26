@@ -1,0 +1,110 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is AML in iGaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AML (Anti-Money Laundering) in iGaming refers to systems, policies, and procedures that prevent gambling platforms from being used to launder money. Operators are legally treated as financial institutions with reporting obligations. Core requirements include Customer Due Diligence, transaction monitoring, Suspicious Activity Reports (SARs), Currency Transaction Reports (CTRs), record keeping (5+ years), and sanctions screening. UKGC issued £10 million+ in AML fines to operators in 2025 alone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does AML compliance cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Budget €50,000-€500,000+ annually for comprehensive AML. Breakdown: AML software platform €20,000-€200,000/year, compliance staff €50,000-€120,000/year each (need 2-5), training €5,000-€20,000/year, external audits €10,000-€50,000/year, SAR filing systems €5,000-€30,000/year, legal/consulting €20,000-€100,000/year. Non-compliance costs more: 2025 UKGC fines included £10 million (Platinum Gaming), £1.4 million (Aspire Global), £1 million (ProgressPlay)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of AML compliance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hidden costs include: false positive investigation (2-10% of transactions flagged, 15-60 minutes each), player friction and abandonment (10-30% abandon EDD), technology integration and maintenance (€10,000-€50,000/year), regulatory relationship management, post-enforcement remediation (often 2-5x the fine amount), and insurance premium increases (20-50% after AML failures). Visible costs represent roughly half of true program spend."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the AML reporting requirements in iGaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key requirements: SARs (Suspicious Activity Reports) - US: $5,000+ suspicious transactions within 30 days; UK: all suspicious activity to NCA, no threshold; EU: to relevant FIU. CTRs (Currency Transaction Reports) - US: cash transactions over $10,000 in 24 hours. Record keeping: 5+ years for customer ID, transactions, SARs, due diligence. Even attempted transactions showing illicit signs must be reported. Structuring to avoid thresholds must be detected and reported."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What triggers enhanced due diligence?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EDD triggers include: financial (deposits exceeding €10,000-€15,000 in 24 hours, cumulative monthly deposits €2,000-€5,000+, inconsistent with stated income), behavioral (multiple payment methods quickly, withdrawals without play, above-average deposits), and risk-based (high-risk jurisdiction, PEP status, sanctions connections). EDD requires source of funds documentation, enhanced identity verification, ongoing monitoring, and management sign-off. Causes 10-30% player abandonment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the biggest challenges in iGaming AML?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Core challenges: transaction volume and false positives (90%+ false positive rates with traditional rules), evolving laundering techniques (chip dumping, bonus abuse, multi-account coordination), cryptocurrency complexity (Travel Rule requiring originator/beneficiary data sharing), synthetic identity fraud (AI-generated fake identities), and cross-border regulatory differences. iGaming fraud increased 64% year-over-year between 2022-2024."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I reduce false positives in AML monitoring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Strategies: risk-based thresholds (different sensitivity by player risk profile), behavioral baselines (alert on deviation from individual patterns), AI/ML detection (40-70% false positive reduction claimed), alert consolidation (group related alerts into single cases), outcome-based tuning (retire low-hit-rate rules), and network analysis (detect coordinated activity). Target SAR rate: 0.1-0.5% of alerts. Below 0.05% suggests over-alerting; above 2% suggests under-detection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are red flags for money laundering in iGaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key red flags: deposit patterns (large deposits with minimal play, multiple payment methods quickly, structuring below thresholds, geographic mismatches), betting behavior (low-risk wash trading, chip dumping in poker, activity at odd hours 4:00-8:00 AM), account behavior (multiple similar accounts, rapid escalation, income inconsistency), and third-party indicators (adverse media, PEP status, cryptocurrency from mixing services). Activity that doesn't make economic sense as gambling is the clearest indicator."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top AML solution providers for iGaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: Sumsub (integrated KYC/AML, 2025 Gartner Leader, KYT modules), SEON (fraud + AML single framework, low false positives, iGaming focus), NICE Actimize (enterprise-scale, most sophisticated algorithms, resource-intensive), ComplyAdvantage (AI-powered screening, sanctions databases), iDenfy (flexible integration, competitive pricing). Choice depends on scale, integrated vs. standalone needs, and budget. Evaluate integration, rule customization, false positive rates, and regulatory coverage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What mistakes do operators make with AML compliance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common mistakes: compliance isolated from operations, threshold-based tunnel vision (missing structuring and patterns), alert volume management over detection quality, inadequate senior management involvement, static rule sets not updated for new techniques, and ignoring cryptocurrency-specific risks. Most UKGC enforcement actions note operators had policies on paper but failed effective implementation. Documentation alone doesn't create compliance—execution and culture do."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens during an AML audit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Auditors examine: documentation (policies, risk assessments, training records, SAR filings), systems (transaction monitoring effectiveness, screening coverage, alert workflows), sample testing (closed alerts, high-risk accounts, threshold detection), and interviews (staff understanding, management engagement). Common findings: outdated policies, investigation timelines exceeding standards, insufficient documentation, incomplete training records. Post-enforcement audits cost £50,000-£200,000 and require demonstrated remediation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is AML regulation changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key changes: EU AMLR rewrite aligning with crypto standards for 2026, UKGC seven-step penalty framework (October 2025) with GGY-based fines, strictly enforced cryptocurrency Travel Rule requiring blockchain analysis, AI detection becoming regulatory expectation (90% of institutions using AI by 2025), and emerging synthetic identity detection requirements. Operators need technology that adapts to evolving requirements and should treat 2023-era compliance as baseline, not sufficient."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my AML program is effective?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key metrics: SAR rate (target 0.1-0.5% of alerts), investigation closure time (target 5-10 days), EDD completion rate, false positive rate (above 95% needs tuning), regulatory feedback. Leading indicators: declining investigation quality, alert backlogs, compliance staff turnover, unremediated audit findings. Test effectiveness by simulating known laundering typologies from published enforcement cases—if your system wouldn't flag activity that resulted in fines for others, it needs improvement."
+      }
+    }
+  ]
+}

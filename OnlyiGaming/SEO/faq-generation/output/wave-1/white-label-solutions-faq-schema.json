@@ -1,0 +1,118 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A white label casino is a fully managed online gambling platform provided by a third-party company that holds a valid gambling license, allowing you to launch under your own brand without building technology or obtaining your own license. The provider handles player account management, game integrations (typically 5,000-15,000+ titles), payment processing, KYC/AML compliance, and technical support. You operate under their license through a sub-licensing arrangement, launching in weeks instead of 12-18 months for a custom build. The trade-off: you're renting, not owning—the platform and player data ultimately belong to the provider."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a white label casino cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "White label casino costs typically range from €15,000-€60,000 for initial setup, plus monthly fees of €5,000-€15,000 and revenue share of 10-30% of Net Gaming Revenue (NGR). However, total first-year cost including marketing realistically runs €150,000-€400,000. A 20% revenue share at €300,000 monthly NGR means €60,000/month—€720,000/year—in revenue share alone. At that point, a turnkey solution with your own license would cost less."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The advertised setup fee is typically 20-30% of your real first-year cost. Budget for €150,000-€400,000 total. Hidden costs include: PSP setup and integration (€2,000-€10,000 per PSP), rolling reserve (5-10% held for 6 months), minimum monthly fees (€3,000-€8,000), premium game providers (€500-€2,000/month each), additional languages (€3,000-€8,000 per language), and marketing tools (€500-€2,000/month). Request a complete fee schedule including all optional services before signing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between white label and turnkey casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fundamental difference is ownership: with white label, you're renting everything (platform, license, infrastructure) and paying ongoing revenue share of 10-30%. With turnkey, you own your license and platform, keeping 90-100% of profits after fixed fees. White label costs €15,000-€60,000 setup and launches in 4-8 weeks. Turnkey costs €80,000-€200,000+ and takes 3-6 months. White label usually wins below €100,000 monthly NGR; above €200,000 NGR, turnkey becomes more economical."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I upgrade from white label to turnkey?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Consider upgrading when revenue share exceeds €30,000-€50,000/month consistently, you need access to regulated markets, or you're hitting platform limitations. Most successful operators transition at 18-36 months. Clear signals: revenue share payments exceed €40,000/month (€480k/year), you need features the platform won't build, or market expansion requires licenses your provider doesn't have. Don't upgrade too early—below €100,000 monthly NGR, white label's simplicity usually outweighs costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to launch a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Providers promise 4-8 weeks, but plan for 8-12 weeks in reality. The platform setup is fast; everything else takes longer. Timeline includes: contract and onboarding (1-2 weeks), platform configuration (2-3 weeks), branding and design (2-4 weeks), payment integration (3-6 weeks), testing and QA (2-3 weeks), and compliance review (1-2 weeks). The biggest time sink is payment provider onboarding—PSPs can take 4-6 weeks alone. Start this process immediately."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need my own gambling license for a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No—operating under the provider's license is the whole point of white label. You function as a sub-licensee under their master license, eliminating the 6-12 month licensing process and €50,000-€300,000+ in costs. However, you can only operate where the provider's license allows (Curacao doesn't cover UK, Germany, Sweden, or US states), you share regulatory risk if the provider has compliance issues, and switching providers means potentially losing your player database."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the risks and downsides of a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key disadvantages: revenue share erodes margins at scale (successful operators pay €500,000-€1,000,000+ annually), limited differentiation (same platform as dozens of other casinos), restricted market access (Curacao can't serve UK, German, Swedish, or US players), you don't control your destiny (provider bankruptcy or license loss takes you offline), and exit is painful (switching providers typically means losing your player database). White label remains right for first-time operators and market testing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are red flags when choosing a white label provider?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Biggest warning signs: won't share complete pricing upfront (legitimate providers have standardized pricing), no verifiable reference clients (confidentiality is usually an excuse), pressure tactics like expiring deals, vague SLA terms without penalty clauses, unclear data ownership terms (ask what happens to your player database if you leave), and no demo environment to test. Due diligence essentials: request three reference clients, test the platform for a week, have a lawyer review exit terms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What mistakes do operators make with white label casinos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most expensive mistake is optimizing for setup cost rather than total cost of ownership. Common mistakes: choosing based on setup fee alone (€15,000 setup with 25% rev share costs more than €50,000 with 12% at scale), underestimating marketing budget (operators budget €30,000 but need €150,000), ignoring exit terms (contracts may require 6-12 months notice), and launching without affiliate relationships (affiliates drive 30-50% of traffic). Create a detailed 12-month operational plan before signing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top white label casino providers in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: SOFTSWISS (crypto casinos, EU markets, €30k-€80k setup), EveryMatrix (regulated markets, scale, €50k-€150k), SoftGamings (emerging markets, €15k-€50k), Slotegrator (budget-conscious, €12k-€40k), and NuxGame (casino plus sports, €20k-€60k). All claim 99.9% uptime but few have meaningful SLA penalties. How to choose: define your primary market first, request demos, talk to 3+ current clients beyond provided references, calculate 3-year total cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about white label casinos for crypto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Crypto-focused white labels are a distinct sub-market. Advantages: faster KYC (often just email verification), lower payment processing costs, access to markets restricting fiat gambling. Reality check: crypto player acquisition is intensely competitive, token/NFT gimmicks rarely drive sustainable traffic, volatility affects revenue (deposits in BTC, pay providers in EUR), regulatory scrutiny is increasing. Specialized providers: SOFTSWISS handles 50%+ of crypto casino volume. Most successful crypto casinos accept both crypto and fiat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the white label casino market changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The market is consolidating around fewer, larger providers while regulatory pressure increases. Key trends: revenue share rates increasing (20-25% now standard, 15% rare), compliance requirements tightening even for Curacao-licensed operations, 75%+ of traffic is mobile (mobile-only now), crypto support is standard rather than differentiating, market saturation in easy jurisdictions like LatAm and CIS. For new operators: higher barriers to entry, more professional operations required from day one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my white label casino is performing well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Track conversion rates, player value, and retention—not just deposits. Key metrics: registration-to-deposit rate (healthy: 25-40%), first deposit value (healthy: €50-€150), player lifetime value (healthy: €200-€500), cost per acquisition (healthy: €80-€200), NGR margin (healthy: 3-6% of turnover). LTV:CPA ratio should be 3:1 or better. Redeposit rate below 30% suggests retention problems. Bonus cost above 30% of NGR means unsustainable strategy."
+      }
+    }
+  ]
+}

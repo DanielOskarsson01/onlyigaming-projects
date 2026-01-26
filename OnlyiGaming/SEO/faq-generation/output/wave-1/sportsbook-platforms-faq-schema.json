@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a sportsbook platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A sportsbook platform is specialized software infrastructure that powers sports betting operations, handling live odds, risk management, bet settlement, and market coverage for thousands of sporting events. Core components include odds engine (real-time pricing from data providers), trading and risk management, low-latency bet acceptance, market coverage (50,000+ events monthly), settlement engine, and player account management. The platform is only as good as its trading capability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a sportsbook platform cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Costs range from €5,000-€20,000/month for white-label to €100,000-€500,000+ for turnkey or custom development. Breakdown: platform fee €5,000-€50,000/month, setup €10,000-€100,000, revenue share 10-25% of NGR, odds/data feeds €5,000-€50,000/month, licensing €50,000-€300,000+, trading services €10,000-€50,000/month. Total first-year investment realistically runs €300,000-€2,000,000 including licensing and marketing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of a sportsbook platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hidden costs include: premium data feeds €10,000-€50,000/month (Sportradar, Genius Sports), trading services €10,000-€30,000/month if outsourced, live streaming rights €5,000-€30,000/month, integrity monitoring €2,000-€10,000/month, multi-jurisdiction compliance €5,000-€20,000/month additional per market, and higher payment processing (3-5% vs. casino's 2.5-4%). Platform fee is typically 40-60% of actual operational costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a sportsbook platform and a casino platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key differences: Casino earns from house edge with static probability and predictable margins, requiring game integration but no trading. Sportsbook earns from betting margins with dynamic probability requiring active trading and risk management. Sportsbook margins (1-3% net) are thinner than casino (3-8% net). Most successful operators offer both, choosing between combined platforms (simpler) or best-of-breed integration (better quality, more complexity)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the biggest challenges in running a sportsbook?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Core challenges: trading and risk management (without AI automation, operators react too late to market movements), in-play latency (60-70% of handle requires sub-second response), sharp bettor management (profiling and appropriate limits), event traffic spikes (10-50x during major events), and data/streaming dependencies. Casino and sportsbook journeys remain siloed for most operators despite integration potential."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I manage sportsbook trading and risk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three models: fully managed trading (outsource to Kambi, Sportradar MTS, Genius—fastest, predictable costs), hybrid (managed core markets plus in-house for specific sports), or in-house (€500,000+ annual investment, maximum control). Key capabilities: automated odds adjustment, liability control, bettor profiling, market suspension, arbitrage detection. Good trading shows margin volatility below 0.5 percentage points month-to-month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about live betting and in-play infrastructure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live betting accounts for 60-70% of sportsbook revenue. Requirements: real-time data feeds (1-3 second refresh), low-latency bet acceptance (under 500ms), dynamic odds engine, live streaming (€5,000-€30,000/month), and scalable infrastructure for 10-50x traffic spikes. Challenges include data latency exploitation by sharps, automatic market suspension, and microbetting expansion requiring even faster infrastructure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top sportsbook platform providers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: Kambi (enterprise, managed trading, 40+ partners, margin volatility below 0.5pp), Sportradar MTS (data-driven, AI pricing, integrity monitoring), BetConstruct (50+ products, turnkey/white-label), Altenar (modular, multi-jurisdiction, bet builder), Betby (next-gen, esports focus, mobile-first), Digitain (versatile deployment). Choose based on delivery model (turnkey vs. modular), target markets, and trading needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What mistakes do operators make when choosing a sportsbook platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common mistakes: ignoring trading costs (platform fee is 30-40% of total cost), overestimating margins (expect 1-3% not casino-like 5-8%), underestimating in-play importance (60-70% of handle), inadequate trading capability, ignoring bettor profiling, and single data provider dependency. The strategic mistake is treating sportsbook as 'casino with sports'—it's fundamentally different business with active trading against sophisticated bettors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are red flags when choosing a sportsbook provider?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Warning signs: no verifiable margin data ('competitive margins' without specifics), limited reference operators, unclear trading scope (what's included in 'managed trading'?), weak in-play infrastructure (test during live events), no data feed redundancy, and aggressive sharp restrictions. Due diligence: test during live events, request margin data from similar operators, verify redundancy, have trading expert evaluate odds competitiveness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the sportsbook platform market changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key trends: AI-powered trading becomes baseline expectation, mobile dominance accelerates (80% of wagers on mobile, $57.6B in US mobile wagers first 5 months 2025), microbetting expansion requiring faster infrastructure, multi-vertical integration improving (unified wallets, cross-vertical journeys), and personalization expectations rising. 2026 rewards discipline over expansion—compliance, engagement design, and scalability as interconnected systems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my sportsbook platform is performing well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key metrics: actual vs. theoretical margin (target within 1pp), in-play bet acceptance rate (target 95%+), bet acceptance latency (target under 500ms standard, 200ms in-play), sharp vs. recreational mix, and system uptime during peak events (target 99.9%+). Healthy benchmarks: pre-match margin 5-7% theoretical, in-play 6-9%, net margin 1-3%, month-to-month volatility below 0.5pp."
+      }
+    }
+  ]
+}

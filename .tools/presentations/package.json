@@ -1,0 +1,9 @@
+{
+  "name": "pro-presentations",
+  "version": "1.0.0",
+  "description": "Professional PowerPoint generation toolkit",
+  "private": true,
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}

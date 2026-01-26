@@ -1,0 +1,94 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an iGaming affiliate program?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An iGaming affiliate program is a structured partnership system where third-party marketers promote online casinos or sportsbooks in exchange for commissions. Affiliates drive traffic through websites, content, social media, or paid advertising, and get paid when players they refer sign up, deposit, or generate ongoing revenue. Affiliate marketing drives 30-50% of new player acquisitions for most operators. Key components include tracking platform, commission structure (CPA, RevShare, Hybrid), creative assets, reporting dashboard, and fraud detection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much do affiliate programs cost to run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Total affiliate program cost typically runs 25-45% of player NGR. Commission costs: CPA $50-$500 per depositing player (higher in regulated markets), Revenue Share 20-50% of NGR ongoing, Hybrid $100-$200 CPA plus 10-25% RevShare. Operational costs include affiliate software (€500-€5,000/month), management staff (€40,000-€80,000/year per manager), creative production (€5,000-€20,000/year), and compliance/legal (€10,000-€30,000/year). Factor in fraud losses of 5-15% of commission payouts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of affiliate programs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hidden costs include: affiliate fraud losses (5-15% of commission payouts, $84 billion globally in 2023), negative carryover exposure (€50,000-€200,000 annually for some operators), compliance monitoring (€1,000-€5,000/month), payment processing fees (2-4% on affiliate payouts), and legal disputes (€5,000-€30,000 per dispute). UK law now makes operators legally responsible for affiliate misconduct—compliance monitoring is no longer optional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What commission models should I offer affiliates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three main models: CPA (Cost Per Acquisition) at $50-$500 per depositing player—predictable costs, best for new programs; Revenue Share at 20-50% of NGR ongoing—aligned incentives, risk of negative carryover; Hybrid combining $100-$200 CPA with 10-25% RevShare—balanced approach. Start new affiliates on CPA until proven (3-6 months), graduate to RevShare when player quality is demonstrated, cap negative carryover at 2-3 months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the biggest challenges in running an affiliate program?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Core challenges: affiliate fraud and quality control (5-30% of traffic contains fraud), compliance and regulatory exposure (operators liable for affiliate behavior in UK and expanding), attribution disputes when multiple affiliates claim same player, negative player value from bonus abusers, and affiliate churn requiring constant recruitment. Managing 500+ active affiliates requires substantial staff—operational costs often exceed expected savings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is affiliate fraud and how do I prevent it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Affiliate fraud involves generating fake or manipulated referrals to earn commissions—estimated 5-30% of traffic. Common types: self-referral, cookie stuffing, incentivized traffic, click fraud, multi-accounting rings. Prevention: device fingerprinting, IP analysis, deposit-to-play ratio monitoring, velocity monitoring, commission holdbacks (30-60 days), and manual review thresholds. Most fraud comes from small percentage of affiliates—implement tiered monitoring based on track record."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top affiliate program software providers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: Scaleo (€500-€2,000/month, modern SaaS, strong anti-fraud), Affilka by SOFTSWISS (€1,000-€3,000/month, best for SOFTSWISS ecosystem), PartnerMatrix by EveryMatrix (€2,000-€5,000/month, enterprise features), Income Access by Paysafe (custom pricing, includes managed services), Cellxpert (€500-€2,000/month, crypto-friendly). Choice depends on scale, budget, and whether you need software-only or managed program."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What mistakes do operators make with affiliate programs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common mistakes: one-size-fits-all commission structures (10-20% of affiliates generate 80% of value), ignoring compliance monitoring (leads to regulatory fines), delayed payments eroding trust, no negative carryover limits destroying relationships, neglecting affiliate communication, and underinvesting in fraud detection. The strategic mistake is treating programs as 'set and forget'—successful programs require continuous optimization and relationship building."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I recruit quality affiliates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Find quality affiliates at iGaming conferences (iGB Affiliate, SiGMA), through competitor analysis, niche content sites ranking for target keywords, affiliate networks, and player referral programs. Beyond commission, quality affiliates want: reliable tracking, fast payments (net-15 or weekly), exclusive player offers, responsive management (24-hour response), and reputable brands. Lead recruitment pitches with conversion data and player LTV, not just commission rates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the affiliate marketing landscape changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key trends: operator liability for affiliate conduct (UK and expanding), shift toward quality metrics (RevShare/Hybrid over pure CPA), consolidation around larger networks, influencer and streaming integration requiring different management, and privacy/tracking challenges from cookie deprecation. Operators should invest in compliance monitoring, build relationships with quality affiliates before competitors, and diversify beyond traditional SEO affiliates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my affiliate program is performing well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key metrics: player LTV by affiliate source (some deliver 2-3x average), commission efficiency (healthy 25-35% of NGR), active affiliate rate (industry average 10-20%), fraud detection rate (5-10% is normal), top affiliate concentration (above 50% creates risk). Warning signs: declining LTV with volume growth, rising chargebacks, increasing disputes, top affiliates leaving. Benchmark: affiliate players should have LTV within 80-120% of direct traffic."
+      }
+    }
+  ]
+}

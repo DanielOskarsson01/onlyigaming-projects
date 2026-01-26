@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is KYC in iGaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KYC (Know Your Customer) in iGaming refers to identity verification that confirms player age, identity, location, and eligibility before gambling. It's required in all licensed jurisdictions to prevent fraud, underage gambling, and money laundering. Modern KYC systems automate verification using document scanning, biometric facial recognition, liveness detection, and database checks. In UK, verification is required before any deposit or play—the 72-hour grace period has been eliminated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does KYC verification cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KYC verification typically costs €0.10-€1.50 per check. Document verification €0.10-€0.80, biometric verification €0.30-€1.00, liveness detection €0.20-€0.50, database checks €0.05-€0.30, full verification bundles €0.50-€2.00. Total spend for mid-size operators runs €2,000-€15,000/month. Enterprise operators negotiate €0.10-€0.30 at volume. The hidden cost is conversion loss—slow or cumbersome KYC loses 15-30% of potential registrations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the hidden costs of KYC services?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hidden costs include: manual review (€2-€10 per case for 5-15% of verifications), failed verification retries (2-3 attempts common), integration and maintenance (€5,000-€20,000 initial, €500-€2,000/month ongoing), compliance reporting (€1,000-€5,000/month), regional coverage premium fees, and enhanced due diligence (€5-€20 per high-risk case). The conversion cost is often largest—every additional step reduces conversion by measurable percentage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What KYC requirements apply in different jurisdictions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UK (UKGC): Verification required before deposit or play, no grace period, credit card ban April 2026. Malta (MGA): Light verification at registration, full verification when withdrawals exceed €2,000 cumulative. US: Varies by state, most require verification at registration plus geolocation and SSN verification. EU: New AML Regulation being rewritten for 2026. Multi-jurisdiction operators must meet strictest requirements of each market."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the biggest challenges in iGaming KYC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Core challenges: conversion vs. compliance trade-off (slow KYC loses 15-30% of players), AI-generated fraud (deepfakes account for 1 in 20 verification failures), regulatory fragmentation across jurisdictions, document coverage gaps for emerging markets, and user experience friction especially on mobile. iGaming fraud has doubled in two years, with attacks peaking between 4:00-8:00 AM when oversight is lowest."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I reduce KYC friction without compromising compliance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Proven strategies: progressive verification (minimum data upfront, more at deposit/withdrawal), risk-based flows (streamlined for low-risk, enhanced for high-risk), pre-fill and auto-capture using AI, mobile-first design (70%+ traffic is mobile), real-time feedback on document quality, and alternative methods like Open Banking. Leading providers achieve 25-second onboarding with 98% automation and 95% first-attempt success."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is liveness detection and why does it matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Liveness detection confirms a real person is present during verification, not a photo, video, or deepfake. Passive liveness analyzes image characteristics without user action; active liveness requires user actions (turn head, blink). With deepfakes accounting for 1 in 20 verification failures in 2025, liveness detection is essential. Costs €0.20-€0.50 per check. Active liveness is more secure but has 5-10% higher abandonment than passive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who are the top KYC providers for iGaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leading providers: Sumsub (220+ countries, Leader in 2025 Gartner Magic Quadrant, starting €149/month), Veriff (230+ territories, 98% automation rate, starting €49/month), Jumio (AI/ML-driven, continuous monitoring, enterprise pricing), Onfido (Atlas AI, 195+ countries, enterprise pricing), iDenfy (flexible integration, competitive pricing). Choice depends on target markets, volume, and whether you need pure verification or comprehensive compliance orchestration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What mistakes do operators make with KYC implementation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common mistakes: choosing on price alone (cheapest per-check often has lowest automation), one-size-fits-all verification killing conversion, poor mobile experience, ignoring retry flows, inadequate document coverage, and missing evolving fraud patterns. The strategic mistake is implementing KYC once and considering it complete—requires ongoing optimization, fraud detection updates, and conversion monitoring."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are red flags when choosing a KYC provider?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Warning signs: no verification time benchmarks ('fast' without metrics), accuracy claims without context, limited or controlled demos, no conversion data (approval rate isn't conversion rate), document coverage gaps, vague data handling answers, and long-term contracts with steep exit penalties. Due diligence: test with real documents from target markets, request conversion metrics from iGaming clients, verify certifications are current."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is KYC technology changing in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key trends: AI vs. AI arms race (deepfakes forcing sophisticated detection), instant verification becoming expected (25-30 second onboarding), orchestration layers routing checks to optimal providers, EU AML regulations being rewritten for 2026, and alternative verification methods (Open Banking, database-first approaches). Legacy systems from 2023 are increasingly vulnerable to fraud and conversion loss—modern technology investment is essential."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if my KYC system is performing well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key metrics: verification conversion rate (target 85-95%), first-attempt success rate (target 90%+), median verification time (target under 30 seconds), manual review rate (target under 10%), fraud detection rate vs. industry benchmarks. Warning signs: declining conversion, increasing manual review queue, rising fraud losses despite passing verification. Top performers achieve 95%+ conversion, sub-30-second verification, under 5% manual review."
+      }
+    }
+  ]
+}

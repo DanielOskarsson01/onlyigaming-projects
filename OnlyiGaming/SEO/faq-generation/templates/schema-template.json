@@ -1,0 +1,161 @@
+# FAQ Schema Template
+
+## JSON-LD Structure
+
+Use this template to generate FAQ schema markup for each category page.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "{{QUESTION_1}}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ANSWER_1_PLAIN_TEXT}}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{QUESTION_2}}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ANSWER_2_PLAIN_TEXT}}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{QUESTION_3}}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ANSWER_3_PLAIN_TEXT}}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{QUESTION_4}}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ANSWER_4_PLAIN_TEXT}}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{QUESTION_5}}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ANSWER_5_PLAIN_TEXT}}"
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Schema Rules
+
+### Text Formatting
+- Remove all markdown formatting (no **, no ##, no bullet points)
+- Convert bullet lists to comma-separated text
+- Keep answers under 300 characters for optimal display
+- Use plain quotation marks, not smart quotes
+- Escape any special characters
+
+### Example Transformation
+
+**Markdown Answer:**
+```markdown
+A white label casino is a pre-built online gambling platform provided by a third-party vendor. The provider handles:
+- Licensing
+- Software
+- Games
+- Payment processing
+
+This allows operators to launch in 4-8 weeks.
+```
+
+**Schema Text:**
+```
+A white label casino is a pre-built online gambling platform provided by a third-party vendor. The provider handles licensing, software, games, and payment processing. This allows operators to launch in 4-8 weeks.
+```
+
+---
+
+## Complete Example
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A white label casino is a pre-built online gambling platform provided by a third-party vendor that allows operators to launch under their own brand without developing technology from scratch. The provider handles licensing, software, games, and payment processing while the operator focuses on marketing and player acquisition. This model reduces time-to-market to 4-8 weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a white label casino cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "White label casino costs typically range from €10,000-€50,000 for setup, plus monthly fees of €5,000-€15,000 and a revenue share of 15-30% of gross gaming revenue (GGR). Total first-year investment is usually €100,000-€300,000 including marketing. Costs vary based on jurisdiction, game selection, and customization requirements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between white label and turnkey casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The main difference is ownership and control. With white label, you operate under the provider's license and share revenue (15-30% of GGR). With turnkey, you own your own license and platform, keeping more profit but requiring higher upfront investment (€100,000-€500,000+) and longer setup time (3-6 months vs 4-8 weeks). White label suits new entrants; turnkey suits experienced operators seeking independence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to launch a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A white label casino can launch in 4-8 weeks from contract signing. The timeline includes platform configuration (1-2 weeks), branding and design (1-2 weeks), payment integration (1-2 weeks), and testing and compliance review (1-2 weeks). Delays typically occur due to payment provider onboarding or content localization requirements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need my own gambling license for a white label casino?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, you do not need your own gambling license for a white label casino. You operate under the provider's existing license, which is one of the main advantages of this model. However, this limits which markets you can target and means you share regulatory risk with other operators on the same license. For full market access and independence, consider a turnkey solution with your own license."
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Validation
+
+Before finalizing schema:
+
+1. **Validate JSON syntax** at https://jsonlint.com/
+2. **Test structured data** at https://search.google.com/test/rich-results
+3. **Check character limits** - answers should be under 300 chars for best display
+4. **Verify no HTML/markdown** remains in text fields
+5. **Confirm questions match H3 headings** exactly in the content
+
+---
+
+## Implementation Notes
+
+### Placement
+Schema should be placed in the `<head>` section of the category page, or in a `<script type="application/ld+json">` tag before the closing `</body>`.
+
+### One Schema Per Page
+Each category page gets one FAQPage schema containing all 5-7 questions for that category.
+
+### Updates
+When FAQ content is updated, the schema must also be updated to match.

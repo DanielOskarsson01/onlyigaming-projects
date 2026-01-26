@@ -1,96 +1,239 @@
-# Universal Content Pipeline - Complete Architecture & Implementation Guide
+# Universal Content Pipeline - Architecture & Implementation Guide
 
-**Project Status**: Infrastructure Complete, Ready for Application Development  
-**Last Updated**: October 2024  
-**Document Version**: 2.0
+**Project Status**: Infrastructure Complete, Schema Finalized, Ready for Implementation
+**Last Updated**: 2026-01-25
+**Document Version**: 3.1
 
 ## Executive Summary
 
-This document outlines the complete architecture and implementation plan for a **Universal Content Pipeline** - a modular, database-mediated content processing platform. Starting with company profiles for the iGaming industry, the system is designed to expand to any content type (podcasts, events, consultants, news) through its flexible, module-based architecture.
+This document outlines the complete architecture for a **Universal Content Intelligence Platform** — a tag-based content library with configurable pipeline execution. All content (scraped pages, entities, generated articles, transcripts) lives in ONE universal table, organized by a 352+ tag taxonomy, and is reusable across projects.
 
-**Current Status**: 
-- ✅ Hetzner server infrastructure deployed
-- ✅ Redis and BullMQ installed and tested
-- ✅ Database schema designed
-- ✅ Basic pipeline tested
-- 🎯 Next: Build operations modules and web interface
+**Key Innovation**: Scrape once, tag, reuse everywhere. A scraped page about a company can serve as source material for a company profile, a news article, a competitor analysis, or a personal bio — all through tag-based discovery.
+
+**Current Status**:
+- Infrastructure deployed (Hetzner VPS, Redis, Node.js)
+- Schema finalized and stress-tested
+- Next: Create Supabase tables, build Express API, BullMQ workers
+
+---
 
 ## Table of Contents
 
 1. [System Overview](#system-overview)
-2. [Current Progress](#current-progress)
+2. [Database Schema](#database-schema)
 3. [Architecture Design](#architecture-design)
-4. [Implementation Roadmap](#implementation-roadmap)
-5. [Technical Specifications](#technical-specifications)
-6. [Operational Guide](#operational-guide)
-7. [Cost Analysis](#cost-analysis)
-8. [Risk Assessment](#risk-assessment)
+4. [Pipeline Execution](#pipeline-execution)
+5. [Content Library Operations](#content-library-operations)
+6. [Implementation Roadmap](#implementation-roadmap)
+7. [Technical Specifications](#technical-specifications)
+8. [Operational Guide](#operational-guide)
 
 ---
 
 ## System Overview
 
 ### Vision
-Build a content operations platform that can process any input type (companies, podcasts, events, people) into any output format (profiles, articles, summaries, bios) through configurable pipeline stages with human-in-the-loop optimization.
+Build a content intelligence platform where:
+- ALL content lives in one universal table (content_items)
+- Tags from a 352+ taxonomy organize content across dimensions
+- Pipeline templates define workflows per content type (configuration, not code)
+- Content is scraped once and reused across any number of projects
+- Filtered content retains metadata but purges body after 7 days
 
 ### Core Principles
 
-1. **Database-Mediated Architecture**: Every operation reads from and writes to the database. No direct connections between operations.
+1. **Content-Type Agnostic**: No component may hardcode assumptions about companies, news, or any fixed structure
+2. **Tag-Based Organization**: 352+ tags across dimensions (DIR, NEWS, GEO, PROD, TYPE, SYSTEM) organize all content
+3. **Configuration Over Specialization**: Differences between content types handled via pipeline_templates, not code branches
+4. **Persist Everything**: Inputs, outputs, decisions, and status stored at every step
+5. **Content Reuse**: Scrape once, tag, query by tags from any project
+6. **Human-in-the-Loop**: Review, rejection, and overrides supported at any stage
 
-2. **Modular Operations**: Each processing step is an independent module that can be added, removed, or replaced without affecting others.
+### Business Needs (Priority Order)
 
-3. **Human-in-the-Loop Optimization**: Review and refine at each stage based on real results, not abstract quality sliders.
-
-4. **Progressive Enhancement**: Start with company profiles, expand to other content types using the same framework.
-
-### Why Not Use Existing Tools?
-
-- **n8n**: Too rigid for dynamic pipeline modification
-- **Zapier**: Generic automation, not optimized for content
-- **Make.com**: Limited by visual workflow constraints
-- **Custom is Better**: Full control, no vendor lock-in, infinitely extensible
+1. **News site**: New content + continuous updates (HIGH PRIORITY)
+2. **Podcast/media pages**: Built with content (HIGH PRIORITY)
+3. **Company profiles**: Improve existing 1,400 profiles (one use case)
+4. **Registration self-service**: Frontend for new company profiles
 
 ---
 
-## Current Progress
+## Database Schema
 
-### ✅ Completed Infrastructure
+### Content Library Tables
 
-#### Hetzner Server Setup
-- **Server**: CX22 VPS (2 vCPU, 4GB RAM, 40GB disk)
-- **IP**: 188.245.110.34
-- **OS**: Ubuntu 22.04 LTS
-- **Access**: SSH with ED25519 key authentication
-- **Status**: Fully operational
+```sql
+-- content_items: THE universal library
+-- All scraped pages, entities, generated articles, transcripts live here
+CREATE TABLE content_items (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_type TEXT NOT NULL,
+    -- 'scraped_page', 'entity', 'generated_article', 'transcript', 'summary'
+  title TEXT,
+  source_url TEXT,  -- unique where not null (dedup key)
+  content JSONB,  -- nullable (nulled after retention purge)
+  content_format TEXT,  -- 'html', 'markdown', 'json', 'text'
+  status TEXT NOT NULL DEFAULT 'active',
+    -- 'active', 'filtered_step3', 'filtered_step5', 'superseded', 'archived'
+  filter_reason TEXT,  -- 'duplicate', 'too_short', 'untrusted_source', 'irrelevant'
+  quality_score DECIMAL,
+  word_count INTEGER,
+  language TEXT DEFAULT 'en',
+  scraped_at TIMESTAMPTZ,
+  source_project_id UUID,  -- FK to projects (which project created this)
+  source_stage_id UUID,  -- FK to pipeline_stages (which stage created this)
+  version INTEGER DEFAULT 1,  -- conflict resolution (latest scrape wins)
+  purged_at TIMESTAMPTZ,  -- when body was removed by retention job
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-#### Software Stack Installed
+-- Partial unique index for deduplication by source_url
+CREATE UNIQUE INDEX idx_content_items_source_url
+  ON content_items(source_url) WHERE source_url IS NOT NULL;
+
+-- Performance indexes
+CREATE INDEX idx_content_items_type ON content_items(content_type);
+CREATE INDEX idx_content_items_status ON content_items(status);
+CREATE INDEX idx_content_items_scraped_at ON content_items(scraped_at);
 ```
-- Node.js 20.x (latest LTS)
-- Redis 7.x (password: Danne2025)
-- npm with package management
-- BullMQ dependencies
-- Basic test script verified
+
+```sql
+-- platform_tags: 352+ tag taxonomy + system tags
+-- Dimensions: DIR (directory categories), NEWS (news topics), GEO (geography),
+--             PROD (products), TYPE (content types), SYSTEM (internal)
+CREATE TABLE platform_tags (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tag_code TEXT UNIQUE NOT NULL,  -- 'DIR-029', 'NEWS-015', 'SYSTEM:entity:company'
+  dimension TEXT NOT NULL,  -- 'DIR', 'NEWS', 'GEO', 'PROD', 'TYPE', 'SYSTEM'
+  name TEXT NOT NULL,
+  description TEXT,
+  parent_group TEXT,  -- grouping within dimension
+  status TEXT DEFAULT 'active',  -- 'active', 'deprecated', 'retired'
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_platform_tags_dimension ON platform_tags(dimension);
 ```
 
-#### Database Configuration
-- **Supabase URL**: https://fevxvwqjhndetktujeuu.supabase.co
-- **Schema**: Existing tables preserved
-- **New tables**: Ready for pipeline data
+```sql
+-- content_tags: junction table with UUID FK
+-- Links content_items to platform_tags with confidence scoring
+CREATE TABLE content_tags (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  content_id UUID NOT NULL REFERENCES content_items(id) ON DELETE CASCADE,
+  tag_id UUID NOT NULL REFERENCES platform_tags(id),  -- UUID FK, not text!
+  confidence DECIMAL DEFAULT 1.0,  -- 0.0 to 1.0
+  source TEXT DEFAULT 'manual',  -- 'manual', 'auto_llm', 'auto_rule'
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(content_id, tag_id)
+);
 
-### 🔧 Existing Rudimentary Flow
+CREATE INDEX idx_content_tags_tag_id ON content_tags(tag_id);
+CREATE INDEX idx_content_tags_content_id ON content_tags(content_id);
+```
 
-You have already built:
-1. **Basic Pipeline Logic**: URL discovery → Scraping → Generation
-2. **HTML Interface**: index.html dashboard (needs backend connection)
-3. **Database Schema**: Company and content tables
-4. **Test Results**: Successfully scraped and generated profiles
+### Pipeline Execution Tables
 
-### ❌ Current Blockers
+```sql
+-- projects: batch/job definition
+CREATE TABLE projects (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  project_type TEXT NOT NULL,  -- 'company_profile', 'news_article', 'podcast_page'
+  config JSONB DEFAULT '{}',  -- project-specific configuration
+  status TEXT DEFAULT 'created',  -- 'created', 'running', 'completed', 'failed'
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-1. **Frontend-Backend Disconnect**: HTML interface exists but can't control pipeline
-2. **No Operation Modules**: Pipeline steps aren't modularized yet
-3. **Missing Orchestrator**: No system to coordinate operations
-4. **Limited Flexibility**: Can't modify pipeline without code changes
+-- pipeline_templates: stage definitions per project type
+-- Each project_type has one active template defining its pipeline stages
+CREATE TABLE pipeline_templates (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  project_type TEXT NOT NULL,
+  name TEXT NOT NULL,
+  stages JSONB NOT NULL,
+    -- Ordered array: [{name, operation, config, retry_count, timeout_ms}]
+  version INTEGER DEFAULT 1,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- pipeline_runs: execution tracking per project
+CREATE TABLE pipeline_runs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  project_id UUID REFERENCES projects(id) ON DELETE CASCADE,
+  template_id UUID REFERENCES pipeline_templates(id),
+  status TEXT DEFAULT 'pending',  -- 'pending', 'running', 'completed', 'failed', 'paused'
+  started_at TIMESTAMPTZ,
+  completed_at TIMESTAMPTZ,
+  error JSONB
+);
+
+-- pipeline_stages: step-level results per run
+CREATE TABLE pipeline_stages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  run_id UUID REFERENCES pipeline_runs(id) ON DELETE CASCADE,
+  stage_name TEXT NOT NULL,
+  stage_index INTEGER NOT NULL,
+  operation_name TEXT NOT NULL,
+  status TEXT DEFAULT 'pending',  -- 'pending', 'running', 'completed', 'failed', 'skipped'
+  input_data JSONB,
+  output_data JSONB,
+  started_at TIMESTAMPTZ,
+  completed_at TIMESTAMPTZ,
+  error JSONB
+);
+```
+
+### Key Schema Behaviors
+
+#### Conflict Resolution (Concurrent Scraping)
+```sql
+-- When the same URL is scraped again, keep the newer version
+INSERT INTO content_items (content_type, source_url, content, scraped_at, ...)
+ON CONFLICT (source_url)
+DO UPDATE SET
+  content = EXCLUDED.content,
+  scraped_at = EXCLUDED.scraped_at,
+  version = content_items.version + 1,
+  updated_at = NOW()
+WHERE EXCLUDED.scraped_at > content_items.scraped_at;
+```
+
+#### Tiered Retention (Daily Cleanup Job)
+```sql
+-- Filtered content keeps metadata but loses body after 7 days
+UPDATE content_items
+SET content = NULL, purged_at = NOW()
+WHERE status LIKE 'filtered_%'
+  AND created_at < NOW() - INTERVAL '7 days'
+  AND content IS NOT NULL;
+```
+
+#### Freshness Flags (Not Gates)
+- >14 days since scraped_at → flag as stale_news (via tag or computed)
+- >3 months since scraped_at → flag as stale_company
+- Content is NEVER blocked from reuse based on age alone
+
+#### Filter Steps (Steps 3 & 5)
+- Step 3 (Source Validation): marks items `status = 'filtered_step3'` with `filter_reason`
+- Step 5 (Filtering & Dedup): marks items `status = 'filtered_step5'` with `filter_reason`
+- Reasons: 'duplicate', 'too_short', 'untrusted_source', 'irrelevant', 'wrong_language'
+
+---
+
+## Naming Convention
+
+| Term | Definition | Location |
+|------|------------|----------|
+| **Step** | One of 12 pipeline stages (0-11) | UI, templates |
+| **Module** | Operation code that executes a step | `modules/operations/` |
+| **Phase** | Configured group of submodules within a module | `config.phases[]` |
+| **Submodule** | Single-task unit within a module | `modules/submodules/{type}/` |
+
+**Example**: Step 2 (Discovery) uses the `discovery` module. The module runs phases like "cheap_parallel" containing submodules like `sitemap`, `navigation`, `seed-expansion`.
 
 ---
 
@@ -100,529 +243,442 @@ You have already built:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Web Interface                         │
-│  (Control Panel, Monitoring, Configuration)              │
+│                    Web Dashboard                         │
+│  (Project CRUD, Content Library Browser, Pipeline       │
+│   Monitor, Template Config, Phase Editor)               │
 └────────────────┬────────────────────────────────────────┘
                  │ HTTP/WebSocket
 ┌────────────────▼────────────────────────────────────────┐
 │                 Express.js API Server                    │
-│  (REST Endpoints, WebSocket Server, Authentication)      │
+│  /api/projects, /api/content, /api/tags,               │
+│  /api/templates, /api/runs, /ws                        │
 └────────────────┬────────────────────────────────────────┘
                  │
 ┌────────────────▼────────────────────────────────────────┐
-│                    Orchestrator                          │
-│  (Pipeline Controller, Job Router, State Manager)        │
+│              Generic Pipeline Orchestrator               │
+│  Reads pipeline_template → Creates pipeline_run →      │
+│  Queues stages as BullMQ jobs                          │
 └──┬──────────────────────────────────────────────────┬───┘
    │                                                  │
 ┌──▼──────────────────┐                    ┌─────────▼───┐
-│   BullMQ Queues     │                    │   Supabase  │
-│  (Job Management)   │◄───────────────────►  (Database) │
+│   BullMQ / Redis    │                    │   Supabase  │
+│  (Job Queuing)      │◄──────────────────►│ (PostgreSQL)│
 └──┬──────────────────┘                    └─────────────┘
    │
 ┌──▼──────────────────────────────────────────────────────┐
-│                 Operation Modules                        │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │
-│  │Discovery │ │Scraping  │ │Generation│ │Quality   │  │
-│  │Module    │ │Module    │ │Module    │ │Module    │  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘  │
+│                     Modules (Dynamic)                    │
+│  Loaded based on pipeline_template config              │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐   │
+│  │ discovery    │ │ extraction   │ │ generation   │   │
+│  │ (module)     │ │ (module)     │ │ (module)     │   │
+│  └──────┬───────┘ └──────┬───────┘ └──────┬───────┘   │
+│         │                │                │            │
+│    ┌────▼────┐      ┌────▼────┐      ┌────▼────┐      │
+│    │submodule│      │submodule│      │submodule│      │
+│    │sitemap  │      │cheerio  │      │gpt-4    │      │
+│    │search   │      │playwright│     │claude   │      │
+│    │rss-feed │      │diffbot  │      │template │      │
+│    └─────────┘      └─────────┘      └─────────┘      │
 └──────────────────────────────────────────────────────────┘
 ```
 
-### Database Schema Design
+### Module Interface
 
-```sql
--- Generic pipeline tables (work for any content type)
-CREATE TABLE projects (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name TEXT NOT NULL,
-  type TEXT NOT NULL, -- 'company_profile', 'podcast', 'event'
-  config JSONB NOT NULL, -- Pipeline configuration
-  status TEXT DEFAULT 'created',
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE pipeline_stages (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  project_id UUID REFERENCES projects(id),
-  stage_name TEXT NOT NULL, -- 'discovery', 'scraping', 'generation'
-  stage_index INTEGER NOT NULL,
-  input_data JSONB,
-  output_data JSONB,
-  status TEXT DEFAULT 'pending',
-  started_at TIMESTAMPTZ,
-  completed_at TIMESTAMPTZ,
-  error JSONB,
-  metadata JSONB
-);
-
-CREATE TABLE operation_registry (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name TEXT UNIQUE NOT NULL, -- 'google-search', 'cheerio-scrape'
-  type TEXT NOT NULL, -- 'discovery', 'collection', 'generation'
-  config JSONB NOT NULL, -- API keys, parameters
-  cost_per_use DECIMAL,
-  average_duration INTEGER, -- milliseconds
-  success_rate DECIMAL,
-  is_active BOOLEAN DEFAULT true
-);
-
-CREATE TABLE pipeline_logs (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  project_id UUID REFERENCES projects(id),
-  stage_name TEXT,
-  operation_name TEXT,
-  status TEXT,
-  message TEXT,
-  metadata JSONB,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-```
-
-### Operation Module Structure
-
-Each operation is a standalone Node.js module:
+Every module follows the same interface:
 
 ```javascript
-// modules/operations/google-search.js
+// modules/operations/{module-name}.js
 module.exports = {
-  name: 'google-search',
-  type: 'discovery',
-  
-  // Configuration schema
-  config: {
-    apiKey: process.env.GOOGLE_API_KEY,
-    maxResults: 50,
-    searchType: 'web'
-  },
-  
-  // Main execution function
-  async execute(input, config) {
-    // Read input from database
-    const { searchTerms, filters } = input;
-    
-    // Perform operation
-    const results = await googleSearch(searchTerms, config);
-    
-    // Return output for database
-    return {
-      urls: results.map(r => ({
-        url: r.link,
-        title: r.title,
-        snippet: r.snippet
-      })),
-      metadata: {
-        totalResults: results.length,
-        searchTerms: searchTerms
+  name: 'discovery',
+  type: 'discovery',  // discovery, validation, extraction, generation, qa, packaging
+  configSchema: { /* JSON Schema for config validation */ },
+
+  async execute(input, config, context) {
+    // input: from previous stage's output_data (or project config for first stage)
+    // config: from pipeline_template stage config (includes phases/submodules)
+    // context: { db, contentLibrary, tagService, logger }
+
+    // Execute submodules based on config.phases
+    for (const phase of config.phases) {
+      for (const submoduleName of phase.submodules) {
+        const submodule = require(`../submodules/${this.type}/${submoduleName}`);
+        results.push(...await submodule.execute(entities, config, context));
       }
+    }
+
+    // Single bulk write to database
+    await context.db.from('discovered_urls').upsert(results);
+
+    return {
+      output_data: { total: results.length, stats: { by_submodule, by_phase } },
+      content_items_created: []
     };
-  },
-  
-  // Cost calculation
-  calculateCost(input) {
-    return 0.01; // $0.01 per search
   }
 };
 ```
 
-### Orchestrator Logic
+### Submodule Interface
+
+Every submodule follows this contract:
 
 ```javascript
-// orchestrator.js
-class PipelineOrchestrator {
-  async runPipeline(projectId) {
-    // 1. Load project configuration
-    const project = await db.getProject(projectId);
-    const pipeline = project.config.pipeline;
-    
-    // 2. For each stage in pipeline
-    for (const stage of pipeline) {
-      // Check if prerequisites met
-      const canRun = await this.checkPrerequisites(projectId, stage);
-      if (!canRun) continue;
-      
-      // Queue the operation
-      await this.queueOperation(projectId, stage);
-      
-      // Wait for completion or timeout
-      await this.waitForStage(projectId, stage);
-      
-      // Check for routing rules (loops, conditions)
-      const routing = await this.evaluateRouting(projectId, stage);
-      if (routing.action === 'loop') {
-        // Go back to specified stage
-        continue;
-      }
+// modules/submodules/{type}/{name}.js
+module.exports = {
+  name: 'sitemap',
+  type: 'discovery',           // Which module type this belongs to
+  version: '1.0.0',
+  description: 'Parse sitemap.xml to discover URLs',
+  cost: 'cheap',               // cheap | medium | expensive
+
+  // Pure function - returns results, does NOT write to database
+  async execute(entities, config, context) {
+    const results = [];
+    for (const entity of entities) {
+      const urls = await parseSitemap(entity.domain);
+      results.push(...urls.map(url => ({ entity_id: entity.id, url })));
     }
+    return results;  // Parent module handles storage
   }
+};
+```
+
+### Content Library Service
+
+Central service for all content_items operations:
+
+```javascript
+class ContentLibrary {
+  // Query content by tags (AND logic)
+  async findByTags(tagCodes, options = {}) { }
+
+  // Query content by type and status
+  async findByType(contentType, status = 'active') { }
+
+  // Upsert with conflict resolution (latest wins)
+  async upsert(items) { }
+
+  // Apply tags to content items
+  async tagItems(contentIds, tagCodes, source = 'auto_rule') { }
+
+  // Mark items as filtered (steps 3 & 5)
+  async markFiltered(contentIds, step, reason) { }
+
+  // Check freshness (returns flags, never blocks)
+  async checkFreshness(contentId) { }
 }
+```
+
+---
+
+## Pipeline Execution
+
+### The 12-Step Generic Pipeline (Steps 0–11)
+
+0. **Project Setup** — Name the project, describe its goal, select project type (determines pipeline template), add organizational tags
+1. **Input Specification** — Define raw material (URLs, docs, images, video, text, CSV), output intent (article, profile, summary, etc.), and context (geography, language, freshness)
+2. **Discovery & Enrichment** — Conditional: expand/enrich inputs from Step 1, or skip if fully specified
+3. **Source Validation & Governance** — Trust, policy, relevance checks (FILTER STEP)
+4. **Content Extraction** — Reusable extraction for text, media, structured data
+5. **Filtering & Adaptive Crawling** — Deduplication, language, adaptive depth (FILTER STEP)
+6. **Analysis, Classification & Creation** — Classification, SEO logic, content generation
+7. **Validation & QA** — Fact checks, hallucination detection, structural validation
+8. **Routing & Flow Control** — Conditional routing, retries, loops
+9. **Output Bundling** — HTML, JSON, metadata bundles (output-agnostic)
+10. **Distribution** — CMS, APIs, exports
+11. **Review & Triggers** — Human approval, rejection, retriggers
+
+### Pipeline Template Example (Company Profile)
+
+```json
+{
+  "project_type": "company_profile",
+  "name": "Standard Company Profile Pipeline",
+  "stages": [
+    {
+      "name": "url_discovery",
+      "operation": "url-discovery",
+      "config": { "methods": ["sitemap", "navigation", "seed"], "max_urls": 50 }
+    },
+    {
+      "name": "source_validation",
+      "operation": "source-validation",
+      "config": { "min_domain_authority": 10, "allowed_content_types": ["text/html"] }
+    },
+    {
+      "name": "content_scraping",
+      "operation": "content-scrape",
+      "config": { "engine": "cheerio", "fallback": "playwright", "timeout_ms": 30000 }
+    },
+    {
+      "name": "content_filtering",
+      "operation": "content-filter",
+      "config": { "min_word_count": 100, "dedup_threshold": 0.85 }
+    },
+    {
+      "name": "profile_generation",
+      "operation": "profile-generate",
+      "config": { "model": "gpt-4", "max_tokens": 4000, "temperature": 0.3 }
+    },
+    {
+      "name": "quality_assurance",
+      "operation": "qa-validation",
+      "config": { "min_score": 0.9, "checks": ["facts", "structure", "seo"] }
+    },
+    {
+      "name": "output_packaging",
+      "operation": "output-package",
+      "config": { "formats": ["markdown", "json", "html"] }
+    }
+  ]
+}
+```
+
+### Content Reuse in Practice
+
+When a news article pipeline runs:
+1. `topic-discovery` identifies relevant companies
+2. `content-extract` checks content_items for existing scraped pages about those companies
+3. If pages exist (from previous company profile pipeline), they're reused directly
+4. If pages don't exist, new scraping is triggered
+5. New scraped content is tagged and available for future projects
+
+---
+
+## Content Library Operations
+
+### Tag Dimensions
+
+| Dimension | Purpose | Examples |
+|-----------|---------|----------|
+| DIR | Directory categories | DIR-029 (Payment Gateways), DIR-015 (Slots) |
+| NEWS | News topics | NEWS-015 (Regulatory), NEWS-008 (M&A) |
+| GEO | Geography | GEO-EU, GEO-UK, GEO-US |
+| PROD | Products | PROD-SPORTS, PROD-CASINO |
+| TYPE | Content types | TYPE-PROFILE, TYPE-ARTICLE |
+| SYSTEM | Internal tags | entity:company:betsson, source:sitemap |
+
+### Querying the Content Library
+
+```javascript
+// Find all active scraped pages about payment gateways
+const pages = await contentLibrary.findByTags(['DIR-029'], {
+  content_type: 'scraped_page',
+  status: 'active'
+});
+
+// Find all content about Betsson (any type)
+const betsson = await contentLibrary.findByTags(['entity:company:betsson']);
+
+// Find stale company content (still usable, just flagged)
+const stale = await contentLibrary.findByType('scraped_page', 'active', {
+  scraped_before: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) // 3 months
+});
 ```
 
 ---
 
 ## Implementation Roadmap
 
-### Phase 1: Core Infrastructure (Week 1)
-**Goal**: Get basic pipeline working end-to-end
+### Phase 1: Platform Foundation (Next)
+1. Create all 7 Supabase tables with indexes
+2. Seed 352+ tags into platform_tags
+3. Build Express API (projects, content, tags, templates, runs)
+4. Build generic BullMQ worker with dynamic operation loading
+5. Build web dashboard
 
-#### Day 1-2: Operation Modules
-- [ ] Create google-search module
-- [ ] Create cheerio-scrape module  
-- [ ] Create gpt-generate module
-- [ ] Test each module independently
+### Phase 2: Company Profiles (Proves Platform)
+1. Create company_profile pipeline_template
+2. Implement 7 operations (discovery → packaging)
+3. End-to-end test with 6 companies
 
-#### Day 3-4: Orchestrator
-- [ ] Build basic orchestrator
-- [ ] Implement BullMQ job queuing
-- [ ] Add database state management
-- [ ] Test full pipeline flow
+### Phase 3: News Articles (Business Need)
+1. Create news_article pipeline_template
+2. Implement news operations
+3. Verify cross-project content reuse
 
-#### Day 5-7: API Server
-- [ ] Set up Express.js server
-- [ ] Create REST endpoints
-- [ ] Add WebSocket for real-time updates
-- [ ] Connect to existing index.html
-
-### Phase 2: Web Interface (Week 2)
-**Goal**: Full web control of pipeline
-
-#### Day 8-10: Frontend Connection
-- [ ] Connect index.html to API
-- [ ] Add pipeline start/stop controls
-- [ ] Display real-time progress
-- [ ] Show stage outputs
-
-#### Day 11-12: Configuration UI
-- [ ] Add operation selection
-- [ ] Parameter modification interface
-- [ ] Pipeline designer (basic)
-- [ ] Results viewer
-
-#### Day 13-14: Testing & Polish
-- [ ] End-to-end testing
-- [ ] Error handling
-- [ ] Performance optimization
-- [ ] Documentation
-
-### Phase 3: Advanced Features (Week 3-4)
-**Goal**: Production-ready system
-
-- [ ] Additional operations (Playwright, Claude, etc.)
-- [ ] Quality checking modules
-- [ ] Routing logic (loops, conditions)
-- [ ] Cost tracking
-- [ ] Advanced monitoring
-- [ ] Backup and recovery
-
-### Phase 4: Content Type Expansion (Month 2)
-**Goal**: Prove universality with second content type
-
-- [ ] Podcast pipeline
-- [ ] Event coverage pipeline
-- [ ] Consultant bio pipeline
-- [ ] Template system
-- [ ] Multi-pipeline management
+### Phase 4: Podcast Pages (Business Need)
+1. Create podcast_page pipeline_template
+2. Implement podcast operations
 
 ---
 
 ## Technical Specifications
 
-### Development Environment
+### Server Infrastructure
+- **Provider**: Hetzner Cloud VPS (CX22: 2 vCPU, 4GB RAM, 40GB disk)
+- **IP**: 188.245.110.34
+- **OS**: Ubuntu 24.04.3 LTS
+- **SSH**: `ssh -i ~/.ssh/hetzner_key root@188.245.110.34`
 
+### Technology Stack
+- **Runtime**: Node.js 20.20.0 (npm 10.8.2)
+- **API**: Express.js with CORS, WebSocket
+- **Queue**: BullMQ with Redis 7.0.15
+- **Database**: Supabase PostgreSQL
+- **Frontend**: HTML + Tailwind CSS + vanilla JS
+
+### Project Structure (New)
+```
+/opt/content-pipeline/
+├── .env                        # Environment configuration
+├── package.json                # Dependencies
+├── server.js                   # Express API + WebSocket
+├── ecosystem.config.js         # PM2 config (api + worker)
+├── services/
+│   ├── db.js                   # Supabase client
+│   ├── contentLibrary.js       # Content library service
+│   ├── tagService.js           # Tag operations
+│   └── orchestrator.js         # Pipeline run lifecycle
+├── modules/
+│   ├── operations/             # MODULES (one per step)
+│   │   ├── _template.js        # Module interface template
+│   │   └── discovery.js        # Discovery module (Step 2)
+│   └── submodules/             # SUBMODULES (grouped by module type)
+│       └── discovery/
+│           ├── _template.js    # Submodule interface template
+│           ├── sitemap.js      # Sitemap parsing (cheap)
+│           ├── navigation.js   # Navigation links (cheap)
+│           ├── seed-expansion.js # Seed URL expansion (cheap)
+│           └── search-google.js  # Google Search API (expensive)
+├── workers/
+│   └── stageWorker.js          # BullMQ consumer (loads modules dynamically)
+├── routes/
+│   ├── projects.js             # Project CRUD
+│   ├── content.js              # Content library API
+│   ├── tags.js                 # Tag management
+│   ├── templates.js            # Pipeline template CRUD
+│   └── runs.js                 # Pipeline run status
+├── sql/
+│   ├── pipeline_entities.sql   # Entity tracking per run
+│   └── discovered_urls.sql     # URLs discovered per entity
+├── public/
+│   └── index.html              # Web dashboard (with Phase Editor)
+└── jobs/
+    └── retention.js            # Daily cleanup (purge filtered content body)
+```
+
+### Environment Configuration
 ```bash
-# Server access
-ssh -i ~/.ssh/hetzner_ed25519 root@188.245.110.34
+NODE_ENV=development
+PORT=3000
+HOST=0.0.0.0
 
-# Project location
-cd /opt/company-pipeline
-
-# Environment variables
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 REDIS_PASSWORD=Danne2025
+
 SUPABASE_URL=https://fevxvwqjhndetktujeuu.supabase.co
-SUPABASE_SERVICE_KEY=[your-key]
-OPENAI_API_KEY=[your-key]
-ANTHROPIC_API_KEY=[your-key]
-```
+SUPABASE_SERVICE_KEY=[configured]
 
-### Project Structure
-
-```
-/opt/company-pipeline/
-├── .env                      # Environment variables
-├── package.json              # Dependencies
-├── server.js                 # Express API server
-├── orchestrator.js           # Pipeline controller
-├── modules/
-│   ├── operations/          # Operation modules
-│   │   ├── google-search.js
-│   │   ├── cheerio-scrape.js
-│   │   ├── gpt-generate.js
-│   │   └── ...
-│   └── utils/               # Shared utilities
-│       ├── database.js
-│       ├── redis.js
-│       └── logger.js
-├── routes/
-│   ├── projects.js          # Project management
-│   ├── pipeline.js          # Pipeline control
-│   └── operations.js        # Operation management
-├── public/
-│   ├── index.html           # Main dashboard
-│   ├── css/
-│   └── js/
-└── logs/                    # Application logs
+OPENAI_API_KEY=[optional]
+ANTHROPIC_API_KEY=[optional]
 ```
 
 ### API Endpoints
 
 ```
 # Project Management
-POST   /api/projects                 # Create new project
-GET    /api/projects                 # List all projects
-GET    /api/projects/:id             # Get project details
-PUT    /api/projects/:id             # Update project
-DELETE /api/projects/:id             # Delete project
+POST   /api/projects                    # Create project (any type)
+GET    /api/projects                    # List (filter: project_type, status)
+GET    /api/projects/:id                # Details + run history
+POST   /api/projects/:id/start          # Trigger pipeline run
+DELETE /api/projects/:id                # Delete project
 
-# Pipeline Control
-POST   /api/pipeline/:id/start       # Start pipeline
-POST   /api/pipeline/:id/stop        # Stop pipeline
-GET    /api/pipeline/:id/status      # Get pipeline status
-GET    /api/pipeline/:id/stages      # Get stage results
+# Content Library
+GET    /api/content                     # Query by tags, type, status
+GET    /api/content/:id                 # Single item with tags
+POST   /api/content                     # Manual content insert
 
-# Operation Management  
-GET    /api/operations                # List available operations
-POST   /api/operations                # Add new operation
-PUT    /api/operations/:name         # Update operation
-DELETE /api/operations/:name         # Remove operation
+# Tag Management
+GET    /api/tags                        # List all (filter: dimension, status)
+GET    /api/tags/:dimension             # Tags in dimension
 
-# Real-time Updates
-WS     /ws                           # WebSocket connection
+# Pipeline Templates
+GET    /api/templates                   # List templates
+POST   /api/templates                   # Create/update template
+GET    /api/templates/:project_type     # Active template for type
+
+# Pipeline Runs
+GET    /api/runs/:id                    # Run status
+GET    /api/runs/:id/stages             # Stage-level progress
+
+# Real-time
+WS     /ws                             # WebSocket (pipeline events)
+
+# System
+GET    /health                          # Health check
 ```
-
-### Security Considerations
-
-1. **API Authentication**: JWT tokens for API access
-2. **Input Validation**: Sanitize all user inputs
-3. **Rate Limiting**: Prevent API abuse
-4. **Secret Management**: Use environment variables
-5. **Database Security**: Use service role key carefully
-6. **SSH Security**: Key-only authentication
 
 ---
 
 ## Operational Guide
 
 ### Starting the System
-
 ```bash
-# SSH into server
-ssh -i ~/.ssh/hetzner_ed25519 root@188.245.110.34
-
-# Navigate to project
-cd /opt/company-pipeline
-
-# Install dependencies (first time)
-npm install
-
-# Start services
-npm run start:redis     # Start Redis
-npm run start:api       # Start API server
-npm run start:workers   # Start worker processes
+ssh -i ~/.ssh/hetzner_key root@188.245.110.34
+cd /opt/content-pipeline
+node server.js    # Express API + WebSocket
+node worker.js    # BullMQ worker (separate process)
 ```
 
-### Adding New Operations
+### Adding a New Content Type
+1. Create a pipeline_template in the database (via API or SQL)
+2. Create module files in `/modules/operations/`
+3. Create submodule files in `/modules/submodules/{type}/`
+4. Restart worker (picks up new modules)
+5. New content type available in dashboard
 
-1. Create new module in `/modules/operations/`
-2. Register in operation registry
-3. Restart workers
-4. Operation available in UI
+### Adding a New Submodule
+1. Create file in `/modules/submodules/{type}/{name}.js`
+2. Follow the submodule interface (name, type, version, execute)
+3. No restart needed — available immediately in Phase Editor
+
+### Daily Maintenance
+- Retention job runs automatically (purges filtered content body after 7 days)
+- Monitor Redis memory usage
+- Check Supabase storage for JSONB growth
 
 ### Monitoring
-
-- **BullMQ Dashboard**: http://188.245.110.34:3000/admin/queues
-- **API Health**: http://188.245.110.34:3000/health
-- **Logs**: `/opt/company-pipeline/logs/`
-
-### Troubleshooting
-
-**Pipeline Stuck**: 
-- Check Redis connection
-- Review logs for errors
-- Restart workers if needed
-
-**Operations Failing**:
-- Verify API keys
-- Check rate limits
-- Review operation logs
-
-**Database Issues**:
-- Check Supabase status
-- Verify connection string
-- Review query performance
+- **Health**: http://188.245.110.34:3000/health
+- **Dashboard**: http://188.245.110.34:3000/
+- **BullMQ**: Job counts via /api/runs
 
 ---
 
 ## Cost Analysis
 
-### Infrastructure Costs (Monthly)
+### Infrastructure (Monthly)
+| Service | Cost |
+|---------|------|
+| Hetzner CX22 | ~$6 |
+| Supabase (Free/Pro) | $0-25 |
+| **Total** | **$6-31** |
 
-| Service | Cost | Notes |
-|---------|------|-------|
-| Hetzner Server | €5.39 | CX22 instance |
-| Supabase | $25 | Pro tier (optional) |
-| **Total Infrastructure** | **~$30** | |
+### Content Storage Costs
+- Active content: ~1KB-50KB per item (JSONB)
+- Filtered content: metadata only after 7 days (~200 bytes per row)
+- With 10,000 active items: ~50-500MB
+- With tiered retention: growth is bounded
 
 ### API Costs (Per 100 Operations)
-
 | Service | Cost | Usage |
 |---------|------|-------|
-| Google Search API | $5.00 | Discovery |
-| OpenAI GPT-3.5 | $2.00 | Drafts |
-| OpenAI GPT-4 | $30.00 | Final content |
-| Anthropic Claude | $15.00 | Alternative |
-| **Estimated per Profile** | **$0.50-$2.00** | Depending on quality |
-
-### Scale Economics
-
-- **100 profiles/day**: ~$50-200 API costs
-- **1000 profiles/day**: ~$500-2000 API costs (with volume discounts)
-- **Break-even**: 50 profiles to justify infrastructure
-
----
-
-## Risk Assessment
-
-### Technical Risks
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Server failure | High | Daily backups, quick rebuild script |
-| API rate limits | Medium | Multiple API keys, request queuing |
-| Database overload | Medium | Indexing, archival strategy |
-| Cost overrun | Medium | Budget limits, cost monitoring |
-
-### Business Risks
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Quality issues | High | Human review, quality gates |
-| Scaling challenges | Medium | Gradual growth, monitoring |
-| API dependency | Medium | Multiple providers, fallbacks |
-
----
-
-## Next Steps
-
-### Immediate Actions (This Week)
-
-1. **Start Development**:
-   ```bash
-   ssh -i ~/.ssh/hetzner_ed25519 root@188.245.110.34
-   cd /opt/company-pipeline
-   npm init
-   npm install express bullmq redis dotenv
-   ```
-
-2. **Create First Operation Module**:
-   - Start with simplest (cheerio-scrape)
-   - Test independently
-   - Verify database read/write
-
-3. **Build Minimal Orchestrator**:
-   - Queue jobs with BullMQ
-   - Read pipeline configuration
-   - Execute single operation
-
-4. **Connect Frontend**:
-   - Basic API endpoints
-   - Connect existing index.html
-   - Test end-to-end
-
-### Success Criteria (Week 1)
-
-- [ ] One complete pipeline run (discovery → scraping → generation)
-- [ ] Results visible in web interface
-- [ ] Can modify parameters and re-run
-- [ ] All data persisted in database
-
-### Getting Help
-
-- **Architecture Questions**: Refer to this document
-- **Implementation Details**: Use Claude Code for development
-- **Debugging**: Check logs first, then system status
-- **Scaling Issues**: Start simple, optimize later
-
----
-
-## Appendix: Quick Reference
-
-### SSH Commands
-```bash
-# Connect to server
-ssh -i ~/.ssh/hetzner_ed25519 root@188.245.110.34
-
-# Check Redis
-redis-cli -a Danne2025 ping
-
-# View logs
-tail -f /opt/company-pipeline/logs/app.log
-
-# Restart services
-systemctl restart redis
-pm2 restart all
-```
-
-### Database Queries
-```sql
--- Check pipeline status
-SELECT * FROM pipeline_stages 
-WHERE project_id = '...' 
-ORDER BY stage_index;
-
--- View operation performance
-SELECT name, success_rate, average_duration 
-FROM operation_registry 
-ORDER BY success_rate DESC;
-
--- Recent errors
-SELECT * FROM pipeline_logs 
-WHERE status = 'error' 
-ORDER BY created_at DESC 
-LIMIT 10;
-```
-
-### Environment Setup
-```bash
-# .env file template
-NODE_ENV=development
-PORT=3000
-
-# Redis
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
-REDIS_PASSWORD=Danne2025
-
-# Database
-SUPABASE_URL=https://fevxvwqjhndetktujeuu.supabase.co
-SUPABASE_SERVICE_KEY=your-key-here
-
-# APIs
-OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=sk-ant-...
-GOOGLE_API_KEY=...
-```
+| OpenAI GPT-4 | $30 | Generation |
+| Anthropic Claude | $15 | Alternative |
+| OpenAI GPT-3.5 | $2 | Drafts |
+| **Per Profile** | **$0.50-2.00** | Depending on quality |
 
 ---
 
 ## Document Version History
 
-- **v2.0** (Current): Complete architecture with implementation guide
+- **v3.1** (Current): Module/Submodule naming convention, phase-based config
+- **v3.0**: Tag-based content library, universal schema, pipeline templates
+- **v2.0**: Universal architecture with operation modules (outdated schema)
 - **v1.0**: Initial BullMQ architecture proposal
 
 ---
 
 **END OF DOCUMENT**
 
-*This document provides the complete blueprint for building your Universal Content Pipeline. Start with Phase 1 and iterate based on results. The architecture supports infinite expansion while maintaining simplicity.*
+*This document provides the complete architecture for the Universal Content Intelligence Platform. The tag-based content library enables cross-project reuse while pipeline templates provide content-type-specific workflows without code changes.*
