@@ -149,37 +149,55 @@ Pick 8 that are most relevant to the category. Not all types apply to every cate
 
 ---
 
-## [H2 Primary Question]
-
-[Answer 200-280 words]
-
-Related: [Link] | [Link]
-
----
+**[H2 QUESTION]**
 
 ## [H2 Primary Question]
 
 [Answer 200-280 words]
 
-Related: [Link]
-
-### [H3 Supporting Question - related to above H2]
-
-[Answer 150-220 words]
-
-Related: [Link]
-
-### [H3 Supporting Question - related to above H2]
-
-[Answer 150-220 words]
-
-Related: [Link]
+Related: <a href="/directory/slug">Category Name</a> | <a href="/directory/slug">Category Name</a>
 
 ---
+
+**[H2 QUESTION]**
+
+## [H2 Primary Question]
+
+[Answer 200-280 words]
+
+Related: <a href="/directory/slug">Category Name</a>
+
+**[H3 QUESTION]**
+
+### [H3 Supporting Question - related to above H2]
+
+[Answer 150-220 words]
+
+Related: <a href="/directory/slug">Category Name</a>
+
+**[H3 QUESTION]**
+
+### [H3 Supporting Question - related to above H2]
+
+[Answer 150-220 words]
+
+Related: <a href="/directory/slug">Category Name</a>
+
+---
+
+**[H2 QUESTION]**
 
 ## [Next H2 Primary Question]
 ...
 ```
+
+**Note:** The `**[H2 QUESTION]**` and `**[H3 QUESTION]**` labels help guide manual CMS entry.
+
+#### Output Files
+
+After generating FAQs, also create `.txt` versions for CMS copy-paste:
+- Copy `.md` file to `docs/{category-slug}-faq-content.txt`
+- The `.txt` file preserves raw text with HTML links, ready for Strapi
 
 #### Footer Format
 
@@ -363,6 +381,9 @@ Track improvements here as the process evolves:
 - Schema answers need 300-600 chars for meaningful summaries
 - 14 questions (6+8) is the right number for depth without padding
 - MANDATORY Introduction section after metadata (1-2 sentences for Google context)
+- Use HTML links `<a href="...">text</a>` for Strapi CMS compatibility
+- Add `**[H2 QUESTION]**` and `**[H3 QUESTION]**` labels before each question for CMS guidance
+- Generate `.txt` versions in `docs/` folder for partner to copy into CMS (avoids Word formatting issues)
 
 ### Wave 2+ Improvements
 - [Add learnings here as process improves]

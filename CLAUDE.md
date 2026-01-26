@@ -74,3 +74,29 @@ All under `OnlyiGaming/`:
 - **Content-Pipeline** - Automated company profile generation (P0)
 - **News-Section** - Multi-dimensional news tagging system (P0)
 - **SEO** - Schema markup + FAQ content strategy (P0)
+
+## Session Log
+
+### Session: 2026-01-26 14:30 - FAQ Skill Enhancement and Content Export
+**Accomplished:**
+- Converted all 10 Wave 1 FAQ markdown files to .docx format (saved to `OnlyiGaming/SEO/faq-generation/output/wave-1/docs/`)
+- Updated FAQ skill (`.claude/commands/faq.md`) with mandatory Introduction section requirement
+- Updated FAQ skill to use HTML links (`<a href="...">text</a>`) for Strapi CMS compatibility
+- Added `**[H2 QUESTION]**` and `**[H3 QUESTION]**` labels to FAQ skill for CMS guidance
+- Added .txt output file generation to FAQ skill for partner workflow
+- Added Introduction sections to 5 FAQ files that were missing them (affiliate-programs, aml-solutions, game-providers, kyc-services, sportsbook-platforms)
+- Converted all markdown links to HTML links in all 10 FAQ files
+- Added H2/H3 question labels to all 10 FAQ files
+- Generated .txt versions of all 10 files for partner CMS workflow
+
+**Decisions:**
+- HTML link format (`<a href="...">text</a>`) chosen for Strapi CMS markdown mode compatibility
+- Question labels (`**[H2 QUESTION]**`, `**[H3 QUESTION]**`) added to help partners identify FAQ structure in CMS
+- .txt file format added to workflow for partner who cannot copy from .md files
+
+**Blockers/Questions:**
+- None - Wave 1 FAQ content fully prepared for CMS integration
+
+**Alignment:** Confirmed - Session advances SEO Phase 2 FAQ content strategy goals
+
+**Updated by:** session-closer agent

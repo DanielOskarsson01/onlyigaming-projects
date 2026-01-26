@@ -354,9 +354,9 @@
 ---
 
 ## FAQ Generation for Directory Categories
-**Status:** Wave 1 COMPLETE | Wave 2 Ready to Start
+**Status:** Wave 1 COMPLETE (Content + Export) | Wave 2 Ready to Start
 **Owner:** Stefan (SEO)
-**Last Updated:** 2026-01-21
+**Last Updated:** 2026-01-26
 
 ### Scope
 Generate 12-15 SEO-optimized FAQs per directory category (80 total)
@@ -366,6 +366,9 @@ Generate 12-15 SEO-optimized FAQs per directory category (80 total)
 
 ### Progress
 - ✅ Wave 1: Top 10 categories — COMPLETE (2026-01-21)
+  - ✅ Content exported to .docx format (2026-01-26)
+  - ✅ Content exported to .txt format for partner workflow (2026-01-26)
+  - ✅ HTML links + H2/H3 labels added for Strapi CMS compatibility (2026-01-26)
 - ⏳ Wave 2: Next 20 categories — READY TO START
 - ⏳ Wave 3: Remaining 50 categories — NOT STARTED
 
@@ -405,6 +408,8 @@ Generate 12-15 SEO-optimized FAQs per directory category (80 total)
 
 ### Deliverables per category
 - FAQ content (.md) — 14 questions, ~3,200 words
+- FAQ content (.txt) — Plain text version for partner CMS workflow
+- FAQ content (.docx) — Word document for team sharing
 - JSON-LD schema (.json) — FAQPage markup
 - Research brief (.md) — Sources and methodology
 
@@ -413,12 +418,14 @@ Generate 12-15 SEO-optimized FAQs per directory category (80 total)
 `/SEO/faq-generation/output/wave-2/` (Wave 2 — create when starting)
 
 ### Content Format Notes
-- Use `##` for H2 primary questions
-- Use `###` for H3 supporting questions
+- Use `##` for H2 primary questions (with `**[H2 QUESTION]**` label)
+- Use `###` for H3 supporting questions (with `**[H3 QUESTION]**` label)
 - Use `####` for sub-headings within answers
 - NO markdown tables (site doesn't support them)
 - Use numbered lists for sequential/ranked items
 - Use bullet points for unordered lists
+- Use HTML links (`<a href="...">text</a>`) for Strapi CMS compatibility
+- Include Introduction section at top of each FAQ document
 
 ---
 
