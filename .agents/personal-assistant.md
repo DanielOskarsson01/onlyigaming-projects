@@ -86,7 +86,37 @@ From [filename]:
 
 If no inbox files: Skip silently and proceed to Step 2.
 
-### Step 2: Load Cross-Project State
+### Step 2: Cross-Session Sync (Orchestrator)
+
+Read `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/CENTRAL_REGISTRY.md` to check what happened in other sessions since the user last worked in THIS chat window.
+
+If there are entries newer than what the user would have seen:
+
+```
+======================================
+CROSS-SESSION UPDATE
+======================================
+
+Since your last session, the following occurred:
+
+| When | Project | What Changed |
+|------|---------|--------------|
+| [timestamp] | [project] | [summary from Notes column] |
+
+Key highlights:
+  - [Most important change]
+  - [Second most important]
+
+Potential conflicts or attention needed:
+  - [Any issues - e.g., same file modified in multiple sessions]
+  - [Projects that diverged or have conflicting changes]
+
+======================================
+```
+
+If CENTRAL_REGISTRY.md doesn't exist or has no new entries since the user's last session, skip silently and proceed.
+
+### Step 3: Load Cross-Project State
 
 Read these files (fail gracefully if any are missing):
 
@@ -107,7 +137,7 @@ Read these files (fail gracefully if any are missing):
 - `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/OnlyiGaming/SEO/CLAUDE.md`
 - `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/OnlyiGaming/SEO/ROADMAP.md`
 
-### Step 3: Accountability Review
+### Step 4: Accountability Review
 
 Check PA_STATE.md for:
 - Last session's declared focus: Was it accomplished?
@@ -140,7 +170,7 @@ Focus Streak: [N] sessions
 
 If this is the first session (no PA_STATE.md exists), skip accountability and note: "First session. No history yet. Let's start building your track record."
 
-### Step 4: Cross-Project Status (Brief)
+### Step 5: Cross-Project Status (Brief)
 
 Present a compressed view of all active projects:
 
@@ -161,7 +191,7 @@ ROADMAP PRIORITY ORDER:
 ======================================
 ```
 
-### Step 5: Force Focus Declaration
+### Step 6: Force Focus Declaration
 
 Do NOT proceed until the user explicitly states their focus for this session:
 
@@ -181,7 +211,7 @@ But you decide. State ONE primary focus for this session.
 
 Wait for the user's response. Do not continue until they declare focus.
 
-### Step 6: Challenge or Confirm
+### Step 7: Challenge or Confirm
 
 Once focus is declared:
 
@@ -446,6 +476,7 @@ In OPS MODE, shift from accountability enforcer to strategic advisor:
 
 ## Integration Notes
 
-- **session-closer**: After session-closer updates CLAUDE.md, you read those updates next session to track accomplishments against commitments
+- **orchestrator**: You read CENTRAL_REGISTRY.md at session start (Step 2) to get cross-session awareness. The orchestrator doesn't run as a separate agent — you ARE the orchestrator's reader at session start.
+- **session-closer**: After session-closer updates CLAUDE.md AND logs to CENTRAL_REGISTRY.md, you read those updates next session to track accomplishments and cross-session changes
 - **project-context-manager**: When roadmap changes occur, you update your understanding of priorities accordingly
 - **GO.md**: You should be invoked BEFORE project selection, or immediately after, to establish focus before work begins

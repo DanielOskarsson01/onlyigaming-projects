@@ -80,6 +80,19 @@ When called, you will execute the following workflow in order:
    - Execute: `git commit -m "Session: [your generated message]"`
    - Confirm the commit was successful
 
+9. **Report to Orchestrator (CENTRAL_REGISTRY.md)**:
+   - Read `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/CENTRAL_REGISTRY.md`
+   - Add entries to the "Recent Actions" table for each significant file created/modified:
+     ```
+     | [YYYY-MM-DD HH:MM] | [Project] | session-closer | [Created/Modified] | [path] | [brief note] |
+     ```
+   - Update the "Project Index" section for the current project:
+     - Update "Last touched" date
+     - Update "Status" with current phase/state
+     - Update "Key recent files" with files modified this session
+   - Write the updated CENTRAL_REGISTRY.md
+   - This enables cross-session awareness for PA and other agents
+
 Quality Standards:
 - **Conciseness**: Each bullet point should be one clear sentence, no fluff
 - **Completeness**: Don't omit important details, but avoid redundancy

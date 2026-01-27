@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "node_modules": true,
+      ".git": true
+    }
+  },
+  "extensions": {
+    "recommendations": []
+  },
+  "claude": {
+    "initialPrompt": "You are working on the Content Pipeline project. Read QUICKSTART.md and CLAUDE.md to understand current status and priorities. This project uses BullMQ + Express + Supabase for automated content generation. Server is operational at 188.245.110.34. If you encounter complex issues or visual analysis tasks, escalate to Opus 4.5 per GLOBAL_AGENT_INSTRUCTIONS.md."
+  }
+}

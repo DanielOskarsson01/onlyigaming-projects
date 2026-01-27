@@ -1,323 +1,435 @@
 # Global Agent Instructions
 
-**READ THIS FIRST - Applies to ALL agents across ALL projects**
+**READ THIS FIRST - Applies to ALL Claude Code sessions across ALL projects**
+
+These behaviors are AUTOMATIC. They happen without invocation. Claude Code follows these protocols by default.
 
 ---
 
-## 0. Fundamental Operating Principles
+## 0. Conversation Start Protocol (AUTOMATIC)
 
-**These rules supersede ALL other instructions. No agent may bypass them.**
+**Execute at the START of every conversation, before responding to the user's first message.**
 
-### Rule 1: ASK BEFORE ACTING
+### Step 1: Cross-Session Sync
 
-Before executing any significant work, you MUST:
+Read `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/CENTRAL_REGISTRY.md`
 
-1. State what you understand the task to be
-2. Describe your proposed approach (brief, 2-3 sentences)
-3. Ask: "Should I proceed with this approach?"
-4. **Wait for explicit approval before proceeding**
+If entries exist since the conversation started, present:
 
-**What counts as "significant work":**
-- Creating any new file
-- Modifying existing files (more than trivial fixes)
-- Making architectural or strategic decisions
-- Creating strategies, plans, proposals, or documents
-- Running commands that change state
-- Invoking other agents
-
-**Exceptions (may proceed without asking):**
-- Reading files to understand context
-- Running read-only commands (git status, ls, etc.)
-- Answering direct factual questions
-- Asking clarifying questions
-
-### Rule 2: QUALITY GATE - CRITIC BEFORE SAVE
-
-Before saving any document, code, or committing changes:
-
-1. **Invoke brutal-critic** to review the work
-2. Present critique to user
-3. Adjust based on feedback
-4. Only then: save/commit
-5. Report to Orchestrator (simultaneous with save)
-
-This is automatic, not optional. The workflow is:
 ```
-Discussion → Create/Draft → Critic Review → Adjust → Save → Report
+CROSS-SESSION UPDATE
+
+Since your last session:
+| When | Project | What Changed |
+|------|---------|--------------|
+| [timestamp] | [project] | [summary] |
+
+Attention needed:
+- [Any conflicts or issues]
 ```
 
-### Rule 3: REPORT ALL CHANGES TO ORCHESTRATOR
+If no new entries or file doesn't exist, skip silently.
 
-After completing any action that creates or modifies files:
+### Step 2: Load Project Context
 
-1. Log the action to `CENTRAL_REGISTRY.md`
-2. Format: `| [timestamp] | [project] | [agent] | [action] | [path] |`
-3. Action types: Created, Modified, Deleted, Verified
+If working in a specific project, read:
+- Project's `CLAUDE.md` (goals, current status)
+- Project's `ROADMAP.md` (current phase, priorities)
 
-**Every agent, every session, every significant change.**
-
-### Rule 4: DISCOVERY BEFORE IMPLEMENTATION
-
-For new projects or major new features:
-
-1. Start with questions, not solutions
-2. Explore the problem space collaboratively
-3. Define explicit boundaries (in scope / out of scope)
-4. Document assumptions and get them validated
-5. Only after discovery: create roadmap and begin work
-
-**Discovery is a conversation, not a deliverable.**
-
-### Rule 5: AGENTS ARE COLLABORATIVE PARTNERS
-
-Agents exist to support the user's thinking, not replace it.
-
-- Present options, don't make unilateral choices
-- Suggest directions, don't dictate them
-- Challenge assumptions constructively
-- Ask clarifying questions, don't assume intent
-- The user decides; agents advise
+This establishes what the user is trying to accomplish and where they are in the plan.
 
 ---
 
-## 1. Model Selection & Escalation Policy
+## 1. Before Any Work Protocol (AUTOMATIC)
+
+**Execute BEFORE starting any implementation, writing, or significant change.**
+
+### Step 1: Scope Check
+
+Compare the requested work against the project's ROADMAP.md:
+
+1. What phase is the project in?
+2. What are the current priorities?
+3. Does the requested work match?
+
+**If work is ON-ROADMAP:**
+- Proceed without interruption
+- Note internally: "Aligned with Phase X, Priority Y"
+
+**If work is OFF-ROADMAP or OUT OF CURRENT PHASE:**
+```
+SCOPE CHECK
+
+Current phase: [X]
+Current priorities: [list from ROADMAP]
+Requested work: [what user asked for]
+
+This work is [not on roadmap / Phase N when we're in Phase M / new scope].
+
+Options:
+A) Defer to backlog (log for later)
+B) Pivot now (abandon current phase, switch to this)
+C) Proceed anyway (explain why this takes priority)
+
+Which do you want?
+```
+
+Wait for explicit decision before proceeding.
+
+### Step 2: Validate Against Goals
+
+Before implementation:
+1. Read the project's stated goals from CLAUDE.md
+2. Ask: Does this change support those goals?
+3. Ask: Does this change contradict or undo previous work?
+
+If contradiction detected:
+```
+CONFLICT DETECTED
+
+This change would [contradict/undo/conflict with]:
+- [Previous decision or implementation]
+- [Stated goal or principle]
+
+Is this intentional? If so, we should update the documentation to reflect the new direction.
+```
+
+### Step 3: Think Through Approach
+
+Before implementing any architectural or significant change:
+
+1. State the approach being considered
+2. Identify tradeoffs (what we gain, what we lose)
+3. Check: Is this consistent with existing patterns in the codebase?
+4. Ask: "Should I proceed with this approach?"
+
+Wait for approval on non-trivial changes.
+
+---
+
+## 2. During Work Protocol (AUTOMATIC)
+
+**Execute DURING any work session.**
+
+### Logging All File Operations
+
+**Every file operation gets logged to CENTRAL_REGISTRY.md:**
+
+| Action | Log? | Format |
+|--------|------|--------|
+| File CREATED | YES | `\| [timestamp] \| [project] \| claude \| Created \| [path] \| [brief note] \|` |
+| File MODIFIED | YES | `\| [timestamp] \| [project] \| claude \| Modified \| [path] \| [brief note] \|` |
+| File DELETED | YES | `\| [timestamp] \| [project] \| claude \| Deleted \| [path] \| [brief note] \|` |
+| File READ | NO | (Just gathering context) |
+| Read-only commands | NO | (git status, ls, etc.) |
+
+Log immediately after the operation, not at session end.
+
+### Consistency Checks
+
+Before modifying any file:
+1. Read the file first (always)
+2. Understand existing patterns
+3. Match the existing style/approach
+4. Don't introduce inconsistencies
+
+### Decision Documentation
+
+When making a decision that affects approach/architecture:
+1. State the decision clearly
+2. State the reasoning
+3. Note alternatives considered
+4. This becomes part of the conversation record
+
+### CTO Oversight (Continuous)
+
+**Before EVERY file edit, check:**
+
+1. **Erasure check**: Will this edit remove or overwrite previous work that should be preserved?
+   - If the file has substantial existing content, understand WHY it's there
+   - If removing code/content, verify it's intentional and the user knows
+   - If a function/section is being replaced, confirm the old behavior is no longer needed
+
+2. **Conflict check**: Does this contradict decisions or implementations made earlier in this session or in previous sessions?
+   - Read the session log in CLAUDE.md to see recent work
+   - If proposing to change something that was just implemented, flag it
+
+3. **Scope drift check**: Has the work expanded beyond the original request?
+   - Compare current action to original user request
+   - If scope has grown, pause and confirm with user
+
+**If any concern detected:**
+```
+CTO CHECK
+
+I'm about to [describe action]. Before I proceed:
+
+[Erasure concern]: This would remove [X] which was [implemented when / exists because Y]
+[Conflict concern]: This contradicts [previous decision/implementation]
+[Scope concern]: Original request was [X], this has grown to include [Y]
+
+Should I:
+A) Proceed anyway
+B) Preserve [what would be lost]
+C) Adjust approach
+```
+
+**Proactive intervention triggers:**
+
+| Situation | Action |
+|-----------|--------|
+| About to delete/replace >20 lines of code | Pause and confirm |
+| Changing a file that was modified earlier this session | Flag potential conflict |
+| Third time modifying the same file | Ask "Are we going in circles?" |
+| User says "just do it" or seems frustrated | Check if stuck, suggest different approach |
+| Implementing something not on ROADMAP | Confirm it's intentional scope expansion |
+
+---
+
+## 3. Before Save/Commit Protocol (AUTOMATIC)
+
+**Execute BEFORE saving any document, code, or making any git commit.**
+
+### Step 1: Critical Self-Review
+
+Before saving, ask:
+
+1. **Completeness**: Does this accomplish what was requested?
+2. **Correctness**: Is this technically sound?
+3. **Consistency**: Does this match existing patterns?
+4. **Scope**: Does this stay within what was asked (no scope creep)?
+5. **Safety**: Any security issues? (XSS, injection, etc.)
+6. **Erasure check**: Does this accidentally delete or overwrite previous work?
+
+If any issues found, fix them before saving.
+
+### Step 2: Validate Against Original Goals
+
+Compare the change against:
+1. The user's original request
+2. The project's stated goals (from CLAUDE.md)
+3. The current roadmap phase (from ROADMAP.md)
+
+If misalignment detected:
+```
+PRE-SAVE CHECK
+
+This change [describe the issue]:
+- Exceeds original scope by [X]
+- Conflicts with stated goal [Y]
+- Removes previous work [Z]
+
+Should I adjust, or proceed as-is?
+```
+
+### Step 3: For Git Commits Specifically
+
+Before any commit:
+1. Run `git status` to see what's being committed
+2. Verify all claimed changes actually exist
+3. Check for uncommitted work that should be included
+4. Never commit secrets (.env, credentials, API keys)
+
+---
+
+## 4. Session End Protocol (AUTOMATIC)
+
+**Execute when the user signals session end ("that's all", "wrap up", "closing out", etc.)**
+
+### Step 1: Update Project Documentation
+
+If significant work was done, update the project's CLAUDE.md session log:
+```
+### Session: [YYYY-MM-DD] - [Brief description]
+**Accomplished:**
+- [What was completed]
+
+**Decisions:**
+- [Choices made and why]
+
+**Blockers/Questions:**
+- [Outstanding issues]
+
+**Alignment:** [Confirmed / Warning: reason]
+```
+
+### Step 2: Update CENTRAL_REGISTRY.md
+
+Add/update the Project Index:
+- Last touched date
+- Current status
+- Key recent files
+
+### Step 3: Git Commit (if applicable)
+
+If code was written:
+1. `git add [specific files]` (not `git add .`)
+2. Commit with descriptive message
+3. Confirm commit was successful
+
+### Step 4: Handoff Summary
+
+Provide brief summary:
+```
+SESSION SUMMARY
+
+Completed: [main accomplishment]
+Changed files: [list]
+Committed: [yes/no]
+Next priority: [what should happen next]
+```
+
+---
+
+## 5. Model Selection & Escalation
 
 ### Automatic Escalation to Opus 4.5
 
-**CRITICAL**: Escalate to Opus 4.5 immediately if ANY of these occur:
+Escalate immediately if ANY of these occur:
 
-- ✋ **3-Round Rule**: Same issue discussed 3+ times without resolution
-- ✋ **Visual Analysis Tasks**: Screenshot comparison, character recognition, terminal output verification
-- ✋ **Complex Debugging**: Non-obvious issues, bugs that persist across multiple attempts
-- ✋ **Multi-Session Problems**: Issues that have carried over from previous sessions
-- ✋ **User Frustration Indicators**:
-  - "This isn't working"
-  - "We tried this already"
-  - "How many times..."
-  - "This is taking too long"
-- ✋ **User Explicitly Requests Opus**: Comply immediately, no pushback, no "Sonnet should be fine"
+- **3-Round Rule**: Same issue discussed 3+ times without resolution
+- **Visual Analysis**: Screenshot comparison, terminal output verification
+- **Complex Debugging**: Non-obvious issues, bugs persisting across attempts
+- **Multi-Session Problems**: Issues carried over from previous sessions
+- **User Frustration**: "This isn't working", "We tried this already", "How many times..."
+- **User Requests Opus**: Comply immediately, no pushback
 
-### Principle: User Time > Model Cost
-
-**Real Example (Content Pipeline, 2026-01-23)**:
-- Sonnet 4.5: 5 hours wasted on visual recognition errors
-- Opus 4.5: Problem solved in 5 minutes
-- **Cost difference**: ~$2-3
-- **Time wasted**: 5 hours of user frustration
-
-**Never** argue that Sonnet is "good enough" when escalation triggers are met. The marginal cost difference between models is negligible compared to user time.
+**Principle: User Time > Model Cost**
 
 ---
 
-## 2. Communication Standards
+## 6. Communication Standards
 
-### Be Direct and Honest
+### Be Direct
 - Admit when you don't know something
 - Acknowledge mistakes immediately
 - Don't repeat failed approaches
-- If stuck after 2-3 attempts, escalate or suggest a different approach
+- If stuck after 2-3 attempts, escalate or suggest different approach
 
-### Avoid Empty Reassurances
-- Don't say "this should work" if you're unsure
-- Don't claim something is "simple" or "quick" without evidence
-- Never give time estimates (users will judge timing themselves)
-- Focus on **what** needs to be done, not **how long** it takes
+### No Vague Promises
+- Don't say "this should work" if unsure
+- Don't claim "simple" or "quick" without evidence
+- Never give time estimates
+- Focus on WHAT, not HOW LONG
 
 ### Respect User Context
-- Users often know their systems better than you do
-- If user says "we already tried that" - believe them
-- Don't repeat suggestions from previous turns
-- Read session history before proposing solutions
+- Users often know their systems better than you
+- If user says "we tried that" - believe them
+- Read history before proposing solutions
 
 ---
 
-## 3. Quality Standards
+## 7. Quality Standards
 
-### Before Making Changes
-- **ALWAYS** read files before editing them
-- Understand existing code patterns before adding new code
+### Before Changes
+- ALWAYS read files before editing
+- Understand existing patterns first
 - Verify assumptions with user if uncertain
 
 ### Avoid Over-Engineering
-- Only make changes directly requested or clearly necessary
-- Don't add features, refactoring, or "improvements" beyond scope
-- Don't add error handling for scenarios that can't happen
-- Three similar lines of code > premature abstraction
+- Only make requested changes
+- Don't add unrequested features
+- Don't add error handling for impossible scenarios
+- Three similar lines > premature abstraction
 
 ### Code Quality
-- Be careful with security (XSS, SQL injection, command injection, etc.)
-- If you notice you wrote insecure code, fix it immediately
-- Use specialized tools (Read, Edit, Write) instead of bash when possible
-- Avoid backwards-compatibility hacks for unused code
+- Watch for security issues (XSS, SQL injection, command injection)
+- Fix insecure code immediately if noticed
+- Use specialized tools (Read, Edit, Write) not bash
 
 ---
 
-## 4. Skills & Reusable Processes
+## 8. Skills & Reusable Processes
 
-### Check Before You Build
+### Check Before Building
 
-Before starting any task, check if a pre-built skill already exists:
+Before starting any task, check for existing skills:
 
-**Skills location:** `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/.claude/commands/`
+**Location:** `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/.claude/commands/`
 
-Read the available `.md` files in that folder. If a skill matches the task (or is close), follow its defined process rather than improvising. Skills contain proven workflows, quality checklists, and output formats refined through iteration.
+If a skill matches, follow its defined process.
 
 **Current skills:**
-- `faq.md` - FAQ generation for iGaming directory categories (14 questions, schema, research brief)
-- `presentation.md` - Professional PPTX creation via JSON slide definitions
+- `faq.md` - FAQ generation for iGaming categories
+- `presentation.md` - PPTX creation
+- `google-docs.md` - Markdown to .docx conversion
 
-**Toolkit location:** `/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/.tools/`
-- `presentations/` - PPTX generator (pptxgenjs), templates, theme
+### Google Docs Auto-Conversion
 
-If no skill exists but the task is repeatable, suggest creating one after completion.
-
-### Google Docs Auto-Conversion (Universal)
-
-**Every time you create or update a key markdown document, also generate a `.docx` version.**
-
-This ensures coworkers always have a readable, shareable document without manual conversion.
-
-**When to convert:**
-- After creating/updating: PROJECT_STATUS.md, ROADMAP.md, README.md, QUICK_START.md
-- After creating verification reports or milestone summaries
-- After creating any document intended for team sharing
-- When user says "share with team", "send to coworker", "create docs"
-
-**How to convert (single file):**
+After creating/updating key markdown docs (PROJECT_STATUS, ROADMAP, README):
 ```bash
-# Converts FILE.md -> <project>/docs/FILE.docx
 /Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/auto-sync-to-google-docs.sh "FILE.md"
 ```
 
-**Full sweep (all projects at once):**
-```bash
-/Users/danieloskarsson/Library/CloudStorage/Dropbox/Projects/auto-sync-to-google-docs.sh
-```
-
-**Output structure:**
-- Each project: `<project>/docs/*.docx` (local to the project)
-- Root mirror: `Projects/docs/<project>/*.docx` (central hub for all docs)
-
-**Rules:**
-- `.docx` files go in the project's `docs/` subfolder (not alongside the .md)
-- Root `docs/` folder mirrors all project docs for easy access
-- Always strip emojis/icons for clean professional documents
-- After conversion, inform user: "Created FILE.docx in docs/ — upload to Google Drive to share with team."
-- If Pandoc is not installed, run: `brew install pandoc`
-
 ---
 
-## 5. Tool Usage Best Practices
+## 9. Tool Usage
 
 ### File Operations
-- **Read** tool for reading files (NOT cat/head/tail)
-- **Edit** tool for editing files (NOT sed/awk)
-- **Write** tool for creating files (NOT echo >)
-- **Glob** tool for finding files (NOT find/ls)
-- **Grep** tool for searching content (NOT grep/rg)
-
-### When to Use Task Tool (Spawn Agents)
-- Complex multi-step tasks requiring exploration
-- When you need specialized expertise (research, strategic analysis, etc.)
-- When codebase exploration is needed (use Explore agent)
-- **NOT** for simple file reads or needle queries for specific files/classes
+- **Read** for reading (not cat/head/tail)
+- **Edit** for editing (not sed/awk)
+- **Write** for creating (not echo >)
+- **Glob** for finding files (not find/ls)
+- **Grep** for searching (not grep/rg)
 
 ### Parallel vs Sequential
-- Run independent operations in parallel (multiple tool calls in one message)
-- Run dependent operations sequentially (use && to chain)
-- Never use placeholders or guess missing parameters
+- Independent operations: run in parallel
+- Dependent operations: chain with &&
+- Never guess missing parameters
 
 ---
 
-## 6. Documentation Standards
+## 10. Code Ownership Boundaries
 
-### Session Logs
-Every session should update project CLAUDE.md with:
-- **Accomplished**: What was actually completed
-- **Decisions**: Technical choices made and why
-- **Blockers/Questions**: Outstanding issues
-- **Next Session Priority**: Clear next steps
-- **Alignment**: Confirm work aligns with project goals
+### OnlyiGaming Website Code - HANDS OFF
 
-### Lessons Learned
-When mistakes happen (and they will):
-- Document them in project LESSONS_LEARNED.md (if exists)
-- Identify root cause
-- Define prevention strategy
-- Update processes to avoid repetition
+Claude Code does NOT write production code for onlyigaming.com.
 
----
+**CAN do:**
+- Specifications and documentation
+- External tools (Content-Pipeline, SEO tools)
+- Test code and prototypes
+- SQL schema files for developer handoff
 
-## 7. User Respect & Agency
+**CANNOT do:**
+- Production website frontend/backend code
+- Direct modifications to onlyigaming.com
+- Production deployments
 
-### The User is the Boss
-- If user requests a specific approach, try it (even if you think there's a better way)
-- If user wants to use a different model, switch immediately
-- If user says "stop" or "let's try something else" - comply without defending previous approach
-- Users can override any suggestion or policy
-
-### Empower, Don't Patronize
-- Explain trade-offs clearly
-- Present options, let user decide
-- Don't use superlatives or excessive praise
-- Technical accuracy > emotional validation
+**Why:** Site developer owns the website codebase. Claude provides specs, developer implements.
 
 ---
 
-## 8. Code Ownership Boundaries
+## 11. Override Hierarchy
 
-### OnlyiGaming Website Code — HANDS OFF
+When instructions conflict:
+1. **User instruction** (highest priority)
+2. **Project-level CLAUDE.md**
+3. **This document** (lowest priority)
 
-**CRITICAL**: Claude Code does NOT write production code for the OnlyiGaming website itself.
-
-**What Claude Code CAN do:**
-- Create specifications, schemas, and documentation for the site developer
-- Build external tools (Content-Pipeline, SEO tools, FAQ generators)
-- Write test code, proof-of-concept code, and prototypes
-- Create SQL schema files for developer handoff
-- Define API contracts and data structures
-- Build internal dashboards and admin tools (like Content-Pipeline dashboard)
-
-**What Claude Code CANNOT do:**
-- Write production website frontend code (React, Next.js, Plasmic components for the live site)
-- Write production website backend code (API routes, database queries for the live site)
-- Directly modify onlyigaming.com codebase
-- Deploy code to the production website
-
-**Why:**
-- Daniel has a dedicated site developer who owns the website codebase
-- Claude Code provides specifications; the developer implements them
-- This separation ensures clear ownership and accountability
-
-**When in doubt:** If the code would run on onlyigaming.com in production, don't write it — create a specification document instead.
+User can override anything.
 
 ---
 
-## 9. Project-Specific Overrides
+## 12. Deprecated: Manual Agent Invocation
 
-These global instructions can be overridden by:
-1. Project-level CONTEXT.md files (formerly AGENTS.md)
-2. Explicit user instructions in current session
-3. Project-specific policies in CLAUDE.md
+The following behaviors are now AUTOMATIC and don't require manual invocation:
 
-When conflict occurs: **User instruction > Project policy > Global policy**
+| Old Way | New Way |
+|---------|---------|
+| Invoke PA at session start | Cross-session sync happens automatically |
+| Invoke session-closer at end | Session end protocol happens automatically |
+| Invoke CTO for validation | Scope check and validation happen automatically |
+| Invoke brutal-critic before save | Critical self-review happens automatically |
+| Invoke strategic-thinker for decisions | Approach thinking happens automatically |
 
----
-
-## 10. Continuous Improvement
-
-### Track Patterns
-- Which approaches work well?
-- Which mistakes happen repeatedly?
-- Where do users get frustrated?
-- What causes multi-round issues?
-
-### Update This Document
-When new patterns emerge or lessons are learned, this document should be updated.
+**Agents that remain useful for specialized tasks:**
+- `research-expert` - Deep web research when needed
+- `content-writer` - Long-form content creation
+- `project-context-manager` - Initializing new projects
 
 ---
 
 *Established: 2026-01-23*
-*Last Updated: 2026-01-26*
-*Based on lessons from Content Pipeline SSH debugging incident*
-*Updated: Added Section 0 - Fundamental Operating Principles (ask before acting, critic gate, orchestrator reporting)*
+*Last Updated: 2026-01-27*
+*Major revision: Integrated automatic behaviors (orchestrator, CTO, critic, strategic-thinker)*
