@@ -1,7 +1,7 @@
 # Content Pipeline Project Roadmap
 
-**Last Updated**: 2026-01-25
-**Project Status**: Infrastructure Complete — Module/Submodule Architecture Implemented — Ready for Integration Testing
+**Last Updated**: 2026-01-28
+**Project Status**: Infrastructure Complete — Per-Submodule Execution & Approval Workflow Added — Ready for UI Polish
 **Architecture**: Tag-based universal content library with config-driven module/submodule cascade
 
 ---
@@ -18,6 +18,27 @@
 ---
 
 ## Session Log
+
+### Session: 2026-01-28 (Session 5) - Per-Submodule Execution & Approval Workflow
+**Accomplished:**
+- New `/api/submodules` endpoints for individual submodule execution
+- `submodule_runs` table for tracking executions with results
+- Frontend UI in Pipeline Monitor → Run Details → Entity → Stage
+- Fixed URL-to-entity association bug (was broadcasting to all entities)
+- Added run_id validation and idempotency checks
+- CTO review identified remaining issues (race condition, pagination)
+
+**Known Issues (Not Fixed):**
+- Race condition on concurrent approvals (needs optimistic locking)
+- Frontend context stale when viewing existing runs
+- No pagination for large result sets
+
+**Files Created:**
+- `routes/submodules.js` - Submodule execution API
+- `sql/add_submodule_runs.sql` - Database migration
+- `docs/SESSION_2026-01-28_Submodule_Approval.md` - Full session doc
+
+**Current Phase**: Phase 1.6 (Web Dashboard) — Per-submodule execution added, UI needs polish
 
 ### Session: 2026-01-26 (Session 4) - Dashboard Bug Fixes & Approval Gate System
 **Accomplished:**
