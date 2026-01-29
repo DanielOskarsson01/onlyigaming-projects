@@ -1,5 +1,18 @@
 # Projects Root - Claude Code Context
 
+## SPEED RULE - READ THIS FIRST
+
+**NEVER ask permission for read-only operations. Just do them.**
+
+- Reading files → Just read
+- Bash commands that don't modify state → Just run (git status, ls, npm test, etc.)
+- Searching with Glob/Grep → Just search
+- Running tests, builds → Just run
+
+**ONLY ask before:** Creating/modifying/deleting files, git commits, installing packages.
+
+---
+
 ## Available Skills (Check BEFORE Starting Work)
 
 Before beginning any task, check if a pre-built skill exists in `.claude/commands/`:
@@ -57,8 +70,33 @@ All under `OnlyiGaming/`:
 - **Content-Pipeline** - Automated company profile generation (P0)
 - **News-Section** - Multi-dimensional news tagging system (P0)
 - **SEO** - Schema markup + FAQ content strategy (P0)
+- **Community** - Community product vision and strategy (P0)
 
 ## Session Log
+
+### Session: 2026-01-29 - Community Vision Document Complete Review
+**Accomplished:**
+- Complete section-by-section review of `COMMUNITY_PRODUCT_VISION.md`
+- Section 4: Added "why" for community layer (info is cheap/untrustworthy)
+- Section 5: Added intro about pot commitment and competitive moat
+- Section 6: Complete restructure with 11 subsections, "Why" intros, explained bullet points, new features (Paid Review Chat, Review Discussions)
+- Section 7: Expanded to 12-phase Evolution Path with validation signals, added Cold Start Strategy (WhatsApp group migration), Feature-to-Phase Mapping table
+- Section 8: Expanded destination vision with explanations for each statement, flywheel concept, emotional destination
+- Section 9: Kept concise, added Appendix C (Feature-to-Revenue Mapping)
+- Notes for Future Work: Expanded from 7 to 28 items, organized by category, Priority 0: Build vs Buy research first
+- Appendix B: Created Maria user scenario demonstrating the "rabbit hole" effect
+- Appendix C: Created Feature-to-Revenue Mapping with direct revenue, indirect revenue, subscriptions, diversification targets
+
+**Key Decisions:**
+- Community platform research (build vs buy) is Priority 0 before implementation
+- Target revenue mix: 30% transaction fees, 25% company subs, 20% sponsorships, 15% individual subs, 10% ads
+
+**Next Steps:**
+- Research open source/low-cost community platforms (Discourse, Circle, Forem, etc.)
+- Evaluate which platforms support Section 6 features
+- Create GitHub repos and push
+
+---
 
 ### Session: 2026-01-27 - Community Product Vision
 **Accomplished:**
