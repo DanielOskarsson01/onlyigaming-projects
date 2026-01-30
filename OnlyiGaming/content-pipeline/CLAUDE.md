@@ -6,12 +6,32 @@ Building a **Universal Content Intelligence & Creation Platform** for the iGamin
 **Strategic Principle**: This is a general-purpose content intelligence and creation system — NOT a company profile tool. Company profiles are only the first configured use case.
 
 ## Current Status
-- **Phase**: Template Architecture + Dashboard UI Refactoring Complete
-- **Architecture**: Tag-based universal content library with cross-project reuse
+- **Phase**: Architecture Decisions Finalized — Shared Step Context Added
+- **Architecture**: Database-mediated pipeline with submodule-based execution
 - **Server**: Hetzner CX22 VPS fully configured (Redis, Node.js, dependencies)
-- **Dashboard**: Project creation moved to Step 0 accordion (New/Existing project flow)
-- **Pending**: Run SQL migration for `templates` table in Supabase
-- **Next**: Test templates end-to-end → Add template selector to UI
+- **Key Decision**: Upload happens INSIDE each submodule (no separate upload step)
+- **New Feature**: Shared step context — CSV uploaded in one submodule available to others in same step
+- **Next**: Implement Step 1 (Discovery) with shared context
+
+## Architecture Summary (2026-01-28)
+
+See `docs/ARCHITECTURE_DECISIONS.md` for full details.
+
+### Step Structure
+| Step | Name | Purpose |
+|------|------|---------|
+| 0 | Project Start | Name, template, intent |
+| 1 | Discovery | Upload INSIDE submodules, collect URLs |
+| 2 | Validation/Dedupe | Clean URLs, handle duplicates |
+| 3 | Scraping | Fetch content |
+| 4+ | ... | Analysis, generation, QA, etc. |
+
+### Shared Step Context
+CSV uploaded in one submodule available to other submodules in SAME step:
+- Sitemap uploads CSV with (name, website, linkedin, youtube)
+- LinkedIn submodule auto-finds linkedin column
+- YouTube submodule auto-finds youtube column
+- Priority: local upload > shared context > prompt user
 
 ## Architecture
 
@@ -60,27 +80,26 @@ All content (scraped pages, entities, generated articles, transcripts) lives in 
 5. **Persist everything**: Inputs, outputs, decisions, and status stored at every step
 6. **Human-in-the-loop**: Review, rejection, and overrides supported
 
-## The 12-Step Pipeline (Generic)
-0. Project Setup (name, type, tags)
-1. Input & Scope Definition (entity, topic, intent, scope)
-2. Discovery & Raw Collection (content-agnostic across approved sources)
-3. Source Validation & Governance (trust, policy, relevance checks — FILTER STEP)
-4. Content Extraction (text, media, structured data)
-5. Filtering & Adaptive Crawling (dedup, language, adaptive depth — FILTER STEP)
-6. Analysis, Classification & Creation (LLM generation)
-7. Validation & QA (fact checks, hallucination detection)
-8. Routing & Flow Control (conditional routing, retries, loops)
-9. Output Bundling (HTML, JSON, metadata — output-agnostic)
-10. Distribution (CMS, APIs, exports)
-11. Review & Triggers (human approval, rejection, retriggers)
+## The 11-Step Pipeline (Steps 0–10)
+0. Project Start (name, choose project/template, parent link)
+1. Discovery (upload inside submodules, collect URLs)
+2. Validation & Dedupe (clean URLs, deduplication — FILTER STEP)
+3. Scraping (fetch content)
+4. Filtering (language, relevance — FILTER STEP)
+5. Analysis & Generation (classification, content creation)
+6. QA (fact checks, hallucination detection)
+7. Routing (conditional routing, retries, loops)
+8. Bundling (HTML, JSON, metadata)
+9. Distribution (CMS, APIs, exports)
+10. Review (human approval, rejection)
 
-**Filter Steps (3 & 5)**: Content marked as `filtered_step3` or `filtered_step5` with `filter_reason`. Body purged after 7 days, metadata row persists.
+**Key change:** Old Step 1 (Input) + Step 2 (Discovery) combined into new Step 1 (Discovery). Upload happens INSIDE each submodule.
 
 ## Naming Convention
 
 | Term | Definition | Location |
 |------|------------|----------|
-| **Step** | One of 12 pipeline stages (0-11) | UI, templates |
+| **Step** | One of 11 pipeline stages (0-10) | UI, templates |
 | **Module** | Operation code that executes a step | `modules/operations/` |
 | **Phase** | Configured group of submodules within a step | `config.phases[]` |
 | **Submodule** | Single-task unit within a module | `modules/submodules/{type}/` |
@@ -94,6 +113,9 @@ All content (scraped pages, entities, generated articles, transcripts) lives in 
 4. **Registration self-service**: Frontend tool for new companies to create profiles
 
 ## Key Documents
+
+### Operations (CRITICAL - Read First)
+- `HETZNER_OPS.md` — **SSH troubleshooting guide. NEVER use Hetzner console. Fix locally first.**
 
 ### Technical Documentation (in /docs)
 - `Universal_Content_Pipeline_Architecture.md` — System architecture with schema
@@ -110,9 +132,10 @@ All content (scraped pages, entities, generated articles, transcripts) lives in 
 
 **Server**: Hetzner CX22 (2 vCPU, 4GB RAM, 40GB disk, Ubuntu 24.04.3 LTS)
 - IP: 188.245.110.34
-- SSH: `ssh -i ~/.ssh/hetzner_key root@188.245.110.34`
+- SSH: `ssh hetzner` (uses ~/.ssh/id_ed25519)
 - Node.js: 20.20.0 (npm 10.8.2)
 - Redis: 7.0.15 (password: Danne2025)
+- **SSH NOT WORKING?** → Read `HETZNER_OPS.md` FIRST (usually just run `ssh-add ~/.ssh/id_ed25519`)
 
 **Supabase**:
 - URL: https://fevxvwqjhndetktujeuu.supabase.co

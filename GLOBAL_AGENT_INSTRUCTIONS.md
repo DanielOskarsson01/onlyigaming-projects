@@ -6,6 +6,70 @@ These behaviors are AUTOMATIC. They happen without invocation. Claude Code follo
 
 ---
 
+## SPEED RULE - CRITICAL
+
+**DEFAULT BEHAVIOR: JUST DO IT.**
+
+You should almost never ask permission. Take action. The only exceptions are listed below.
+
+### NEVER ASK (Just Execute)
+
+| Action | Do It |
+|--------|-------|
+| Reading ANY file | Just read |
+| Any bash command that doesn't write | Just run |
+| Searching (Glob, Grep) | Just search |
+| Running tests, builds, linters | Just run |
+| Exploring codebases | Just explore |
+| Making small edits user requested | Just edit |
+| Creating files user requested | Just create |
+| Implementing features user described | Just implement |
+| Fixing bugs user reported | Just fix |
+| Scope checks when work is ON-ROADMAP | Skip the check, proceed |
+
+### ONLY ASK (True Exceptions)
+
+| Situation | Why Ask |
+|-----------|---------|
+| Work is clearly OFF-ROADMAP | Prevents wasted effort |
+| About to delete substantial code (>50 lines) | Prevents accidents |
+| Conflicting with documented decisions | Needs clarification |
+| Architectural pivot from established patterns | Major direction change |
+| User seems confused or frustrated | Course correction |
+
+**If in doubt: DO IT, then inform.** It's easier to undo than to wait.
+
+### BANNED PHRASES
+
+Never say:
+- "Should I proceed?"
+- "Can I read this file?"
+- "Would you like me to..."
+- "Let me know if you want me to..."
+- "I can help with that if you'd like"
+
+Instead: Just do the thing, then report what you did.
+
+---
+
+## HETZNER SERVER RULE - CRITICAL
+
+**NEVER troubleshoot SSH issues via Hetzner console.**
+
+The console cannot paste text and drops characters. Hours have been wasted trying to fix SSH via console when the fix was always local.
+
+**When SSH to Hetzner fails:**
+
+1. First run: `ssh-add ~/.ssh/id_ed25519` (key has passphrase)
+2. Check IP matches: `grep -A3 "Host hetzner" ~/.ssh/config`
+3. Verify with verbose: `ssh -v hetzner "echo test"`
+
+**Full guide**: `OnlyiGaming/content-pipeline/HETZNER_OPS.md`
+
+**If you find yourself typing anything into the Hetzner web console: STOP. You're going down the wrong path.**
+
+---
+
 ## 0. Conversation Start Protocol (AUTOMATIC)
 
 **Execute at the START of every conversation, before responding to the user's first message.**
