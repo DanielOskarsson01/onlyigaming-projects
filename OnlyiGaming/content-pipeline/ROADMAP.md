@@ -1,8 +1,39 @@
 # Content Pipeline Project Roadmap
 
 **Last Updated**: 2026-01-28
-**Project Status**: Infrastructure Complete — Per-Submodule Execution & Approval Workflow Added — Ready for UI Polish
-**Architecture**: Tag-based universal content library with config-driven module/submodule cascade
+**Project Status**: Architecture Decisions Finalized — Shared Step Context Added
+**Architecture**: Database-mediated pipeline with submodule-based execution and shared step context
+
+---
+
+## Architecture Summary (2026-01-28)
+
+See `docs/ARCHITECTURE_DECISIONS.md` for full details.
+
+### Step Structure (Revised)
+
+| Step | Name | Key Change |
+|------|------|------------|
+| 0 | Project Start | Name, template, intent |
+| 1 | Discovery | Upload happens INSIDE submodules (no separate upload step) |
+| 2 | Validation/Dedupe | Handles deduplication (not Step 1) |
+| 3 | Scraping | Fetch content |
+| 4+ | ... | Analysis, generation, QA, etc. |
+
+### Shared Step Context
+
+CSV uploaded in one submodule is available to other submodules **within the same step**:
+
+```
+Sitemap submodule → User uploads CSV (name, website, linkedin, youtube)
+                  → Data stored in step_context table
+LinkedIn submodule → Finds linkedin column → Auto-populates
+YouTube submodule → Finds youtube column → Auto-populates
+```
+
+**Scope boundaries:**
+- ✓ Shared within same step, same run, same project
+- ✗ NOT shared across steps, runs, projects, or templates
 
 ---
 
@@ -10,7 +41,7 @@
 
 | Term | Definition | Location |
 |------|------------|----------|
-| **Step** | One of 12 pipeline stages (0-11) | UI, templates |
+| **Step** | One of 11 pipeline stages (0-10) | UI, templates |
 | **Module** | Operation code that executes a step | `modules/operations/` |
 | **Phase** | Configured group of submodules within a module | `config.phases[]` |
 | **Submodule** | Single-task unit within a module | `modules/submodules/{type}/` |
@@ -18,6 +49,29 @@
 ---
 
 ## Session Log
+
+### Session: 2026-01-28 (Session 6) - Architecture Decisions & Shared Step Context
+**Accomplished:**
+- Strategic discussion on Step 1 (Discovery) architecture
+- Decided: Upload happens INSIDE each submodule (no separate upload step)
+- Designed shared step context: CSV uploaded in one submodule available to others in same step
+- Clarified scope: sharing ONLY within same step/run/project (not across)
+- Critical review by brutal-critic agent, addressed concerns
+- Created `docs/ARCHITECTURE_DECISIONS.md` with full decision summary
+- Updated PROJECT_STATUS.md, ROADMAP.md with new architecture
+
+**Key Decisions:**
+- Step 0: Project Start
+- Step 1: Discovery (upload inside submodules)
+- Step 2: Validation/Dedupe (handles deduplication)
+- Shared step context with priority: local upload > shared context > prompt user
+- Entity schema: freeform in Step 1, contextual validation in Step 2+
+- Duplicate detection: multiple identifiers (name, website, linkedin, etc.)
+
+**Files Created:**
+- `docs/ARCHITECTURE_DECISIONS.md` - Full architecture decision document
+
+**Current Phase**: Architecture finalized, ready for implementation
 
 ### Session: 2026-01-28 (Session 5) - Per-Submodule Execution & Approval Workflow
 **Accomplished:**
@@ -366,6 +420,16 @@ Phase 4 (Podcasts — business need)
 Phase 5 (Self-Service — medium priority)
 └── Depends on Phase 2
 ```
+
+---
+
+## Backlog (Future Tasks)
+
+Items logged for future implementation, not currently prioritized.
+
+| ID | Task | Context | Added |
+|----|------|---------|-------|
+| B001 | URL cleanup after scraping | discovered_urls have limited value after Step 3 (Scraping). Add cleanup endpoint or scheduled job to purge old URLs (e.g., DELETE WHERE completed_at < NOW() - 30 days) | 2026-01-30 |
 
 ---
 
