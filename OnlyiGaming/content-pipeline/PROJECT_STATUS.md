@@ -1,8 +1,25 @@
 # Project Status: Universal Content Intelligence Platform
 
-**Last Updated**: 2026-01-28
-**Status**: Per-Submodule Execution & Approval Workflow Added — UI Needs Polish
-**Strategic Direction**: Entity-based pipeline with per-step isolation
+**Last Updated**: 2026-02-02
+**Status**: React Migration - Milestones 1 & 1.5 Complete
+**Strategic Direction**: Database-mediated pipeline with submodule-based execution + React UI
+
+---
+
+## Architecture Summary (2026-01-28)
+
+See `docs/ARCHITECTURE_DECISIONS.md` for full details.
+
+### Key Decisions
+
+| Decision | Summary |
+|----------|---------|
+| **Step Structure** | Step 0 (Project), Step 1 (Discovery), Step 2 (Validation), Step 3 (Scraping), 4+ (TBD) |
+| **Upload Location** | NO separate upload step. Upload happens INSIDE each submodule |
+| **Shared Step Context** | CSV uploaded in one submodule available to others in SAME step/run/project |
+| **Entity Schema** | Freeform in Step 1, contextual validation per submodule in Step 2+ |
+| **Duplicate Detection** | Multiple identifiers (name, website, linkedin, etc.), handled in Step 2 |
+| **Error UX** | Show errors, 3 options: continue valid, upload new, fix inline |
 
 ---
 
@@ -105,7 +122,7 @@ CREATE TABLE pipeline_stages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   run_id UUID REFERENCES pipeline_runs(id) ON DELETE CASCADE,
   run_entity_id UUID REFERENCES run_entities(id) ON DELETE CASCADE,
-  stage_index INTEGER NOT NULL,  -- 0-11
+  stage_index INTEGER NOT NULL,  -- 0-10
   stage_name TEXT NOT NULL,
   status TEXT DEFAULT 'pending',
   output_data JSONB,  -- step results (keep small, use references for bulk data)
@@ -121,7 +138,7 @@ CREATE TABLE pipeline_stages (
 
   created_at TIMESTAMPTZ DEFAULT NOW(),
   UNIQUE(run_id, run_entity_id, stage_index),
-  CONSTRAINT valid_stage_index CHECK (stage_index BETWEEN 0 AND 11),
+  CONSTRAINT valid_stage_index CHECK (stage_index BETWEEN 0 AND 10),
   CONSTRAINT valid_stage_status CHECK (status IN ('pending', 'running', 'completed', 'failed', 'skipped'))
 );
 
@@ -145,6 +162,27 @@ CREATE TABLE generated_content (
 CREATE INDEX idx_content_type ON generated_content(output_type);
 CREATE INDEX idx_content_published ON generated_content(published_at) WHERE published_at IS NULL;
 ```
+
+### Shared Step Context Table
+
+```sql
+-- Shared data context within a step (e.g., CSV uploaded in one submodule available to others)
+CREATE TABLE step_context (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  run_id UUID REFERENCES pipeline_runs(id) ON DELETE CASCADE,
+  step_index INTEGER NOT NULL,
+  entities JSONB NOT NULL,           -- parsed CSV data: [{name, website, linkedin, ...}]
+  source_submodule TEXT,             -- which submodule uploaded this data
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(run_id, step_index)
+);
+
+CREATE INDEX idx_step_context_run ON step_context(run_id, step_index);
+```
+
+**Scope**: Data is shared ONLY within the same step, same run, same project. NOT across steps, runs, or projects.
+
+**Priority**: Submodule-local upload > shared step context > prompt user
 
 ### Intermediate Data Tables (for bulk content)
 
@@ -205,12 +243,12 @@ STEP 4 (Extraction):
   → INSERT INTO scraped_pages (bulk content)
   → INSERT INTO pipeline_stages (stage_index=4)
 
-... continues through STEP 11 ...
+... continues through STEP 10 ...
 
-STEP 11 (Final):
+STEP 10 (Review/Final):
   → Read all processed data
   → INSERT INTO generated_content (final output with tags[])
-  → INSERT INTO pipeline_stages (stage_index=11, status='completed')
+  → INSERT INTO pipeline_stages (stage_index=10, status='completed')
 ```
 
 ### Key Design Decisions
@@ -221,7 +259,7 @@ STEP 11 (Final):
 
 3. **Observability Built-in**: Every stage tracks `duration_ms`, `retry_count`, `worker_id`, `ai_tokens_used` for debugging and cost tracking.
 
-4. **Constraints Enforced**: Status enums, stage_index range (0-11), unique constraints prevent bad data.
+4. **Constraints Enforced**: Status enums, stage_index range (0-10), unique constraints prevent bad data.
 
 5. **Resume/Retry Ready**: Query failed entities with `SELECT * FROM pipeline_stages WHERE status='failed'` and retry individually.
 
@@ -246,7 +284,7 @@ STEP 11 (Final):
 
 | Term | Definition | Location |
 |------|------------|----------|
-| **Step** | One of 12 pipeline stages (0-11) | UI, templates |
+| **Step** | One of 11 pipeline stages (0-10) | UI, templates |
 | **Module** | Operation code that executes a step | `modules/operations/` |
 | **Phase** | Configured group of submodules within a module | `config.phases[]` |
 | **Submodule** | Single-task unit within a module | `modules/submodules/{type}/` |
@@ -374,6 +412,140 @@ ssh -i ~/.ssh/hetzner_key root@188.245.110.34
 ---
 
 ## Session Log
+
+### Session: 2026-02-02 - React Migration: Step 0 & Step 1 Complete
+
+**Accomplished:**
+
+1. **React Client Infrastructure** (36 files, 6,441 lines):
+   - Vite + React 18.3 + TypeScript 5.6 + Tailwind CSS
+   - Complete build tooling: ESLint, PostCSS, hot reload
+   - Production-ready configuration
+
+2. **Step 0: Project Setup** (Milestone 1 Complete):
+   - Component: `Step0ProjectSetup.tsx` (276 lines)
+   - Radio toggle: New Project / Existing Project
+   - Form validation, project creation, dropdown selection
+   - Visual parity with Alpine.js UI confirmed
+
+3. **Step 1: Discovery** (Milestone 1.5 Complete):
+   - Component: `Step1Discovery.tsx` (116 lines)
+   - 3 category cards with 6 discovery submodules
+   - Status indicators, cost badges, enable/disable toggles
+   - Click to open SubmodulePanel
+
+4. **Shared Component Architecture** (4 reusable components):
+   - `CategoryCardGrid.tsx` (110 lines) - Grid layout with toggle controls
+   - `SubmodulePanel.tsx` (234 lines) - Slide-in panel with 3 sections
+   - `StepSummary.tsx` (40 lines) - Compact summary display
+   - `StepApprovalFooter.tsx` (48 lines) - Step-level approval controls
+
+5. **State Management** (4 Zustand stores):
+   - `appStore.ts` - Global UI state (toast, mock mode)
+   - `panelStore.ts` - Panel visibility (open/close)
+   - `discoveryStore.ts` - Discovery step state (categories, submodules)
+   - `pipelineStore.ts` - Pipeline UI state (selected project, expanded step)
+
+6. **API Client Structure**:
+   - `src/api/client.ts` (142 lines)
+   - Endpoints prepared for projects, runs, submodules
+   - Error handling with toast notifications
+
+7. **Type System**:
+   - `src/types/step.ts` (54 lines)
+   - Full TypeScript coverage, strict mode
+   - No `any` types, comprehensive interfaces
+
+**Architecture Decisions:**
+
+| Decision | Rationale |
+|----------|-----------|
+| **Shared components first** | Steps 2-10 will reuse CategoryCardGrid, SubmodulePanel |
+| **Server-as-truth pattern** | Zustand for UI state only, TanStack Query for server data |
+| **Type consolidation** | Single source (`src/types/step.ts`) prevents duplication |
+| **Visual replication** | Pixel-perfect match with Alpine, no design decisions needed |
+
+**Milestones:**
+- ✅ Milestone 1: Step 0 POC (1 day, estimated 2-3 days) - AHEAD OF SCHEDULE
+- ✅ Milestone 1.5: Server Sync POC (UI structure complete)
+- ⚠️ Milestone 2: Panel Behavior (mostly done as part of 1.5)
+- ⏳ Milestone 3: Step 1 Complete (server integration next)
+- ⏳ Milestones 4-5: Steps 2-10, Integration & QA
+
+**Files Modified (Uncommitted in Main Repo):**
+- `.gitignore` - Added client build directories
+- `public/index.html` - Alpine UI updates (66 lines)
+- `routes/submodules.js` - New endpoints (74 lines)
+- `tests/unit/services/orchestrator.test.js` - Test updates
+
+**Commit:** 0484d29 - `feat: Add React client with Step 0 and Step 1 implementation`
+
+**Timeline Revision:** Original 26-40 days → Revised 20-30 days (shared components accelerate remaining steps)
+
+**Next Session Priorities:**
+1. Commit uncommitted changes (3 separate logical commits)
+2. Install and configure TanStack Query
+3. Integrate API client with Step 1 Discovery
+4. Test end-to-end submodule execution
+5. Build Step 2 (Validation) using shared components
+
+**Current Phase**: React Migration - Foundation Complete, API Integration Next
+
+**Updated by:** Claude Opus 4.5 (session-closer)
+
+---
+
+### Session: 2026-01-29 (Session 7) - Architecture Documentation Review & Corrections
+
+**Accomplished:**
+
+1. **Compared decisions against documentation** — User provided their decision summary and asked what was missed
+
+2. **Updated `docs/ARCHITECTURE_DECISIONS.md`**:
+   - Corrected submodule flow: [RUN] → [SEE RESULTS] → [APPROVE] (was incorrect before)
+   - Added step-level approval logic (all submodules must be approved before step approval)
+   - Added [APPROVE STEP] / [SKIP STEP] documentation
+   - Added ASCII diagram showing submodule pane states
+   - Added category toggle cosmetic note
+   - Added "Inline Search (Deferred to v3)" section (was missing)
+   - Added "Next Steps for Claude Code" section (was missing)
+
+3. **Rewrote `docs/Full_Workflow_Document_With_Intro_Formatted_v3.md`**:
+   - Updated to version 3.2
+   - Rewrote ALL step descriptions (Steps 1-10) to match 11-step (0-10) structure
+   - Removed invalid Step 11
+   - Fixed loopback references (Step 7, Step 10)
+   - Fixed tiered retention (filtered_step2, filtered_step4)
+   - Fixed reference documents section (Step 5, 6)
+   - Updated version history
+
+4. **Fixed `PROJECT_STATUS.md`**:
+   - Changed "STEP 11" → "STEP 10" in example flow
+
+**Key Decisions Documented:**
+- **Submodule Flow**: Click submodule → overlay pane → options/input → [RUN] → [SEE RESULTS] → review → [APPROVE]
+- **Step-Level Approval**: ALL submodules must be approved before [APPROVE STEP] or [SKIP STEP]
+- **Inline Search**: Deferred to v3 (MVP: user provides data)
+- **11 Steps (0-10)**: Step 1 is Discovery (combines old Input + Discovery)
+
+**Files Modified:**
+- `docs/ARCHITECTURE_DECISIONS.md`
+- `docs/Full_Workflow_Document_With_Intro_Formatted_v3.md`
+- `PROJECT_STATUS.md`
+
+**Current Phase**: Architecture Decisions Finalized — Ready for Implementation
+
+**Next Actions** (from ARCHITECTURE_DECISIONS.md):
+1. Build submodule infrastructure
+2. Build step container infrastructure
+3. Implement Step 0 (Project Start)
+4. Implement Step 1 (Discovery) with three Website submodules
+5. Wire up Supabase
+6. Test full flow
+
+**Updated by:** Claude Opus 4.5 (session-closer)
+
+---
 
 ### Session: 2026-01-26 (Session 4) - Dashboard Bug Fixes & Approval Gate System
 

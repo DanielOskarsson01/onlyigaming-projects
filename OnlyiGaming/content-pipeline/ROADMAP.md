@@ -1,8 +1,8 @@
 # Content Pipeline Project Roadmap
 
-**Last Updated**: 2026-01-28
-**Project Status**: Architecture Decisions Finalized — Shared Step Context Added
-**Architecture**: Database-mediated pipeline with submodule-based execution and shared step context
+**Last Updated**: 2026-02-02
+**Project Status**: React Migration - Milestones 1 & 1.5 Complete
+**Architecture**: Database-mediated pipeline with submodule-based execution and React UI frontend
 
 ---
 
@@ -49,6 +49,42 @@ YouTube submodule → Finds youtube column → Auto-populates
 ---
 
 ## Session Log
+
+### Session: 2026-02-02 - React Migration: Step 0 & Step 1 Complete
+
+**Accomplished:**
+- Built complete React client in `/client` directory (36 files, 6,441 lines)
+- Milestone 1 (Step 0 POC) complete - 1 day vs. 2-3 day estimate
+- Milestone 1.5 (Server Sync POC) UI structure complete
+- Step 0: Project Setup with New/Existing project selection (276 lines)
+- Step 1: Discovery with 3 categories, 6 submodules (116 lines)
+- Shared components: CategoryCardGrid, SubmodulePanel, StepSummary, StepApprovalFooter
+- Zustand stores: appStore, panelStore, discoveryStore, pipelineStore
+- API client prepared (142 lines), TanStack Query integration next
+- Pixel-perfect visual replication of Alpine.js UI
+- Full TypeScript coverage, strict mode, no `any` types
+
+**Key Decisions:**
+- Shared components first strategy - accelerates Steps 2-10
+- Server-as-truth pattern - Zustand for UI state only
+- Type consolidation in `src/types/step.ts`
+- Visual replication approach - no design decisions during migration
+
+**Timeline Revision:**
+- Original estimate: 26-40 days
+- Revised estimate: 20-30 days (ahead of schedule)
+
+**Commit:** 0484d29 - `feat: Add React client with Step 0 and Step 1 implementation`
+
+**Next Session:**
+- Install TanStack Query
+- Integrate API client with Step 1
+- Build Step 2 (Validation)
+- Complete Milestone 2 (Panel Behavior Polish)
+
+**Current Phase**: React Migration - Foundation Complete, API Integration Next
+
+---
 
 ### Session: 2026-01-28 (Session 6) - Architecture Decisions & Shared Step Context
 **Accomplished:**
@@ -284,8 +320,8 @@ module.exports = {
 
 **Success Criteria**: Worker loads template, executes modules with phase/submodule cascade, writes results to database
 
-### 1.6: Web Dashboard
-**Status**: IN PROGRESS — Approval Gates & Results Viewing Added | **Dependencies**: 1.4
+### 1.6: Web Dashboard (Alpine.js - Maintained)
+**Status**: COMPLETE (Alpine.js version) | **Dependencies**: 1.4
 
 - [x] Project creation form (select project_type, configure)
 - [x] Project list with status, filtering by type
@@ -298,11 +334,56 @@ module.exports = {
 - [x] **Approval gate system** (pause at each stage, approve to continue)
 - [x] **View Results button** on step headers (shows real output_data)
 - [x] **Status badges** for awaiting_approval and approved states
-- [ ] Content library browser (search by tags, content_type)
-- [ ] Start/stop/retry controls
-- [ ] Connect to live API (replace mock data)
 
-**Success Criteria**: Can create any project type, configure phases/submodules, browse content library, monitor pipelines
+**Success Criteria**: ✅ Alpine.js dashboard fully functional (production)
+
+### 1.7: React UI Migration (New)
+**Status**: IN PROGRESS - Milestones 1 & 1.5 Complete | **Dependencies**: 1.6 (Alpine as reference)
+
+**Migration Goal**: Pixel-perfect visual replication with architectural rebuild (server-as-truth pattern)
+
+**Milestone Progress:**
+
+| Milestone | Status | Duration | Completion |
+|-----------|--------|----------|------------|
+| 1: Step 0 POC | ✅ COMPLETE | 1 day | 2026-02-02 |
+| 1.5: Server Sync POC | ✅ UI COMPLETE | 1 day | 2026-02-02 |
+| 2: Panel Behavior | ⚠️ MOSTLY DONE | - | Panel system built |
+| 3: Step 1 Complete | ⚠️ NEEDS API | - | UI done, API next |
+| 4: Steps 2-10 | ⏳ NOT STARTED | 10-15 days | TBD |
+| 5: Integration & QA | ⏳ NOT STARTED | 5-7 days | TBD |
+
+**Completed Tasks:**
+- [x] Vite + React + TypeScript + Tailwind setup (36 files, 6,441 lines)
+- [x] Step 0: Project Setup component (276 lines)
+- [x] Step 1: Discovery component (116 lines)
+- [x] Shared components: CategoryCardGrid, SubmodulePanel, StepSummary, StepApprovalFooter
+- [x] Zustand stores: appStore, panelStore, discoveryStore, pipelineStore
+- [x] API client structure prepared (142 lines)
+- [x] Full TypeScript type system
+- [x] Visual parity with Alpine.js confirmed
+
+**In Progress:**
+- [ ] TanStack Query integration
+- [ ] API client connection (Step 1 Discovery)
+- [ ] Loading/error states
+- [ ] WebSocket → Query invalidation
+
+**Not Started:**
+- [ ] Step 2: Validation
+- [ ] Steps 3-10
+- [ ] Demo/Live mode toggle
+- [ ] Content library browser
+- [ ] Full end-to-end testing
+
+**Timeline:** 20-30 days remaining (revised from 26-40 days)
+
+**Success Criteria**:
+- Visual screenshot comparison shows identical UI
+- All 11 steps functional
+- Server-as-truth pattern working
+- No Alpine.js code remains
+- Production-ready React app
 
 ---
 
@@ -430,6 +511,8 @@ Items logged for future implementation, not currently prioritized.
 | ID | Task | Context | Added |
 |----|------|---------|-------|
 | B001 | URL cleanup after scraping | discovered_urls have limited value after Step 3 (Scraping). Add cleanup endpoint or scheduled job to purge old URLs (e.g., DELETE WHERE completed_at < NOW() - 30 days) | 2026-01-30 |
+| B002 | Project-level filter customization | Allow fine-tuning path-filter patterns per project. Store custom exclude/include patterns in project settings. UI for adding patterns + "Test URL" feature to see why a URL would be filtered. | 2026-01-30 |
+| B003 | Re-run Cascade Invalidate (Option C) | Schema changes for submodule re-run behavior. ALTER TABLE submodule_runs ADD supersedes, superseded_at; ALTER TABLE submodule_result_approvals ADD needs_review, review_reason. See `docs/REACT_MIGRATION_PLAN.md` for full details. | 2026-02-01 |
 
 ---
 
