@@ -1,14 +1,14 @@
 # BullMQ Architecture — Universal Content Pipeline
 
-**Last Updated**: 2026-01-25
-**Status**: Infrastructure Complete, Ready for Implementation
-**Architecture**: Generic worker with dynamic module loading via pipeline_templates
+**Last Updated**: 2026-01-28
+**Status**: Architecture Finalized with Shared Step Context
+**Architecture**: Database-mediated pipeline with dynamic module loading and shared step context
 
 ## Naming Convention
 
 | Term | Definition | Location |
 |------|------------|----------|
-| **Step** | One of 12 pipeline stages (0-11) | UI, templates |
+| **Step** | One of 11 pipeline stages (0-10) | UI, templates |
 | **Module** | Operation code that executes a step | `modules/operations/` |
 | **Phase** | Configured group of submodules within a module | `config.phases[]` |
 | **Submodule** | Single-task unit within a module | `modules/submodules/{type}/` |
@@ -24,6 +24,34 @@ Build a **generic BullMQ worker** that dynamically loads modules based on `pipel
 3. Submodule files in `/modules/submodules/{type}/`
 
 No worker code changes needed.
+
+### Shared Step Context (2026-01-28)
+
+CSV uploaded in one submodule is available to other submodules within the same step:
+
+```javascript
+// step_context table
+{
+  run_id: UUID,
+  step_index: 1,  // Step 1: Discovery
+  entities: [
+    { name: 'Betsson', website: 'betsson.com', linkedin: '/company/betsson' },
+    { name: 'Evolution', website: 'evolution.com', youtube: '@evolution' }
+  ],
+  source_submodule: 'sitemap'
+}
+```
+
+**Priority when submodule needs data:**
+1. Submodule-local upload (if user uploaded in THIS submodule) → use that
+2. Shared step context (if column exists from earlier upload) → auto-populate
+3. Prompt user to upload
+
+**Scope boundaries:**
+- ✓ Shared within same step, same run, same project
+- ✗ NOT shared across steps, runs, projects, or templates
+
+See `docs/ARCHITECTURE_DECISIONS.md` for full details.
 
 ## Infrastructure
 

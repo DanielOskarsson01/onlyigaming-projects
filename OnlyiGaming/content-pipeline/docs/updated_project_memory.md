@@ -71,19 +71,21 @@ All content lives in ONE universal `content_items` table. Tags from a 352+ taxon
 3. **Company profiles**: Improve existing 1,400 (one use case)
 4. **Registration self-service**: Frontend for new companies (MEDIUM)
 
-## The 12-Step Generic Pipeline (Steps 0–11)
-0. Project Setup
-1. Input Specification
-2. Discovery & Enrichment
-3. Source Validation & Governance (FILTER STEP — marks filtered_step3)
-4. Content Extraction
-5. Filtering & Adaptive Crawling (FILTER STEP — marks filtered_step5)
-6. Analysis, Classification & Creation
-7. Validation & QA
-8. Routing & Flow Control
-9. Output Bundling
-10. Distribution
-11. Review & Triggers
+## The 11-Step Generic Pipeline (Steps 0–10)
+
+> **Updated 2026-01-28:** Old Step 1 (Input) + Step 2 (Discovery) combined into new Step 1 (Discovery). Upload happens inside submodules.
+
+0. Project Start (name, template, parent link)
+1. Discovery (upload inside submodules, collect URLs)
+2. Validation & Dedupe (FILTER STEP)
+3. Scraping
+4. Filtering (FILTER STEP)
+5. Analysis & Generation
+6. QA
+7. Routing
+8. Bundling
+9. Distribution
+10. Review
 
 ## Environment Configuration
 ```bash

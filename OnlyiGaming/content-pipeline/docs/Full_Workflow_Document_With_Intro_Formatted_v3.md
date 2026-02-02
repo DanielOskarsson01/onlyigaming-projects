@@ -1,14 +1,16 @@
-# Universal Content Pipeline — Master Workflow Document (Steps 0–11)
+# Universal Content Pipeline — Master Workflow Document (Steps 0–10)
 
-**Version**: 3.0 (Updated 2026-01-23)
-**Previous**: v2 was company-profile-specific. v3 reframes for universal content platform.
-**Architecture**: Tag-based content library with configurable pipeline templates.
+**Version**: 3.2 (Updated 2026-01-29)
+**Previous**: v3.0 had 12 steps. v3.1 combined Input + Discovery. v3.2 corrects all step descriptions.
+**Architecture**: Database-mediated pipeline with submodule-based execution and shared step context.
 
 ---
 
 ## Purpose & Fit
 
-This workflow defines the **generic 12-step pipeline (Steps 0–11)** for the Universal Content Intelligence Platform. It is content-type-agnostic — the same steps apply to company profiles, news articles, podcast pages, competitor analyses, and any future content type.
+This workflow defines the **generic 11-step pipeline (Steps 0–10)** for the Universal Content Intelligence Platform. It is content-type-agnostic — the same steps apply to company profiles, news articles, podcast pages, competitor analyses, and any future content type.
+
+> **2026-01-28 Update:** Old Step 1 (Input) and Step 2 (Discovery) are now combined into Step 1 (Discovery). Upload happens INSIDE each submodule. See `docs/ARCHITECTURE_DECISIONS.md` for details.
 
 **Each content type** configures which operations run at each step via `pipeline_templates`. The steps themselves are universal.
 
@@ -58,8 +60,8 @@ This means:
 
 ### Loopbacks
 
-- **Automated Router (Step 8)** handles failures, routing back to earlier steps
-- **Manual Review (Step 11)** provides human oversight
+- **Automated Router (Step 7)** handles failures, routing back to earlier steps
+- **Manual Review (Step 10)** provides human oversight
 - Nothing progresses without valid QA or explicit approval
 
 ---
@@ -69,7 +71,7 @@ This means:
 ### Data Flow
 
 ```
-Project Config → Pipeline Template → Operations (Steps 0-11) → content_items + tags
+Project Config → Pipeline Template → Operations (Steps 0-10) → content_items + tags
 ```
 
 ### Storage
@@ -124,147 +126,121 @@ Output format is defined per content type in the pipeline_template.
 - **Tag-based taxonomy**: content organized by 352+ tags across dimensions
 - **Freshness flags, not gates**: old content flagged but never blocked
 - **Loopbacks not failures**: weak content routed back for improvement
-- **Human review is final**: Step 11 reviewer decides publish/reject
+- **Human review is final**: Step 10 reviewer decides publish/reject
 
 ---
 
-## The 12 Steps (Steps 0–11)
+## The 11 Steps (Steps 0–10)
 
-### Step 0 — Project Setup
+> **Note:** Step numbering changed on 2026-01-28. Old Steps 1+2 are now combined into new Step 1.
 
-**Generic Purpose**: Create and configure the project before any pipeline work begins. Name the project, describe its goal, select a project type (which determines the pipeline template), and add tags for organization and discovery.
+### Step 0 — Project Start
 
-**Operation**: Creates a `projects` record with name, description, project_type, and initial tags. The project_type selects the appropriate `pipeline_template` that defines what operations run in subsequent steps.
+**Generic Purpose**: Create and configure the project before any pipeline work begins. Name the project, choose an existing project or create new, optionally select a template (saved config, no data), link to parent project.
+
+**Operation**: Creates a `projects` record. Templates are saved configurations from previous runs — they do NOT contain input data.
 
 #### Fields
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| Project Name | Yes | Human-readable identifier (e.g., "Betsson Company Research", "Nordic Market News Q1") |
-| Description | No | What should this project produce? What's the goal? |
-| Project Type | Yes | Selects pipeline template: company-profile, news-article, podcast, research, competitor-analysis, faq, custom |
-| Tags | No | Organizational tags for discovery (e.g., igaming, nordic, betsson, Q1-2025) |
+| Project Name | Yes | Human-readable identifier |
+| Template | No | Saved config from previous pipeline (config only, no data) |
+| Parent Project | No | Link to parent project if this is a sub-project |
+| Intent | No | Freeform goal description |
+| Timing | No | one-off, scheduled, continuous |
+
+**Does NOT include**: Entity type selection, output format choices, data input (those happen in Step 1)
 
 #### Behavior
 
 - Creating a new project opens Step 0 as the first active step
 - Project type determines which pipeline template is loaded
 - Tags are stored in `content_tags` linked to the project for later filtering/discovery
-- Once Step 0 is completed, Step 1 (Input Specification) becomes active
+- Once Step 0 is completed, Step 1 (Discovery) becomes active
 
 ---
 
-### Step 1 — Input Specification
+### Step 1 — Discovery
 
-**Generic Purpose**: Define what raw material is being fed into the pipeline, what content to produce, and narrow the context.
+**Generic Purpose**: Combine input AND source collection. User chooses what to discover, provides data within each submodule, collects URLs.
 
-**Operation**: Validates input formats, establishes scope, creates project record.
+**Key change from v3.0**: Old Step 1 (Input) and Step 2 (Discovery) are now combined. Upload happens INSIDE each submodule, not as a separate step.
 
-#### Input Sources (what are you feeding the pipeline?)
-
-| Input Type | Description | Examples |
-|-----------|-------------|----------|
-| URLs | One or many links to scrape | Homepage, article links, directory listings |
-| Documents/Files | Uploaded files to parse | PDFs, Word docs, text files, spreadsheets |
-| Images | Visual content to analyze or use | Logos, screenshots, infographics |
-| Video/Audio | Media to transcribe or process | Podcast episodes, interviews, webinars |
-| Manual Text | Pasted content directly | Notes, briefs, outlines |
-| CSV/Batch | Structured list of entities or URLs | Company name + URL pairs, topic lists |
-
-#### Output Intent (what do you want to produce?)
-
-This is the **content type intent** — what the pipeline should generate. Not the output format (HTML/JSON/MD — that's Step 9).
-
-- Article / News piece
-- Company profile
-- Summary / Digest
-- FAQ content
-- Podcast page / Show notes
-- Competitor analysis
-- Research report
-- Custom (user-defined)
-
-#### Context Narrowing
-
-- **Geography**: Where is this content relevant? (Global, Europe, Nordic, UK, US, Asia Pacific, etc.)
-- **Language**: What language should the output be in? (English, Swedish, German, etc.)
-- **Freshness**: How recent should sources be? (Any, last 30 days, last 90 days, last year)
-
-#### Key Design Decisions
-
-- **No forced project types**: The pipeline is universal — output intent is a hint for template selection, not a hard constraint
-- **Input validation is format-only**: Valid URL syntax, readable file formats, parseable CSV. Reachability/trust checks are Step 3's job
-- **Reference docs (tone guides, format specs, keyword packs) belong in Templates / Step 6 config** — they are generation instructions, not inputs
-- **Input type metadata stored**: `input_type` field in projects table enables downstream operations to branch appropriately
-
-**Writes to**: `projects` table with config JSONB containing input sources, output intent, and context narrowing parameters
-
----
-
-### Step 2 — Discovery & Enrichment
-
-**Generic Purpose**: Content-agnostic discovery, enrichment, or expansion of inputs from Step 1. This step is **conditional** — its behavior depends on what was provided in Step 1.
-
-**Operations write discovered items to**: `content_items` (content_type: 'discovered_url' or 'metadata', status: 'pending')
+**Operations write discovered items to**: `content_items` (content_type: 'discovered_url', status: 'pending')
 
 **Tags applied**: entity:{type}:{name}, source:{method}, relevant dimension tags
 
-#### Conditional Behavior Based on Input Type
+#### User Flow
 
-| Step 1 Input | Step 2 Action |
-|-------------|---------------|
-| URLs (fully specified) | Optional expansion: discover related pages via sitemap, navigation, seeds |
-| Entity names (CSV batch) | Active discovery: find URLs via search, directories, sitemaps |
-| Documents/files | Extract entities/topics, optionally discover supplementary sources |
-| Images | Extract metadata (EXIF, OCR text), identify entities |
-| Video/audio | Extract metadata, identify speakers/topics for supplementary discovery |
-| Manual text | Parse for entities/URLs, optionally discover related sources |
+1. User sees category cards (Website, News, LinkedIn, YouTube, etc.)
+2. User clicks a submodule → overlay pane slides out from left
+3. Pane shows choices/options + input fields (upload CSV, paste URLs)
+4. [RUN] activates when input valid → user clicks to execute
+5. After run completes → [SEE RESULTS] appears
+6. User clicks [SEE RESULTS] → results shown in same pane
+7. If satisfied → [APPROVE] appears → user clicks to approve submodule
+8. Pane closes, card shows green/approved with count
+9. Repeat for other submodules
+10. Once all desired submodules approved → [APPROVE STEP] or [SKIP STEP]
 
-#### Discovery Operations (selected by template):
-- **url-discovery-sitemap**: Parse sitemap.xml for related pages
-- **url-discovery-navigation**: Extract homepage navigation links
-- **url-discovery-seeds**: Expand known page patterns (/about, /products, /press, etc.)
-- **url-discovery-search**: Google CSE or search API for mentions (optional)
-- **url-discovery-directories**: Discover directory listings (optional)
-- **url-discovery-rss**: Probe for RSS feeds (optional)
-- **topic-discovery**: RSS feeds, Google News, industry sources
-- **metadata-extract**: Parse RSS feed, Spotify API, Apple Podcasts
+#### Available Submodules (grouped by category)
 
-#### Key Design Decision
-If Step 1 already provides complete URLs and no enrichment is needed, this step can be **skipped** — the URLs pass directly to Step 3 for validation.
+| Category | Submodules |
+|----------|------------|
+| Website | Sitemap, Navigation, Seed Expansion |
+| News | RSS Feeds, News Search |
+| LinkedIn | Company Page, Posts |
+| YouTube | Channel Videos, YouTube Search |
+| Twitter/X | Profile |
+| Search | Google Search |
 
-**Content Reuse**: Before scraping, operations check content_items for existing content with matching tags. If fresh content exists, skip scraping.
+**For MVP1b**: Only Website category with Sitemap, Navigation, Seed Expansion.
+
+#### Shared Step Context
+
+CSV uploaded in one submodule is available to other submodules within the same step:
+- Upload CSV in Sitemap (name, website, linkedin, youtube)
+- LinkedIn submodule auto-finds linkedin column
+- YouTube submodule auto-finds youtube column
+
+Priority: submodule-local upload > shared context > prompt user
+
+**Writes to**: `discovered_urls` table, `step_context` table (for shared CSV data)
 
 ---
 
-### Step 3 — Source Validation & Governance (FILTER STEP)
+### Step 2 — Validation & Dedupe (FILTER STEP)
 
-**Generic Purpose**: Trust, policy, and relevance checks before extraction.
+**Generic Purpose**: Clean and validate URLs before scraping. Remove duplicates.
 
-**Filter behavior**: Items failing validation are marked `status = 'filtered_step3'` with `filter_reason`.
+**Filter behavior**: Items failing validation are marked `status = 'filtered_step2'` with `filter_reason`.
 
 **Body purged after 7 days** (tiered retention). Metadata row persists forever.
 
 #### Operations:
-- **source-validation**: HTTP status check, content-type verification, domain authority
-- **relevance-scoring**: Does the source relate to the entity/topic?
-- **policy-check**: Blocked domains, rate limits, robots.txt compliance
+- **url-validation**: HTTP status check, content-type verification
+- **domain-trust**: Domain authority scoring
+- **deduplication**: Remove duplicate URLs across all sources
+- **policy-check**: Blocked domains, robots.txt compliance
 
 #### Filter Reasons:
+- `duplicate` — URL already exists in project
 - `untrusted_source` — domain not in whitelist / low authority
-- `irrelevant` — content doesn't relate to entity/topic
-- `blocked` — HTTP error, robots.txt denied, rate limited
+- `blocked` — HTTP error, robots.txt denied
 - `non_content` — privacy page, login, terms, 404
+
+**Can be skipped**: If user trusts their input sources, skip to Step 3.
 
 ---
 
-### Step 4 — Content Extraction
+### Step 3 — Scraping
 
-**Generic Purpose**: Reusable extraction for text, media, and structured data.
+**Generic Purpose**: Fetch content from validated URLs.
 
 **Operations write to**: `content_items` (content_type: 'scraped_page', content: {html, text, structured})
 
-**Tags applied**: Inherited from Step 2 discovery + content-specific tags
+**Tags applied**: Inherited from discovery + content-specific tags
 
 #### Operations:
 - **content-scrape-cheerio**: Static HTML parsing (default, cheapest)
@@ -278,36 +254,38 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 - If exists but stale → re-scrape, version increments
 - If not exists → scrape and insert with tags
 
+**Writes to**: `scraped_pages` table (bulk content)
+
 ---
 
-### Step 5 — Filtering & Adaptive Crawling (FILTER STEP)
+### Step 4 — Filtering (FILTER STEP)
 
-**Generic Purpose**: Deduplication, quality filtering, adaptive depth.
+**Generic Purpose**: Quality filtering, language detection, adaptive depth.
 
-**Filter behavior**: Items failing are marked `status = 'filtered_step5'` with `filter_reason`.
+**Filter behavior**: Items failing are marked `status = 'filtered_step4'` with `filter_reason`.
 
 **Body purged after 7 days**. Metadata persists.
 
 #### Operations:
 - **content-filter-junk**: Remove boilerplate, too-short content (<100 words)
-- **content-filter-dedup**: MinHash/SimHash deduplication (>0.9 similarity)
-- **content-filter-cap**: Adaptive page capping per entity (prevent over-representation)
 - **content-filter-language**: Detect and filter wrong-language content
+- **content-filter-relevance**: Does content relate to entity/topic?
+- **content-filter-cap**: Adaptive page capping per entity (prevent over-representation)
 
 #### Filter Reasons:
 - `too_short` — body < 100 words
-- `duplicate` — similarity > 0.9 with existing item
-- `over_cap` — entity already has enough sources
 - `wrong_language` — not in target language
+- `irrelevant` — doesn't relate to entity/topic
+- `over_cap` — entity already has enough sources
 - `boilerplate` — cookie banners, navigation-only content
 
 #### Output:
-- Clean, deduplicated, capped set of content_items ready for generation
+- Clean, filtered set of content_items ready for generation
 - Assembled as SOURCES array in stage output_data JSONB
 
 ---
 
-### Step 6 — Analysis, Classification & Creation
+### Step 5 — Analysis & Generation
 
 **Generic Purpose**: Classification, SEO logic, and content generation via LLM.
 
@@ -330,7 +308,7 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 
 ---
 
-### Step 7 — Validation & QA
+### Step 6 — QA
 
 **Generic Purpose**: Fact checks, hallucination detection, structural validation.
 
@@ -349,15 +327,15 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 
 ---
 
-### Step 8 — Routing & Flow Control
+### Step 7 — Routing & Flow Control
 
 **Generic Purpose**: Conditional routing, retries, and loops.
 
 #### Routing Rules:
-- `pass` → proceed to Step 9 (Output Bundling)
-- `fail: sources_thin` → loop back to Step 2 (more discovery)
-- `fail: tone_seo` → loop back to Step 6 (regenerate with fixes)
-- `fail: structure` → loop back to Step 6 (reformat)
+- `pass` → proceed to Step 8 (Bundling)
+- `fail: sources_thin` → loop back to Step 1 (more discovery)
+- `fail: tone_seo` → loop back to Step 5 (regenerate with fixes)
+- `fail: structure` → loop back to Step 5 (reformat)
 - `fail: max_retries` → mark project as failed, alert
 
 #### Retry Logic:
@@ -366,7 +344,7 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 
 ---
 
-### Step 9 — Output Bundling
+### Step 8 — Bundling
 
 **Generic Purpose**: Package approved content into output-agnostic formats.
 
@@ -380,7 +358,7 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 
 ---
 
-### Step 10 — Distribution
+### Step 9 — Distribution
 
 **Generic Purpose**: Push to CMS, APIs, exports.
 
@@ -396,7 +374,7 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 
 ---
 
-### Step 11 — Review & Triggers
+### Step 10 — Review
 
 **Generic Purpose**: Human approval, rejection, retriggers.
 
@@ -453,19 +431,19 @@ If Step 1 already provides complete URLs and no enrichment is needed, this step 
 
 ---
 
-## Reference Documents (Template / Step 6 Configuration)
+## Reference Documents (Template / Step 5 Configuration)
 
-These guardrail documents are **generation instructions** — they belong to pipeline_templates or Step 6 configuration, NOT to Step 1 input. They are loaded when generation operations execute.
+These guardrail documents are **generation instructions** — they belong to pipeline_templates or Step 5 configuration, NOT to Step 1 input. They are loaded when generation operations execute.
 
 | Document | Purpose | Used By |
 |---|---|---|
-| MASTER_CATEGORIES (~80) | Category taxonomy with slugs, definitions, rules | Step 6, 7 |
-| MASTER_TAGS (352+) | Tag taxonomy loaded into platform_tags | Step 6, 7 |
-| TONE & SEO GUIDE | Style rules, heading hierarchy, word counts | Step 6, 7 |
-| FORMAT SPEC | Section lengths, citation rules, JSON schema | Step 6, 7 |
-| KEYWORD_PACKS | Per-category keyword sets for SEO | Step 6, 7 |
+| MASTER_CATEGORIES (~80) | Category taxonomy with slugs, definitions, rules | Step 5, 6 |
+| MASTER_TAGS (352+) | Tag taxonomy loaded into platform_tags | Step 5, 6 |
+| TONE & SEO GUIDE | Style rules, heading hierarchy, word counts | Step 5, 6 |
+| FORMAT SPEC | Section lengths, citation rules, JSON schema | Step 5, 6 |
+| KEYWORD_PACKS | Per-category keyword sets for SEO | Step 5, 6 |
 
-These are stored as tagged content_items (content_type: 'reference_doc') in the content library, versioned and queryable. Templates reference them by tag codes in their Step 6 config.
+These are stored as tagged content_items (content_type: 'reference_doc') in the content library, versioned and queryable. Templates reference them by tag codes in their Step 5 config.
 
 ---
 
@@ -474,8 +452,8 @@ These are stored as tagged content_items (content_type: 'reference_doc') in the 
 | Content Status | Body Retained | Metadata Retained | When Purged |
 |---|---|---|---|
 | active | Forever | Forever | Never |
-| filtered_step3 | 7 days | Forever | Daily cleanup job |
-| filtered_step5 | 7 days | Forever | Daily cleanup job |
+| filtered_step2 | 7 days | Forever | Daily cleanup job |
+| filtered_step4 | 7 days | Forever | Daily cleanup job |
 | superseded | Forever | Forever | Never (old version) |
 | archived | Forever | Forever | Never |
 
@@ -534,6 +512,8 @@ WHERE EXCLUDED.scraped_at > content_items.scraped_at;
 
 ## Document Version History
 
+- **v3.2** (2026-01-29): Corrected all step descriptions to match 11-step (0-10) structure. Step 1 now Discovery with submodule flow. Step numbers shifted throughout.
+- **v3.1** (2026-01-28): Combined Input + Discovery into single Discovery step
 - **v3.0** (2026-01-23): Universal platform, tag-based content library, pipeline templates
 - **v2.0** (2025): Company-profile-specific, n8n orchestration, per-step tables
 - **v1.0** (2024): Initial workflow concept
@@ -541,5 +521,6 @@ WHERE EXCLUDED.scraped_at > content_items.scraped_at;
 ---
 
 *Document Owner: Claude Opus 4.5*
+*Updated: 2026-01-29 — Full step descriptions corrected*
 *This document supersedes "Full_Workflow_Document_With_Intro_Formatted v2.docx"*
 *The .docx version is preserved for historical reference only.*

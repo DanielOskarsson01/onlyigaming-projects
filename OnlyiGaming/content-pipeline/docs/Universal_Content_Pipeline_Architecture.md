@@ -1,8 +1,8 @@
 # Universal Content Pipeline - Architecture & Implementation Guide
 
-**Project Status**: Infrastructure Complete, Schema Finalized, Ready for Implementation
-**Last Updated**: 2026-01-25
-**Document Version**: 3.1
+**Project Status**: Architecture Finalized with Shared Step Context
+**Last Updated**: 2026-01-28
+**Document Version**: 3.2
 
 ## Executive Summary
 
@@ -228,7 +228,7 @@ WHERE status LIKE 'filtered_%'
 
 | Term | Definition | Location |
 |------|------------|----------|
-| **Step** | One of 12 pipeline stages (0-11) | UI, templates |
+| **Step** | One of 11 pipeline stages (0-10) | UI, templates |
 | **Module** | Operation code that executes a step | `modules/operations/` |
 | **Phase** | Configured group of submodules within a module | `config.phases[]` |
 | **Submodule** | Single-task unit within a module | `modules/submodules/{type}/` |
@@ -372,20 +372,21 @@ class ContentLibrary {
 
 ## Pipeline Execution
 
-### The 12-Step Generic Pipeline (Steps 0–11)
+### The 11-Step Generic Pipeline (Steps 0–10)
 
-0. **Project Setup** — Name the project, describe its goal, select project type (determines pipeline template), add organizational tags
-1. **Input Specification** — Define raw material (URLs, docs, images, video, text, CSV), output intent (article, profile, summary, etc.), and context (geography, language, freshness)
-2. **Discovery & Enrichment** — Conditional: expand/enrich inputs from Step 1, or skip if fully specified
-3. **Source Validation & Governance** — Trust, policy, relevance checks (FILTER STEP)
-4. **Content Extraction** — Reusable extraction for text, media, structured data
-5. **Filtering & Adaptive Crawling** — Deduplication, language, adaptive depth (FILTER STEP)
-6. **Analysis, Classification & Creation** — Classification, SEO logic, content generation
-7. **Validation & QA** — Fact checks, hallucination detection, structural validation
-8. **Routing & Flow Control** — Conditional routing, retries, loops
-9. **Output Bundling** — HTML, JSON, metadata bundles (output-agnostic)
-10. **Distribution** — CMS, APIs, exports
-11. **Review & Triggers** — Human approval, rejection, retriggers
+0. **Project Start** — Name, choose existing project OR create new, choose template (saved config, no data), link to parent project
+1. **Discovery** — Upload inside submodules, choose sources, collect URLs (old Input + Discovery combined)
+2. **Validation & Dedupe** — Clean URLs, deduplication, trust checks (FILTER STEP)
+3. **Scraping** — Fetch content from URLs
+4. **Filtering** — Language, relevance, adaptive depth (FILTER STEP)
+5. **Analysis & Generation** — Classification, SEO logic, content generation
+6. **QA** — Fact checks, hallucination detection, structural validation
+7. **Routing** — Conditional routing, retries, loops
+8. **Bundling** — HTML, JSON, metadata bundles (output-agnostic)
+9. **Distribution** — CMS, APIs, exports
+10. **Review** — Human approval, rejection, retriggers
+
+**Key change from previous 12-step:** Old Step 1 (Input) and Step 2 (Discovery) are now combined into Step 1 (Discovery). Upload happens INSIDE each submodule.
 
 ### Pipeline Template Example (Company Profile)
 
@@ -433,7 +434,9 @@ class ContentLibrary {
 }
 ```
 
-### Content Reuse in Practice
+### Content Reuse in Practice (PHASE 2 — Not MVP)
+
+> **Deferred:** This feature is planned for Phase 2. MVP focuses on single-project execution.
 
 When a news article pipeline runs:
 1. `topic-discovery` identifies relevant companies
