@@ -196,6 +196,18 @@ const response = await tools.http.post(url, body, options);
 tools.progress.update(3, 5, "Processing entity 3 of 5");
 ```
 
+```javascript
+// AI (model + provider chosen by user in options, passed through)
+const response = await tools.ai.complete({
+  prompt: "Classify these URLs...",
+  model: options.ai_model,       // e.g. "haiku", "sonnet", "gpt-4o-mini"
+  provider: options.ai_provider  // "anthropic" or "openai"
+});
+// Returns: { text, tokens_in, tokens_out, model, provider, duration_ms }
+```
+
+Submodules pass `prompt`, `model`, and `provider` (received from their options). The skeleton handles API keys, request formatting, response normalization, and logging. Never import an LLM SDK directly.
+
 **What tools does NOT provide:**
 - No database access
 - No queue access

@@ -1111,6 +1111,17 @@ tools.progress
   Worker writes to submodule_runs.progress JSONB column.
   Frontend polling picks up the update every 2s and renders in Results accordion.
   Optional — long-running submodules should call it so users see activity.
+
+tools.ai
+  .complete({ prompt, model, provider }) — Send a prompt to an LLM provider
+  prompt — string, the text to send
+  model — string, friendly name: "haiku", "sonnet", "opus", "gpt-4o-mini", "gpt-4o"
+  provider — string: "anthropic" or "openai"
+  Returns: { text, tokens_in, tokens_out, model, provider, duration_ms }
+  Model and provider are chosen by the user in the submodule pane options, not by the skeleton.
+  API keys are read from environment variables (ANTHROPIC_API_KEY, OPENAI_API_KEY).
+  Each call is logged to the run's log output (provider, model, tokens, duration).
+  Submodules never import an LLM SDK directly — always use tools.ai.
 ```
 
 ### What tools does NOT provide
@@ -1121,9 +1132,8 @@ tools.progress
 - No access to other submodules' data
 - No access to configuration outside of `options`
 
-### Future tools (not in v1)
+### Future tools (not yet implemented)
 
-- `tools.ai.generate(prompt, options)` — Wrapped AI client with model selection, cost tracking, retry logic. Submodules never import an LLM SDK directly.
 - `tools.cache.get(key)` / `tools.cache.set(key, value)` — Cross-run caching for submodules that benefit from it.
 
 Added when needed, not prebuilt.
@@ -1189,25 +1199,30 @@ async function execute(input, options, tools) → results
 
 `entities` is an array of objects. Each has at minimum a `name` field. Other fields depend on uploads and shared context. The submodule should check for required fields and handle missing ones gracefully (skip entity, log warning).
 
-**Step 2+ input enrichment:** For steps beyond Step 1, the skeleton attaches items from the previous step's output (the working pool) to each entity. The `items` array contains the accumulated, approved items grouped by `entity_name`:
+**Working pool enrichment:** After input resolution, the skeleton checks the current step's `pipeline_stages.working_pool`. If the pool contains items (from previously-approved sibling submodules within the same step, or from the previous step's output), they are grouped by `entity_name` and attached to the matching entity as `items`. This means:
+
+- **Step 1 submodules** receive raw upload entities with no items — unless a sibling submodule in the same step has already been approved, in which case its items appear on `entity.items`.
+- **Step 2+ submodules** always receive entities with `items` from the previous step's approved working pool, plus any same-step sibling items.
+
+Items are **appended** (not replaced) if the entity already has items from input resolution. Entities that already have items but no pool matches retain their existing items unchanged. Entities with neither existing items nor pool matches get `items: []` for a consistent interface.
 
 ```javascript
-// Step 2+ entity shape — entities carry items from previous step
+// Entity shape after working pool enrichment
 {
   entities: [
     {
       name: "Company A",
       website: "companya.com",
       items: [
-        { url: "https://companya.com/about", last_modified: "2024-01-01" },
-        { url: "https://companya.com/products", last_modified: "2024-02-15" }
+        { url: "https://companya.com/about", last_modified: "2024-01-01", entity_name: "Company A" },
+        { url: "https://companya.com/products", last_modified: "2024-02-15", entity_name: "Company A" }
       ]
     },
     {
       name: "Company B",
       website: "companyb.com",
       items: [
-        { url: "https://companyb.com/page1", last_modified: "2024-03-01" }
+        { url: "https://companyb.com/page1", last_modified: "2024-03-01", entity_name: "Company B" }
       ]
     }
   ],
@@ -1217,9 +1232,7 @@ async function execute(input, options, tools) → results
 }
 ```
 
-The skeleton builds this by reading `pipeline_stages.working_pool` (or `output_data` for step transitions), grouping items by `entity_name`, and attaching them to the matching entity object. Original entity fields (name, website, etc.) are preserved. If an entity has no items from the previous step, `items` is an empty array.
-
-Step 1 submodules never have `items` — they receive the raw upload entities. Step 2+ submodules should always read `entity.items` for their processing data.
+The skeleton reads `pipeline_stages.working_pool` for the current step, groups items by `entity_name` into a Map, and attaches them to matching entities. Original entity fields (name, website, etc.) are preserved.
 
 ### Options
 
@@ -1411,11 +1424,12 @@ If this is the last step (step 10), mark the run as "completed" instead of advan
 
 **Server logic:**
 1. **Check no active run:** Query `submodule_runs` for this submodule with status "pending" or "running". If found → 409 Conflict.
-2. **Resolve input:** Follow auto-resolution priority (saved input_config source → previous step output → step_context). Load entity data.
-3. **Load options:** Read from `run_submodule_config.options`. If null, use manifest `options_defaults`.
-4. **Create submodule_runs row:** Insert with status "pending", input_data = resolved entities, options = resolved options, output_render_schema = manifest's output_schema.
-5. **Create BullMQ job:** `{ submodule_run_id, submodule_id, step_index }`. The worker loads input_data and options fresh from the submodule_runs row (not from the job payload).
-6. **Return:** `{ submodule_run_id: "uuid", status: "pending" }`
+2. **Resolve input:** Follow auto-resolution priority (request body entities → saved input_config source → previous step output → step_context). Load entity data.
+3. **Enrich with working pool:** Read `pipeline_stages.working_pool` for the current step. If pool has items, group by `entity_name` and attach as `items` on each matching entity. Appends to existing items (does not replace). Entities with no pool items get `items: []`.
+4. **Load options:** Read from `run_submodule_config.options`. If null, use manifest `options_defaults`.
+5. **Create submodule_runs row:** Insert with status "pending", input_data = resolved entities, options = resolved options, output_render_schema = manifest's output_schema.
+6. **Create BullMQ job:** `{ submodule_run_id, submodule_id, step_index }`. The worker loads input_data and options fresh from the submodule_runs row (not from the job payload).
+7. **Return:** `{ submodule_run_id: "uuid", status: "pending" }`
 
 #### Get Submodule Run — Response Shape
 

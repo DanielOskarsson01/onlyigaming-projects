@@ -8,8 +8,8 @@
 
 | ID | Issue | Status | Target |
 |----|-------|--------|--------|
-| K001 | ContentRenderer `isDuplicate` hardcoded check | Deferred | Phase 10 (schema-driven row_highlight) |
-| K002 | rss-feeds, url-filter have no execute.js | Placeholder only | Phase 9+ |
+| K001 | ContentRenderer hardcoded status values (`duplicate`, `excluded`, `dead_link`, `DROP`) for flagging/pre-deselection. Should be schema-driven. | Deferred | Phase 10 (schema-driven row_highlight) |
+| K002 | rss-feeds has no execute.js | Placeholder only | Phase 9+ |
 | K003 | No transaction/locking on step approval route (runs.js:146-185). 3 sequential DB writes without atomicity. Extends to concurrent case. | ✅ Fixed (Phase 8b) | Phase 8b |
 | K004 | No pagination for large result sets | Known | Phase 10 |
 
@@ -46,15 +46,25 @@
 | B001 | URL cleanup after scraping (purge old discovered_urls) | 2026-01-30 |
 | B002 | Project-level filter customization (custom exclude/include patterns) | 2026-01-30 |
 | B003 | Re-run cascade invalidate (supersedes/needs_review columns) | 2026-02-01 |
+| B004 | Option presets / saved profiles — skeleton-wide feature. Save named combinations of submodule options (e.g., "company_profile" keep/drop criteria), load them from a dropdown in the pane. Needs: DB table for presets, UI for save/load/delete, changes to options system. Benefits every submodule, critical for LLM-based modules with complex option sets. | 2026-02-17 |
+| B005 | Failure notification system — notify user when entities fail during pipeline execution (dead URLs, HTTP errors, etc.). Support channels: email, Telegram, Slack webhook. Skeleton-level feature, not per-submodule. | 2026-02-17 |
 
-## Phase 9 Pre-Test Findings
+## Phase 9 Test Findings
 
-| ID | Issue | Severity | Detail |
+| ID | Issue | Severity | Status |
 |----|-------|----------|--------|
-| P9-001 | tools.http has no HEAD method | Medium | Skeleton only exposes .get() and .post(). url-filter needs HEAD for status-code checks. Either add tools.http.head() to skeleton or use GET with short timeout. Will surface when check_status_codes=true. |
-| P9-002 | rss-feeds full-parse vs cost:cheap tension | Low | Manifest says cost:cheap (5min timeout). Full XML parse of every discovered feed could be slow on sites with many feeds. Monitor during test — if timeouts occur, either simplify logic or bump cost to medium. |
-| P9-003 | Step 1→2 data handoff untested | Unknown | Skeleton's mechanism for passing Step 1 output as Step 2 input has never been tested with real submodules. First real run will surface format mismatches, missing fields, or entity-grouping issues. |
+| P9-001 | tools.http has no HEAD method | Medium | Open — url-filter uses GET with timeout as workaround |
+| P9-002 | rss-feeds full-parse vs cost:cheap tension | Low | Open — untested (rss-feeds has no execute.js yet) |
+| P9-003 | Step 1→2 data handoff | Resolved | ✅ Fixed — data-operation-aware input resolution, entity re-grouping from flat pool |
+| P9-004 | ＝/➖/➕ data operation semantics undefined | Resolved | ✅ Fixed — ＝=independent/accumulate, ➖=chain/filter, ➕=chain/enrich |
+| P9-005 | Sibling submodule chaining (Step 2) | Resolved | ✅ Fixed — ➖ submodules receive working pool, not original step input |
+| P9-006 | Flagged items not pre-deselected | Resolved | ✅ Fixed — duplicate/excluded/dead_link/DROP auto-deselected on completion |
+| P9-007 | URLs not clickable in result lists | Resolved | ✅ Fixed — ContentRenderer renders url columns as `<a>` links |
+| P9-008 | Textarea input not shared across siblings | Resolved | ✅ Fixed — textarea save also upserts to step_context |
+| P9-009 | UI not updating after approval (pool count, sibling data) | Resolved | ✅ Fixed — run query invalidated after submodule approval |
+| P9-010 | Cannot re-approve a completed step | Resolved | ✅ Fixed — Reopen Step feature added |
+| P9-011 | tools.ai missing from worker | Resolved | ✅ Fixed — stageWorker.js exposes tools.ai.complete() for LLM submodules |
 
 ---
 
-*Updated: 2026-02-15 — Phase 9 pre-test findings logged. Phase 8b COMPLETE. All 7 items fixed: R001-R004, K003, R008, R009. Remaining for Phase 10: R005-R007, K001, K004.*
+*Updated: 2026-02-16 — Phase 9 testing in progress. Step 1+2 flow verified. 9 findings resolved (P9-003 through P9-011). Remaining: P9-001, P9-002. Phase 10: R005-R007, K001, K004.*

@@ -1,7 +1,7 @@
 # Content Pipeline — Development Roadmap
 
-**Last Updated**: 2026-02-15
-**Current Phase**: Phase 9 — End-to-End Pipeline Test
+**Last Updated**: 2026-02-16
+**Current Phase**: Phase 9 — End-to-End Pipeline Test (Step 1+2 verified)
 **Architecture**: Two-repo (skeleton + modules), database-mediated pipeline with React UI
 
 ---
@@ -17,7 +17,7 @@
 | 1.3 Express API Server | ✅ Complete |
 | 1.4 BullMQ Workers (entity-level) | ✅ Complete |
 | 1.5 Web Dashboard (Alpine.js) | ✅ Complete |
-| 1.6 React UI Migration | ✅ Phases 0–8 complete, Phase 9 next |
+| 1.6 React UI Migration | ✅ Phases 0–8b complete, Phase 9 in progress |
 
 ### React Migration Progress
 
@@ -32,8 +32,9 @@
 | 6: Input/Options/ContentRenderer | ✅ |
 | 7: BullMQ execution, Results, approval | ✅ |
 | 8: Step-to-step data flow | ✅ |
-| **9: End-to-end pipeline test** | **⏳ Next** |
-| 10: Polish, error states | ⏳ |
+| 8b: Code review fixes (R001-R009, K003) | ✅ |
+| **9: End-to-end pipeline test** | **In Progress** — Step 1+2 verified, 9 bugs fixed |
+| 10: Polish, error states | Not started |
 
 ---
 

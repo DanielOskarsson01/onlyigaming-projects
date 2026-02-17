@@ -1,6 +1,6 @@
 # OnlyiGaming — Claude Context (All Projects)
 
-**Last Updated**: 2026-02-15
+**Last Updated**: 2026-02-16
 **Purpose**: Platform-level context for Claude (Claude.ai, Claude Code, Claude Projects) working across any OnlyiGaming project.
 
 ---
@@ -13,7 +13,7 @@ OnlyiGaming (onlyigaming.com) is an iGaming industry platform covering company d
 
 | Project | Folder | Status |
 |---------|--------|--------|
-| Content Pipeline | `Content-Pipeline/` + `content-pipeline-v2/` + `content-pipeline-modules-v2/` | Active — Phase 8/10 complete |
+| Content Pipeline | `Content-Pipeline/` + `content-pipeline-v2/` + `content-pipeline-modules-v2/` | Active — Phase 9/10 (Step 1+2 end-to-end tested) |
 | *Other projects* | *See folder structure in AGENTS.md* | *Status TBD — needs inventory* |
 
 > **TODO**: Inventory remaining project folders and add status here.
@@ -35,4 +35,4 @@ The Content Pipeline is currently the most active project. Key entry points:
 - **Sessions**: `Content-Pipeline/sessions/`
 
 ---
-*Last updated: 2026-02-15*
+*Last updated: 2026-02-16*

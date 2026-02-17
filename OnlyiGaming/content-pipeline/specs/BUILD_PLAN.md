@@ -1022,6 +1022,48 @@ This is when work shifts to the modules repo. The skeleton should not change (if
 
 ---
 
+## Phase 9b — tools.ai + LLM-Based Filtering
+
+**Goal:** Add tools.ai to the skeleton (LLM access for submodules) and build url-relevance, the first LLM-powered submodule. Validates that AI-dependent modules work end-to-end.
+
+**Spec reference:** SKELETON_SPEC_v2.md (Part 12 — tools), SUBMODULE_DEVELOPMENT.md (tools.ai usage)
+
+**Why now:** URL discovery (Phase 9) produces hundreds of URLs per company. Structural filters (url-filter) remove obvious junk but can't distinguish a partnership announcement from a game promo blog post. LLM classification on URL slugs is cheap (one Haiku call per entity) and must happen before expensive scraping in Step 3.
+
+### Build
+
+1. **tools.ai** — Add to skeleton's `buildTools()` in stageWorker.js:
+   - Single method: `tools.ai.complete({ prompt, model, provider })`
+   - Model and provider are submodule options chosen in the pane, not skeleton decisions
+   - Skeleton handles: provider routing (Anthropic/OpenAI), model mapping (friendly name → API string), request formatting, API keys from env, response normalization, error handling, logging (tokens, cost, duration)
+   - Does NOT handle: streaming, structured output, retries, token budgets (deferred to Step 5 needs)
+
+2. **url-relevance submodule** — Step 2, category: filtering, cost: cheap:
+   - Sends URL slugs + link_text + source_location to LLM
+   - LLM classifies each as KEEP / MAYBE / DROP
+   - Returns ALL URLs with relevance field — user reviews in pane
+   - confidence_threshold option controls LLM prompt tone (keep_most / balanced / aggressive)
+   - Pane options: ai_model, ai_provider, keep_criteria, drop_criteria, confidence_threshold, max_urls_per_prompt
+   - Execution order in Step 2: url-dedup → url-filter → url-relevance
+
+### Validates
+- tools.ai works end-to-end (prompt → API call → response → logged)
+- LLM-based submodules receive model/provider from pane options
+- Cost tracking logged per run
+- Step 2 chain: structural filters → LLM filter → user approval
+
+### Deliverables
+- [ ] tools.ai.complete() works with Anthropic provider
+- [ ] tools.ai.complete() works with OpenAI provider
+- [ ] API keys read from env, never exposed to submodules
+- [ ] Token usage and cost logged per call
+- [ ] url-relevance appears in Step 2 UI
+- [ ] url-relevance classifies URLs and returns KEEP/MAYBE/DROP
+- [ ] Full Step 2 chain: url-dedup → url-filter → url-relevance → user approves
+- [ ] SKELETON_SPEC_v2.md and SUBMODULE_DEVELOPMENT.md updated with tools.ai docs
+
+---
+
 ## Phase 10 — Polish and Edge Cases
 
 **Goal:** Handle all the edge cases from the spec that weren't covered in core phases.
@@ -1046,7 +1088,6 @@ This is when work shifts to the modules repo. The skeleton should not change (if
 These are explicitly out of scope for the skeleton build:
 
 - Content Library tables (Step 10 module concern)
-- AI provider integration (tools.ai — future)
 - Cache system (tools.cache — future)
 - SSE/WebSocket (v2 — polling is fine for v1)
 - Template creation UI (v2)

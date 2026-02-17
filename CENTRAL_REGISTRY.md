@@ -8,6 +8,11 @@
 
 | Timestamp | Project | Agent | Action | Path | Notes |
 |-----------|---------|-------|--------|------|-------|
+| 2026-02-16 | Content-Pipeline | claude | Fixed | P9-003 through P9-011 (9 bugs) | Phase 9 testing: data operation semantics (＝/➖/➕), sibling chaining, tools.ai, textarea sharing, reopen step, flagged pre-deselection, clickable URLs, query invalidation |
+| 2026-02-16 | Content-Pipeline | claude | Modified | content-pipeline-v2: 13 files | submoduleRuns.js (input resolution), runs.js (reopen), submoduleConfig.js (textarea→step_context), SubmodulePanel, ContentRenderer, StepApprovalFooter, useRun, useSubmoduleRuns, RunView, Step0View, UniversalStepTemplate, client.ts, stageWorker.js |
+| 2026-02-16 | Content-Pipeline | claude | Modified | content-pipeline-modules-v2: 4 files | 3x manifest.json (add→transform), url-filter/execute.js (sort excluded to top) |
+| 2026-02-16 | Content-Pipeline | claude | Created | url-relevance submodule | New Step 2 submodule: LLM-based URL classification (manifest.json + execute.js) |
+| 2026-02-16 | Content-Pipeline | claude | Updated | PROJECT_STATUS.md, ROADMAP.md, BACKLOG.md, CLAUDE.md | Phase 9 documentation: status, findings, phase markers |
 | 2026-02-15 | Content-Pipeline | claude | Rewritten | CLAUDE.md, PROJECT_STATUS.md, ROADMAP.md | Doc reorganization: trimmed ~1600→~360 lines, removed stale schema refs, session logs moved to sessions/ |
 | 2026-02-15 | Content-Pipeline | claude | Created | sessions/SESSIONS_2026-01-23_to_2026-01-29_Early_History.md | Extracted 12 early sessions from PROJECT_STATUS |
 | 2026-02-15 | Content-Pipeline | claude | Created | sessions/SESSION_2026-02-14_Phase8_StepToStep_Plumbing.md | Extracted from old root CLAUDE.md |
@@ -89,13 +94,13 @@
 - **Key recent files:** COMMUNITY_PRODUCT_VISION.md, CONSULTANCY_STRATEGY.md
 
 ### Content-Pipeline
-- **Last touched:** 2026-02-14
-- **Status:** Phase 8 complete — 9 implementation phases committed across two repos
+- **Last touched:** 2026-02-16
+- **Status:** Phase 9 in progress — Step 1+2 end-to-end tested, 9 bugs fixed
 - **Repos:** `OnlyiGaming/content-pipeline-v2` (skeleton), `OnlyiGaming/content-pipeline-modules-v2` (modules)
-- **Key specs:** SKELETON_SPEC_v2.md (updated with rendering rule), SUBMODULE_DEVELOPMENT.md
-- **Architecture:** Two-repo split implemented and working (skeleton vs modules)
-- **Commits:** Skeleton `8a081e8` (Phase 8), Modules `9f55c76` (Phase 8)
-- **Next:** Phase 9 — End-to-end pipeline test (full multi-step flow verification)
+- **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md
+- **Architecture:** Two-repo split clean (CTO reviewed). Data ops: ＝ (accumulate), ➖ (chain/filter), ➕ (chain/enrich)
+- **Working submodules:** sitemap-parser, page-links, url-dedup, url-filter, url-relevance (5 of 8 registered)
+- **Next:** Continue Phase 9 testing, build Step 3+ submodules
 
 ### SEO
 - **Last touched:** 2026-01-26
