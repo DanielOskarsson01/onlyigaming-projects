@@ -8,6 +8,26 @@
 
 | Timestamp | Project | Agent | Action | Path | Notes |
 |-----------|---------|-------|--------|------|-------|
+| 2026-03-17 | Infrastructure | claude | Installed | ~/.mcp.json, skills/meeting-agenda/ | Google Docs MCP server (read/write Docs/Sheets/Drive), meeting-agenda skill (professional .docx agendas with clickable links + decision/goal boxes) |
+| 2026-03-19 | Content-Pipeline | session-closer | Fixed | runs.js, submoduleRuns.js | Per-entity URL forwarding: entity summaries out of working_pool, input_data lazy-populate, logger crash fix, hard reset cascade delete, transform approval key-based replacement |
+| 2026-03-17 | Content-Pipeline | claude | Fixed | submoduleRuns.js, runs.js | Pool operations: granularity-aware transform (entity_name keeps url-level items), poolKey uses source submodule's item_key, pool pruning after Step 5 (~95% size reduction) |
+| 2026-03-17 | Content-Pipeline | claude | Fixed | json-output/execute.js, markdown-output/execute.js | Step 8 bundlers prefer AI-written content (section_count) over raw scraped content_markdown |
+| 2026-03-17 | Content-Pipeline | claude | Fixed | browserPool.js | B008 browser scraper working — removed --single-process flag, added isConnected() crash recovery. Extraction rate improved. |
+| 2026-03-17 | Content-Pipeline | claude | Fixed | runs.js (reopen handler) | Step reopen now initializes working_pool from input_data instead of empty array |
+| 2026-03-17 | Content-Pipeline | claude | Deployed | Both repos pushed | CI/CD auto-deploy to Hetzner. Flow test in progress — browser scraper working, bundler data flow fixed, URL pattern filter timeout being investigated |
+| 2026-03-13 | SEO | claude | Created | SEO/OnlyiGaming_SEO_Tasks.docx, SEO/OnlyiGaming_SEO_Strategy_v3.docx | Strategy v3 + Task List v3 finalized. Audience-agnostic section added, Phase 0 removed, canonical URLs added (7.1), NewsArticle schema (7.2), all FAQ content marked complete for 80+ categories |
+| 2026-03-13 | SEO | claude | Updated | SEO/CLAUDE.md, SEO/PROJECT_STATUS.md | Session close: synced to v3 content, task number contract documented, Stefan's 5 review tasks defined, wave language retired |
+| 2026-03-13 | Content-Pipeline | claude | Fixed | stepContext.js, UrlTextarea.tsx, CsvUploadInput.tsx | Entity name contract: auto-derive name from URL, column alias system (Company Name→name, URL→website, etc.), safety net fallback |
+| 2026-03-13 | Content-Pipeline | claude | Updated | BACKLOG.md | B011 expanded to include Mercury (Inception Labs). B012 added: prompt archive / option presets |
+| 2026-03-13 | Content-Pipeline | claude | Created | PROJECT_OVERVIEW.md (memory) | Cross-project status tracker in .claude/projects memory |
+| 2026-03-11 | Content-Pipeline | claude | Fixed | 8 files in modules repo (commit 7a0f815) | Data shape fixes (frontmatter, schema.org, Strapi, keywords), display_type→cards, url-filter auto-remove, http.head() |
+| 2026-03-07 | Content-Pipeline | claude | Created | 5 Step 8 bundling submodules | markdown-output, html-output, json-output, meta-output, media-output (Phase 11 complete) |
+| 2026-03-07 | Content-Pipeline | claude | Fixed | 3 CTO review issues | removeMetaSection regex (Perl→JS), removed dead "custom" option, added downloadable_fields |
+| 2026-03-07 | Content-Pipeline | claude | Updated | BUILD_PLAN.md, BACKLOG.md, CLAUDE.md (both repos) | Phase 11 documented, data-shape routing guide added |
+| 2026-02-25 | Content-Pipeline | claude | Created | Step 5 generation submodules | content-analyzer, seo-planner, content-writer (v1.3.0) |
+| 2026-02-23 | Content-Pipeline | claude | Created | content-filter submodule | Step 4 filtering submodule |
+| 2026-02-21 | Content-Pipeline | claude | Created | page-scraper submodule | Step 3 scraping submodule |
+| 2026-02-17 | Content-Pipeline | claude | Completed | Phase 10 (UI polish) | ContentRenderer pagination, Previous Run Summary, flagged_when, display_type, console.log cleanup |
 | 2026-02-16 | Content-Pipeline | claude | Fixed | P9-003 through P9-011 (9 bugs) | Phase 9 testing: data operation semantics (＝/➖/➕), sibling chaining, tools.ai, textarea sharing, reopen step, flagged pre-deselection, clickable URLs, query invalidation |
 | 2026-02-16 | Content-Pipeline | claude | Modified | content-pipeline-v2: 13 files | submoduleRuns.js (input resolution), runs.js (reopen), submoduleConfig.js (textarea→step_context), SubmodulePanel, ContentRenderer, StepApprovalFooter, useRun, useSubmoduleRuns, RunView, Step0View, UniversalStepTemplate, client.ts, stageWorker.js |
 | 2026-02-16 | Content-Pipeline | claude | Modified | content-pipeline-modules-v2: 4 files | 3x manifest.json (add→transform), url-filter/execute.js (sort excluded to top) |
@@ -88,29 +108,87 @@
 
 ## Project Index
 
-### Community
-- **Last touched:** 2026-01-29
-- **Status:** Vision document complete (COMMUNITY_PRODUCT_VISION.md), ready for build vs buy research
-- **Key recent files:** COMMUNITY_PRODUCT_VISION.md, CONSULTANCY_STRATEGY.md
+All projects live under `Dropbox/Projects/OnlyiGaming/` unless noted otherwise.
 
-### Content-Pipeline
-- **Last touched:** 2026-02-16
-- **Status:** Phase 9 in progress — Step 1+2 end-to-end tested, 9 bugs fixed
-- **Repos:** `OnlyiGaming/content-pipeline-v2` (skeleton), `OnlyiGaming/content-pipeline-modules-v2` (modules)
-- **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md
-- **Architecture:** Two-repo split clean (CTO reviewed). Data ops: ＝ (accumulate), ➖ (chain/filter), ➕ (chain/enrich)
-- **Working submodules:** sitemap-parser, page-links, url-dedup, url-filter, url-relevance (5 of 8 registered)
-- **Next:** Continue Phase 9 testing, build Step 3+ submodules
+### Content-Pipeline (ACTIVE — primary focus)
+- **Last touched:** 2026-03-19
+- **Path:** `Content-Pipeline/` (specs), `content-pipeline-v2/` (skeleton), `content-pipeline-modules-v2/` (modules)
+- **Status:** Phase 11 CODE COMPLETE. 19 submodules (18 functional). Per-entity mode bug fixes: URL forwarding, transform approval, hard reset, deep-links. Flow test blocked by browser cache display issue.
+- **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md, BUILD_PLAN.md, BACKLOG.md
+- **Architecture:** Two-repo split. Express+React+Supabase+BullMQ. Data ops: ＝ (accumulate), ➖ (chain/filter), ➕ (chain/enrich)
+- **Pipeline steps built:** 0-5 + 8 (Steps 6/7/9/10 not yet built)
+- **Submodules:** sitemap-parser, page-links, deep-links, url-dedup, url-filter, url-relevance, page-scraper, browser-scraper, content-filter, content-analyzer, seo-planner, content-writer, markdown-output, html-output, json-output, meta-output, company-media, test-dummy (+ rss-feeds placeholder)
+- **Known issues:** URL pattern filter timeout (sequential HEAD requests), pool tech debt (flat array multi-granularity)
+- **Next priorities:** (1) Complete flow test end-to-end, (2) B012 prompt archive, (3) B011 multi-provider LLM (Gemini + Mercury)
 
 ### SEO
-- **Last touched:** 2026-01-26
-- **Status:** Wave 1 FAQs complete (10 categories), Wave 2 ready (20 categories)
-- **Key recent files:** faq-generation/output/wave-1/*.md, .claude/commands/faq.md
+- **Last touched:** 2026-03-13
+- **Path:** `SEO/`
+- **Status:** Strategy v3 and Task List v3 finalized. FAQ content complete for all 80+ categories. Both .docx files ready for Google Docs upload. Foundational schemas (1.1-1.5) deployed and verified. Tasks 7.1 (Canonical URLs) and 7.2 (NewsArticle Schema) newly defined. Stefan has 5 review tasks pending.
+- **Key files:** OnlyiGaming_SEO_Tasks.docx (canonical task list), OnlyiGaming_SEO_Strategy_v3.docx (canonical strategy), faq-generation/output/ (all categories complete)
+
+### Tags (Tagging System)
+- **Last touched:** Ongoing
+- **Path:** `tags/`
+- **Status:** 4-layer tagging system (335+ tags). Category registries for directory, career, geography, community.
+- **Key files:** dir-categories.md, career-categories.md, geo-registry.md, comm-status.md
+
+### LinkedIn Strategy
+- **Last touched:** Unknown
+- **Path:** `linkedin/`
+- **Status:** Strategy/skill docs. 4 files.
+- **Key files:** README.md, SKILL.md
+
+### Community
+- **Last touched:** 2026-01-29
+- **Path:** `Community/`
+- **Status:** Vision document complete (COMMUNITY_PRODUCT_VISION.md), ready for build vs buy research
+- **Key files:** COMMUNITY_PRODUCT_VISION.md, CONSULTANCY_STRATEGY.md
 
 ### News-Section
 - **Last touched:** 2026-01-25
-- **Status:** Database schema complete, awaiting handoff to site developer
-- **Key recent files:** sql/schema.sql
+- **Path:** `News-Section/`
+- **Status:** Database schema complete, roadmap drafted, awaiting handoff
+- **Key files:** PROJECT_STATUS.md, ROADMAP.md
+
+### Plasmic (Frontend Migration)
+- **Last touched:** Unknown
+- **Path:** `Plasmic/`
+- **Status:** Frontend migration from Alpine to Plasmic. 17 files.
+- **Key files:** ROADMAP.md
+
+### Directory
+- **Last touched:** Unknown
+- **Path:** `Directory/`
+- **Status:** 80+ company categories. Roadmap exists.
+- **Key files:** ROADMAP.md
+
+### Communication-Marketing
+- **Path:** `Communication-Marketing/`
+- **Key files:** ROADMAP.md
+
+### Sections with boilerplate only (5 files each — CLAUDE.md, AGENTS.md, GEMINI.md, ROADMAP.md stubs)
+Awards, Career, Consultant-Section, Cooperations, Education, Events, M-And-A, Marketplace, Media, Reviews, Startups
+
+---
+
+### Non-OnlyiGaming Projects
+
+### Brochure Generator
+- **Path:** `Dropbox/Projects/brochure-generator/`
+- **Status:** Unknown — needs review
+
+### PA Mobile App
+- **Path:** `Dropbox/Projects/PA mobile app/`
+- **Key files:** SESSION_SUMMARY.md
+
+### Job Search
+- **Path:** `Dropbox/Projects/JobSearch/`
+- **Key files:** CLAUDE.md
+
+### Research
+- **Path:** `Dropbox/Projects/research/`
+- **Files:** job-search-apis-2026.md, faq-optimization-best-practices-2026.md, supabase-mcp-claude-code-setup.md, DEV_WORKFLOW_BEST_PRACTICES.md
 
 ---
 
