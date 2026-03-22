@@ -8,7 +8,17 @@
 
 | Timestamp | Project | Agent | Action | Path | Notes |
 |-----------|---------|-------|--------|------|-------|
+| 2026-03-23 | Content-Pipeline | session-closer | Fixed/Created | stageWorker.js, SubmodulePanel.tsx, client.ts, submoduleRuns.js, schema.sql, code-review skill | Fixed empty text (FK constraint drop), all-or-nothing failure display (synthetic error items), added Download All CTA for per-entity batch mode (new /all-items endpoint), created /code-review pre-commit skill. 4 commits pushed. |
+| 2026-03-23 | Content-Pipeline | session-closer | Created | modules/step-6-qa/*, step-4-filtering/intent-tagger, step-5-generation/tone-seo-editor, step-8-bundling/schema-org-injector, step-10-review/loop-router | Built 7 new submodules (citation-coverage-checker, keyword-sufficiency-checker, hallucination-detector, intent-tagger, tone-seo-editor, schema-org-injector, loop-router). Fixed 8 rendering bugs (flagged_when string coercion, array→string outputs, invalid display types). Total built submodules: 29. |
+| 2026-03-22 | Content-Pipeline | claude | Restructured | CLAUDE.md, skills/, docs/SUBMODULE_INVENTORY.md | Doc restructure: CLAUDE.md 191→79 lines (rules only). /submodule-create skill rewritten as 44-line thin router with decision guidance (points to SUBMODULE_DEVELOPMENT.md). Inventory table extracted to docs/SUBMODULE_INVENTORY.md. Submodule CLAUDE.md now required (stale-docs rule). Cross-references added between skills. |
+| 2026-03-22 | Content-Pipeline | claude | Fixed | api-scraper/execute.js, manifest.json, README.md | ScrapFly rate limiting: 429 circuit breaker (3 consecutive = abort), global token-bucket rate limiter (10 req/min), reduced retry delays. Comprehensive README rewrite (230+ lines). |
+| 2026-03-22 | Content-Pipeline | claude | Created | skills/submodule-readme/SKILL.md, skills/submodule-create/SKILL.md | Two skills: /submodule-readme (documentation generator + conversational descriptions) and /submodule-create (creation workflow + decision guidance). |
+| 2026-03-22 | Content-Pipeline | claude | Fixed | content-pipeline-v2/client/src/components/primitives/UrlTextarea.tsx | URL textarea: added Name; URL format (semicolon separator), fixed bare domain name derivation. |
+| 2026-03-21 | Content-Pipeline | session-closer | Created | content-pipeline-modules-v2/modules/step-3-scraping/api-scraper/ | api-scraper submodule: ScrapFly API fallback for Cloudflare-protected sites (manifest.json, execute.js, README.md). 6 commits: creation + 5 iterative block detection fixes. |
+| 2026-03-21 | Content-Pipeline | session-closer | Fixed | content-pipeline-v2/server/routes/submoduleRuns.js | Per-entity pool dedup bug: `add` operation used item_key alone, dropping sibling submodule items. Now uses composite key (item_key + source_submodule). Fixed Step 5 content-writer "Missing upstream output: seo-planner" error. |
+| 2026-03-20 | Content-Pipeline | claude | Created | Content-Pipeline/specs/submodule-briefs/ (28 files) | 28 submodule research briefs written across Steps 1-10. Parallel development decision: submodules are pure functions with defined contracts, can be built independently by second Claude session, freelancer, or claude.ai. Key corrections: PSE Directories = one configurable submodule (not per-directory), Curated List Import = separate from PSE, AI Discovery Scout runs first (generates leads for downstream), Image & Logo Search added to Step 1, SEO Keyword Researcher added to Step 5 (Ahrefs/SERPApi), Media Transcript Fetcher moved from Step 5 to Step 3, Step 5 media split into 3 (Image/Video/Audio generators). |
 | 2026-03-17 | Infrastructure | claude | Installed | ~/.mcp.json, skills/meeting-agenda/ | Google Docs MCP server (read/write Docs/Sheets/Drive), meeting-agenda skill (professional .docx agendas with clickable links + decision/goal boxes) |
+| 2026-03-19 | Content-Pipeline | session-closer | Fixed | stageWorker.js | Null byte sanitization before PostgreSQL JSONB write — fixes Play'n GO Step 3 "unsupported Unicode escape sequence" error in per-entity mode |
 | 2026-03-19 | Content-Pipeline | session-closer | Fixed | runs.js, submoduleRuns.js | Per-entity URL forwarding: entity summaries out of working_pool, input_data lazy-populate, logger crash fix, hard reset cascade delete, transform approval key-based replacement |
 | 2026-03-17 | Content-Pipeline | claude | Fixed | submoduleRuns.js, runs.js | Pool operations: granularity-aware transform (entity_name keeps url-level items), poolKey uses source submodule's item_key, pool pruning after Step 5 (~95% size reduction) |
 | 2026-03-17 | Content-Pipeline | claude | Fixed | json-output/execute.js, markdown-output/execute.js | Step 8 bundlers prefer AI-written content (section_count) over raw scraped content_markdown |
@@ -111,15 +121,16 @@
 All projects live under `Dropbox/Projects/OnlyiGaming/` unless noted otherwise.
 
 ### Content-Pipeline (ACTIVE — primary focus)
-- **Last touched:** 2026-03-19
+- **Last touched:** 2026-03-23
 - **Path:** `Content-Pipeline/` (specs), `content-pipeline-v2/` (skeleton), `content-pipeline-modules-v2/` (modules)
-- **Status:** Phase 11 CODE COMPLETE. 19 submodules (18 functional). Per-entity mode bug fixes: URL forwarding, transform approval, hard reset, deep-links. Flow test blocked by browser cache display issue.
+- **Status:** Phase 11 CODE COMPLETE. **29 built submodules** (28 functional + rss-feeds placeholder). Fixed: FK constraint blocking text_content storage, all-or-nothing failure display, missing Download All CTA in per-entity mode. /code-review pre-commit skill created.
 - **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md, BUILD_PLAN.md, BACKLOG.md
 - **Architecture:** Two-repo split. Express+React+Supabase+BullMQ. Data ops: ＝ (accumulate), ➖ (chain/filter), ➕ (chain/enrich)
-- **Pipeline steps built:** 0-5 + 8 (Steps 6/7/9/10 not yet built)
-- **Submodules:** sitemap-parser, page-links, deep-links, url-dedup, url-filter, url-relevance, page-scraper, browser-scraper, content-filter, content-analyzer, seo-planner, content-writer, markdown-output, html-output, json-output, meta-output, company-media, test-dummy (+ rss-feeds placeholder)
+- **Pipeline steps built:** 0-5 + 6 + 8 + 10 (Steps 7/9 not yet built)
+- **Built submodules (29):** sitemap-parser, page-links, deep-links, url-dedup, url-filter, url-relevance, page-scraper, browser-scraper, api-scraper, content-filter, seed-url-builder, boilerplate-stripper, intent-tagger, content-analyzer, seo-planner, content-writer, tone-seo-editor, meta-compliance-checker, keyword-sufficiency-checker, citation-coverage-checker, hallucination-detector, markdown-output, html-output, json-output, meta-output, company-media, schema-org-injector, loop-router, test-dummy (+ rss-feeds placeholder)
+- **Remaining briefs (18):** Step 1: ai-discovery-scout, google-pse-news, google-pse-directories, linkedin-discovery, youtube-podcast-discovery, social-media-discovery, curated-list-import, image-logo-search. Step 2: learned-validator. Step 3: media-transcript-fetcher, api-data-fetcher. Step 5: seo-keyword-researcher, image-generator, video-generator, audio-tts-generator. Step 9: strapi-publisher, google-docs-exporter, google-sheets-logger.
 - **Known issues:** URL pattern filter timeout (sequential HEAD requests), pool tech debt (flat array multi-granularity)
-- **Next priorities:** (1) Complete flow test end-to-end, (2) B012 prompt archive, (3) B011 multi-provider LLM (Gemini + Mercury)
+- **Next priorities:** (1) Complete flow test end-to-end, (2) Build submodules from briefs (parallel dev), (3) B012 prompt archive, (4) B011 multi-provider LLM (Gemini + Mercury)
 
 ### SEO
 - **Last touched:** 2026-03-13
