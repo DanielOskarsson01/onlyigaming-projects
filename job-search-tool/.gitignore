@@ -1,0 +1,7 @@
+node_modules/
+output/
+.env
+client/node_modules/
+client/dist/
+server/data/discovery.json
+server/data/jobs.json

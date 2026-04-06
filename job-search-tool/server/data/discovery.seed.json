@@ -1,0 +1,207 @@
+{
+  "sources": [
+    {
+      "id": "jobtech-cmo-stockholm",
+      "type": "api",
+      "provider": "jobtech",
+      "name": "JobTech - CMO Stockholm",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
+        "params": { "q": "CMO OR \"Chief Marketing Officer\" OR Marknadschef", "municipality": "0180" }
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "jobtech-cpo-stockholm",
+      "type": "api",
+      "provider": "jobtech",
+      "name": "JobTech - CPO Stockholm",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
+        "params": { "q": "CPO OR \"Chief Product Officer\" OR Produktchef", "municipality": "0180" }
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "jobtech-coo-stockholm",
+      "type": "api",
+      "provider": "jobtech",
+      "name": "JobTech - COO Stockholm",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
+        "params": { "q": "COO OR \"Chief Operating Officer\"", "municipality": "0180" }
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "jobtech-head-marketing-stockholm",
+      "type": "api",
+      "provider": "jobtech",
+      "name": "JobTech - Head of Marketing Stockholm",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
+        "params": { "q": "\"Head of Marketing\" OR \"Marketing Director\"", "municipality": "0180" }
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "jobtech-head-product-stockholm",
+      "type": "api",
+      "provider": "jobtech",
+      "name": "JobTech - Head of Product Stockholm",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
+        "params": { "q": "\"Head of Product\" OR \"Product Director\"", "municipality": "0180" }
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "remoteok-all",
+      "type": "api",
+      "provider": "remoteok",
+      "name": "RemoteOK - Remote Jobs",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://remoteok.com/api",
+        "params": {}
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "remotive-marketing",
+      "type": "api",
+      "provider": "remotive",
+      "name": "Remotive - Marketing",
+      "enabled": true,
+      "config": {
+        "baseUrl": "https://remotive.com/api/remote-jobs",
+        "params": { "category": "marketing" }
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "betsson-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Betsson Group Careers",
+      "enabled": true,
+      "config": {
+        "url": "https://www.betssongroup.com/careers/",
+        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "baseUrl": "https://www.betssongroup.com"
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "leovegas-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "LeoVegas Careers",
+      "enabled": true,
+      "config": {
+        "url": "https://www.leovegasgroup.com/careers/",
+        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "baseUrl": "https://www.leovegasgroup.com"
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "kindred-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Kindred (Unibet) Careers",
+      "enabled": true,
+      "config": {
+        "url": "https://www.kindredgroup.com/careers/",
+        "linkSelector": "a[href*='/job/'], a[href*='/careers/'], a[href*='/vacancies/']",
+        "baseUrl": "https://www.kindredgroup.com"
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "evolution-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Evolution Careers",
+      "enabled": true,
+      "config": {
+        "url": "https://www.evolution.com/careers/",
+        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "baseUrl": "https://www.evolution.com"
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "raketech-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Raketech Careers",
+      "enabled": true,
+      "config": {
+        "url": "https://www.raketech.com/careers/",
+        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "baseUrl": "https://www.raketech.com"
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "kambi-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Kambi Careers",
+      "enabled": true,
+      "config": {
+        "url": "https://www.kambi.com/careers/",
+        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "baseUrl": "https://www.kambi.com"
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    }
+  ],
+  "discoveries": [],
+  "searchProfile": {
+    "keywords": [
+      "CMO", "CPO", "COO", "CEO",
+      "Marknadschef", "Produktchef",
+      "Chief Marketing Officer", "Chief Product Officer", "Chief Operating Officer",
+      "Head of Marketing", "Head of Product",
+      "VP Marketing", "VP Product",
+      "Marketing Director", "Product Director"
+    ],
+    "industries": ["iGaming", "online gaming", "betting", "casino", "gambling", "igaming"],
+    "locations": ["Stockholm", "Sweden", "Remote", "Europe", "Nordic"],
+    "seniority": ["Executive", "Director", "VP", "Head", "Chief"]
+  },
+  "lastScanAt": null
+}
