@@ -98,3 +98,27 @@ Status flow: `scraped -> analyzed -> generated`
 ```
 
 Status flow: `new -> interested/dismissed` or `new -> validated -> promoted`
+
+## Session Log
+
+### Session: 2026-04-07 — Discovery filter rewrite to keyword matching
+**Accomplished:**
+- Fixed discovery filter: applied `filterByProfile` to ALL API sources (not just RemoteOK/Remotive). JobTech was flooding feed with 100+ irrelevant results.
+- Tightened filter with industry requirement for generic terms, but still too noisy.
+- Rewrote filter to keyword-only title matching against 37 role-specific keywords derived from user's actual LinkedIn applications. Tested: 10/10 real applications pass, 6/6 irrelevant jobs rejected.
+- Expanded search profile from 15 to 37 keywords (Marketing Manager, Brand Manager, Creative Strategist, Product Marketing Manager, Growth Manager, Strategy Director, etc.).
+- Added "Running the Tool" section to CLAUDE.md with `npm run dev` and port info.
+- Verified end-to-end: server restarted, discovery scan ran clean (0 irrelevant results).
+
+**Decisions:**
+- Keyword-only filter (no seniority/industry): user searches by specific role names, not seniority + industry combinations. Generic terms like "Senior", "Manager", "Lead" match too many irrelevant roles.
+- 37 role-specific keywords based on actual LinkedIn applications: covers CMO/CEO down to Marketing Manager/Brand Manager.
+- Search profile stored in discovery.json (not code): keywords, industries, seniority, locations are configurable via UI/API.
+
+**Blockers/Questions:**
+- Raketech careers source errors: `fetch failed` during scan (likely broken URL or blocked requests). Low priority.
+- JobTech timeout: intermittent "This operation was aborted" for jobtech-head-marketing-stockholm.
+
+**Commits:** `078f778`, `7fdcc6e`, `8c6ffc1` (all pushed)
+**Files changed:** `server/services/discovery.js`, `CLAUDE.md`
+**Updated by:** session-closer agent
