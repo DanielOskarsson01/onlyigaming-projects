@@ -147,24 +147,41 @@ function diceCoefficient(a, b) {
 
 /**
  * Filter items by search profile keywords/seniority.
- * Used for broad sources (RemoteOK, Remotive) that return everything.
+ * Strict: requires BOTH a role match AND an industry match.
+ * Only acronym-style keywords (CMO, CPO, COO, CEO) are exempt from the
+ * industry check because they are unambiguous on their own.
  */
 function filterByProfile(items, profile) {
   const kwLower = (profile.keywords || []).map((k) => k.toLowerCase());
   const seniorityLower = (profile.seniority || []).map((s) => s.toLowerCase());
   const industryLower = (profile.industries || []).map((i) => i.toLowerCase());
 
+  // Short uppercase-only keywords are unambiguous (CMO, CPO, CEO, COO)
+  const acronyms = kwLower.filter((kw) => kw.length <= 4 && /^[a-z]+$/.test(kw));
+
   return items.filter((item) => {
     const titleLower = (item.title || "").toLowerCase();
     const snippetLower = (item.snippet || "").toLowerCase();
+    const companyLower = (item.company || "").toLowerCase();
     const tagsLower = (item.tags || []).map((t) => t.toLowerCase()).join(" ");
-    const combined = titleLower + " " + snippetLower + " " + tagsLower;
+    const combined = titleLower + " " + snippetLower + " " + companyLower + " " + tagsLower;
+
+    const hasIndustry = industryLower.some((ind) => combined.includes(ind));
+
+    // Acronym keywords (CMO, CPO, etc.) are strong enough alone — word-boundary check
+    const hasAcronym = acronyms.some((acr) => {
+      const re = new RegExp(`\\b${acr}\\b`);
+      return re.test(titleLower);
+    });
+    if (hasAcronym) return true;
+
+    // Everything else needs industry context
+    if (!hasIndustry) return false;
 
     const hasKeyword = kwLower.some((kw) => titleLower.includes(kw));
     const hasSeniority = seniorityLower.some((s) => titleLower.includes(s));
-    const hasIndustry = industryLower.some((ind) => combined.includes(ind));
 
-    return hasKeyword || (hasSeniority && hasIndustry);
+    return hasKeyword || hasSeniority;
   });
 }
 
