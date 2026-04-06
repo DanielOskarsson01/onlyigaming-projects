@@ -38,9 +38,14 @@ async function runScan(sourceId = null) {
       console.log(`[Discovery] Scanning: ${source.name}`);
       let items = await provider.fetchJobs(source);
 
-      // Keyword relevance filter for broad sources (RemoteOK, Remotive)
-      if (source.provider === "remoteok" || source.provider === "remotive") {
+      // Keyword relevance filter for all API sources (titles are often noisy).
+      // Career pages are already targeted by site, so skip filtering for those.
+      if (source.provider !== "career_page") {
+        const before = items.length;
         items = filterByProfile(items, profile);
+        if (before !== items.length) {
+          console.log(`[Discovery] Filtered ${source.name}: ${before} -> ${items.length} (${before - items.length} irrelevant removed)`);
+        }
       }
 
       // Deduplicate against existing discoveries

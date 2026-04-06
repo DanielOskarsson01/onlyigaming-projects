@@ -65,6 +65,16 @@ All generated text output must follow:
 3. Avoid "leveraged", "spearheaded", "cutting-edge", "robust" and AI-typical words.
 4. Write in a direct, confident, human tone. No filler phrases.
 
+## Running the Tool
+
+```bash
+cd ~/Library/CloudStorage/Dropbox/Projects/job-search-tool
+npm run dev
+```
+
+- Frontend: http://localhost:5174/
+- API: http://localhost:3005/
+
 ## Related Projects
 
 - **JobSearch/** (`CVS_DIR`) - File store for CV source docs, generated outputs, application tracking
