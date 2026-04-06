@@ -146,42 +146,17 @@ function diceCoefficient(a, b) {
 }
 
 /**
- * Filter items by search profile keywords/seniority.
- * Strict: requires BOTH a role match AND an industry match.
- * Only acronym-style keywords (CMO, CPO, COO, CEO) are exempt from the
- * industry check because they are unambiguous on their own.
+ * Filter items by search profile keywords.
+ * A job passes if its title contains any keyword from the profile.
+ * Keywords should be specific role names (e.g. "Marketing Director",
+ * "Brand Manager", "Head of Product") — not generic terms.
  */
 function filterByProfile(items, profile) {
   const kwLower = (profile.keywords || []).map((k) => k.toLowerCase());
-  const seniorityLower = (profile.seniority || []).map((s) => s.toLowerCase());
-  const industryLower = (profile.industries || []).map((i) => i.toLowerCase());
-
-  // Short uppercase-only keywords are unambiguous (CMO, CPO, CEO, COO)
-  const acronyms = kwLower.filter((kw) => kw.length <= 4 && /^[a-z]+$/.test(kw));
 
   return items.filter((item) => {
     const titleLower = (item.title || "").toLowerCase();
-    const snippetLower = (item.snippet || "").toLowerCase();
-    const companyLower = (item.company || "").toLowerCase();
-    const tagsLower = (item.tags || []).map((t) => t.toLowerCase()).join(" ");
-    const combined = titleLower + " " + snippetLower + " " + companyLower + " " + tagsLower;
-
-    const hasIndustry = industryLower.some((ind) => combined.includes(ind));
-
-    // Acronym keywords (CMO, CPO, etc.) are strong enough alone — word-boundary check
-    const hasAcronym = acronyms.some((acr) => {
-      const re = new RegExp(`\\b${acr}\\b`);
-      return re.test(titleLower);
-    });
-    if (hasAcronym) return true;
-
-    // Everything else needs industry context
-    if (!hasIndustry) return false;
-
-    const hasKeyword = kwLower.some((kw) => titleLower.includes(kw));
-    const hasSeniority = seniorityLower.some((s) => titleLower.includes(s));
-
-    return hasKeyword || hasSeniority;
+    return kwLower.some((kw) => titleLower.includes(kw));
   });
 }
 
