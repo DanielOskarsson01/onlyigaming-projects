@@ -9,11 +9,18 @@ import {
 } from '../api'
 
 const FILTERS = ['new', 'interested', 'all', 'dismissed']
+const TIME_FILTERS = [
+  { label: 'All Time', hours: null },
+  { label: 'Last 24h', hours: 24 },
+  { label: 'Last 3 Days', hours: 72 },
+  { label: 'Last Week', hours: 168 },
+]
 
 export default function DiscoveryFeed({ onPromoted }) {
   const [items, setItems] = useState([])
   const [sources, setSources] = useState([])
   const [filter, setFilter] = useState('new')
+  const [timeFilter, setTimeFilter] = useState(null)
   const [scanning, setScanning] = useState(false)
   const [promoting, setPromoting] = useState(null)
   const [lastScan, setLastScan] = useState(null)
@@ -75,6 +82,15 @@ export default function DiscoveryFeed({ onPromoted }) {
 
   const newCount = items.filter((i) => i.status === 'new').length
 
+  // Apply client-side time filter
+  const filteredItems = timeFilter
+    ? items.filter((item) => {
+        const ts = item.discoveredAt || item.createdAt
+        if (!ts) return true
+        return Date.now() - new Date(ts).getTime() < timeFilter * 3600000
+      })
+    : items
+
   return (
     <div className="space-y-4">
       {/* Top bar */}
@@ -98,6 +114,20 @@ export default function DiscoveryFeed({ onPromoted }) {
               )}
             </button>
           ))}
+          <span className="mx-1 text-gray-300">|</span>
+          {TIME_FILTERS.map((tf) => (
+            <button
+              key={tf.label}
+              onClick={() => setTimeFilter(tf.hours)}
+              className={`px-2.5 py-1.5 rounded-full text-xs font-medium ${
+                timeFilter === tf.hours
+                  ? 'bg-gray-700 text-white'
+                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+              }`}
+            >
+              {tf.label}
+            </button>
+          ))}
         </div>
 
         <div className="flex items-center gap-3">
@@ -119,14 +149,23 @@ export default function DiscoveryFeed({ onPromoted }) {
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       {/* Items */}
-      {items.length === 0 ? (
+      {filteredItems.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
-          <p>No discoveries yet.</p>
-          <p className="text-sm mt-1">Click "Scan Now" to check all configured sources.</p>
+          {items.length > 0 && timeFilter ? (
+            <>
+              <p>No discoveries in the selected time range.</p>
+              <p className="text-sm mt-1">Try a longer time range or "All Time".</p>
+            </>
+          ) : (
+            <>
+              <p>No discoveries yet.</p>
+              <p className="text-sm mt-1">Click "Scan Now" to check all configured sources.</p>
+            </>
+          )}
         </div>
       ) : (
         <div className="space-y-2">
-          {items.map((item) => (
+          {filteredItems.map((item) => (
             <DiscoveryItemCard
               key={item.id}
               item={item}

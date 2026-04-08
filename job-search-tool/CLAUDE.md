@@ -14,17 +14,17 @@ Personal job application factory. 7-step pipeline from job discovery to ready-to
 ## The 7-Step Pipeline
 
 ```
-DISCOVER -> VALIDATE -> SCRAPE -> EVALUATE -> GENERATE -> PACKAGE -> APPLY
-   AI        HUMAN       AI      AI+HUMAN      AI         AUTO     Phase 2
+DISCOVER -> VALIDATE -> EVALUATE -> REVIEW -> REFINE -> GENERATE -> PACKAGE
+   AI        HUMAN      AI+HUMAN    HUMAN    AI+HUMAN     AI         AUTO
 ```
 
-1. **Discover** - Crawl configured job sites (APIs + career pages + manual URL upload)
-2. **Validate** - Human reviews title + company, approves/dismisses before scraping
-3. **Scrape** - Extract full job ad text (HTTP -> Playwright -> ScrapFly cascade)
-4. **Evaluate** - Claude 5-layer analysis, fit scoring, gap detection, variant selection
-5. **Generate** - CV + cover letter + suggestions + Q&A answers in one action
-6. **Package** - Bundle into per-application folder, output to both tool and JobSearch/
-7. **Apply** - Phase 2: Claude coworker handles submission
+1. **Discover** - Crawl configured job sites (APIs + career pages + manual URL/paste)
+2. **Validate** - Human reviews title + company, scrapes job ad text
+3. **Evaluate** - Claude 5-layer analysis, fit scoring, variant selection
+4. **Review** - Accept/reject suggestions, answer gap questions
+5. **Refine** - Preview how suggestions/answers integrate into CV, iterative comment/approve loop
+6. **Generate** - CV + cover letter + suggestions doc (uses refined content + knowledge bank)
+7. **Package** - Download all outputs, bundled per-application folder
 
 ## Key Directories
 
@@ -89,7 +89,7 @@ npm run dev
   analysis, userChoices, outputs }
 ```
 
-Status flow: `scraped -> analyzed -> generated`
+Status flow: `scraped -> analyzed -> reviewed -> refined -> generated`
 
 ### Discovery Item (discovery.json)
 ```

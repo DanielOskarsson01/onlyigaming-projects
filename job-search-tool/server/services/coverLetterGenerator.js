@@ -1,6 +1,6 @@
 /**
  * Cover letter generation service.
- * Ported from JobSearch/CVs/generate-cover-letter.js for use in the web tool.
+ * Reads system prompt from promptDb (configurable via Settings UI).
  */
 
 const fs = require("fs");
@@ -11,6 +11,11 @@ const {
   AlignmentType, BorderStyle, Header
 } = require("docx");
 const { loadAll } = require("./cvContent");
+const {
+  getActivePrompt,
+  getSettings,
+  DEFAULT_COVER_LETTER_SYSTEM_PROMPT,
+} = require("../lib/promptDb");
 
 // Design constants (matching CV styling)
 const TEAL = "2B5C6E";
@@ -42,54 +47,16 @@ const COVER_IMAGE_MAP = {
   digital: "cover large builder.png",
 };
 
-const SYSTEM_PROMPT = `You are a cover letter writer for Daniel Oskarsson. You write concise, direct, confident cover letters that feel human - not AI-generated.
+// SYSTEM_PROMPT is now loaded from promptDb at runtime (see generateCoverLetter below)
 
-=== ABOUT DANIEL ===
-
-Daniel has 27+ years of experience. Key highlights:
-- Scaled two startups to NASDAQ-listed companies (MrGreen and ComeOn)
-- Teams grew from single digits to 250+ employees
-- Deep expertise in CRM, gamification, growth marketing, data/BI, product development
-- Built a company from scratch as CEO (Coinhero - crypto iGaming)
-- Currently building OnlyiGaming.com - a B2B platform with AI-powered content automation
-- Earlier career includes Betclic (Head of Casino Business), creative agencies, and consulting
-- Languages: Swedish (native), English (fluent), German (professional)
-- Based in Stockholm, Sweden
-
-=== WRITING RULES (MANDATORY) ===
-
-1. NEVER use em dashes or en dashes. Use hyphens (-) only.
-2. NEVER use "leveraged", "spearheaded", "cutting-edge", "robust", "passionate about", "excited to", "thrilled", or other AI-typical words.
-3. Write in first person. Direct, confident, human tone.
-4. No filler phrases or corporate fluff.
-5. Keep it SHORT - 3-4 paragraphs max, roughly 200-300 words total.
-6. Lead with the strongest connection to the role.
-7. Reference specific things from the job ad - show you read it.
-8. End with a clear call to action.
-9. Do NOT repeat the CV - the cover letter should add personality and context, not rehash bullet points.
-
-=== STRUCTURE ===
-
-Paragraph 1: Why this role, why this company. Show you understand what they need.
-Paragraph 2: Your strongest relevant experience - pick 2-3 things that directly match. Be specific with numbers.
-Paragraph 3 (optional): Something that differentiates you - a unique angle or added value.
-Final paragraph: Short closing. Available for conversation. No begging.
-
-=== TONE ===
-
-Think: experienced professional writing to a peer, not a junior applicant writing to a gatekeeper.
-Confident but not arrogant. Specific but not exhaustive. Human but not casual.
-
-Return ONLY valid JSON. No markdown formatting or code fences.`;
-
-function buildPrompt(jobAdText) {
+function buildPrompt(jobAdText, extraContext) {
   const { MASTER_CV_MD, SECTION_VARIANTS_MD, CV_DATA } = loadAll();
 
   const identityPositioning = (CV_DATA.identity_positioning || [])
     .map((p) => `- ${p.label}: ${p.description}`)
     .join("\n");
 
-  return `## JOB ADVERTISEMENT
+  let prompt = `## JOB ADVERTISEMENT
 ---
 ${jobAdText}
 ---
@@ -105,7 +72,18 @@ ${SECTION_VARIANTS_MD}
 ---
 
 ## IDENTITY POSITIONING
-${identityPositioning}
+${identityPositioning}`;
+
+  if (extraContext) {
+    prompt += `
+
+## ADDITIONAL CONTEXT FROM REFINEMENT REVIEW
+The candidate reviewed the job analysis and provided additional information. Use this to make the cover letter more specific and compelling.
+
+${extraContext}`;
+  }
+
+  prompt += `
 
 ## RESPONSE FORMAT
 
@@ -124,6 +102,8 @@ Return this exact JSON structure:
   ],
   "sign_off": "Best regards"
 }`;
+
+  return prompt;
 }
 
 // DOCX helpers
@@ -302,16 +282,27 @@ function extractJSON(text) {
  * @param {string} variant - CV variant (igaming, cmo, etc.) from analysis
  * @param {string} companySlug - Sanitized company name for filename
  * @param {string} outputDir - Directory to write the file
+ * @param {string} [extraContext] - Additional context from refinement (gap answers, integration notes)
  * @returns {{ coverLetterFilename: string, coverLetterData: object }}
  */
-async function generateCoverLetter(jobAdText, variant, companySlug, outputDir) {
+async function generateCoverLetter(jobAdText, variant, companySlug, outputDir, extraContext) {
   const client = new Anthropic();
 
+  // Resolve system prompt from DB
+  let systemPrompt = DEFAULT_COVER_LETTER_SYSTEM_PROMPT;
+  const active = getActivePrompt("cover_letter");
+  if (active) systemPrompt = active.systemPrompt;
+
+  // Resolve model settings
+  const settings = getSettings();
+  const model = settings.coverLetterModel || "claude-sonnet-4-20250514";
+  const maxTokens = settings.coverLetterMaxTokens || 2000;
+
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 2000,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: "user", content: buildPrompt(jobAdText) }],
+    model,
+    max_tokens: maxTokens,
+    system: systemPrompt,
+    messages: [{ role: "user", content: buildPrompt(jobAdText, extraContext) }],
   });
 
   const raw = response.content[0].text;

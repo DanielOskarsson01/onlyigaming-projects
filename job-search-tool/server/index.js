@@ -16,6 +16,10 @@ app.use("/api/scrape", require("./routes/scrape"));
 app.use("/api/analyze", require("./routes/analyze"));
 app.use("/api/generate", require("./routes/generate"));
 app.use("/api/discovery", require("./routes/discovery"));
+app.use("/api/prompts", require("./routes/prompts"));
+app.use("/api/materials", require("./routes/materials"));
+app.use("/api/knowledge", require("./routes/knowledge"));
+app.use("/api/refine", require("./routes/refine"));
 
 // Health check
 app.get("/api/health", (req, res) => {

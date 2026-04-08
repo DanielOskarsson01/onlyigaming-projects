@@ -33,8 +33,12 @@ export async function scrapeUrls(urls) {
   return res.json();
 }
 
-export async function analyzeJob(jobId) {
-  const res = await fetch(`${API}/analyze/${jobId}`, { method: 'POST' });
+export async function analyzeJob(jobId, { promptId } = {}) {
+  const res = await fetch(`${API}/analyze/${jobId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ promptId }),
+  });
   return res.json();
 }
 
@@ -136,5 +140,175 @@ export async function detectSource(url) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url }),
   });
+  return res.json();
+}
+
+// --- Prompts & Settings API ---
+
+export async function fetchPrompts(type) {
+  const qs = type ? `?type=${type}` : '';
+  const res = await fetch(`${API}/prompts${qs}`);
+  return res.json();
+}
+
+export async function fetchPrompt(id) {
+  const res = await fetch(`${API}/prompts/${id}`);
+  return res.json();
+}
+
+export async function createPrompt(prompt) {
+  const res = await fetch(`${API}/prompts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(prompt),
+  });
+  return res.json();
+}
+
+export async function updatePrompt(id, data) {
+  const res = await fetch(`${API}/prompts/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function deletePrompt(id) {
+  const res = await fetch(`${API}/prompts/${id}`, { method: 'DELETE' });
+  return res.json();
+}
+
+export async function duplicatePrompt(id) {
+  const res = await fetch(`${API}/prompts/${id}/duplicate`, { method: 'POST' });
+  return res.json();
+}
+
+export async function fetchSettings() {
+  const res = await fetch(`${API}/prompts/settings`);
+  return res.json();
+}
+
+export async function updateSettings(settings) {
+  const res = await fetch(`${API}/prompts/settings`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(settings),
+  });
+  return res.json();
+}
+
+// --- Materials API ---
+
+export async function fetchMaterials(category) {
+  const qs = category ? `?category=${category}` : '';
+  const res = await fetch(`${API}/materials${qs}`);
+  return res.json();
+}
+
+export async function uploadMaterial(data) {
+  const res = await fetch(`${API}/materials/upload`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function updateMaterial(id, data) {
+  const res = await fetch(`${API}/materials/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function deleteMaterial(id) {
+  const res = await fetch(`${API}/materials/${id}`, { method: 'DELETE' });
+  return res.json();
+}
+
+export async function fetchMaterialContent(id) {
+  const res = await fetch(`${API}/materials/${id}/content`);
+  return res.json();
+}
+
+export async function fetchMaterialSets() {
+  const res = await fetch(`${API}/materials/sets`);
+  return res.json();
+}
+
+export async function createMaterialSet(data) {
+  const res = await fetch(`${API}/materials/sets`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function updateMaterialSet(id, data) {
+  const res = await fetch(`${API}/materials/sets/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function deleteMaterialSet(id) {
+  const res = await fetch(`${API}/materials/sets/${id}`, { method: 'DELETE' });
+  return res.json();
+}
+
+// --- Knowledge Bank API ---
+
+export async function fetchKnowledge() {
+  const res = await fetch(`${API}/knowledge`);
+  return res.json();
+}
+
+export async function addKnowledgePoint(data) {
+  const res = await fetch(`${API}/knowledge`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function updateKnowledgePoint(id, data) {
+  const res = await fetch(`${API}/knowledge/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function deleteKnowledgePoint(id) {
+  const res = await fetch(`${API}/knowledge/${id}`, { method: 'DELETE' });
+  return res.json();
+}
+
+// --- Refine API ---
+
+export async function refineJob(jobId) {
+  const res = await fetch(`${API}/refine/${jobId}`, { method: 'POST' });
+  return res.json();
+}
+
+export async function refineIterate(jobId, comments) {
+  const res = await fetch(`${API}/refine/${jobId}/iterate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ comments }),
+  });
+  return res.json();
+}
+
+export async function refineApprove(jobId) {
+  const res = await fetch(`${API}/refine/${jobId}/approve`, { method: 'PATCH' });
   return res.json();
 }

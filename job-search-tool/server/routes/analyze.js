@@ -14,9 +14,22 @@ router.post("/:jobId", async (req, res) => {
   }
 
   try {
-    console.log(`Analyzing: ${job.title} (${job.url || "pasted"})`);
-    const analysis = await analyzeJobAd(job.scrapeResult.textContent);
+    const { promptId } = req.body || {};
+    console.log(`Analyzing: ${job.title} (${job.url || "pasted"})${promptId ? ` with prompt ${promptId}` : ""}`);
+    const analysis = await analyzeJobAd(job.scrapeResult.textContent, { promptId });
 
+    // Store in analyses array for multi-analysis comparison
+    if (!job.analyses) job.analyses = [];
+    const analysisEntry = {
+      id: require("uuid").v4(),
+      promptId: analysis._promptId || null,
+      result: analysis,
+      createdAt: new Date().toISOString(),
+    };
+    job.analyses.push(analysisEntry);
+    job.activeAnalysisId = analysisEntry.id;
+
+    // Backward compat: keep top-level analysis
     job.analysis = analysis;
     job.company = analysis.company_name || job.company;
     job.status = "analyzed";

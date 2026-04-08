@@ -217,13 +217,66 @@ function buildSuggestionsDoc(config) {
 }
 
 /**
+ * Apply approved refinement integrations on top of the analysis CV overrides.
+ * Modifies the cv object in-place with updated text from the refine preview.
+ */
+function applyRefinements(cv, refinement) {
+  if (!refinement?.integratedSuggestions) return;
+
+  for (const item of refinement.integratedSuggestions) {
+    if (!item.updated) continue;
+
+    switch (item.section) {
+      case "summary":
+        cv.summary = item.updated;
+        break;
+      case "highlights":
+        if (item.original) {
+          // Replace existing highlight
+          const idx = (cv.highlights || []).indexOf(item.original);
+          if (idx >= 0) cv.highlights[idx] = item.updated;
+          else cv.highlights = [...(cv.highlights || []), item.updated];
+        } else {
+          // Add new highlight
+          cv.highlights = [...(cv.highlights || []), item.updated];
+        }
+        break;
+      case "competencies":
+        // Competency updates are more complex - append or replace by matching category
+        // For now, if it's a new competency item, we can't easily integrate into the
+        // structured array. Log it and include in cover letter context instead.
+        break;
+      case "job_bullets":
+        // Job bullet refinements - try to match and update
+        if (item.original && cv.jobs) {
+          for (const jobKey of Object.keys(cv.jobs)) {
+            const job = cv.jobs[jobKey];
+            if (!job.bullets) continue;
+            const idx = job.bullets.indexOf(item.original);
+            if (idx >= 0) {
+              job.bullets[idx] = item.updated;
+              break;
+            }
+          }
+        }
+        break;
+      // cover_letter items are handled separately via coverLetterNotes
+    }
+  }
+}
+
+/**
  * Generate all materials for a job: CV, cover letter, suggestions, JSON.
  * @param {object} analysis - The full analysis object from analyzer
  * @param {string} jobAdText - The original job ad text (for cover letter generation)
+ * @param {object} [options] - Optional refinement and user choices
+ * @param {object} [options.refinement] - Approved refine preview (integratedSuggestions, coverLetterNotes, newContentPoints)
+ * @param {object} [options.userChoices] - User's accepted suggestions and gap answers
  * @returns {object} outputs with consistent property names: cvPath, coverLetterPath, suggestionsPath, responsePath
  */
-async function generateAll(analysis, jobAdText) {
+async function generateAll(analysis, jobAdText, options = {}) {
   const { buildCV } = loadAll();
+  const { refinement, userChoices } = options;
 
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
@@ -231,23 +284,33 @@ async function generateAll(analysis, jobAdText) {
     .replace(/[^a-zA-Z0-9_]/g, "_")
     .replace(/_+/g, "_");
 
+  // Apply approved refinements to the CV sections before building
+  const cvData = JSON.parse(JSON.stringify(analysis.cv || {}));
+  if (refinement) {
+    console.log(`  Applying ${refinement.integratedSuggestions?.length || 0} refinements to CV`);
+    applyRefinements(cvData, refinement);
+  }
+
   // 1. CV DOCX
-  const overrides = buildOverrides(analysis.cv);
+  const overrides = buildOverrides(cvData);
   const doc = buildCV(analysis.base_variant, overrides);
   const buffer = await Packer.toBuffer(doc);
   const cvFilename = `CV_Daniel_Oskarsson_${companySlug}_tailored.docx`;
   fs.writeFileSync(path.join(OUTPUT_DIR, cvFilename), buffer);
   console.log(`  CV: ${cvFilename}`);
 
-  // 2. Cover Letter DOCX (AI-generated)
+  // 2. Cover Letter DOCX (AI-generated, enriched with refinement context)
   let coverLetterFilename = null;
   if (jobAdText) {
     try {
+      // Build extra context from refinement for cover letter
+      const coverLetterContext = buildCoverLetterContext(refinement, userChoices);
       const clResult = await generateCoverLetter(
         jobAdText,
         analysis.base_variant,
         companySlug,
-        OUTPUT_DIR
+        OUTPUT_DIR,
+        coverLetterContext
       );
       coverLetterFilename = clResult.coverLetterFilename;
       console.log(`  Cover Letter: ${coverLetterFilename}`);
@@ -316,6 +379,38 @@ async function generateAll(analysis, jobAdText) {
     responsePath: jsonFilename,
     packageFolder: appFolderName,
   };
+}
+
+/**
+ * Build extra context from refinement and user choices for the cover letter.
+ * Returns a string that enriches the cover letter prompt with gap answers
+ * and refinement notes.
+ */
+function buildCoverLetterContext(refinement, userChoices) {
+  const parts = [];
+
+  if (refinement?.coverLetterNotes) {
+    parts.push(`## INTEGRATION NOTES\n${refinement.coverLetterNotes}`);
+  }
+
+  if (refinement?.newContentPoints?.length > 0) {
+    parts.push(
+      `## NEW CONTENT POINTS TO INCORPORATE\n${refinement.newContentPoints
+        .map((p) => `- [${p.type}] ${p.text}`)
+        .join("\n")}`
+    );
+  }
+
+  if (userChoices?.gapAnswers) {
+    const answers = Object.entries(userChoices.gapAnswers)
+      .filter(([, v]) => v?.trim())
+      .map(([k, v]) => `- Gap ${k}: ${v}`);
+    if (answers.length > 0) {
+      parts.push(`## GAP ANSWERS FROM CANDIDATE\n${answers.join("\n")}`);
+    }
+  }
+
+  return parts.length > 0 ? parts.join("\n\n") : null;
 }
 
 module.exports = { generateAll, OUTPUT_DIR };

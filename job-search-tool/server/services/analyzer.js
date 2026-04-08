@@ -1,75 +1,21 @@
 /**
  * 5-layer job ad analysis service.
- * Extracted from generate-tailored-cv.js — same system prompt and prompt builder.
+ * Reads system prompt from promptDb (configurable via Settings UI).
+ * Falls back to DEFAULT_ANALYSIS_SYSTEM_PROMPT if DB not available.
  */
 
 const Anthropic = require("@anthropic-ai/sdk").default;
 const { loadAll } = require("./cvContent");
+const {
+  getActivePrompt,
+  getPrompt,
+  getSettings,
+  DEFAULT_ANALYSIS_SYSTEM_PROMPT,
+} = require("../lib/promptDb");
+const { buildKnowledgeContext } = require("../lib/knowledgeDb");
 
 const VALID_VARIANTS = ["generic", "igaming", "cmo", "cpo", "ceo", "startup", "digital"];
 const JOB_KEYS = ["onlyigaming", "coinhero", "betclic", "comeon", "mrgreen"];
-
-const SYSTEM_PROMPT = `You are a CV tailoring assistant for Daniel Oskarsson. You work in three phases:
-
-PHASE 1: Deep 5-layer analysis of the job ad.
-PHASE 2: Select the best pre-approved CV content from ALL provided source documents.
-PHASE 3: Suggest new/changed items AND identify gaps where no existing content matches.
-
-=== 5-LAYER ANALYSIS FRAMEWORK ===
-
-Analyze the job ad through these 5 layers:
-
-Layer 1 - EXPLICIT REQUIREMENTS: Hard skills, years of experience, certifications, tools, technologies. Mark each as "must-have" or "nice-to-have" based on language used.
-
-Layer 2 - PREFERRED QUALIFICATIONS: Nice-to-haves that differentiate candidates. Things listed after "ideally", "bonus", "preferred", "plus".
-
-Layer 3 - INDUSTRY LANGUAGE: Jargon, acronyms, domain-specific terms the employer uses. These are keywords that should appear in the CV where truthful.
-
-Layer 4 - OPERATIONAL CONTEXT: Team size, reporting line, scope (global/local/regional), contract type, location requirements, travel expectations.
-
-Layer 5 - CULTURE SIGNALS: Values, work style indicators ("fast-paced", "autonomous", "collaborative"), mission language, management philosophy.
-
-=== KEYWORD PRIORITIZATION ===
-
-- FREQUENCY: Keywords mentioned 3+ times = core requirement (highest priority)
-- POSITION: Terms in opening paragraph or closing "what we're looking for" = high weight
-- EXPLICITNESS: "Must have" > "Looking for" > "Nice to have" > unstated-but-implied
-
-=== CRITICAL CONTENT RULES ===
-
-FOR THE CV SECTION:
-- Use ONLY exact pre-approved text from the provided documents. Zero creative writing.
-- Select the best variant of each section. You may mix variants across sections (e.g., CMO summary + iGaming highlights).
-- For job entries: select one complete variant per job. Do NOT mix bullets from different variants of the same job.
-- Never invent job titles, company names, or achievements.
-- Never replace industry terms (e.g., do NOT change "players" to "members" or "iGaming" to "technology").
-- Competency categories and items must come from COMPETENCY_MASTER_POOL exactly as written.
-- Reorder items within a section by relevance to the job ad. That is the primary tailoring mechanism.
-
-FOR SUGGESTIONS:
-- Suggestions go in a SEPARATE section. Each is clearly marked NEW or CHANGED.
-- Suggested changes must be truthful based on Daniel's actual background.
-- Write in Daniel's voice: direct, confident, specific, human. No corporate AI-speak.
-- Each suggestion must state which job ad keyword/requirement it addresses.
-- Never use em dashes or en dashes. Use hyphens only.
-- Never use "leveraged", "spearheaded", "cutting-edge", or "robust".
-
-FOR GAPS:
-- Identify job ad requirements where NO existing content provides a good match.
-- For each gap, note the closest existing content (if any) and write a direct question for Daniel.
-- Questions should be specific: "Do you have experience with X?" not "Tell me about your background."
-
-FOR FIT SCORING:
-- Calculate an overall fit score (0-100) based on how well Daniel's profile matches this role.
-- Weight must-have requirements heavily (each unmet must-have reduces score significantly).
-- Nice-to-haves have less impact. Industry/domain match adds bonus points.
-- 90-100: Excellent fit, meets virtually all requirements.
-- 70-89: Good fit, meets most must-haves with minor gaps.
-- 50-69: Moderate fit, significant gaps but relevant experience.
-- Below 50: Poor fit, major requirements unmet.
-- Write a 1-2 sentence fit_summary explaining the score.
-
-Return ONLY valid JSON. No markdown formatting or code fences.`;
 
 function buildPrompt(jobAdText) {
   const { POOL, JOB_VARIANTS_MD, SECTION_VARIANTS_MD, MASTER_CV_MD, CV_DATA, VARIANTS } = loadAll();
@@ -138,6 +84,9 @@ ${JSON.stringify(jobData, null, 2)}
 
 ## SOURCE DOCUMENT 8: CODED OTHER EXPERIENCE (exact text for "Other Experience" section)
 ${JSON.stringify(otherExpData, null, 2)}
+
+## SOURCE DOCUMENT 9: KNOWLEDGE BANK (learned content from previous applications)
+${buildKnowledgeContext() || "No learned content yet - this is the first analysis."}
 
 ## RESPONSE FORMAT
 
@@ -223,15 +172,48 @@ function extractJSON(text) {
   throw new Error(`Failed to parse JSON:\n${text.slice(0, 500)}`);
 }
 
-async function analyzeJobAd(jobAdText) {
+/**
+ * Run 5-layer analysis on a job ad.
+ * @param {string} jobAdText - The full job ad text
+ * @param {object} [options] - Optional overrides
+ * @param {string} [options.promptId] - Use a specific prompt instead of the active one
+ * @returns {object} The analysis result
+ */
+async function analyzeJobAd(jobAdText, options = {}) {
   const client = new Anthropic();
   const prompt = buildPrompt(jobAdText);
 
+  // Resolve system prompt: specific promptId > active prompt > hardcoded default
+  let systemPrompt = DEFAULT_ANALYSIS_SYSTEM_PROMPT;
+  let usedPromptId = null;
+
+  if (options.promptId) {
+    const p = getPrompt(options.promptId);
+    if (p) {
+      systemPrompt = p.systemPrompt;
+      usedPromptId = p.id;
+    }
+  } else {
+    const active = getActivePrompt("analysis");
+    if (active) {
+      systemPrompt = active.systemPrompt;
+      usedPromptId = active.id;
+    }
+  }
+
+  // Resolve model settings
+  const settings = getSettings();
+  const model = settings.analysisModel || "claude-sonnet-4-20250514";
+  const maxTokens = settings.analysisMaxTokens || 8000;
+  const temperature = settings.analysisTemperature ?? 0.2;
+
+  console.log(`  Using prompt: ${usedPromptId || "hardcoded default"}, model: ${model}`);
+
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 8000,
-    temperature: 0.2,
-    system: SYSTEM_PROMPT,
+    model,
+    max_tokens: maxTokens,
+    temperature,
+    system: systemPrompt,
     messages: [{ role: "user", content: prompt }],
   });
 
@@ -244,6 +226,9 @@ async function analyzeJobAd(jobAdText) {
     console.warn(`Warning: Unknown variant "${config.base_variant}", falling back to "generic"`);
     config.base_variant = "generic";
   }
+
+  // Attach metadata about which prompt was used
+  config._promptId = usedPromptId;
 
   return config;
 }

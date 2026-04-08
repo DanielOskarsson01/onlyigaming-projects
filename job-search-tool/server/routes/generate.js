@@ -14,7 +14,13 @@ router.post("/:jobId", async (req, res) => {
   try {
     console.log(`Generating all materials for: ${job.analysis.company_name}`);
     const jobAdText = job.scrapeResult?.textContent || null;
-    const outputs = await generateAll(job.analysis, jobAdText);
+
+    // Get approved refinement data if available
+    const approvedIteration = getApprovedIteration(job);
+    const outputs = await generateAll(job.analysis, jobAdText, {
+      refinement: approvedIteration?.preview || null,
+      userChoices: job.userChoices || null,
+    });
 
     job.outputs = outputs;
     job.status = "generated";
@@ -27,6 +33,13 @@ router.post("/:jobId", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+function getApprovedIteration(job) {
+  if (!job.refinement?.iterations) return null;
+  return job.refinement.iterations.find(
+    (i) => i.id === job.refinement.activeIterationId && i.status === "approved"
+  );
+}
 
 // Download a generated file
 router.get("/download/:filename", (req, res) => {

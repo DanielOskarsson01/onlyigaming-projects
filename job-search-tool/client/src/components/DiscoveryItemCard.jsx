@@ -60,7 +60,10 @@ export default function DiscoveryItemCard({ item, sources, onInterest, onDismiss
           <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${providerColor}`}>
             {source?.name?.split(' - ')[0] || item.sourceId}
           </span>
-          <span className="text-xs text-gray-400">{timeAgo(item.discoveredAt)}</span>
+          <span className="text-xs text-gray-400">
+            {timeAgo(item.discoveredAt)}
+            {item.postedAt && ` (posted ${timeAgo(item.postedAt)})`}
+          </span>
         </div>
       </div>
 

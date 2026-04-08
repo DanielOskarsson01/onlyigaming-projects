@@ -39,6 +39,21 @@ export default function DiscoverStep({ onJobsCreated, onPromoted }) {
 
       {tab === 2 && (
         <div className="space-y-8">
+          <div className="bg-amber-50 rounded-lg border border-amber-200 p-4">
+            <div className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 className="text-sm font-medium text-amber-900">LinkedIn Jobs</h3>
+                <p className="text-xs text-amber-700 mt-1">
+                  LinkedIn blocks automated scanning. To add LinkedIn jobs, copy the job URL and paste it in the{' '}
+                  <button onClick={() => setTab(1)} className="underline font-medium">Manual Add</button>{' '}
+                  tab. You can also set up LinkedIn email alerts to receive job notifications, then copy interesting URLs here.
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h2 className="text-lg font-medium text-gray-900 mb-4">Sources</h2>
             <DiscoverySourceList />
