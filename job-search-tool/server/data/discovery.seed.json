@@ -8,9 +8,12 @@
       "enabled": true,
       "config": {
         "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
-        "params": { "q": "CMO OR \"Chief Marketing Officer\" OR Marknadschef", "municipality": "0180" }
+        "params": {
+          "q": "CMO OR \"Chief Marketing Officer\" OR Marknadschef",
+          "municipality": "0180"
+        }
       },
-      "lastChecked": null,
+      "lastChecked": "2026-04-10T05:00:00.651Z",
       "lastFoundCount": 0,
       "lastError": null
     },
@@ -22,10 +25,13 @@
       "enabled": true,
       "config": {
         "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
-        "params": { "q": "CPO OR \"Chief Product Officer\" OR Produktchef", "municipality": "0180" }
+        "params": {
+          "q": "CPO OR \"Chief Product Officer\" OR Produktchef",
+          "municipality": "0180"
+        }
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:00.912Z",
+      "lastFoundCount": 1,
       "lastError": null
     },
     {
@@ -36,9 +42,12 @@
       "enabled": true,
       "config": {
         "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
-        "params": { "q": "COO OR \"Chief Operating Officer\"", "municipality": "0180" }
+        "params": {
+          "q": "COO OR \"Chief Operating Officer\"",
+          "municipality": "0180"
+        }
       },
-      "lastChecked": null,
+      "lastChecked": "2026-04-10T05:00:00.970Z",
       "lastFoundCount": 0,
       "lastError": null
     },
@@ -50,10 +59,13 @@
       "enabled": true,
       "config": {
         "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
-        "params": { "q": "\"Head of Marketing\" OR \"Marketing Director\"", "municipality": "0180" }
+        "params": {
+          "q": "\"Head of Marketing\" OR \"Marketing Director\"",
+          "municipality": "0180"
+        }
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:01.660Z",
+      "lastFoundCount": 1,
       "lastError": null
     },
     {
@@ -64,10 +76,13 @@
       "enabled": true,
       "config": {
         "baseUrl": "https://jobsearch.api.jobtechdev.se/search",
-        "params": { "q": "\"Head of Product\" OR \"Product Director\"", "municipality": "0180" }
+        "params": {
+          "q": "\"Head of Product\" OR \"Product Director\"",
+          "municipality": "0180"
+        }
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:02.429Z",
+      "lastFoundCount": 1,
       "lastError": null
     },
     {
@@ -80,8 +95,8 @@
         "baseUrl": "https://remoteok.com/api",
         "params": {}
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:03.683Z",
+      "lastFoundCount": 1,
       "lastError": null
     },
     {
@@ -92,9 +107,11 @@
       "enabled": true,
       "config": {
         "baseUrl": "https://remotive.com/api/remote-jobs",
-        "params": { "category": "marketing" }
+        "params": {
+          "category": "marketing"
+        }
       },
-      "lastChecked": null,
+      "lastChecked": "2026-04-10T05:00:03.921Z",
       "lastFoundCount": 0,
       "lastError": null
     },
@@ -109,8 +126,8 @@
         "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
         "baseUrl": "https://www.betssongroup.com"
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:04.685Z",
+      "lastFoundCount": 13,
       "lastError": null
     },
     {
@@ -124,8 +141,8 @@
         "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
         "baseUrl": "https://www.leovegasgroup.com"
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:06.493Z",
+      "lastFoundCount": 36,
       "lastError": null
     },
     {
@@ -139,8 +156,8 @@
         "linkSelector": "a[href*='/job/'], a[href*='/careers/'], a[href*='/vacancies/']",
         "baseUrl": "https://www.kindredgroup.com"
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:07.225Z",
+      "lastFoundCount": 3,
       "lastError": null
     },
     {
@@ -154,8 +171,8 @@
         "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
         "baseUrl": "https://www.evolution.com"
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:12.484Z",
+      "lastFoundCount": 7,
       "lastError": null
     },
     {
@@ -169,8 +186,8 @@
         "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
         "baseUrl": "https://www.raketech.com"
       },
-      "lastChecked": null,
-      "lastFoundCount": 0,
+      "lastChecked": "2026-04-10T05:00:12.925Z",
+      "lastFoundCount": 1,
       "lastError": null
     },
     {
@@ -184,6 +201,340 @@
         "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
         "baseUrl": "https://www.kambi.com"
       },
+      "lastChecked": "2026-04-10T05:00:14.131Z",
+      "lastFoundCount": 2,
+      "lastError": null
+    },
+    {
+      "id": "7363390e-5dc7-43dc-9266-50d118143b3c",
+      "name": "Linkedin",
+      "provider": "career_page",
+      "type": "career_page",
+      "config": {
+        "url": "https://www.linkedin.com/jobs/search/?currentJobId=4387803788&distance=25&f_WT=2&geoId=105117694&keywords=Chief%20Marketing%20Officer",
+        "linkSelector": "a.base-card__full-link",
+        "baseUrl": "https://www.linkedin.com"
+      },
+      "enabled": true,
+      "lastChecked": "2026-04-10T05:00:14.772Z",
+      "lastFoundCount": 8,
+      "lastError": null
+    },
+    {
+      "id": "gamblingcareers-all",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "GamblingCareers.com",
+      "enabled": true,
+      "config": {
+        "url": "https://www.gamblingcareers.com/jobs",
+        "listingSelector": "article.listing-item",
+        "linkSelector": ".listing-item__title a",
+        "companySelector": ".listing-item__info--item-company",
+        "locationSelector": ".listing-item__info--item-location",
+        "snippetSelector": ".listing-item__desc",
+        "dateSelector": ".listing-item__date",
+        "baseUrl": "https://www.gamblingcareers.com",
+        "isJobBoard": true,
+        "pagination": {
+          "type": "query_param",
+          "param": "page",
+          "maxPages": 20,
+          "startPage": 1
+        }
+      },
+      "lastChecked": "2026-04-10T05:00:14.951Z",
+      "lastFoundCount": 15,
+      "lastError": "Career page returned HTTP 403"
+    },
+    {
+      "id": "bravura-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Bravura",
+      "enabled": true,
+      "config": {
+        "url": "https://www.bravura.se/lediga-jobb",
+        "linkSelector": ".job-list-item-loop a[href*='bravura.se']",
+        "baseUrl": "https://www.bravura.se",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:15.894Z",
+      "lastFoundCount": 18,
+      "lastError": null
+    },
+    {
+      "id": "ecommercerecruit-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "E-commerce Recruit",
+      "enabled": true,
+      "config": {
+        "url": "https://www.ecommercerecruit.se/lediga-jobb/",
+        "listingSelector": "li.single-job",
+        "linkSelector": "a.job-link",
+        "titleSelector": "h3.job-title",
+        "companySelector": "h3.job-comp",
+        "baseUrl": "https://www.ecommercerecruit.se",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:16.321Z",
+      "lastFoundCount": 22,
+      "lastError": null
+    },
+    {
+      "id": "wise-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Wise",
+      "enabled": true,
+      "config": {
+        "url": "https://www.wise.se/lediga-jobb/",
+        "linkSelector": "a.archive-item-link",
+        "baseUrl": "https://www.wise.se",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:16.558Z",
+      "lastFoundCount": 15,
+      "lastError": null
+    },
+    {
+      "id": "digitalenta-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Digitalenta",
+      "enabled": true,
+      "config": {
+        "url": "https://karriar.digitalenta.se/jobs",
+        "linkSelector": "li.block-grid-item a[href*='/jobs/']",
+        "baseUrl": "https://karriar.digitalenta.se",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:16.731Z",
+      "lastFoundCount": 15,
+      "lastError": null
+    },
+    {
+      "id": "multimind-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "MultiMind",
+      "enabled": true,
+      "config": {
+        "url": "https://multimind.com/hitta-jobb/",
+        "linkSelector": "a[href*='show.aspx']",
+        "baseUrl": "https://multimind.com",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:17.622Z",
+      "lastFoundCount": 24,
+      "lastError": null
+    },
+    {
+      "id": "knackrekrytering-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Knack Rekrytering",
+      "enabled": true,
+      "config": {
+        "url": "https://knackrekrytering.se/lediga-tjanster/",
+        "listingSelector": ".knack-jobs-item",
+        "linkSelector": "a[href*='/lediga-tjanster/']",
+        "baseUrl": "https://knackrekrytering.se",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:17.740Z",
+      "lastFoundCount": 5,
+      "lastError": null
+    },
+    {
+      "id": "hirestakes-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "HireStakes",
+      "enabled": true,
+      "config": {
+        "url": "https://hirestakes.current.jobs/",
+        "listingSelector": ".jobItem.card--job",
+        "linkSelector": ".jobItem__inner-title a",
+        "baseUrl": "https://hirestakes.current.jobs",
+        "isJobBoard": true,
+        "pagination": {
+          "type": "query_param",
+          "param": "page",
+          "maxPages": 5,
+          "startPage": 1
+        }
+      },
+      "lastChecked": "2026-04-10T05:00:19.161Z",
+      "lastFoundCount": 5,
+      "lastError": null
+    },
+    {
+      "id": "vankaizen-vacancies",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "VanKaizen",
+      "enabled": true,
+      "config": {
+        "url": "https://www.vankaizen.com/vacancies",
+        "listingSelector": ".card",
+        "linkSelector": "a[href*='/vacancies/']",
+        "titleSelector": "h2",
+        "baseUrl": "https://www.vankaizen.com",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:19.897Z",
+      "lastFoundCount": 12,
+      "lastError": null
+    },
+    {
+      "id": "pentasia-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Pentasia",
+      "enabled": true,
+      "config": {
+        "url": "https://www.pentasia.com/cm/candidates/jobs?limit=10&location=europe&location=spain&page=0&sector=leadership&sector=marketing&sector=product&sector=sales-commercial&sector=operations&workplace_type=remote",
+        "listingSelector": "[class*=JobItem_card]",
+        "linkSelector": "[class*=JobItem_title] a",
+        "locationSelector": "[class*=JobItem_location]",
+        "baseUrl": "https://www.pentasia.com",
+        "isJobBoard": true,
+        "pagination": {
+          "type": "query_param",
+          "param": "page",
+          "maxPages": 10,
+          "startPage": 0
+        }
+      },
+      "lastChecked": "2026-04-10T05:00:20.903Z",
+      "lastFoundCount": 10,
+      "lastError": null
+    },
+    {
+      "id": "igaminghunt-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "iGaming Hunt",
+      "enabled": true,
+      "config": {
+        "url": "https://igaminghunt.bamboohr.com/careers",
+        "linkSelector": "a[href*='/careers/']",
+        "baseUrl": "https://igaminghunt.bamboohr.com",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-09T12:18:35.919Z",
+      "lastFoundCount": 16,
+      "lastError": null
+    },
+    {
+      "id": "gamesfactory-careers",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Games Factory Talents",
+      "enabled": true,
+      "config": {
+        "url": "https://gamesfactorytalents.zohorecruit.eu/jobs/Careers",
+        "listingSelector": ".cw-filter-joblist-left",
+        "linkSelector": "a[href*='/jobs/Careers/']",
+        "baseUrl": "https://gamesfactorytalents.zohorecruit.eu",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:24.631Z",
+      "lastFoundCount": 19,
+      "lastError": null
+    },
+    {
+      "id": "bettingjobs-filtered",
+      "type": "applyflow",
+      "provider": "applyflow",
+      "name": "BettingJobs",
+      "enabled": true,
+      "config": {
+        "apiUrl": "https://account-api-uk.applyflow.com/api/seeker/v1/search-job",
+        "searchPath": "%2Fac2_remote_nordics_gibraltar_europe_cla_executive-and-senior-appointments_cla_marketing-6449167_cla_operations-and-payments_cla_product-6464206_cla_commercial%2F",
+        "siteCode": "bettingjobs",
+        "jobBuckets": "BETTING-JOBS",
+        "seekerBuckets": "betting-jobs",
+        "baseUrl": "https://www.bettingjobs.com",
+        "maxPages": 5,
+        "isJobBoard": true
+      },
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "magicmondayz-remote",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Magic Mondayz (Remote)",
+      "enabled": true,
+      "config": {
+        "url": "https://www.magicmondayz.com/search-jobs/?job_search=&job_sector=&job_type=permanent&job_city=remote",
+        "listingSelector": ".cool-jobrow",
+        "linkSelector": "a[href*='/current-vacancies/']",
+        "titleSelector": ".cool-job-title",
+        "locationSelector": ".cool-job-loc",
+        "baseUrl": "https://www.magicmondayz.com",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:27.925Z",
+      "lastFoundCount": 25,
+      "lastError": null
+    },
+    {
+      "id": "magicmondayz-barcelona",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Magic Mondayz (Barcelona)",
+      "enabled": true,
+      "config": {
+        "url": "https://www.magicmondayz.com/search-jobs/?job_search=&job_sector=&job_type=permanent&job_city=barcelona",
+        "listingSelector": ".cool-jobrow",
+        "linkSelector": "a[href*='/current-vacancies/']",
+        "titleSelector": ".cool-job-title",
+        "locationSelector": ".cool-job-loc",
+        "baseUrl": "https://www.magicmondayz.com",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:29.891Z",
+      "lastFoundCount": 25,
+      "lastError": null
+    },
+    {
+      "id": "magicmondayz-london",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Magic Mondayz (London)",
+      "enabled": true,
+      "config": {
+        "url": "https://www.magicmondayz.com/search-jobs/?job_search=&job_sector=&job_type=permanent&job_city=london",
+        "listingSelector": ".cool-jobrow",
+        "linkSelector": "a[href*='/current-vacancies/']",
+        "titleSelector": ".cool-job-title",
+        "locationSelector": ".cool-job-loc",
+        "baseUrl": "https://www.magicmondayz.com",
+        "isJobBoard": true
+      },
+      "lastChecked": "2026-04-10T05:00:31.793Z",
+      "lastFoundCount": 25,
+      "lastError": null
+    },
+    {
+      "id": "bohmans-jobs",
+      "type": "career_page",
+      "provider": "career_page",
+      "name": "Bohmans",
+      "enabled": true,
+      "config": {
+        "url": "https://www.bohmans.com/aktuellauppdrag/",
+        "listingSelector": ".content-block__joblisting-item",
+        "linkSelector": ".latest-jobs__item__title a",
+        "baseUrl": "https://www.bohmans.com",
+        "isJobBoard": true
+      },
       "lastChecked": null,
       "lastFoundCount": 0,
       "lastError": null
@@ -192,16 +543,90 @@
   "discoveries": [],
   "searchProfile": {
     "keywords": [
-      "CMO", "CPO", "COO", "CEO",
-      "Marknadschef", "Produktchef",
-      "Chief Marketing Officer", "Chief Product Officer", "Chief Operating Officer",
-      "Head of Marketing", "Head of Product",
-      "VP Marketing", "VP Product",
-      "Marketing Director", "Product Director"
+      "CMO",
+      "CPO",
+      "COO",
+      "CEO",
+      "Chief Marketing Officer",
+      "Chief Product Officer",
+      "Chief Operating Officer",
+      "Head of Marketing",
+      "Head of Product",
+      "Head of Digital",
+      "Head of Creative",
+      "Head of Strategy",
+      "Head of Operations",
+      "Head of Performance Marketing",
+      "Head of Product Marketing",
+      "Head of Growth",
+      "VP Marketing",
+      "VP Product",
+      "Marketing Director",
+      "Product Director",
+      "Strategy Director",
+      "Creative Director",
+      "Marketing Manager",
+      "Product Marketing Manager",
+      "Brand Manager",
+      "Marketing Lead",
+      "Marketing Consultant",
+      "Marketing Program Lead",
+      "Growth Manager",
+      "Growth and Operations Manager",
+      "Creative Strategist",
+      "Performance Marketing",
+      "Business Developer",
+      "Marknadschef",
+      "Produktchef",
+      "Senior Director of Marketing",
+      "Senior Vice President Marketing"
     ],
-    "industries": ["iGaming", "online gaming", "betting", "casino", "gambling", "igaming"],
-    "locations": ["Stockholm", "Sweden", "Remote", "Europe", "Nordic"],
-    "seniority": ["Executive", "Director", "VP", "Head", "Chief"]
-  },
-  "lastScanAt": null
+    "industries": [
+      "iGaming",
+      "online gaming",
+      "betting",
+      "casino",
+      "gambling",
+      "igaming",
+      "marketing",
+      "digital marketing",
+      "e-commerce",
+      "ecommerce",
+      "adtech",
+      "martech",
+      "SaaS",
+      "fintech",
+      "media",
+      "advertising",
+      "digital agency",
+      "B2B",
+      "B2C",
+      "crypto",
+      "blockchain",
+      "health",
+      "fashion",
+      "retail"
+    ],
+    "locations": [
+      "Stockholm",
+      "Sweden",
+      "Remote",
+      "Europe",
+      "Nordic",
+      "Portugal",
+      "UAE",
+      "Global"
+    ],
+    "seniority": [
+      "Executive",
+      "Director",
+      "VP",
+      "Head",
+      "Chief",
+      "Senior",
+      "Manager",
+      "Lead",
+      "Interim"
+    ]
+  }
 }

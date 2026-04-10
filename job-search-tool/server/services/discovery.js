@@ -12,6 +12,7 @@ const PROVIDERS = {
   remoteok: require("./providers/remoteok"),
   remotive: require("./providers/remotive"),
   career_page: require("./providers/careerPage"),
+  applyflow: require("./providers/applyflow"),
 };
 
 /**
@@ -38,9 +39,9 @@ async function runScan(sourceId = null) {
       console.log(`[Discovery] Scanning: ${source.name}`);
       let items = await provider.fetchJobs(source);
 
-      // Keyword relevance filter for all API sources (titles are often noisy).
-      // Career pages are already targeted by site, so skip filtering for those.
-      if (source.provider !== "career_page") {
+      // Keyword relevance filter for API sources and job boards (titles are often noisy).
+      // Single-company career pages are already targeted, so skip filtering for those.
+      if (source.provider !== "career_page" || source.config?.isJobBoard) {
         const before = items.length;
         items = filterByProfile(items, profile);
         if (before !== items.length) {
