@@ -41,6 +41,7 @@ function App() {
 
   useEffect(() => { loadJobs(); loadDiscoveryCount() }, [loadJobs, loadDiscoveryCount])
 
+  // Manual URL scrape from DiscoverStep creates jobs with status 'scraped' → go to Evaluate
   const handleJobsCreated = (newJobs) => {
     loadJobs()
     if (newJobs?.length === 1) {
@@ -49,17 +50,22 @@ function App() {
     }
   }
 
-  const handlePromoted = (job) => {
+  // Promote from DiscoveryFeed — stay on Discover, just reload
+  const handlePromoted = () => {
     loadJobs()
     loadDiscoveryCount()
-    setSelectedJobId(job.id)
+  }
+
+  // Validate done (batch promote + scrape complete) → go to Evaluate
+  const handleValidateDone = () => {
+    loadJobs()
     setStep(2) // Go to Evaluate
   }
 
-  const handleValidated = (job) => {
-    loadJobs()
+  // Select a job from Evaluate to proceed to Review
+  const handleSelectForReview = (job) => {
     setSelectedJobId(job.id)
-    setStep(2) // Go to Evaluate after scraping
+    setStep(3) // Go to Review
   }
 
   const handleSelectJob = (job) => {
@@ -68,6 +74,8 @@ function App() {
     else if (job.status === 'refined') setStep(5)
     else if (job.status === 'reviewed') setStep(4)
     else if (job.status === 'analyzed') setStep(3)
+    else if (job.status === 'scraped') setStep(2)
+    else if (job.status === 'promoted') setStep(1)
     else setStep(2)
   }
 
@@ -77,17 +85,16 @@ function App() {
     loadJobs()
   }
 
-  const handleAnalyzed = () => loadJobs()
   const handleGenerated = () => { loadJobs(); setStep(6) }
 
   const selectedJob = jobs.find((j) => j.id === selectedJobId)
 
-  // Count new discoveries for badge
+  // Badges
   const badges = { 0: newDiscoveryCount || null }
 
-  // Count validated (ready for scrape) items
-  const validatedCount = jobs.filter(j => j.status === 'validated').length
-  if (validatedCount > 0) badges[1] = validatedCount
+  // Count scraped jobs ready for analysis
+  const scrapedCount = jobs.filter(j => j.status === 'scraped').length
+  if (scrapedCount > 0) badges[2] = scrapedCount
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -150,7 +157,7 @@ function App() {
 
             {step === 1 && (
               <ValidateStep
-                onValidated={handleValidated}
+                onDone={handleValidateDone}
                 onBack={() => setStep(0)}
                 loadDiscoveryCount={loadDiscoveryCount}
               />
@@ -158,10 +165,10 @@ function App() {
 
             {step === 2 && (
               <AnalyzeStep
-                job={selectedJob}
-                onBack={() => setStep(0)}
-                onAnalyzed={handleAnalyzed}
-                onReview={() => setStep(3)}
+                jobs={jobs.filter((j) => j.status === 'scraped')}
+                onBack={() => setStep(1)}
+                onSelectForReview={handleSelectForReview}
+                onJobUpdated={loadJobs}
               />
             )}
 

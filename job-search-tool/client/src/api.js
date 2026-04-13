@@ -81,8 +81,23 @@ export async function patchDiscoveryItem(id, update) {
   return res.json();
 }
 
-export async function promoteDiscoveryItem(id) {
-  const res = await fetch(`${API}/discovery/items/${id}/promote`, { method: 'POST' });
+export async function promoteDiscoveryItem(id, { scrape = true } = {}) {
+  const qs = scrape ? '' : '?scrape=false';
+  const res = await fetch(`${API}/discovery/items/${id}/promote${qs}`, { method: 'POST' });
+  return res.json();
+}
+
+export async function scrapeJob(jobId) {
+  const res = await fetch(`${API}/scrape/${jobId}`, { method: 'POST' });
+  return res.json();
+}
+
+export async function setJobText(jobId, textContent) {
+  const res = await fetch(`${API}/jobs/${jobId}/text`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ textContent }),
+  });
   return res.json();
 }
 

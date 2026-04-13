@@ -90,11 +90,28 @@ router.post("/items/:id/promote", async (req, res) => {
   const item = db.getDiscovery(req.params.id);
   if (!item) return res.status(404).json({ error: "Discovery not found" });
 
+  const skipScrape = req.query.scrape === "false";
+
   try {
     let job;
 
-    if (item.url) {
-      // Scrape the job URL
+    if (skipScrape) {
+      // Create job entry without scraping (scraping happens in Validate step)
+      job = {
+        id: uuid(),
+        url: item.url || null,
+        title: item.title || "Unknown",
+        company: item.company || null,
+        status: "promoted",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        scrapeResult: null,
+        analysis: null,
+        userChoices: null,
+        outputs: null,
+      };
+    } else if (item.url) {
+      // Scrape the job URL (legacy behavior)
       console.log(`[Promote] Scraping: ${item.url}`);
       const result = await scrapeUrl(item.url);
 

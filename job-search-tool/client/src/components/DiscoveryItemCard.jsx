@@ -95,7 +95,7 @@ export default function DiscoveryItemCard({ item, sources, onInterest, onDismiss
                 onClick={() => onPromote(item.id)}
                 className="px-3 py-1 text-xs font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700"
               >
-                Promote to Pipeline
+                Add to Pipeline
               </button>
               <button
                 onClick={() => onDismiss(item.id)}

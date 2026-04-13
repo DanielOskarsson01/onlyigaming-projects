@@ -70,9 +70,9 @@ export default function DiscoveryFeed({ onPromoted }) {
     setPromoting(id)
     setError(null)
     try {
-      const result = await promoteDiscoveryItem(id)
+      await promoteDiscoveryItem(id, { scrape: false })
       load()
-      if (onPromoted && result.job) onPromoted(result.job)
+      if (onPromoted) onPromoted()
     } catch (err) {
       setError(err.message)
     } finally {

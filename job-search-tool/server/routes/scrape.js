@@ -1,7 +1,7 @@
 const express = require("express");
 const { v4: uuid } = require("uuid");
 const { scrapeUrl } = require("../services/scraper");
-const { saveJob } = require("../lib/db");
+const { getJob, saveJob } = require("../lib/db");
 
 const router = express.Router();
 
@@ -54,6 +54,46 @@ router.post("/", async (req, res) => {
   }
 
   res.json({ results });
+});
+
+// Scrape an existing job by ID
+router.post("/:jobId", async (req, res) => {
+  const job = getJob(req.params.jobId);
+  if (!job) return res.status(404).json({ error: "Job not found" });
+
+  if (job.scrapeResult?.textContent && job.status !== "promoted") {
+    return res.json({ job, skipped: true });
+  }
+
+  if (!job.url) {
+    return res.status(400).json({ error: "Job has no URL to scrape" });
+  }
+
+  try {
+    console.log(`[Scrape] Scraping job ${job.id}: ${job.url}`);
+    const result = await scrapeUrl(job.url);
+
+    job.scrapeResult = {
+      textContent: result.textContent,
+      wordCount: result.wordCount,
+      title: result.title,
+      metaDescription: result.metaDescription,
+      scrapeMethod: result.scrapeMethod || "readability",
+      error: result.error,
+    };
+    job.title = result.title || job.title;
+    job.status = result.status === "success" ? "scraped" : "scrape_failed";
+    job.updatedAt = new Date().toISOString();
+    saveJob(job);
+
+    res.json({ job });
+  } catch (err) {
+    job.status = "scrape_failed";
+    job.scrapeResult = { error: err.message };
+    job.updatedAt = new Date().toISOString();
+    saveJob(job);
+    res.status(500).json({ error: err.message, job });
+  }
 });
 
 module.exports = router;

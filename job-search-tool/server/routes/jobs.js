@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
       ? { ...j.scrapeResult, textContent: undefined }
       : null,
     analysis: j.analysis
-      ? { company_name: j.analysis.company_name, base_variant: j.analysis.base_variant, variant_reasoning: j.analysis.variant_reasoning }
+      ? { company_name: j.analysis.company_name, base_variant: j.analysis.base_variant, variant_reasoning: j.analysis.variant_reasoning, fit_score: j.analysis.fit_score }
       : null,
   }));
   res.json({ jobs });
@@ -60,6 +60,27 @@ router.delete("/:id", (req, res) => {
   if (!job) return res.status(404).json({ error: "Job not found" });
   deleteJob(req.params.id);
   res.json({ ok: true });
+});
+
+// Manually set job text content (fallback when scraping fails)
+router.patch("/:id/text", (req, res) => {
+  const job = getJob(req.params.id);
+  if (!job) return res.status(404).json({ error: "Job not found" });
+
+  const { textContent } = req.body;
+  if (!textContent?.trim()) return res.status(400).json({ error: "textContent required" });
+
+  job.scrapeResult = {
+    textContent: textContent.trim(),
+    wordCount: textContent.trim().split(/\s+/).filter(Boolean).length,
+    title: job.title,
+    metaDescription: null,
+    scrapeMethod: "manual",
+  };
+  job.status = "scraped";
+  job.updatedAt = new Date().toISOString();
+  saveJob(job);
+  res.json({ job });
 });
 
 // Save user choices (accept/reject suggestions, gap answers)
