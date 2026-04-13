@@ -46,6 +46,12 @@ export default function SettingsPanel({ onClose }) {
   )
 }
 
+const CLAUDE_MODELS = [
+  { id: 'claude-opus-4-6', label: 'Claude Opus 4.6 (Best)' },
+  { id: 'claude-sonnet-4-6', label: 'Claude Sonnet 4.6 (Fast)' },
+  { id: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5 (Cheapest)' },
+]
+
 function ModelConfig() {
   const [settings, setSettings] = useState(null)
   const [saving, setSaving] = useState(false)
@@ -72,11 +78,15 @@ function ModelConfig() {
         <div className="grid grid-cols-3 gap-3">
           <div>
             <label className="text-xs text-gray-500">Model</label>
-            <input
+            <select
               value={settings.analysisModel || ''}
               onChange={(e) => setSettings({ ...settings, analysisModel: e.target.value })}
-              className="w-full mt-1 px-2 py-1.5 border border-gray-200 rounded text-sm"
-            />
+              className="w-full mt-1 px-2 py-1.5 border border-gray-200 rounded text-sm bg-white"
+            >
+              {CLAUDE_MODELS.map((m) => (
+                <option key={m.id} value={m.id}>{m.label}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="text-xs text-gray-500">Max Tokens</label>
@@ -88,7 +98,7 @@ function ModelConfig() {
             />
           </div>
           <div>
-            <label className="text-xs text-gray-500">Temperature</label>
+            <label className="text-xs text-gray-500" title="0 = precise and consistent, 1 = creative and varied. 0.2 is recommended for analysis.">Temperature ⓘ</label>
             <input
               type="number"
               step="0.1"
@@ -107,11 +117,15 @@ function ModelConfig() {
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-xs text-gray-500">Model</label>
-            <input
+            <select
               value={settings.coverLetterModel || ''}
               onChange={(e) => setSettings({ ...settings, coverLetterModel: e.target.value })}
-              className="w-full mt-1 px-2 py-1.5 border border-gray-200 rounded text-sm"
-            />
+              className="w-full mt-1 px-2 py-1.5 border border-gray-200 rounded text-sm bg-white"
+            >
+              {CLAUDE_MODELS.map((m) => (
+                <option key={m.id} value={m.id}>{m.label}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="text-xs text-gray-500">Max Tokens</label>
