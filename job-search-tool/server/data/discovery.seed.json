@@ -206,18 +206,101 @@
       "lastError": null
     },
     {
-      "id": "7363390e-5dc7-43dc-9266-50d118143b3c",
-      "name": "Linkedin",
-      "provider": "career_page",
-      "type": "career_page",
+      "id": "linkedin-cmo-sweden",
+      "name": "LinkedIn - CMO Sweden",
+      "provider": "linkedin",
+      "type": "api",
       "config": {
-        "url": "https://www.linkedin.com/jobs/search/?currentJobId=4387803788&distance=25&f_WT=2&geoId=105117694&keywords=Chief%20Marketing%20Officer",
-        "linkSelector": "a.base-card__full-link",
-        "baseUrl": "https://www.linkedin.com"
+        "searches": [
+          { "keywords": "Chief Marketing Officer", "geoId": "105117694", "f_WT": "2" },
+          { "keywords": "CMO", "geoId": "105117694", "f_WT": "2" },
+          { "keywords": "Marknadschef", "geoId": "105117694" }
+        ],
+        "maxPagesPerSearch": 3,
+        "f_TPR": "r604800",
+        "f_E": null
       },
       "enabled": true,
-      "lastChecked": "2026-04-10T05:00:14.772Z",
-      "lastFoundCount": 8,
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "linkedin-cpo-sweden",
+      "name": "LinkedIn - CPO Sweden",
+      "provider": "linkedin",
+      "type": "api",
+      "config": {
+        "searches": [
+          { "keywords": "Chief Product Officer", "geoId": "105117694", "f_WT": "2" },
+          { "keywords": "CPO", "geoId": "105117694", "f_WT": "2" },
+          { "keywords": "Produktchef", "geoId": "105117694" }
+        ],
+        "maxPagesPerSearch": 3,
+        "f_TPR": "r604800",
+        "f_E": null
+      },
+      "enabled": true,
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "linkedin-head-marketing",
+      "name": "LinkedIn - Head of Marketing",
+      "provider": "linkedin",
+      "type": "api",
+      "config": {
+        "searches": [
+          { "keywords": "Head of Marketing", "geoId": "105117694", "f_WT": "2" },
+          { "keywords": "Marketing Director", "geoId": "105117694", "f_WT": "2" }
+        ],
+        "maxPagesPerSearch": 3,
+        "f_TPR": "r604800",
+        "f_E": null
+      },
+      "enabled": true,
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "linkedin-igaming-remote",
+      "name": "LinkedIn - iGaming Marketing Remote",
+      "provider": "linkedin",
+      "type": "api",
+      "config": {
+        "searches": [
+          { "keywords": "iGaming marketing", "f_WT": "2" },
+          { "keywords": "igaming CMO", "f_WT": "2" },
+          { "keywords": "gambling marketing director", "f_WT": "2" }
+        ],
+        "maxPagesPerSearch": 2,
+        "f_TPR": "r604800",
+        "f_E": null
+      },
+      "enabled": true,
+      "lastChecked": null,
+      "lastFoundCount": 0,
+      "lastError": null
+    },
+    {
+      "id": "linkedin-vp-marketing",
+      "name": "LinkedIn - VP Marketing",
+      "provider": "linkedin",
+      "type": "api",
+      "config": {
+        "searches": [
+          { "keywords": "VP Marketing", "geoId": "105117694", "f_WT": "2" },
+          { "keywords": "Vice President Marketing", "geoId": "105117694", "f_WT": "2" }
+        ],
+        "maxPagesPerSearch": 2,
+        "f_TPR": "r604800",
+        "f_E": null
+      },
+      "enabled": true,
+      "lastChecked": null,
+      "lastFoundCount": 0,
       "lastError": null
     },
     {

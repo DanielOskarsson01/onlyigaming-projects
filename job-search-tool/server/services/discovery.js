@@ -13,6 +13,7 @@ const PROVIDERS = {
   remotive: require("./providers/remotive"),
   career_page: require("./providers/careerPage"),
   applyflow: require("./providers/applyflow"),
+  linkedin: require("./providers/linkedin"),
 };
 
 /**
