@@ -1,13 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { fetchDiscoveries, patchDiscoveryItem, promoteDiscoveryItem, scrapeJob, setJobText } from '../api'
+import { fetchDiscoveries, fetchJobs, patchDiscoveryItem, promoteDiscoveryItem, scrapeJob, setJobText } from '../api'
 
 export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(false)
   const [phase, setPhase] = useState('select') // 'select' | 'scraping'
-  const [scrapeStatus, setScrapeStatus] = useState({}) // { [itemId]: { status, jobId, wordCount, error, url } }
+  const [scrapeStatus, setScrapeStatus] = useState({}) // { [key]: { status, jobId, wordCount, error, url, title, company } }
   const [manualText, setManualText] = useState({})
-  const scrapeStarted = useRef(false)
 
   const loadItems = useCallback(async () => {
     try {
@@ -18,7 +17,75 @@ export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
     }
   }, [])
 
-  useEffect(() => { loadItems() }, [loadItems])
+  // Check for already-promoted jobs that need scraping
+  const autoScrapeStarted = useRef(false)
+  useEffect(() => {
+    loadItems()
+
+    // Also check for promoted jobs waiting to be scraped
+    fetchJobs().then((data) => {
+      const promoted = (data.jobs || []).filter((j) => j.status === 'promoted')
+      if (promoted.length > 0 && !autoScrapeStarted.current) {
+        autoScrapeStarted.current = true
+        // Auto-enter scraping phase for already-promoted jobs
+        setPhase('scraping')
+        const initialStatus = {}
+        promoted.forEach((job) => {
+          initialStatus[job.id] = {
+            status: 'pending',
+            jobId: job.id,
+            wordCount: 0,
+            error: null,
+            url: job.url,
+            title: job.title,
+            company: job.company,
+          }
+        })
+        setScrapeStatus(initialStatus)
+        // Start scraping
+        scrapePromotedJobs(promoted)
+      }
+    })
+  }, [loadItems])
+
+  // Scrape a list of already-promoted jobs
+  const scrapePromotedJobs = async (jobs) => {
+    const concurrency = 3
+    let idx = 0
+
+    async function scrapeNext() {
+      while (idx < jobs.length) {
+        const job = jobs[idx++]
+        if (!job) break
+
+        setScrapeStatus((prev) => ({ ...prev, [job.id]: { ...prev[job.id], status: 'scraping' } }))
+        try {
+          const result = await scrapeJob(job.id)
+          const updated = result.job
+          if (updated?.status === 'scraped') {
+            setScrapeStatus((prev) => ({
+              ...prev,
+              [job.id]: { ...prev[job.id], status: 'done', wordCount: updated.scrapeResult?.wordCount || 0 },
+            }))
+          } else {
+            setScrapeStatus((prev) => ({
+              ...prev,
+              [job.id]: { ...prev[job.id], status: 'failed', error: updated?.scrapeResult?.error || 'Scrape failed' },
+            }))
+          }
+        } catch (err) {
+          setScrapeStatus((prev) => ({
+            ...prev,
+            [job.id]: { ...prev[job.id], status: 'failed', error: err.message },
+          }))
+        }
+      }
+    }
+
+    const workers = []
+    for (let i = 0; i < concurrency; i++) workers.push(scrapeNext())
+    await Promise.all(workers)
+  }
 
   const handleApprove = async (id) => {
     await patchDiscoveryItem(id, { status: 'interested' })
@@ -289,10 +356,11 @@ export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
       {phase === 'scraping' && (
         <>
           <div className="space-y-2">
-            {approvedItems.map((item) => {
-              const entry = scrapeStatus[item.id] || { status: 'pending' }
+            {Object.entries(scrapeStatus).map(([key, entry]) => {
+              // entry may come from discovery items or directly from promoted jobs
+              const item = items.find((i) => i.id === key) || { id: key, title: entry.title, company: entry.company, url: entry.url }
               return (
-                <div key={item.id} className={`bg-white border rounded-lg px-4 py-3 ${
+                <div key={key} className={`bg-white border rounded-lg px-4 py-3 ${
                   entry.status === 'done' ? 'border-green-300' :
                   entry.status === 'failed' ? 'border-red-300' :
                   entry.status === 'scraping' ? 'border-blue-300' :
@@ -308,9 +376,9 @@ export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
                       </div>
                       <div className="text-sm text-gray-500 flex gap-3">
                         {item.company && <span>{item.company}</span>}
-                        {item.url && (
-                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline truncate max-w-xs">
-                            {(() => { try { return new URL(item.url).hostname } catch { return item.url } })()}
+                        {entry.url && (
+                          <a href={entry.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline truncate max-w-xs">
+                            {(() => { try { return new URL(entry.url).hostname } catch { return entry.url } })()}
                           </a>
                         )}
                       </div>
@@ -323,7 +391,7 @@ export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
                       {entry.status === 'failed' && (
                         <div className="flex gap-2">
                           <button
-                            onClick={() => handleRetry(item.id)}
+                            onClick={() => handleRetry(key)}
                             className="px-2 py-1 text-xs border border-gray-300 rounded text-gray-600 hover:bg-gray-50"
                           >
                             Retry
@@ -337,9 +405,9 @@ export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
                   {entry.status === 'failed' && (
                     <div className="mt-3 border-t border-red-200 pt-3">
                       <p className="text-sm text-red-600 mb-2">{entry.error}</p>
-                      {item.url && (
+                      {entry.url && (
                         <a
-                          href={item.url}
+                          href={entry.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block text-sm text-blue-600 hover:underline mb-2"
@@ -348,14 +416,14 @@ export default function ValidateStep({ onDone, onBack, loadDiscoveryCount }) {
                         </a>
                       )}
                       <textarea
-                        value={manualText[item.id] || ''}
-                        onChange={(e) => setManualText((prev) => ({ ...prev, [item.id]: e.target.value }))}
+                        value={manualText[key] || ''}
+                        onChange={(e) => setManualText((prev) => ({ ...prev, [key]: e.target.value }))}
                         placeholder="Paste the job description here..."
                         className="w-full h-32 p-3 border border-gray-300 rounded-md text-sm font-mono resize-y"
                       />
                       <button
-                        onClick={() => handleManualSave(item.id)}
-                        disabled={!manualText[item.id]?.trim()}
+                        onClick={() => handleManualSave(key)}
+                        disabled={!manualText[key]?.trim()}
                         className="mt-2 px-4 py-1.5 bg-teal-700 text-white rounded text-sm hover:bg-teal-800 disabled:opacity-50"
                       >
                         Save Manual Text

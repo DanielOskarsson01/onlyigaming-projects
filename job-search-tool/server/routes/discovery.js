@@ -95,7 +95,29 @@ router.post("/items/:id/promote", async (req, res) => {
   try {
     let job;
 
-    if (skipScrape) {
+    if (skipScrape && item.description) {
+      // API already provided full description (e.g. Applyflow) — no scrape needed
+      const textContent = item.description;
+      job = {
+        id: uuid(),
+        url: item.url || null,
+        title: item.title || "Unknown",
+        company: item.company || null,
+        status: "scraped",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        scrapeResult: {
+          textContent,
+          wordCount: textContent.split(/\s+/).filter(Boolean).length,
+          title: item.title,
+          metaDescription: null,
+          scrapeMethod: "api",
+        },
+        analysis: null,
+        userChoices: null,
+        outputs: null,
+      };
+    } else if (skipScrape) {
       // Create job entry without scraping (scraping happens in Validate step)
       job = {
         id: uuid(),

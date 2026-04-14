@@ -122,8 +122,8 @@
       "name": "Betsson Group Careers",
       "enabled": true,
       "config": {
-        "url": "https://www.betssongroup.com/careers/",
-        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "url": "https://www.betssongroup.com/careers/available-jobs/",
+        "linkSelector": "a[href*=\"/job/\"]",
         "baseUrl": "https://www.betssongroup.com"
       },
       "lastChecked": "2026-04-10T05:00:04.685Z",
@@ -137,8 +137,8 @@
       "name": "LeoVegas Careers",
       "enabled": true,
       "config": {
-        "url": "https://www.leovegasgroup.com/careers/",
-        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "url": "https://www.leovegasgroup.com/careers/open-positions/",
+        "linkSelector": "a[href*=\"jobs.jobvite.com/leovegas/job/\"]",
         "baseUrl": "https://www.leovegasgroup.com"
       },
       "lastChecked": "2026-04-10T05:00:06.493Z",
@@ -183,8 +183,9 @@
       "enabled": true,
       "config": {
         "url": "https://www.raketech.com/careers/",
-        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
-        "baseUrl": "https://www.raketech.com"
+        "linkSelector": "a[href*=\"/job/\"], a[href*=\"/career/\"]",
+        "baseUrl": "https://www.raketech.com",
+        "usesBrowser": true
       },
       "lastChecked": "2026-04-10T05:00:12.925Z",
       "lastFoundCount": 1,
@@ -198,7 +199,7 @@
       "enabled": true,
       "config": {
         "url": "https://www.kambi.com/careers/",
-        "linkSelector": "a[href*='/job/'], a[href*='/careers/']",
+        "linkSelector": "a[href*=\"job-detail\"]",
         "baseUrl": "https://www.kambi.com"
       },
       "lastChecked": "2026-04-10T05:00:14.131Z",
@@ -212,9 +213,20 @@
       "type": "api",
       "config": {
         "searches": [
-          { "keywords": "Chief Marketing Officer", "geoId": "105117694", "f_WT": "2" },
-          { "keywords": "CMO", "geoId": "105117694", "f_WT": "2" },
-          { "keywords": "Marknadschef", "geoId": "105117694" }
+          {
+            "keywords": "Chief Marketing Officer",
+            "geoId": "105117694",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "CMO",
+            "geoId": "105117694",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "Marknadschef",
+            "geoId": "105117694"
+          }
         ],
         "maxPagesPerSearch": 3,
         "f_TPR": "r604800",
@@ -232,9 +244,20 @@
       "type": "api",
       "config": {
         "searches": [
-          { "keywords": "Chief Product Officer", "geoId": "105117694", "f_WT": "2" },
-          { "keywords": "CPO", "geoId": "105117694", "f_WT": "2" },
-          { "keywords": "Produktchef", "geoId": "105117694" }
+          {
+            "keywords": "Chief Product Officer",
+            "geoId": "105117694",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "CPO",
+            "geoId": "105117694",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "Produktchef",
+            "geoId": "105117694"
+          }
         ],
         "maxPagesPerSearch": 3,
         "f_TPR": "r604800",
@@ -252,8 +275,16 @@
       "type": "api",
       "config": {
         "searches": [
-          { "keywords": "Head of Marketing", "geoId": "105117694", "f_WT": "2" },
-          { "keywords": "Marketing Director", "geoId": "105117694", "f_WT": "2" }
+          {
+            "keywords": "Head of Marketing",
+            "geoId": "105117694",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "Marketing Director",
+            "geoId": "105117694",
+            "f_WT": "2"
+          }
         ],
         "maxPagesPerSearch": 3,
         "f_TPR": "r604800",
@@ -271,9 +302,18 @@
       "type": "api",
       "config": {
         "searches": [
-          { "keywords": "iGaming marketing", "f_WT": "2" },
-          { "keywords": "igaming CMO", "f_WT": "2" },
-          { "keywords": "gambling marketing director", "f_WT": "2" }
+          {
+            "keywords": "iGaming marketing",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "igaming CMO",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "gambling marketing director",
+            "f_WT": "2"
+          }
         ],
         "maxPagesPerSearch": 2,
         "f_TPR": "r604800",
@@ -291,8 +331,16 @@
       "type": "api",
       "config": {
         "searches": [
-          { "keywords": "VP Marketing", "geoId": "105117694", "f_WT": "2" },
-          { "keywords": "Vice President Marketing", "geoId": "105117694", "f_WT": "2" }
+          {
+            "keywords": "VP Marketing",
+            "geoId": "105117694",
+            "f_WT": "2"
+          },
+          {
+            "keywords": "Vice President Marketing",
+            "geoId": "105117694",
+            "f_WT": "2"
+          }
         ],
         "maxPagesPerSearch": 2,
         "f_TPR": "r604800",

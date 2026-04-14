@@ -12,6 +12,24 @@
  *   maxPages   - max pages to fetch (optional, default 5)
  */
 
+function htmlToText(html) {
+  if (!html) return "";
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/?(p|div|li|h[1-6])[^>]*>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 async function fetchJobs(source) {
   const {
     apiUrl, searchPath, siteCode, jobBuckets,
@@ -57,11 +75,15 @@ async function fetchJobs(source) {
       }
 
       for (const j of jobs) {
+        // Prefer the public job page (/jobs/slug); fall back to apply_url
         const jobUrl = j.URL
-          ? `${baseUrl.replace(/\/$/, "")}/vacancy/${j.URL}`
-          : j.apply_url;
+          ? `${baseUrl.replace(/\/$/, "")}/jobs/${j.URL}`
+          : j.apply_url || null;
         if (!jobUrl || seen.has(jobUrl)) continue;
         seen.add(jobUrl);
+
+        // Extract full description from API (avoids needing to scrape)
+        const description = htmlToText(j.job_body || j.job_description || "");
 
         allJobs.push({
           externalId: `applyflow-${j.uuid || j.id}`,
@@ -70,6 +92,7 @@ async function fetchJobs(source) {
           company: j.company_name || source.name,
           location: j.location_label || null,
           snippet: (j.short_description || "").slice(0, 300),
+          description,
           postedAt: j.created_at ? new Date(j.created_at).toISOString() : null,
         });
       }
