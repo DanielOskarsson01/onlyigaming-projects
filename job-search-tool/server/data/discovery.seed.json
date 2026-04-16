@@ -712,31 +712,15 @@
       "Senior Director of Marketing",
       "Senior Vice President Marketing"
     ],
-    "industries": [
-      "iGaming",
-      "online gaming",
-      "betting",
-      "casino",
-      "gambling",
-      "igaming",
-      "marketing",
-      "digital marketing",
-      "e-commerce",
-      "ecommerce",
-      "adtech",
-      "martech",
-      "SaaS",
-      "fintech",
-      "media",
-      "advertising",
-      "digital agency",
-      "B2B",
-      "B2C",
-      "crypto",
-      "blockchain",
-      "health",
-      "fashion",
-      "retail"
+    "excludeKeywords": [
+      "intern",
+      "internship",
+      "junior",
+      "student",
+      "trainee",
+      "praktikant",
+      "praktik",
+      "assistant"
     ],
     "locations": [
       "Stockholm",
@@ -745,19 +729,9 @@
       "Europe",
       "Nordic",
       "Portugal",
+      "Spain",
       "UAE",
       "Global"
-    ],
-    "seniority": [
-      "Executive",
-      "Director",
-      "VP",
-      "Head",
-      "Chief",
-      "Senior",
-      "Manager",
-      "Lead",
-      "Interim"
     ]
   }
 }

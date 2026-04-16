@@ -148,17 +148,57 @@ function diceCoefficient(a, b) {
 }
 
 /**
- * Filter items by search profile keywords.
- * A job passes if its title contains any keyword from the profile.
- * Keywords should be specific role names (e.g. "Marketing Director",
- * "Brand Manager", "Head of Product") — not generic terms.
+ * Filter items by search profile: keywords, exclude keywords, and location rules.
+ *
+ * Location rules:
+ *   - No location data → pass through
+ *   - Sweden → must be Stockholm or remote
+ *   - Other allowed countries (from profile.locations) → any city
+ *   - Any other country → must be remote
  */
 function filterByProfile(items, profile) {
   const kwLower = (profile.keywords || []).map((k) => k.toLowerCase());
+  const excludeLower = (profile.excludeKeywords || []).map((k) => k.toLowerCase());
+  const locLower = (profile.locations || []).map((l) => l.toLowerCase());
 
   return items.filter((item) => {
-    const titleLower = (item.title || "").toLowerCase();
-    return kwLower.some((kw) => titleLower.includes(kw));
+    const title = (item.title || "").toLowerCase();
+    const loc = (item.location || "").toLowerCase();
+
+    // 1. Title must match a keyword
+    if (!kwLower.some((kw) => title.includes(kw))) return false;
+
+    // 2. Title must NOT match any exclude keyword
+    if (excludeLower.length > 0 && excludeLower.some((ex) => title.includes(ex))) {
+      console.log(`[Discovery] Excluded (title blocklist): "${item.title}"`);
+      return false;
+    }
+
+    // 3. Location filter (only when location data exists)
+    if (loc) {
+      const isRemote = loc.includes("remote");
+
+      // Sweden special rule: must be Stockholm or remote
+      if (loc.includes("sweden") || loc.includes("sverige")) {
+        if (!loc.includes("stockholm") && !isRemote) {
+          console.log(`[Discovery] Filtered out (Sweden, not Stockholm/remote): "${item.title}" — ${item.location}`);
+          return false;
+        }
+        return true;
+      }
+
+      // Other allowed countries from profile: pass through
+      const isAllowedCountry = locLower.some((l) => loc.includes(l));
+      if (isAllowedCountry) return true;
+
+      // Foreign country: must be remote
+      if (!isRemote) {
+        console.log(`[Discovery] Filtered out (foreign, not remote): "${item.title}" — ${item.location}`);
+        return false;
+      }
+    }
+
+    return true;
   });
 }
 

@@ -20,9 +20,8 @@ const DEFAULT_DB = {
       "Head of Marketing", "Head of Product",
       "VP Marketing", "VP Product",
     ],
-    industries: ["iGaming", "online gaming", "betting", "casino", "gambling"],
-    locations: ["Stockholm", "Sweden", "Remote", "Europe", "Nordic"],
-    seniority: ["Executive", "Director", "VP", "Head", "Chief"],
+    excludeKeywords: ["intern", "junior", "student", "trainee", "assistant", "praktikant"],
+    locations: ["Stockholm", "Sweden", "Remote", "Europe", "Nordic", "Portugal", "Spain", "UAE", "Global"],
   },
   lastScanAt: null,
 };

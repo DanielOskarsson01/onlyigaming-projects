@@ -34,22 +34,16 @@ export default function SearchProfileEditor() {
         placeholder="e.g. CMO, Head of Marketing"
       />
       <TagField
-        label="Industries"
-        tags={profile.industries}
-        onChange={(industries) => setProfile({ ...profile, industries })}
-        placeholder="e.g. iGaming, fintech"
+        label="Exclude Keywords"
+        tags={profile.excludeKeywords || []}
+        onChange={(excludeKeywords) => setProfile({ ...profile, excludeKeywords })}
+        placeholder="e.g. intern, junior, student"
       />
       <TagField
-        label="Locations"
+        label="Locations (allowed countries — Sweden requires Stockholm unless remote)"
         tags={profile.locations}
         onChange={(locations) => setProfile({ ...profile, locations })}
-        placeholder="e.g. Stockholm, Remote"
-      />
-      <TagField
-        label="Seniority"
-        tags={profile.seniority}
-        onChange={(seniority) => setProfile({ ...profile, seniority })}
-        placeholder="e.g. Director, VP"
+        placeholder="e.g. Stockholm, Sweden, Portugal, Remote"
       />
 
       <div className="flex items-center gap-3">
