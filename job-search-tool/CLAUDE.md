@@ -1,15 +1,29 @@
-# Job Search Tool - Claude Code Context
+# Job Search Tool
 
-## Purpose
+## Project Overview
 
-Personal job application factory. 7-step pipeline from job discovery to ready-to-send application packages, with AI doing the heavy lifting and human reviewing at key gates.
+Personal job application factory. Removes friction from every step of the job search process — discovery, evaluation, tailoring, and document generation. AI does the heavy lifting; the human reviews at key gates.
+
+**Strategic direction:** This tool is being migrated into the OnlyiGaming Content Pipeline v2 as a new project type. The content pipeline skeleton is a generic modular workflow engine — job search becomes a set of submodules running inside it. See STRATEGY.md for full rationale and architecture.
+
+**Current state:** Standalone prototype (this repo). Code here serves as the reference for porting logic into content pipeline submodules. This repo will be archived once migration is complete.
+
+## Goals
+
+1. Every pipeline step works reliably from start to finish
+2. Discovery finds relevant jobs without noise (location + keyword filtering)
+3. Analysis produces actionable, accurate fit assessments
+4. Generated materials (CV + cover letter) are ready to send without manual editing
+5. The tool runs daily with minimal babysitting (cron scan at 07:00)
 
 ## Architecture
 
 - **Frontend:** React 19 + Vite (port 5174), Tailwind CSS
-- **Backend:** Express (port 3005), JSON file database
-- **AI:** Anthropic Claude API (Sonnet for analysis/generation)
-- **Scraping:** HTTP fetch + Mozilla Readability, Playwright for JS-rendered sites (ported from content pipeline)
+- **Backend:** Express.js (port 3005), JSON file database (atomic writes)
+- **AI:** Anthropic Claude API (Sonnet, configurable model)
+- **Scraping:** HTTP fetch + Mozilla Readability, Playwright fallback for JS-rendered sites
+- **Document Generation:** DOCX (pptxgenjs-style Word documents)
+- **Scheduling:** node-cron (daily 07:00 discovery scan)
 
 ## The 7-Step Pipeline
 
@@ -18,26 +32,63 @@ DISCOVER -> VALIDATE -> EVALUATE -> REVIEW -> REFINE -> GENERATE -> PACKAGE
    AI        HUMAN      AI+HUMAN    HUMAN    AI+HUMAN     AI         AUTO
 ```
 
-1. **Discover** - Crawl configured job sites (APIs + career pages + manual URL/paste)
-2. **Validate** - Human reviews title + company, scrapes job ad text
-3. **Evaluate** - Claude 5-layer analysis, fit scoring, variant selection
-4. **Review** - Accept/reject suggestions, answer gap questions
-5. **Refine** - Preview how suggestions/answers integrate into CV, iterative comment/approve loop
-6. **Generate** - CV + cover letter + suggestions doc (uses refined content + knowledge bank)
-7. **Package** - Download all outputs, bundled per-application folder
+| Step | Name | Who | What Happens |
+|------|------|-----|-------------|
+| 0 | Discover | AI | Crawl sources (APIs + career pages), filter by profile, deduplicate |
+| 1 | Validate | Human | Review titles, promote to jobs, scrape job ad text |
+| 2 | Evaluate | AI | 5-layer analysis, fit score, variant selection, suggestions, gaps |
+| 3 | Review | Human | Accept/reject suggestions, answer gap questions |
+| 4 | Refine | AI+Human | Preview integration of changes, iterate with comments, approve |
+| 5 | Generate | AI | Output tailored CV + cover letter + suggestions (DOCX) |
+| 6 | Package | Auto | Download bundled application materials |
 
 ## Key Directories
 
 | Path | Purpose |
 |------|---------|
-| `server/routes/` | Express API routes (jobs, scrape, analyze, generate, discovery) |
-| `server/services/` | Business logic (analyzer, cvGenerator, coverLetterGenerator, discovery, scraper) |
-| `server/services/providers/` | Discovery providers (jobtech, remoteok, remotive, careerPage) |
-| `server/services/scraper/` | Ported pipeline scrapers (pageScraper, browserScraper, browserPool) |
-| `server/lib/` | Database (db.js for jobs, discoveryDb.js for discovery) |
-| `server/data/` | JSON databases (jobs.json, discovery.json) |
-| `client/src/components/` | React UI components per pipeline step |
-| `output/` | Generated files (CV, cover letter, suggestions docs) |
+| `server/routes/` | Express API routes (8 files: jobs, scrape, analyze, generate, discovery, refine, knowledge, materials, prompts) |
+| `server/services/` | Business logic (analyzer, cvGenerator, coverLetterGenerator, discovery, scraper, refiner, sourceDetector) |
+| `server/services/providers/` | Discovery source adapters (jobtech, remoteok, remotive, linkedin, applyflow, careerPage) |
+| `server/lib/` | Data access layer (db.js, discoveryDb.js, promptDb.js, knowledgeDb.js, materialDb.js, http.js) |
+| `server/data/` | JSON databases (jobs.json, discovery.json, prompts.json, knowledge.json, materials.json) |
+| `client/src/components/` | React UI components (19 files, one per pipeline step + settings/management) |
+| `output/` | Generated DOCX files |
+
+## Discovery Providers
+
+| Provider | Type | Source |
+|----------|------|--------|
+| jobtech | API | Arbetsformedlingen / Platsbanken (Swedish job board) |
+| remoteok | API | RemoteOK (remote jobs) |
+| remotive | API | Remotive (remote jobs) |
+| linkedin | Guest API | LinkedIn job search |
+| applyflow | API | BettingJobs + Applyflow CMS boards |
+| career_page | Web scrape | Company career pages with CSS selectors |
+
+## Search Profile (discovery.json)
+
+- **keywords:** 37 role-specific terms (CMO, CEO, Marketing Manager, etc.)
+- **excludeKeywords:** Blocks junior/intern/assistant/trainee/student
+- **locations:** Stockholm, Sweden, Remote, Europe, Nordic, Portugal, Spain, UAE, Global
+- **Location rules:** Sweden = Stockholm or remote only; allowed countries = any city; others = must be remote
+
+## CV Generation System
+
+Uses pre-approved variant system from `CVS_DIR`:
+- 7 base variants: generic, igaming, cmo, cpo, ceo, startup, digital
+- `CV_SECTION_VARIANTS.md` - Pre-written section variants
+- `CV_JOB_VARIANTS.md` - Pre-written job entry variants
+- `COMPETENCY_MASTER_POOL.json` - Competency categories
+- `cv_data.json` - Structured CV metadata
+- `MASTER_CV.md` - Complete CV (source of truth)
+
+**Constraint:** AI selects from pre-approved content only. It does not invent new content.
+
+## Writing Rules (MANDATORY)
+
+1. NEVER use em dashes or en dashes. Use regular hyphen-dash (-) only.
+2. Avoid "leveraged", "spearheaded", "cutting-edge", "robust" and AI-typical words.
+3. Write in a direct, confident, human tone. No filler phrases.
 
 ## Environment Variables
 
@@ -45,80 +96,66 @@ DISCOVER -> VALIDATE -> EVALUATE -> REVIEW -> REFINE -> GENERATE -> PACKAGE
 - `CVS_DIR` - Path to JobSearch/CVs folder (CV source documents)
 - `PORT` - Server port (default 3005)
 
-## CV Generation System
-
-Uses pre-approved variant system from JobSearch/CVs/:
-- 7 base variants: generic, igaming, cmo, cpo, ceo, startup, digital
-- `CV_SECTION_VARIANTS.md` - Pre-written section variants
-- `CV_JOB_VARIANTS.md` - Pre-written job entry variants
-- `COMPETENCY_MASTER_POOL.json` - Competency categories (pick 3, 4-6 items each)
-- `cv_data.json` - Structured CV data
-- `MASTER_CV.md` - Complete CV (source of truth)
-
-AI selects from pre-approved content. It does not invent new content.
-
-## Writing Rules (MANDATORY)
-
-All generated text output must follow:
-1. **NEVER use em dashes** (the long dash: -). Use regular hyphen-dash (-) instead.
-2. **NEVER use en dashes** (-). Use regular hyphen-dash (-) instead.
-3. Avoid "leveraged", "spearheaded", "cutting-edge", "robust" and AI-typical words.
-4. Write in a direct, confident, human tone. No filler phrases.
-
-## Running the Tool
+## Running
 
 ```bash
 cd ~/Library/CloudStorage/Dropbox/Projects/job-search-tool
-npm run dev
+npm run dev    # Both server + client
+npm run server # Server only
 ```
 
 - Frontend: http://localhost:5174/
 - API: http://localhost:3005/
 
-## Related Projects
-
-- **JobSearch/** (`CVS_DIR`) - File store for CV source docs, generated outputs, application tracking
-- **Content Pipeline** - Source for scraper chain (page-scraper, browser-scraper, browserPool)
-
 ## Data Model
 
 ### Job (jobs.json)
-```
-{ id, url, title, company, status, createdAt, updatedAt,
-  scrapeResult: { textContent, wordCount, title, metaDescription },
-  analysis, userChoices, outputs }
-```
-
-Status flow: `scraped -> analyzed -> reviewed -> refined -> generated`
+Status flow: `promoted -> scraped -> analyzed -> reviewed -> refined -> generated`
 
 ### Discovery Item (discovery.json)
-```
-{ id, sourceId, externalId, url, title, company, location, snippet,
-  discoveredAt, status, promotedJobId }
-```
+Status flow: `new -> interested/dismissed` or `new -> promoted` (creates job)
 
-Status flow: `new -> interested/dismissed` or `new -> validated -> promoted`
+## Known Issues
+
+- JobTech API returns full-text matches (not title-only), producing noise that `filterByProfile` must clean up
+- JobTech "Marknadschef" query returns 0 results despite jobs existing on Platsbanken (query/municipality filter issue)
+- Some career page sources fail intermittently (Raketech, others with Cloudflare)
+- JobTech timeout: intermittent "This operation was aborted" on some queries
+- Each pipeline step UI needs stability review - steps may not handle edge cases well
+
+## Migration Target
+
+**Content Pipeline v2 (skeleton):** `~/Library/CloudStorage/Dropbox/Projects/OnlyiGaming/content-pipeline-v2/`
+**Content Pipeline v2 (modules):** `~/Library/CloudStorage/Dropbox/Projects/OnlyiGaming/content-pipeline-modules-v2/`
+
+Job search submodules will be added to the modules repo. No skeleton changes needed. See STRATEGY.md Part 4 for the full submodule list and Part 10 for phased implementation.
 
 ## Session Log
 
-### Session: 2026-04-07 — Discovery filter rewrite to keyword matching
+### Session: 2026-04-16 — Location filtering, exclude keywords, slash commands
 **Accomplished:**
-- Fixed discovery filter: applied `filterByProfile` to ALL API sources (not just RemoteOK/Remotive). JobTech was flooding feed with 100+ irrelevant results.
-- Tightened filter with industry requirement for generic terms, but still too noisy.
-- Rewrote filter to keyword-only title matching against 37 role-specific keywords derived from user's actual LinkedIn applications. Tested: 10/10 real applications pass, 6/6 irrelevant jobs rejected.
-- Expanded search profile from 15 to 37 keywords (Marketing Manager, Brand Manager, Creative Strategist, Product Marketing Manager, Growth Manager, Strategy Director, etc.).
-- Added "Running the Tool" section to CLAUDE.md with `npm run dev` and port info.
-- Verified end-to-end: server restarted, discovery scan ran clean (0 irrelevant results).
+- Added location filtering to `filterByProfile` (Sweden=Stockholm/remote, allowed countries pass, foreign must be remote)
+- Replaced unused `industries`/`seniority` profile fields with `excludeKeywords`
+- Updated SearchProfileEditor UI, discoveryDb.js defaults, discovery.seed.json
+- Fixed BettingJobs scraping: extract descriptions from Applyflow API, fix /jobs/ URL pattern
+- Converted 10 agent files to slash commands in `~/.claude/commands/`
+- Created proper CLAUDE.md and ROADMAP.md for the project
 
 **Decisions:**
-- Keyword-only filter (no seniority/industry): user searches by specific role names, not seniority + industry combinations. Generic terms like "Senior", "Manager", "Lead" match too many irrelevant roles.
-- 37 role-specific keywords based on actual LinkedIn applications: covers CMO/CEO down to Marketing Manager/Brand Manager.
-- Search profile stored in discovery.json (not code): keywords, industries, seniority, locations are configurable via UI/API.
+- Exclude keywords block titles containing junior/intern/etc. (safer than seniority whitelist)
+- Location filtering uses profile.locations list; Sweden gets special Stockholm-only treatment
+- Slash commands strip YAML frontmatter from old agent format
 
-**Blockers/Questions:**
-- Raketech careers source errors: `fetch failed` during scan (likely broken URL or blocked requests). Low priority.
-- JobTech timeout: intermittent "This operation was aborted" for jobtech-head-marketing-stockholm.
+**Commits:** `0e67ed7` (BettingJobs fix), `9555218` (location filtering + exclude keywords)
 
-**Commits:** `078f778`, `7fdcc6e`, `8c6ffc1` (all pushed)
-**Files changed:** `server/services/discovery.js`, `CLAUDE.md`
-**Updated by:** session-closer agent
+### Session: 2026-04-07 — Discovery filter rewrite to keyword matching
+**Accomplished:**
+- Rewrote discovery filter to keyword-only title matching against 37 role-specific keywords
+- Expanded search profile from 15 to 37 keywords
+- Fixed filterByProfile application to ALL API sources (not just RemoteOK/Remotive)
+
+**Decisions:**
+- Keyword-only filter (no seniority/industry): user searches by specific role names
+- 37 keywords based on actual LinkedIn applications
+
+**Commits:** `078f778`, `7fdcc6e`, `8c6ffc1`
