@@ -481,39 +481,60 @@ Applied after deduplication:
 
 ## Part 10: Phased Implementation
 
-### Phase 1: Proof of Concept
+### Deployment Model
 
-**Goal:** Prove that job search works inside the content pipeline.
+One Hetzner deployment, two templates. The content pipeline skeleton stays untouched — job search is a second project type alongside company profiles. Supabase tables specific to job search are prefixed `js_` for visual separation (e.g., `js_knowledge_bank`). Both templates share the same BullMQ queue, Redis instance, and module loader.
+
+### Phase 1: Contract Validation
+
+**Goal:** Prove that three distinct module shapes work inside the content pipeline before committing to porting all 13 modules.
+
+The three shapes being validated:
+- **Fetcher** (tabular output): `jobtech` — calls an external API, returns rows rendered in a table
+- **Analyzer** (multiple input sources): `job-analyzer` — reads entity data + CV content + knowledge bank, returns structured analysis
+- **Generator** (file output): `cv-generator` — produces a DOCX file from analysis results
+
+This phase deliberately skips scraping. The analyzer receives hardcoded ad text injected directly into the entity, bypassing Step 3 entirely. This isolates the contract validation from scraping reliability issues.
 
 1. Create a "Job Search" template in Supabase (execution_plan, seed_config, preset_map)
-2. Port `jobtech` as the first Step 1 submodule (manifest.json + execute.js)
-3. Create a project using the Job Search template
-4. Run a discovery scan
+2. Create `js_knowledge_bank` table in Supabase
+3. Port `jobtech` as Step 1 submodule (manifest.json + execute.js)
+4. Port `job-analyzer` as Step 5 submodule (reads hardcoded ad text from entity)
+5. Port `cv-generator` as Step 5 submodule (produces DOCX from analysis)
+6. Create a project using the Job Search template
+7. Run discovery → manually inject ad text → run analysis → run generation
+8. Write a contract validation report documenting: what worked, what broke, what the skeleton needs (if anything)
 
-**Definition of done:** Discovered jobs from JobTech appear in the universal step UI, rendered from the manifest's output_schema.
+**Definition of done:** A written contract validation report. JobTech results render in the step UI. The analyzer produces a fit score and variant selection from hardcoded input. The CV generator produces a DOCX file. All three module shapes execute without skeleton modifications.
 
 ### Phase 2: Full Discovery
 
-**Goal:** All 6 providers work, filtering and dedup operational.
+**Goal:** All 6 providers work, filtering and dedup operational, scraping live.
 
-1. Port remaining 5 discovery provider submodules
-2. Port `job-filter` and `job-dedup` as Step 2 submodules
-3. Wire search profile into template seed_config
-4. Set up daily cron trigger
+1. Port `remoteok` provider submodule
+2. Port `remotive` provider submodule
+3. Port `linkedin-jobs` provider submodule
+4. Port `applyflow` provider submodule
+5. Port `career-page` provider submodule
+6. Port `job-filter` as Step 2 submodule (keyword + location + exclude filtering)
+7. Port `job-dedup` as Step 2 submodule (URL, externalId, fuzzy title dedup)
+8. Port `job-scraper` as Step 3 submodule (replaces hardcoded ad text from Phase 1)
+9. Wire search profile into template seed_config
+10. Set up daily cron trigger
 
-**Definition of done:** Full scan across all 6 providers. Results match the current standalone tool's output. Dedup and filtering remove the same items.
+**Definition of done:** Full scan across all 6 providers. Scraper fetches real ad text. Results match the current standalone tool's output. Dedup and filtering remove the same items.
 
-### Phase 3: Analysis and Generation
+### Phase 3: Remaining Generation and Data Migration
 
-**Goal:** Process a job from scraped ad to application package.
+**Goal:** Complete the generation pipeline and migrate all supporting data.
 
-1. Port `job-scraper` as Step 3 submodule
-2. Port `job-analyzer` as Step 5 submodule
-3. Port `cv-generator` and `cover-letter-gen` as Step 5 submodules
-4. Port `app-bundler` as Step 8 submodule
-5. Migrate CV source files and knowledge bank
+1. Port `cover-letter-gen` as Step 5 submodule
+2. Port `app-bundler` as Step 8 submodule
+3. Migrate CV source files (variants, competency pool, master CV) into cv-generator module assets
+4. Migrate knowledge bank data to `js_knowledge_bank` Supabase table
+5. Wire prompt configuration into template preset_map options
 
-**Definition of done:** One real job application processed from discovery through to downloadable application package inside the content pipeline.
+**Definition of done:** One real job application processed from discovery through scraping, analysis, CV + cover letter generation, to downloadable application package — all inside the content pipeline.
 
 ### Phase 4: End-to-End Validation
 
@@ -522,6 +543,7 @@ Applied after deduplication:
 1. Process 5 real job applications through the full pipeline
 2. Fix issues found at each step
 3. Compare output quality with standalone tool
+4. Run daily scan for 7 consecutive days without errors
 
 **Definition of done:** 5 complete application packages. Each contains a tailored CV and cover letter. No crashes. No manual workarounds required at any automated step.
 

@@ -4,16 +4,20 @@
 
 ---
 
-## Phase 1: Proof of Concept
+## Phase 1: Contract Validation
 
 Status: not started
 
 - [ ] Create "Job Search" template in Supabase (execution_plan, seed_config, preset_map)
-- [ ] Port `jobtech` provider as first Step 1 submodule (manifest.json + execute.js)
+- [ ] Create `js_knowledge_bank` table in Supabase
+- [ ] Port `jobtech` as Step 1 submodule (manifest.json + execute.js)
+- [ ] Port `job-analyzer` as Step 5 submodule (hardcoded ad text input)
+- [ ] Port `cv-generator` as Step 5 submodule (DOCX output)
 - [ ] Create a project using the Job Search template
-- [ ] Run discovery scan, verify results render in universal step UI
+- [ ] Run discovery → inject ad text → analysis → generation
+- [ ] Write contract validation report (what worked, what broke, skeleton needs)
 
-**Done when:** JobTech results appear in the content pipeline UI.
+**Done when:** Written report. Three module shapes (fetcher, analyzer, generator) execute without skeleton changes.
 
 ---
 
@@ -28,27 +32,25 @@ Status: not started
 - [ ] Port `career-page` provider submodule
 - [ ] Port `job-filter` as Step 2 submodule (keyword + location + exclude filtering)
 - [ ] Port `job-dedup` as Step 2 submodule (URL, externalId, fuzzy title dedup)
+- [ ] Port `job-scraper` as Step 3 submodule (replaces hardcoded ad text)
 - [ ] Wire search profile into template seed_config
 - [ ] Set up daily cron trigger
-- [ ] Verify: full scan matches standalone tool's output
 
-**Done when:** All 6 providers return results. Dedup and filtering match current tool.
+**Done when:** All 6 providers return results. Scraper fetches real ad text. Dedup and filtering match current tool.
 
 ---
 
-## Phase 3: Analysis and Generation
+## Phase 3: Remaining Generation and Data Migration
 
 Status: not started
 
-- [ ] Port `job-scraper` as Step 3 submodule
-- [ ] Port `job-analyzer` as Step 5 submodule (5-layer analysis + fit score + variant)
-- [ ] Port `cv-generator` as Step 5 submodule
 - [ ] Port `cover-letter-gen` as Step 5 submodule
 - [ ] Port `app-bundler` as Step 8 submodule
-- [ ] Migrate CV source files (variants, competency pool, master CV)
-- [ ] Migrate knowledge bank to Supabase table
+- [ ] Migrate CV source files into cv-generator module assets
+- [ ] Migrate knowledge bank data to `js_knowledge_bank` table
+- [ ] Wire prompt configuration into template preset_map options
 
-**Done when:** One real job application processed from discovery to downloadable package.
+**Done when:** One real job application processed from discovery to downloadable package inside the content pipeline.
 
 ---
 
