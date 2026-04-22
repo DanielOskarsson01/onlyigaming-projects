@@ -8,6 +8,34 @@
 
 | Timestamp | Project | Agent | Action | Path | Notes |
 |-----------|---------|-------|--------|------|-------|
+| 2026-04-23 | Content-Pipeline | session-closer | Fixed | browser-scraper, api-scraper, page-scraper, stageWorker, browserPool, url-filter, browser-crawler | word_count NaN guards (4 files, 2 repos), url-filter presets enabled + seed script, browser-crawler waitForSelector, browserPool 407 proxy fallback. Commits 9a3f9ab + 0a88e8c + 10d4311. Acceptance test passed (7 blog URLs from pronetgaming.com). |
+| 2026-04-22 | Content-Pipeline | session-closer | Planned | Phase 4a/4b plans (escalation + cascade runs) | Phase 4a: within-run escalation (~99 lines, autoExecutor.js + runs.js). Phase 4b: cascade runs (~450 lines, 3 new files, 1 migration). Rev 2 plan addresses 6 architecture review issues (entity_run_meta consistency, failure ownership, loop pass behavior, scope, config, verification). No code written — planning only. |
+| 2026-04-22 | Content-Pipeline | session-closer | Modified | content-pipeline-v2/CLAUDE.md | Session log entry added for Phase 4a/4b planning session |
+| 2026-04-22 | Content-Pipeline | session-closer | Created | modules/step-1-discovery/api-search/ (4 files) | Generic api-search module replacing jobtech. Two provider modes (search + feed), 3 built-in providers (jobtech, remoteok, remotive). Adding new job boards = JSON config, not code. Tested all 3 providers on production (76+89+17 items, 0 errors). Commits d3a7682 + 5d2e227 (pushed). |
+| 2026-04-22 | Content-Pipeline | session-closer | Deleted | modules/step-1-discovery/jobtech/ (4 files) | Replaced by api-search. Old single-provider module removed after verification. |
+| 2026-04-22 | Content-Pipeline | session-closer | Modified | Supabase template b6ffa614 | Swapped jobtech→api-search in execution_plan + preset_map. Municipality filter now actually sent to API. |
+| 2026-04-21 | job-search-tool | claude | Rewritten | STRATEGY.md, ROADMAP.md, CLAUDE.md | Comprehensive strategy rewrite (190→450 lines). Strategic decision: migrate job search into Content Pipeline v2 as a new project type (template + 13 submodules, zero skeleton changes). Starts from user problem (procrastination/friction), maps 7-step pipeline to content pipeline steps, defines module contracts, data flow, CV system, provider specs, 4-phase implementation plan. Commit 3c3d4e6 (pushed). |
+| 2026-04-11 | Meal-Planner | session-closer | Created/Modified | src/components/Activity*.tsx, src/hooks/useActivityTemplates.ts, src/types.ts, src/data.ts, src/index.css, src/App.tsx | Activity library + schedule: 7-tab app (added Aktiviteter + Schema), activity templates with image upload + description, schedule activities match meal slot design. 4 commits (f3afb35, b821733, 69190be, 9398280). Supabase: created activity_templates table, altered activities table (dropped time, added image_url). |
+| 2026-04-07 | SEO | claude | Created | SEO/articles/SEO_CONTENT_STRATEGY_FINAL.md, TIER1_OUTLINES_FOR_APPROVAL.md | Review article strategy: 71 pillar articles (1 per B2B category) + 3-8 satellites each (~400+ articles total). Cross-dimension comparison format, independent/no pay-to-play, directory-backed data. |
+| 2026-04-07 | SEO | claude | Created | SEO/articles/best-casino-platforms-2026/article.md | First Tier 1 pillar article drafted: 12 companies reviewed, 13 runners-up, 10 comparison dimensions. |
+| 2026-04-07 | SEO | claude | Created | SEO/articles/best-{crm,payment,aggregators,sportsbook}-*/article.md | Tier 1 articles 2-5 drafted (CRM, Payment Processing, Game Aggregators, Sportsbook Platforms). |
+| 2026-04-07 | Content-Pipeline | claude | Created | /tmp/image-bakeoff.mjs, /tmp/bakeoff-2026-04-07/ | Image bake-off v2: 13 tests, 10 AI models (3 new Google models), 3 stock providers. All passed. Script reusable for future articles. |
+| 2026-04-07 | job-search-tool | session-closer | Modified | server/services/discovery.js | Discovery filter rewrite: 3 iterations from source-specific to keyword-only title matching (37 role keywords from actual LinkedIn applications). 3 commits (078f778, 7fdcc6e, 8c6ffc1). |
+| 2026-04-07 | job-search-tool | session-closer | Modified | CLAUDE.md | Added "Running the Tool" section + session log entry |
+| 2026-04-05 | Content-Pipeline | session-closer | Modified | server/services/autoExecutor.js, server/routes/runs.js, server/server.js, 7 client files | Phase 12c Auto-Execute: orchestration engine, halt/resume/abort endpoints, Redis lock, UI banners + Auto-Execute button, PGRST116 fix, submodules_per_step fallback from registry. 4 commits (bf43a14, 7813b5c, 7eaa339, 916aa4a). |
+| 2026-04-05 | Content-Pipeline | session-closer | Created | Content-Pipeline/specs/PHASE_12C_TEST_PROTOCOL.md | 60+ test cases, 13 sections covering guards, happy path, halt/resume, abort, timeout, recovery, UI |
+| 2026-04-02 | JobSearch | session-closer | Created | CVs/generate-cover-letter.js | Cover letter generator: Claude API + docx output, 3 themed cover images (builder/business/internationalist), matching CV pipeline styling |
+| 2026-04-02 | JobSearch | session-closer | Modified | CVs/ (folder cleanup) | Moved 25 old files to archive/, deleted wrong-approach scripts and test files, removed cv/versions/ and cv/output/ |
+| 2026-04-02 | JobSearch | session-closer | Modified | CLAUDE.md | Updated key files section, added session log entry |
+| 2026-03-26 | Content-Pipeline | claude | Created | Content-Pipeline/SUBMODULE_TRACKER.md, SUBMODULE_REFERENCE.md, submodules/ (48 folders), scripts/generate-submodule-reference.js | Submodule docs reorganization: master tracker (45 submodules), per-submodule strategy.md + research.md folders, auto-generated combined reference (1,732 lines from 30 READMEs). Regenerate with `node scripts/generate-submodule-reference.js`. |
+| 2026-03-26 | Content-Pipeline | claude | Created | submodules/step-5/image-generator/research.md, image-bakeoff-2026-03-26.html | Image sourcing bake-off: 13 tests, 6 providers. OpenAI GPT Image 1 Low ($0.005) recommended as primary. All API keys in content-pipeline-v2/.env. |
+| 2026-03-26 | Content-Pipeline | claude | Fixed | content-pipeline-modules-v2/.claude/skills/ (symlinks) | Symlinked /submodule-create and /submodule-readme skills from central Projects/skills/ to modules repo. Also symlinked md-to-docx to SEO, meeting-agenda + md-to-docx to project-command-center. Skills were referenced in CLAUDE.md but unreachable. |
+| 2026-03-26 | Content-Pipeline | claude | Fixed | content-pipeline-v2/CLAUDE.md | Removed image sourcing strategy section — doesn't belong in skeleton code repo CLAUDE.md. Research lives in Content-Pipeline/submodules/step-5/image-generator/. |
+| 2026-03-26 | Infrastructure | claude | Fixed | ~/.mcp.json, multiple .mcp.json files | Moved google-docs MCP from global to project-level configs. Fixed runaway CPU (3+ google-docs-mcp processes at 99% each causing 87°C+ temps). Added to: JobSearch, OnlyiGaming, SEO, project-command-center, brochure-generator, agents, PA mobile app, research, docs. |
+| 2026-03-26 | Content-Pipeline | claude | Deployed | stageWorker.js, submoduleRuns.js, SubmodulePanel.tsx, client.ts (commit 6c84c04) | Entity-level abort: Redis polling every 2s, abort:entity:{id} key with 5-min TTL, Stop button in UI. Pushed but needs PM2 restart on Hetzner. |
+| 2026-03-24 | Content-Pipeline | session-closer | Fixed | browserPool.js, page-scraper/execute.js, browser-scraper/execute.js, api-scraper/execute.js | og:description truncation detection across all 3 Step 3 scrapers. Wix JS-rendered pages with partial SSR now cascade correctly (low_content → next scraper). waitForSelector made non-fatal in browserPool.js. 2 commits pushed (d64fc37 skeleton, 9832f4e modules). |
+| 2026-03-24 | Meal-Planner | session-closer | Created | Full project + CLAUDE.md | Built entire meal planner (React 19 + Vite 8 + TypeScript + Supabase). Mobile carousel (75vw scroll-snap), wish/suggestion system (realtime subscriptions), CSS fixes (source order, aspect-ratio). Git init, 4 commits, private GitHub repo (DanielOskarsson01/meal-planner), deployed to Hetzner at /meals/. |
+| 2026-03-23 | Content-Pipeline | session-closer | Fixed/Created | stageWorker.js, SubmodulePanel.tsx, server.js, deploy.yml (both), page-scraper/execute.js | Fixed zip filename collisions (full URL path + dedup counter), page-scraper boilerplate detection (3+ identical text → low_content), /api/version endpoint (build-info.json), abort button, partial results on timeout, entity timeout 10→30min. 6 commits pushed. |
 | 2026-03-23 | Content-Pipeline | session-closer | Fixed/Created | stageWorker.js, SubmodulePanel.tsx, client.ts, submoduleRuns.js, schema.sql, code-review skill | Fixed empty text (FK constraint drop), all-or-nothing failure display (synthetic error items), added Download All CTA for per-entity batch mode (new /all-items endpoint), created /code-review pre-commit skill. 4 commits pushed. |
 | 2026-03-23 | Content-Pipeline | session-closer | Created | modules/step-6-qa/*, step-4-filtering/intent-tagger, step-5-generation/tone-seo-editor, step-8-bundling/schema-org-injector, step-10-review/loop-router | Built 7 new submodules (citation-coverage-checker, keyword-sufficiency-checker, hallucination-detector, intent-tagger, tone-seo-editor, schema-org-injector, loop-router). Fixed 8 rendering bugs (flagged_when string coercion, array→string outputs, invalid display types). Total built submodules: 29. |
 | 2026-03-22 | Content-Pipeline | claude | Restructured | CLAUDE.md, skills/, docs/SUBMODULE_INVENTORY.md | Doc restructure: CLAUDE.md 191→79 lines (rules only). /submodule-create skill rewritten as 44-line thin router with decision guidance (points to SUBMODULE_DEVELOPMENT.md). Inventory table extracted to docs/SUBMODULE_INVENTORY.md. Submodule CLAUDE.md now required (stale-docs rule). Cross-references added between skills. |
@@ -120,23 +148,26 @@
 
 All projects live under `Dropbox/Projects/OnlyiGaming/` unless noted otherwise.
 
-### Content-Pipeline (ACTIVE — primary focus)
-- **Last touched:** 2026-03-23
-- **Path:** `Content-Pipeline/` (specs), `content-pipeline-v2/` (skeleton), `content-pipeline-modules-v2/` (modules)
-- **Status:** Phase 11 CODE COMPLETE. **29 built submodules** (28 functional + rss-feeds placeholder). Fixed: FK constraint blocking text_content storage, all-or-nothing failure display, missing Download All CTA in per-entity mode. /code-review pre-commit skill created.
-- **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md, BUILD_PLAN.md, BACKLOG.md
-- **Architecture:** Two-repo split. Express+React+Supabase+BullMQ. Data ops: ＝ (accumulate), ➖ (chain/filter), ➕ (chain/enrich)
+### Content-Pipeline (ACTIVE -- primary focus)
+- **Last touched:** 2026-04-23
+- **Path:** `Content-Pipeline/` (specs + docs), `content-pipeline-v2/` (skeleton), `content-pipeline-modules-v2/` (modules)
+- **Status:** Phase 12c Done. Pronetgaming scraping fixes shipped (word_count NaN, url-filter presets, browser-crawler waitForSelector, proxy 407 fallback). Phase 4a/4b planned (within-run escalation + cascade runs). **32 built submodules** (31 functional + rss-feeds placeholder).
+- **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md, PHASE_12_FINAL_SPEC.md
+- **Architecture:** Two-repo split. Express+React+Supabase+BullMQ. Data ops: = (accumulate), - (chain/filter), + (chain/enrich)
 - **Pipeline steps built:** 0-5 + 6 + 8 + 10 (Steps 7/9 not yet built)
-- **Built submodules (29):** sitemap-parser, page-links, deep-links, url-dedup, url-filter, url-relevance, page-scraper, browser-scraper, api-scraper, content-filter, seed-url-builder, boilerplate-stripper, intent-tagger, content-analyzer, seo-planner, content-writer, tone-seo-editor, meta-compliance-checker, keyword-sufficiency-checker, citation-coverage-checker, hallucination-detector, markdown-output, html-output, json-output, meta-output, company-media, schema-org-injector, loop-router, test-dummy (+ rss-feeds placeholder)
-- **Remaining briefs (18):** Step 1: ai-discovery-scout, google-pse-news, google-pse-directories, linkedin-discovery, youtube-podcast-discovery, social-media-discovery, curated-list-import, image-logo-search. Step 2: learned-validator. Step 3: media-transcript-fetcher, api-data-fetcher. Step 5: seo-keyword-researcher, image-generator, video-generator, audio-tts-generator. Step 9: strapi-publisher, google-docs-exporter, google-sheets-logger.
-- **Known issues:** URL pattern filter timeout (sequential HEAD requests), pool tech debt (flat array multi-granularity)
-- **Next priorities:** (1) Complete flow test end-to-end, (2) Build submodules from briefs (parallel dev), (3) B012 prompt archive, (4) B011 multi-provider LLM (Gemini + Mercury)
+- **Key recent files:** browserPool.js (proxy 407 fallback), stageWorker.js (word_count guard), seed-url-filter-preset.js (new)
+- **Built submodules (31):** seed-url-builder, sitemap-parser, page-links, deep-links, browser-crawler, url-dedup, url-filter, url-relevance, page-scraper, browser-scraper, api-scraper, boilerplate-stripper, content-filter, intent-tagger, content-analyzer, seo-planner, content-writer, tone-seo-editor, citation-coverage-checker, hallucination-detector, keyword-sufficiency-checker, meta-compliance-checker, markdown-output, html-output, json-output, meta-output, company-media, schema-org-injector, loop-router, test-dummy (+ rss-feeds placeholder)
+- **Remaining briefs (17):** Step 1: ai-discovery-scout, google-pse-news, google-pse-directories, linkedin-discovery, youtube-podcast-discovery, social-media-discovery, curated-list-import, image-logo-search. Step 2: learned-validator. Step 3: media-transcript-fetcher, api-data-fetcher. Step 5: seo-keyword-researcher, image-generator, video-generator, audio-tts-generator. Step 9: strapi-publisher, google-docs-exporter, google-sheets-logger.
+- **Next priorities:** (1) PM2 restart Hetzner, (2) Re-run E2E Step 3-5, (3) Full Step 8 flow test, (4) Build submodules from briefs
 
 ### SEO
-- **Last touched:** 2026-03-13
+- **Last touched:** 2026-04-07
 - **Path:** `SEO/`
-- **Status:** Strategy v3 and Task List v3 finalized. FAQ content complete for all 80+ categories. Both .docx files ready for Google Docs upload. Foundational schemas (1.1-1.5) deployed and verified. Tasks 7.1 (Canonical URLs) and 7.2 (NewsArticle Schema) newly defined. Stefan has 5 review tasks pending.
-- **Key files:** OnlyiGaming_SEO_Tasks.docx (canonical task list), OnlyiGaming_SEO_Strategy_v3.docx (canonical strategy), faq-generation/output/ (all categories complete)
+- **Status:** **Review article production in progress.** 71 pillar comparison articles planned (1 per B2B directory category) + 3-8 satellites each (~400+ articles total). Strategy finalized in SEO_CONTENT_STRATEGY_FINAL.md. Tier 1 (5 articles) drafted. Image sourcing bake-off v2 complete (13 tests, 10 AI models, 3 stock providers). FAQ content complete for all 80+ categories. SEO tasks v3 finalized.
+- **Review article strategy:** Independent, no pay-to-play. Cross-dimension comparison format (vendors compared WITHIN each topic). Backed by OnlyiGaming directory data (1,400+ companies, 83 categories). AI-generated content → fact-check/polish → human sanity check → publish.
+- **Production tiers:** Tier 1 (5 drafted): casino-platforms, crm-platforms, payment-processing, game-aggregators, sportsbook-platform. Tier 2 (next 5): affiliate-tracking, white-label, turnkey, kyc, live-casino-studios. Tier 3 (10): game-providers, responsible-gaming, gamification, payment-gateways, fraud-prevention, seo-agencies, hosting, sports-data, crypto-payments, marketing-agencies. Remaining categories follow.
+- **Image sourcing:** Bake-off script at `/tmp/image-bakeoff.mjs`. Best value: OpenAI GPT Image 1 Low ($0.005). Premium: Google Imagen 4 Ultra (~$0.08). Stock photos (Pexels/Unsplash/Pixabay) lack iGaming relevance.
+- **Key files:** SEO_CONTENT_STRATEGY_FINAL.md (strategy), TIER1_OUTLINES_FOR_APPROVAL.md (outlines), articles/best-*/article.md (drafts), articles/skill/SKILL.md (article production skill)
 
 ### Tags (Tagging System)
 - **Last touched:** Ongoing
@@ -185,6 +216,14 @@ Awards, Career, Consultant-Section, Cooperations, Education, Events, M-And-A, Ma
 
 ### Non-OnlyiGaming Projects
 
+### Meal Planner (NEW)
+- **Last touched:** 2026-03-24
+- **Path:** `/Users/danieloskarsson/Projects/meal-planner/`
+- **Repo:** Private GitHub (DanielOskarsson01/meal-planner)
+- **Status:** MVP complete. Weekly meal planner with mobile carousel, wish system, Supabase realtime. Deployed at https://www.jugadorvip.com/meals/
+- **Stack:** React 19, TypeScript, Vite 8, Supabase
+- **Key files:** CLAUDE.md (full context), src/App.tsx, src/data.ts, src/hooks/useWishes.ts
+
 ### Brochure Generator
 - **Path:** `Dropbox/Projects/brochure-generator/`
 - **Status:** Unknown — needs review
@@ -193,9 +232,13 @@ Awards, Career, Consultant-Section, Cooperations, Education, Events, M-And-A, Ma
 - **Path:** `Dropbox/Projects/PA mobile app/`
 - **Key files:** SESSION_SUMMARY.md
 
-### Job Search
-- **Path:** `Dropbox/Projects/JobSearch/`
-- **Key files:** CLAUDE.md
+### Job Search Tool
+- **Last touched:** 2026-04-21
+- **Path:** `Dropbox/Projects/job-search-tool/`
+- **Status:** **Strategic decision made: migrate into Content Pipeline v2.** Job search becomes a project type (template + 13 submodules). Zero skeleton changes. 4-phase plan: (1) POC with jobtech provider, (2) all 6 providers, (3) analysis + generation, (4) E2E validation (5 real applications). Current repo becomes reference codebase, archived after migration.
+- **Stack (current):** React 19 + Vite (port 5174), Express (port 3005), Anthropic Claude API, JSON file DB
+- **Stack (target):** Content Pipeline v2 skeleton (Express+React+Supabase+BullMQ)
+- **Key files:** STRATEGY.md (governing doc), ROADMAP.md, CLAUDE.md
 
 ### Research
 - **Path:** `Dropbox/Projects/research/`
