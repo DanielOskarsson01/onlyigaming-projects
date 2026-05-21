@@ -4,13 +4,13 @@
 
 The News-Section implements a sophisticated multi-dimensional tagging architecture for the OnlyiGaming Platform. This system enables "tag once, display everywhere" functionality, allowing articles to automatically appear across 8 integrated platform sections based on their tag combinations.
 
-**Core Purpose**: Build a news publishing system with 352+ dynamic tags that powers intelligent content discovery and seamless cross-platform integration.
+**Core Purpose**: Build a news publishing system with ~299 dynamic tags across 7 dimensions that powers intelligent content discovery and seamless cross-platform integration.
 
 **Key Innovation**: Replace traditional rigid category structures with flexible tag combinations that enable precision targeting (e.g., "UK + Sportsbook + Regulation" = UK sports betting regulation news).
 
 ## Goals
 
-1. **Implement Multi-Dimensional Tagging System** - Deploy 352+ tags across 5 categories (Directory, News, Geographic, Product, Publication Type)
+1. **Implement Multi-Dimensional Tagging System** - Deploy ~299 tags across 7 dimensions (81 Directory, 45 News, ~115 Geographic, 10 Product Verticals, 16 Publication Types, 4 Commercial Status, 28 Career)
 
 2. **Create Dynamic Navigation Architecture** - Build tag-filtered views that combine multiple tag types for smart content discovery
 
@@ -20,75 +20,85 @@ The News-Section implements a sophisticated multi-dimensional tagging architectu
 
 5. **Migrate Historical Content** - Convert existing categorized articles to new multi-tag architecture
 
-6. **Optimize Performance** - Implement caching and indexing for 352+ tags and complex tag combinations
+6. **Optimize Performance** - Implement caching and indexing for ~299 tags and complex tag combinations
 
 ## Key Documents
 
-- **igaming_platform_complete_architecture_v5_3.md** - Complete platform architecture (352+ tags, 8 sections, integration patterns) - current version
-- **FINAL_corrections_summary_v5.2.md** - Version 5.2 corrections reference
-- **igaming news sites.xlsx** - Competitive analysis and reference data
+### Tag Source of Truth
+**`/OnlyiGaming/tags/`** — Single source of truth for all tag definitions (~299 tags across 7 dimensions)
+
+- `dir-categories.md` — 81 DIR business categories
+- `news-topics.md` — 45 NEWS content topics
+- `geo-registry.md` — ~115 GEO regions, countries, states
+- `prod-verticals.md` — 10 PROD gaming verticals
+- `type-formats.md` — 16 TYPE content formats
+- `comm-status.md` — 4 COMM commercial status
+- `career-categories.md` — 28 CAREER job function categories
+- `rules/` — Tagging rules and algorithms
+
+### Editorial & Strategy
+- **docs/news_tagging_strategy.md** - 8-dimension tagging architecture and rules
+- **docs/editorial_tagging_guide.md** - Per-tag editorial criteria ("belongs here" / "doesn't belong")
+
+### Project Management
 - **ROADMAP.md** - 7-phase implementation plan (13 weeks)
 - **PROJECT_STATUS.md** - Current status and next steps
 
+### Technical
+- **sql/schema.sql** - Database schema specification (ready for developer handoff)
+
+### Reference Data
+- **docs/igaming news sites.xlsx** - Competitive analysis
+
 ## Architecture Stack
 
-### Tagging System (352+ Tags)
+### Tagging System (~299 Tags across 7 Dimensions)
 1. **Directory Tags (81)**: DIR-001 to DIR-081 - Business categories across 11 parent groups
-2. **News Tags (45)**: NEWS-001 to NEWS-045 - Content topics (expanded with Industry News dedicated tags)
-3. **Geographic Tags (200+)**: GEO-* - Global regions, countries, US states
-4. **Product Vertical Tags (10)**: PROD-001 to PROD-010 - Gaming verticals (added Live Casino)
-5. **Publication Type Tags (16)**: TYPE-001 to TYPE-016 - Content formats (added Editorial)
+2. **News Tags (45)**: NEWS-001 to NEWS-045 - Content topics
+3. **Geographic Tags (~115)**: GEO-* - Regions, countries, US states
+4. **Product Vertical Tags (10)**: PROD-001 to PROD-010 - Gaming verticals
+5. **Publication Type Tags (16)**: TYPE-001 to TYPE-016 - Content formats
+6. **Commercial Status Tags (4)**: COMM-001 to COMM-004 - Editorial vs. paid
+7. **Career Tags (28)**: CAREER-* - Job function categories
 
 ### Navigation Architecture
 - **Main Categories**: Filtered views using tag combinations (NOT rigid categories)
 - **Directory Pages**: 81 dedicated pages (DIR-001 to DIR-081) showing related news, companies, media, events
 - **Dynamic Filtering**: Multi-tag combination queries
-- **Related Content**: Tag overlap algorithm for content discovery
+- **Related Content**: Pre-computed semantic similarity (see `/OnlyiGaming/tags/rules/cross-section-discovery.md`)
 
 ### Integration Model
 - **Tag-Once Distribution**: Single article automatically appears in relevant sections based on tags
-- **Cross-Section Flow**: NEWS → DIRECTORY → MARKETPLACE → CONSULTANTS → MEDIA → EVENTS → CAREER → COMMUNITY
+- **Cross-Section Flow**: NEWS, DIRECTORY, MARKETPLACE, CONSULTANTS, MEDIA, EVENTS, CAREER, COMMUNITY
 - **Monetization**: Premium tag sponsorships, directory listings, targeted advertising by tag combination
 
 ## Current Status
 
-**Phase**: Project Initialization Complete
+**Phase**: Phase 1 — Tag Infrastructure (IN PROGRESS, ~40%)
 
-**Ready to Begin**: Phase 1 - Tag Infrastructure (database schema, tag management UI, CMS integration)
+**Completed**: Tag taxonomy (~299 tags in `/OnlyiGaming/tags/`), database schema spec (`sql/schema.sql`), cross-section discovery architecture
 
-**Documentation**: Complete architecture with 81 directory categories, 45 news tags, full platform specifications (v5.3)
+**Next Priority**: Hand off `sql/schema.sql` to site developer for implementation
 
-**Blockers**: None - clear path to implementation
+**Blockers**: None
+
+---
+
+*Last updated: 2026-05-22*
 
 ## Session Log
 
-### 2025-12-14: Project Initialization
-**Accomplishments**:
-- Analyzed platform architecture documentation (v5.2)
-- Reviewed 4-layer tagging system (335+ tags)
-- Understood integration across 8 platform sections
-- Created project context files
+### Session: 2026-05-22 - News ops brief + handoff review
+**Accomplished:**
+- Confirmed all 6 documents from Bojan's v2.3 update are present on disk
+- Assessed build handoff: Philip ready for index page; Bojan needs DB schema doc + continuous scraping spec
+- Created `news_operations_brief.md` v1.0 (RSS+PSE discovery, pipeline, opinion calendar, LinkedIn distribution, weekly rhythm)
+- Fixed SUPABASE_ANON_KEY: added to `~/.zprofile` for git hook compatibility
 
-**Decisions**:
-- Follow 13-week phased implementation plan
-- Prioritize tag infrastructure (Phase 1)
-- Use many-to-many tag relationships
-- Implement tag validation in CMS
-- Plan historical content migration (Phase 2)
+**Decisions:**
+- RSS + PSE hybrid discovery; opinion pieces 2×/week based on LinkedIn engagement data
 
-**Blockers**: None
+**Blockers/Questions:**
+- DB schema doc and continuous scraping spec still to write
 
-### 2025-12-20: Architecture Update to v5.3
-**Accomplishments**:
-- Updated to architecture v5.3
-- Expanded news tags from 30 to 45
-- Added PROD-010 (Live Casino), TYPE-016 (Editorial)
-- Aligned main news navigation with dedicated Industry News tags
-
-**Key Changes**:
-- "Industry News" now has specific dedicated tags instead of being a catch-all
-- Total tags increased from 335+ to 352+
-
-**Blockers**: None
-
-**Next Focus**: Begin Phase 1 implementation
+**Updated by:** session-closer agent
