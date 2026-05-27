@@ -8,6 +8,39 @@
 
 | Timestamp | Project | Agent | Action | Path | Notes |
 |-----------|---------|-------|--------|------|-------|
+| 2026-05-27 | project-command-center | session-closer | Modified | server/reviewArticlesRoutes.ts | Reverted MUST-12-rows draft prompt edit (made earlier today). Locked May 25 22:06 prompt recipe (87 insertions / 15 deletions: vendor parsing + scaffold table). Commit f2a6761 (local only). |
+| 2026-05-27 | OnlyiGaming/SEO | session-closer | Locked | SEO/guides/reviews/casino-platforms/best-casino-platforms-2026/article.md + .html + 25.05.docx + article-factchecked.md | May 25 22:06 Gemini-praised pillar article (7,238 words, 12 vendor rows, 12 vendor profiles) committed as reference standard after I overwrote it earlier today and user restored from Dropbox. |
+| 2026-05-27 | OnlyiGaming/SEO | session-closer | Created | SEO/guides/reviews/INVENTORY.md + INVENTORY.xlsx | Full article inventory: 754 articles (73 pillars + 681 satellites). XLSX has 5 sheets: Summary, Templates (21 patterns with coverage gaps + target articles), Articles, Vendors by Category (live onlyigaming.com directory of 1,679 companies / 83 categories), Recurring Themes. |
+| 2026-05-27 | OnlyiGaming | session-closer | Modified | OnlyiGaming/CLAUDE.md | Session log entry added |
+| 2026-05-23 | project-command-center | session-closer | Modified | server/reviewArticlesRoutes.ts | Satellite prompts: class-based dispatch (7 classes), detectSatelliteClass + interpolateTemplate functions added. Commit 26bce87 (local only). |
+| 2026-05-23 | project-command-center | session-closer | Created | ~/Library/LaunchAgents/com.danieloskarsson.command-center.plist | LaunchAgent: both servers auto-start at login, KeepAlive true, logs to /tmp/command-center.log |
+| 2026-05-23 | OnlyiGaming/linkedin | session-closer | Created | linkedin/CLAUDE.md | Stub CLAUDE.md so dashboard scanner picks up LinkedIn project as a card |
+| 2026-05-23 | OnlyiGaming/tags | session-closer | Created | tags/CLAUDE.md | Stub CLAUDE.md so dashboard scanner picks up Tags project as a card |
+| 2026-05-22 | Content-Pipeline | session-closer | Fixed | server/routes/submoduleRuns.js | Bug 2: defensive entity merge in execute endpoint — stale pool rows no longer drop entities from auto-execute runs. Commit 52540ae (skeleton repo). |
+| 2026-05-22 | Content-Pipeline | session-closer | Fixed | server/workers/batchWorker.js | failed_count was never written to submodule_runs — added to batch finalization update. Commit 52540ae (skeleton repo). |
+| 2026-05-22 | content-pipeline-modules-v2 | session-closer | Modified | CLAUDE.md | Session log entry added for Phase 3 bug diagnosis + skeleton fixes |
+| 2026-05-21 | content-pipeline-modules-v2 | session-closer | Modified | seo-planner/manifest.json | Removed all OnlyiGaming/iGaming hardcoding. Real-questions FAQ via Perplexity. Haiku models for testing. Commits 11dc1bc + 3c8a0b8 pushed. |
+| 2026-05-21 | content-pipeline-modules-v2 | session-closer | Modified | content-writer/manifest.json, job-analyzer/manifest.json | Set haiku as default model for testing phase. |
+| 2026-05-21 | project-command-center | session-closer | Modified | server/reviewArticlesRoutes.ts | H1 keyword rewrite rule tightened. Keyword research query restructured for real operator questions. |
+| 2026-05-21 | project-command-center | session-closer | Fixed | client/src/components/ReviewArticles.tsx | Keywords step visual indicator bug fixed (always showed green). kwResearchDone prop. Commit 6e9df39 (local only). |
+| 2026-05-22 | News-Section | session-closer | Created | News-Section/news_operations_brief.md | Daily ops doc: RSS+PSE discovery, processing pipeline, opinion calendar, LinkedIn distribution, weekly rhythm |
+| 2026-05-22 | News-Section | session-closer | Modified | News-Section/CLAUDE.md | Session log entry added |
+| 2026-05-22 | Infrastructure | session-closer | Modified | ~/.zprofile | Added SUPABASE_ANON_KEY so git pre-commit hooks fire in non-interactive shells |
+| 2026-05-21 12:30 | Content-Pipeline | session-closer | Diagnosed | Supabase pipeline_runs, entity_stage_pool | Run 2931e702 post-mortem: result pane empty (batch output_data NULL in auto-execute), 2 unreachable sites, 1 timeout. Extracted bundles + markdown for 10 entities. |
+| 2026-05-21 11:46 | Content-Pipeline | session-closer | Modified | server/workers/stageWorker.js | Added Perplexity AI provider (sonar/sonar-pro models, citations support). Commit f1f0c9b. |
+| 2026-05-21 11:46 | Content-Pipeline | session-closer | Modified | seo-planner/execute.js, manifest.json, README.md | SEO planner v2.0.0: keyword research pre-step via Perplexity Sonar. Pipeline-agnostic, parallel queries, 3-tier fallback. Commit ec7c025. |
+| 2026-05-21 11:46 | Content-Pipeline | session-closer | Modified | TemplateEditor.tsx, RunView.tsx, PresetField.tsx, SubmoduleOptions.tsx, step.ts | Template editor overhaul: SubmoduleOptions in preset map, add/remove submodules per step, skip/pause/thresholds. Commit f1f0c9b. |
+| 2026-05-06 | Content-Pipeline | claude | Modified | server/workers/stageWorker.js | Data flow optimization: activated existing envelope system. Strips downloadable_fields from pool_items after storing in submodule_run_item_data, hydrates on-demand via requires_columns. Per-item pool size reduced 57-84%. Cross-key enrichment (url↔entity_name), JSON string parsing, step_index ordering. 4 commits: 8b869ac, c11388c, c345dfd (skeleton), b42cb0c (modules). |
+| 2026-05-06 | Content-Pipeline | claude | Modified | 9 manifest.json files (modules repo) | Added requires_columns to 9 submodules (boilerplate-stripper, intent-tagger, seo-planner, content-writer, tone-seo-editor, hallucination-detector, keyword-sufficiency-checker, meta-compliance-checker, citation-coverage-checker). Added downloadable_fields to boilerplate-stripper. Commit b42cb0c. |
+| 2026-05-05 | Content-Pipeline | claude | Created | server/services/retention.js, server/server.js | Automated 7-day data retention: deletes terminal runs (completed/halted/abandoned) older than 7 days. Covers all 25 run_id tables + submodule_run_item_data. Runs 60s after boot then every 24h. Batches deletes in groups of 200. Commit a339daa. |
+| 2026-05-05 | Content-Pipeline | claude | Modified | server/server.js, server/services/autoExecutor.js | Auto-resume orphaned runs on server restart (replaces halt-all behavior). Crash-loop guard: if server restarts twice during same run, halt permanently. Cleans Redis locks before resuming, rebuilds config from template. Commit 926e36d. |
+| 2026-05-05 | Content-Pipeline | claude | Fixed | Supabase DB | Truncated all pipeline run data (IO budget depleted from accumulated test runs). DB was unresponsive (522 timeouts) due to Micro compute IO throttling. Manual TRUNCATE via SQL Editor restored service. |
+| 2026-04-28 | Content-Pipeline | claude | Modified | browserPool.js, deploy.yml, CLAUDE.md, browser-crawler, api-search | browserPool click loop migrated to locator API with array selector support (dcc5650, 6cea2dd). CI/CD safeguards: stale .git removal, deployed commit verification (934708e). Options merge bug fix + URL sanitization (7b75114). browser-crawler auto_click_load_more with 35+ auto-detect selectors (a2e9814). api-search preserves full text_content (87b2137). |
+| 2026-04-27 | Content-Pipeline | claude | Modified | browserPool.js, sitemap-parser, url-filter, url-canonicalizer, 12 manifests, timeouts.js | V5 Phase 2 shipped: B032 transform fix + B1 Load More click loop (0450400, e536e2f). B040 sitemap-parser browser fallback (258710b). Bright Data Web Unlocker fallback tier (2a57145). Anti-detection hardening: Chrome UA 136, webdriver removed, chrome stubs (4123c9b). Step 2 timeout bumps (3252397, 8433912). Step timeout failure-threshold evaluation (2b252ec). Manifest description enrichment for 12 submodules (dd9fea0). Sitemap exclude_patterns with presets (65a63f0). PresetField fix (2471398). |
+| 2026-04-25 | Content-Pipeline | claude | Created | url-canonicalizer/ (manifest.json, execute.js, README.md) | New Step 2 submodule: URL canonicalization via HEAD redirect detection + post-canonicalization dedup. Commits da1f637, 4816cb3. Also relaxed url-relevance drop criteria for B2B (da1f637). Exposed res.url in http.get/head for redirect detection (398d8a4). |
+| 2026-04-24 | Content-Pipeline | claude | Fixed | submoduleRuns.js, browserPool.js, timeouts.js, 8 module manifests, 3 resolveUrl functions | V5 Phase 1 shipped (all 6 items): B024 flagged_when fix, B027 resolveUrl query string fix, B3 auto-scroll, D1 temperature/max_tokens on Step 5 modules, Step 6/7 timeouts, tone-seo-editor reference docs. Skeleton 4cd1f2c, modules 7c136e0. |
+| 2026-04-24 | Content-Pipeline | claude | Created | specs/ITERATION_PLAN_V4.md, specs/EXECUTION_PLAN.md, specs/ITERATION_PLAN_V2.md, specs/ITERATION_PLAN_V3.md | Iteration Plan V4 (post CTO + Brutal Critic review). Execution Plan with detailed Phase 1-6 specs. V2 and V3 intermediate versions preserved. |
+| 2026-04-28 | Content-Pipeline | session-closer | Modified | api-search/execute.js, Supabase template b6ffa614 | Job Search E2E validated. api-search now preserves full text_content (eliminates browser-scraper for SPA URLs). Template simplified to Steps 1+5 (skip 2-4). Auto-execute flow verified. Pipeline: 77 jobs → fit score 78 → tailored CV generated. Commit 87b2137. |
 | 2026-04-23 | Content-Pipeline | session-closer | Fixed | browser-scraper, api-scraper, page-scraper, stageWorker, browserPool, url-filter, browser-crawler | word_count NaN guards (4 files, 2 repos), url-filter presets enabled + seed script, browser-crawler waitForSelector, browserPool 407 proxy fallback. Commits 9a3f9ab + 0a88e8c + 10d4311. Acceptance test passed (7 blog URLs from pronetgaming.com). |
 | 2026-04-22 | Content-Pipeline | session-closer | Planned | Phase 4a/4b plans (escalation + cascade runs) | Phase 4a: within-run escalation (~99 lines, autoExecutor.js + runs.js). Phase 4b: cascade runs (~450 lines, 3 new files, 1 migration). Rev 2 plan addresses 6 architecture review issues (entity_run_meta consistency, failure ownership, loop pass behavior, scope, config, verification). No code written — planning only. |
 | 2026-04-22 | Content-Pipeline | session-closer | Modified | content-pipeline-v2/CLAUDE.md | Session log entry added for Phase 4a/4b planning session |
@@ -149,25 +182,26 @@
 All projects live under `Dropbox/Projects/OnlyiGaming/` unless noted otherwise.
 
 ### Content-Pipeline (ACTIVE -- primary focus)
-- **Last touched:** 2026-04-23
+- **Last touched:** 2026-05-22
 - **Path:** `Content-Pipeline/` (specs + docs), `content-pipeline-v2/` (skeleton), `content-pipeline-modules-v2/` (modules)
-- **Status:** Phase 12c Done. Pronetgaming scraping fixes shipped (word_count NaN, url-filter presets, browser-crawler waitForSelector, proxy 407 fallback). Phase 4a/4b planned (within-run escalation + cascade runs). **32 built submodules** (31 functional + rss-feeds placeholder).
-- **Key specs:** SKELETON_SPEC_v2.md, SUBMODULE_DEVELOPMENT.md, PHASE_12_FINAL_SPEC.md
-- **Architecture:** Two-repo split. Express+React+Supabase+BullMQ. Data ops: = (accumulate), - (chain/filter), + (chain/enrich)
-- **Pipeline steps built:** 0-5 + 6 + 8 + 10 (Steps 7/9 not yet built)
-- **Key recent files:** browserPool.js (proxy 407 fallback), stageWorker.js (word_count guard), seed-url-filter-preset.js (new)
-- **Built submodules (31):** seed-url-builder, sitemap-parser, page-links, deep-links, browser-crawler, url-dedup, url-filter, url-relevance, page-scraper, browser-scraper, api-scraper, boilerplate-stripper, content-filter, intent-tagger, content-analyzer, seo-planner, content-writer, tone-seo-editor, citation-coverage-checker, hallucination-detector, keyword-sufficiency-checker, meta-compliance-checker, markdown-output, html-output, json-output, meta-output, company-media, schema-org-injector, loop-router, test-dummy (+ rss-feeds placeholder)
-- **Remaining briefs (17):** Step 1: ai-discovery-scout, google-pse-news, google-pse-directories, linkedin-discovery, youtube-podcast-discovery, social-media-discovery, curated-list-import, image-logo-search. Step 2: learned-validator. Step 3: media-transcript-fetcher, api-data-fetcher. Step 5: seo-keyword-researcher, image-generator, video-generator, audio-tts-generator. Step 9: strapi-publisher, google-docs-exporter, google-sheets-logger.
-- **Next priorities:** (1) PM2 restart Hetzner, (2) Re-run E2E Step 3-5, (3) Full Step 8 flow test, (4) Build submodules from briefs
+- **Status:** **Iteration V5 active** — Phase 1+2 DONE. **Phase 3 IN PROGRESS** — two blocking auto-execute bugs fixed (52540ae, skeleton repo): stale entity_stage_pool drops entities + failed_count never written. Remaining: validation re-run on clean project, Batch 1 (QA model_select), Batch 4 (template SQL migration), then 50-entity E2E test.
+- **Key specs:** SKELETON_SPEC_v2.md, ITERATION_PLAN_V5.md
+- **Architecture:** Two-repo split. Express+React+Supabase+BullMQ. Multi-card routing infrastructure built. apply_entity_routing RPC now accepts p_routing_step (DEFAULT 10).
+- **Pipeline steps built:** 0-8 + 10 (Step 7 loop-router built and migrated from Step 10. Step 9 not yet built)
+- **Key recent files:** server/routes/submoduleRuns.js (entity merge fix), server/workers/batchWorker.js (failed_count fix) — both in skeleton repo, commit 52540ae
+- **Built submodules (34):** seed-url-builder, sitemap-parser, page-links, deep-links, browser-crawler, api-search, url-dedup, url-filter, url-relevance, url-canonicalizer, page-scraper, browser-scraper, api-scraper, boilerplate-stripper, content-filter, intent-tagger, content-analyzer, seo-planner, content-writer, tone-seo-editor, citation-coverage-checker, hallucination-detector, keyword-sufficiency-checker, meta-compliance-checker, markdown-output, html-output, json-output, meta-output, company-media, schema-org-injector, loop-router, job-analyzer, cv-generator, test-dummy (+ rss-feeds placeholder)
+- **Next priorities:** (1) Batch 1: model_select on 4 QA manifests, (2) Batch 4: phase3-cards-routing-rules.sql on production, (3) 50-entity E2E test
 
 ### SEO
-- **Last touched:** 2026-04-07
+- **Last touched:** 2026-05-27
 - **Path:** `SEO/`
-- **Status:** **Review article production in progress.** 71 pillar comparison articles planned (1 per B2B directory category) + 3-8 satellites each (~400+ articles total). Strategy finalized in SEO_CONTENT_STRATEGY_FINAL.md. Tier 1 (5 articles) drafted. Image sourcing bake-off v2 complete (13 tests, 10 AI models, 3 stock providers). FAQ content complete for all 80+ categories. SEO tasks v3 finalized.
-- **Review article strategy:** Independent, no pay-to-play. Cross-dimension comparison format (vendors compared WITHIN each topic). Backed by OnlyiGaming directory data (1,400+ companies, 83 categories). AI-generated content → fact-check/polish → human sanity check → publish.
-- **Production tiers:** Tier 1 (5 drafted): casino-platforms, crm-platforms, payment-processing, game-aggregators, sportsbook-platform. Tier 2 (next 5): affiliate-tracking, white-label, turnkey, kyc, live-casino-studios. Tier 3 (10): game-providers, responsible-gaming, gamification, payment-gateways, fraud-prevention, seo-agencies, hosting, sports-data, crypto-payments, marketing-agencies. Remaining categories follow.
+- **Status:** **Casino-platforms pillar LOCKED as reference standard.** May 25 22:06 article (7,238 words, 12 vendor rows, 12 profiles, Gemini-praised) committed to git alongside its exact prompt recipe (project-command-center commit f2a6761). 6 articles polished (1 pillar + 5 casino-platforms satellites). **754 total articles** planned (73 pillars + 681 satellites — full inventory in INVENTORY.xlsx). Template-based scaling framework defined (21 templates with coverage gaps mapped).
+- **Review article strategy:** Independent, no pay-to-play. Cross-dimension comparison format (vendors compared WITHIN each topic). Backed by live onlyigaming.com directory (1,679 companies, 83 categories — fetched via API and mapped to rubric categories). AI-generated content → fact-check/polish → human sanity check → publish.
+- **Open blockers:** (1) Non-determinism: same prompts produce variable quality each run — need N-of-3 generation or quality gate before scaling. (2) 60 of 73 categories lack `**Vendors:**` curation in rubric. (3) 20 of 21 templates lack a tested prompt + target article. (4) 3 slug mismatches between rubric and live directory.
+- **Production tiers:** Tier 1 (5 drafted): casino-platforms, crm-platforms, payment-processing, game-aggregators, sportsbook-platform. Casino-platforms pillar now also POLISHED + LOCKED.
 - **Image sourcing:** Bake-off script at `/tmp/image-bakeoff.mjs`. Best value: OpenAI GPT Image 1 Low ($0.005). Premium: Google Imagen 4 Ultra (~$0.08). Stock photos (Pexels/Unsplash/Pixabay) lack iGaming relevance.
-- **Key files:** SEO_CONTENT_STRATEGY_FINAL.md (strategy), TIER1_OUTLINES_FOR_APPROVAL.md (outlines), articles/best-*/article.md (drafts), articles/skill/SKILL.md (article production skill)
+- **Key files:** SEO/guides/reviews/INVENTORY.xlsx (master inventory, 5 sheets), SEO/guides/reviews/casino-platforms/best-casino-platforms-2026/article.md (locked reference standard), SEO_CONTENT_STRATEGY_FINAL.md (strategy), TIER1_OUTLINES_FOR_APPROVAL.md (outlines)
+- **Next priorities:** (1) Pick 3-5 templates to author next (newcomers-to-watch, known-challenges, head-to-head — all 39-73 coverage). (2) Produce target article per template using casino-platforms as test category. (3) Address non-determinism before scaling beyond locked baseline.
 
 ### Tags (Tagging System)
 - **Last touched:** Ongoing
@@ -188,10 +222,10 @@ All projects live under `Dropbox/Projects/OnlyiGaming/` unless noted otherwise.
 - **Key files:** COMMUNITY_PRODUCT_VISION.md, CONSULTANCY_STRATEGY.md
 
 ### News-Section
-- **Last touched:** 2026-01-25
+- **Last touched:** 2026-05-22
 - **Path:** `News-Section/`
-- **Status:** Database schema complete, roadmap drafted, awaiting handoff
-- **Key files:** PROJECT_STATUS.md, ROADMAP.md
+- **Status:** Taxonomy v2.3 complete (46 active NEWS tags, 8 dimensions, 756 tags total). AI tagging pipeline validated. Philip handoff ready for index page. Bojan needs DB schema doc + continuous scraping spec. Ops brief created.
+- **Key files:** news_operations_brief.md (new), news_article_tagging_pipeline_brief_v2_4.md, news_index_page_layout_brief.md, editorial_tagging_guide_v2.md, DOCS_INDEX.md
 
 ### Plasmic (Frontend Migration)
 - **Last touched:** Unknown
@@ -233,11 +267,11 @@ Awards, Career, Consultant-Section, Cooperations, Education, Events, M-And-A, Ma
 - **Key files:** SESSION_SUMMARY.md
 
 ### Job Search Tool
-- **Last touched:** 2026-04-21
+- **Last touched:** 2026-04-28
 - **Path:** `Dropbox/Projects/job-search-tool/`
-- **Status:** **Strategic decision made: migrate into Content Pipeline v2.** Job search becomes a project type (template + 13 submodules). Zero skeleton changes. 4-phase plan: (1) POC with jobtech provider, (2) all 6 providers, (3) analysis + generation, (4) E2E validation (5 real applications). Current repo becomes reference codebase, archived after migration.
+- **Status:** **Migration Phase 1 COMPLETE.** E2E pipeline validated: api-search (77 jobs) → job-analyzer (fit score + variant) → cv-generator (tailored .docx CV). Template `b6ffa614` configured. CV source files deployed to `/opt/cv-source/` on Hetzner. Next: multi-entity production run, add RemoteOK/Remotive providers.
 - **Stack (current):** React 19 + Vite (port 5174), Express (port 3005), Anthropic Claude API, JSON file DB
-- **Stack (target):** Content Pipeline v2 skeleton (Express+React+Supabase+BullMQ)
+- **Stack (target):** Content Pipeline v2 skeleton (Express+React+Supabase+BullMQ) — **working on Hetzner**
 - **Key files:** STRATEGY.md (governing doc), ROADMAP.md, CLAUDE.md
 
 ### Research
