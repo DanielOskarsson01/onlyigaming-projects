@@ -69,7 +69,7 @@ REQUIRED STRUCTURE (in this exact order):
 
 1. **YAML FRONTMATTER** - all fields from template (meta_title, meta_description, slug, protected_keywords, parent_pillar, type: satellite-best-for)
 
-2. **INTRO WITH SCENARIO ROUTING** (100-150 words)
+2. **INTRO WITH SCENARIO ROUTING** (200-300 words)
    - Opening: why this specific angle matters (not generic category intro) — reference the buyer concerns from the profile above
    - 3-4 bullet scenarios routing readers: "If you [situation], focus on [section]"
    - Format scenarios as `-` bullet list
@@ -86,14 +86,14 @@ REQUIRED STRUCTURE (in this exact order):
    - Column 5: Best For
    - Include vendors from the expected vendor cohort above (6-10, not all pillar vendors)
 
-5. **CROSS-ANGLE COMPARISON SECTIONS** (3-5 sections, H2 each, 150-250 words each)
+5. **CROSS-ANGLE COMPARISON SECTIONS** (3-5 sections, H2 each, 350-500 words each)
    - Use the "Suggested H2 section names" from the profile above as your starting framework — adapt section count and exact names to what the actual vendor cohort and evidence support
    - Each section compares ALL listed vendors on one sub-dimension of this angle
    - End each section with a clear winner statement in bold
    - Use `-` bullet lists for feature comparisons within sections; prose for analysis
    - Every section must end with one actionable item: a verification check or trap question drawn from the angle guidance above
 
-6. **VENDOR PROFILES** (### H3 each, 6-10 vendors, 100-200 words each)
+6. **VENDOR PROFILES** (### H3 each, 6-10 vendors, 200-350 words each)
    - Verdict headline as H3: "[Vendor]: [One-Line Judgment for This Angle]" (vendor name linked)
    - Bullet format using `-`:
      - **Standout for this angle:** [specific capability tied to the buyer concerns above]
@@ -104,13 +104,13 @@ REQUIRED STRUCTURE (in this exact order):
 
 7. **RUNNERS-UP** (3-5 vendors, 1-2 sentences each with directory links)
 
-8. **BUYING SIGNALS FOR THIS ANGLE** (100-150 words)
+8. **BUYING SIGNALS FOR THIS ANGLE** (200-300 words)
    - Two `-` bullet lists:
      - "This angle is right for you if:" (4-5 signals derived from the buyer concerns above)
      - "Look elsewhere if:" (3-4 red flags specific to this niche)
    - Be honest — this niche is not right for everyone
 
-9. **WHAT TO VERIFY AND TRAP QUESTIONS** (150-200 words)
+9. **WHAT TO VERIFY AND TRAP QUESTIONS** (300-450 words)
    - Use the verification checks and trap questions from the angle guidance above as the foundation — operationalize each
    - Format as `-` bullet list: bold the check or question, then 1-2 sentences explaining what a good answer vs red flag answer looks like
    - This is the operator-protection section — non-negotiable for this template
@@ -127,7 +127,7 @@ REQUIRED STRUCTURE (in this exact order):
     - "Last Verified" date and independence statement
 
 REQUIREMENTS:
-- 1,800-2,500 words total
+- 4,000-5,500 words total
 - Product-first approach throughout
 - At least 2 genuinely opinionated statements specific to this angle
 - Every strength gets a named trade-off
@@ -185,7 +185,7 @@ REQUIRED STRUCTURE (in this exact order):
 
 1. **YAML FRONTMATTER** - all fields (type: satellite-buyers-guide)
 
-2. **INTRO** (80-120 words)
+2. **INTRO** (150-250 words)
    - Hook: the most common mistake buyers make in this category
    - What this guide covers: self-assessment, demo questions, scoring, red flags
    - Link to pillar: "For the full vendor comparison, see [pillar link]"
@@ -196,7 +196,7 @@ REQUIRED STRUCTURE (in this exact order):
    - Purpose: lets a busy reader jump to the section most relevant to where they are in the process
    - Keep each cell to one short sentence
 
-4. **BEFORE YOU TALK TO ANY VENDOR** (400-600 words)
+4. **BEFORE YOU TALK TO ANY VENDOR** (700-1,100 words)
    - 5-6 questions the buyer must answer about THEMSELVES before evaluating vendors
    - Use ### H3 heading for each question (not bold — proper heading)
    - Under each heading: why it matters, how the answer narrows the field
@@ -204,20 +204,20 @@ REQUIRED STRUCTURE (in this exact order):
    - Name specific vendors that each answer points toward or eliminates (with links)
    - Include at least one question about current regulatory environment or market timing
 
-5. **QUESTIONS TO ASK DURING DEMOS** (400-600 words)
+5. **QUESTIONS TO ASK DURING DEMOS** (700-1,100 words)
    - ### H3 for each topic group: Integration, Compliance, Operations, Commercial Terms, Infrastructure
    - 3-5 questions per group, formatted as `-` bullet list
    - Include at least 2 "trap" questions that reveal vendor weaknesses
    - After each trap question, add: "A good answer looks like: [X]. A red flag answer is: [Y]"
 
-6. **SCORING FRAMEWORK** (200-300 words)
+6. **SCORING FRAMEWORK** (350-500 words)
    - Markdown table: Dimension | Weight (1-5) | Vendor A | Vendor B | Vendor C
    - 8-10 dimensions from the category rubric
    - Rows use ___ as placeholder values
    - Below table: explain that weighting matters more than scores
    - Give 3 examples of different operator types and how they would weight differently (as `-` bullet list)
 
-7. **RED FLAGS** (200-300 words)
+7. **RED FLAGS** (400-600 words)
    - ### H3: "Walk away if:"
    - Format as `-` bullet list: 5-7 absolute deal-breakers
    - Each item: **bold the deal-breaker** followed by 1-2 sentences explaining why it matters
@@ -225,7 +225,7 @@ REQUIRED STRUCTURE (in this exact order):
    - Format as `-` bullet list: 5-7 warning signs
    - Each item: **bold the signal** followed by 1-2 sentences on what to investigate
 
-8. **AFTER YOU CHOOSE: PROTECT YOURSELF** (150-200 words)
+8. **AFTER YOU CHOOSE: PROTECT YOURSELF** (300-450 words)
    - Format as `-` bullet list: 3-4 contract negotiations that matter
    - Each item: **bold the negotiation point** (e.g., "Exit clause") followed by specific terms to demand
    - Be concrete: "maximum 90-day notice", "99.95% uptime with financial penalties per hour"
@@ -242,7 +242,7 @@ REQUIRED STRUCTURE (in this exact order):
     - Independence statement
 
 REQUIREMENTS:
-- 1,800-2,500 words total
+- 3,500-5,000 words total
 - Authoritative but helpful tone - guide the reader, don't lecture
 - Name specific vendors as examples (linking to OnlyiGaming pages) but this is NOT a review
 - At least 3 specific, actionable pieces of advice a buyer won't find elsewhere
@@ -299,12 +299,12 @@ REQUIRED STRUCTURE (in this exact order):
 
 1. **YAML FRONTMATTER** - all fields (type: satellite-head-to-head)
 
-2. **INTRO** (100-150 words)
+2. **INTRO** (200-300 words)
    - Why these two are commonly compared (what makes them natural alternatives)
    - Who should read this (what situation puts you between these two)
    - Link to pillar for the full market comparison
 
-3. **QUICK VERDICT** (60-80 words, `>` blockquote)
+3. **QUICK VERDICT** (100-150 words, `>` blockquote)
    - "Choose [Vendor A] if [scenario]. Choose [Vendor B] if [scenario]. If [third scenario], read on."
    - No links (featured snippet extraction)
 
@@ -316,7 +316,7 @@ REQUIRED STRUCTURE (in this exact order):
    - 8-10 rows covering key dimensions from the category rubric
    - "Winner" column: name the winner or "Depends" with a one-word qualifier in parentheses
 
-5. **DIMENSION-BY-DIMENSION COMPARISON** (6-8 sections, H2 each, 150-250 words each)
+5. **DIMENSION-BY-DIMENSION COMPARISON** (6-8 sections, H2 each, 350-500 words each)
    - Each section: one dimension from the rubric
    - Structure per section:
      - What ${vendorA} offers (specific facts, `-` bullet for 3+ items)
@@ -324,7 +324,7 @@ REQUIRED STRUCTURE (in this exact order):
      - **Winner: [name]** - one sentence why (on its own line)
    - Be direct. "X wins this one" not "both have strengths"
 
-6. **COMPANY PROFILES** (### H3 each, 200-300 words each)
+6. **COMPANY PROFILES** (### H3 each, 400-600 words each)
    - ### H3: [Vendor name linked to OnlyiGaming directory page]
    - Under each profile, use `-` bullet list:
      - **Strengths:** [3-4 items]
@@ -332,13 +332,13 @@ REQUIRED STRUCTURE (in this exact order):
      - **Best for:** [operator type]
      - **Not for:** [who should look elsewhere]
 
-7. **WHICH SHOULD YOU CHOOSE?** (150-200 words)
+7. **WHICH SHOULD YOU CHOOSE?** (300-450 words)
    - Two `-` bullet lists:
      - "Choose ${vendorA} if you..." (3-4 scenarios, each starting with a concrete condition)
      - "Choose ${vendorB} if you..." (3-4 scenarios)
    - "Consider neither if..." sub-section with 2-3 conditions where both are wrong and what to look for instead
 
-8. **RED FLAGS TO WATCH FOR** (100-150 words)
+8. **RED FLAGS TO WATCH FOR** (200-300 words)
    - `-` bullet list: 4-5 warning signs that apply when evaluating EITHER of these vendors
    - Focus on buying-process red flags: contract terms, migration complexity, support gaps
    - **Bold the red flag**, prose explanation after
@@ -353,7 +353,7 @@ REQUIRED STRUCTURE (in this exact order):
 10. **FOOTER** - pillar link, directory links for both vendors, independence statement
 
 REQUIREMENTS:
-- 1,800-2,500 words total
+- 4,000-5,500 words total
 - Every dimension comparison must declare a winner (or explain exactly why "depends")
 - At least 3 genuinely opinionated statements
 - Honest about weaknesses for both - not balanced for the sake of balance
@@ -407,12 +407,12 @@ REQUIRED STRUCTURE (in this exact order):
 
 1. **YAML FRONTMATTER** - all fields (type: satellite-newcomers)
 
-2. **INTRO** (100-150 words)
+2. **INTRO** (200-300 words)
    - Why looking beyond the big names matters (differentiation, pricing, specialization)
    - What qualifies a company for this list (criteria: founded recently, entering new markets, unique approach, underserved niche)
    - Link to pillar for established vendors
 
-3. **WHAT MAKES A "RISING STAR"** (100-150 words)
+3. **WHAT MAKES A "RISING STAR"** (200-300 words)
    - Define the criteria clearly as `-` bullet list
    - Not just new - could be established in one market and expanding
    - Distinguish from "risky startup" - these are credible companies with verifiable proof points
@@ -422,7 +422,7 @@ REQUIRED STRUCTURE (in this exact order):
    - Include all companies that will be profiled
    - This lets skimmers identify 1-2 companies to read in depth and skip the rest
 
-5. **COMPANY PROFILES** (### H3 each, 8-12 companies, 150-200 words each)
+5. **COMPANY PROFILES** (### H3 each, 8-12 companies, 250-400 words each)
    - ### H3: "[Company Name]" (linked to OnlyiGaming directory page): [One-Line Hook]
    - `-` bullet list per profile:
      - **What they do:** [product/service in one sentence]
@@ -432,12 +432,12 @@ REQUIRED STRUCTURE (in this exact order):
      - **Best for:** [operator type and why]
    - Prioritize companies from the OnlyiGaming directory NOT featured in the pillar
 
-6. **HOW TO EVALUATE A NEWCOMER** (150-200 words)
+6. **HOW TO EVALUATE A NEWCOMER** (300-450 words)
    - Numbered checklist (`1.`, `2.`...) of due diligence steps before committing
    - Include: client reference check, certification status, financial stability signals, exit terms, pilot program availability
    - "Start with a pilot, not a full contract" as the closing recommendation
 
-7. **RED FLAGS WHEN WORKING WITH NEWCOMERS** (100-150 words)
+7. **RED FLAGS WHEN WORKING WITH NEWCOMERS** (200-300 words)
    - `-` bullet list: 4-5 warning signs that a company is not ready for production deployment
    - **Bold each red flag**, prose explanation after
    - Examples: no client references willing to speak publicly, no sandbox/test environment, pricing that seems too low (subsidized to acquire), founders without iGaming background
@@ -451,7 +451,7 @@ REQUIRED STRUCTURE (in this exact order):
 9. **FOOTER** - pillar link, directory category page link, independence statement
 
 REQUIREMENTS:
-- 1,800-2,500 words total
+- 3,500-5,000 words total
 - Tone: exploratory and fair, not promotional
 - Be honest about risks - "rising star" does not mean "guaranteed success"
 - Every company gets both a reason to consider AND a specific risk factor
@@ -510,7 +510,7 @@ REQUIRED STRUCTURE (in this exact order):
 
 1. **YAML FRONTMATTER** - all fields (type: satellite-challenges)
 
-2. **INTRO** (100-150 words)
+2. **INTRO** (200-300 words)
    - Acknowledge the challenges are real and common
    - Frame: this article maps problems to solutions, not the other way around
    - Link to pillar for full vendor comparison
@@ -520,7 +520,7 @@ REQUIRED STRUCTURE (in this exact order):
    - 6-8 rows summarizing all challenges covered
    - Vendor names linked to OnlyiGaming pages
 
-4. **CHALLENGE SECTIONS** (6-8 sections, H2 each, 200-300 words each)
+4. **CHALLENGE SECTIONS** (6-8 sections, H2 each, 400-600 words each)
    Each challenge section follows this exact structure:
    - **H2: "Challenge: [Problem Statement]"**
    - ### H3: "Why it matters"
@@ -542,12 +542,12 @@ REQUIRED STRUCTURE (in this exact order):
    - Crypto support that actually works in practice
    - Speed to market pressure
 
-5. **MAPPING: CHALLENGES TO VENDORS** (150-200 words)
+5. **MAPPING: CHALLENGES TO VENDORS** (300-450 words)
    - Markdown table: Challenge | Best Vendor | Runner-Up | Who It's Wrong For
    - Summary paragraph: "If your biggest challenge is X, start with [Vendor]"
    - "If you face multiple challenges simultaneously, [Vendor] covers the broadest ground"
 
-6. **RED FLAGS IN VENDOR CONVERSATIONS** (100-150 words)
+6. **RED FLAGS IN VENDOR CONVERSATIONS** (200-300 words)
    - `-` bullet list: 4-5 warning signs that a vendor is not honestly addressing your challenge
    - **Bold each red flag**, prose explanation after
    - Focus on sales-process signals: vague timelines, deflecting technical questions, no reference clients for your specific challenge
@@ -561,7 +561,7 @@ REQUIRED STRUCTURE (in this exact order):
 8. **FOOTER** - pillar link, directory link, independence statement
 
 REQUIREMENTS:
-- 1,800-2,500 words total
+- 3,500-5,000 words total
 - Problem-first, always. The challenge headline comes before any vendor mention
 - At least 2 "watch out for" items per challenge
 - Vendors as solutions, not as profiles - this is NOT a review article
@@ -616,7 +616,7 @@ REQUIRED STRUCTURE:
 
 1. **YAML FRONTMATTER** (type: satellite-glossary)
 
-2. **INTRO** (80-100 words)
+2. **INTRO** (150-200 words)
    - Who this is for (non-technical buyers, new market entrants)
    - How to use this glossary (skim the quick reference, dive into terms you encounter in demos)
    - Link to pillar and buyer's guide
@@ -625,7 +625,7 @@ REQUIRED STRUCTURE:
    - Term | Plain Definition (one sentence) | Why It Matters in Vendor Evaluation
    - Use the most frequently encountered terms in demos and RFPs for this category
 
-4. **TERMS** (### H3 each, 15-25 terms, 60-120 words each)
+4. **TERMS** (### H3 each, 15-25 terms, 100-180 words each)
    - Alphabetical or grouped by topic (choose whichever reads better)
    - Each term:
      - ### H3: [Term]
@@ -643,7 +643,7 @@ REQUIRED STRUCTURE:
 6. **FOOTER** - pillar link, buyer's guide link, directory link
 
 REQUIREMENTS:
-- 1,500-2,000 words total
+- 2,500-3,500 words total
 - Plain language - a non-technical CEO should understand every definition
 - Link vendor names to OnlyiGaming directory pages where relevant
 - No em dashes or en dashes - regular hyphens only
@@ -688,7 +688,7 @@ REQUIRED STRUCTURE:
 
 1. **YAML FRONTMATTER** (type: satellite-trends)
 
-2. **INTRO** (80-120 words)
+2. **INTRO** (150-250 words)
    - Set context: what is changing in this category and why operators should care now
    - Link to pillar for current vendor comparison
 
@@ -697,7 +697,7 @@ REQUIRED STRUCTURE:
    - Include all trends covered in the article
    - Status options: Emerging / Accelerating / Mainstream / Regulatory-driven
 
-4. **TREND SECTIONS** (5-8 trends, H2 each, 150-250 words each)
+4. **TREND SECTIONS** (5-8 trends, H2 each, 350-500 words each)
    Each trend follows this exact structure:
    - **H2: "[Trend Name]"**
    - ### H3: "What's happening"
@@ -709,7 +709,7 @@ REQUIRED STRUCTURE:
    - ### H3: "What to do now"
      - `-` bullet list: 2-3 concrete operator actions (immediate vs 12-18 month horizon)
 
-5. **WHAT THIS MEANS FOR YOUR VENDOR SELECTION** (150-200 words)
+5. **WHAT THIS MEANS FOR YOUR VENDOR SELECTION** (300-450 words)
    - How these trends should influence buying decisions today
    - Table: Trend | Short-Term Impact | Vendor Question to Ask
 
@@ -721,7 +721,7 @@ REQUIRED STRUCTURE:
 7. **FOOTER** - pillar link, directory link, independence statement
 
 REQUIREMENTS:
-- 1,500-2,200 words total
+- 3,000-4,000 words total
 - Every trend must be supportable by public evidence (Gemini will fact-check this)
 - "Trend" means directional change with evidence, not "thing that exists"
 - Name vendors leading each trend with directory links
@@ -774,7 +774,7 @@ REQUIRED STRUCTURE:
 
 1. **YAML FRONTMATTER** (type: satellite-pricing)
 
-2. **INTRO** (100-150 words)
+2. **INTRO** (200-300 words)
    - The problem: pricing in this category is opaque and comparison is hard
    - What this article covers: publicly available pricing, commercial model types, hidden costs
    - Link to pillar for full vendor comparison
@@ -785,7 +785,7 @@ REQUIRED STRUCTURE:
    - Use "Not disclosed" for unverified pricing — this table previews the full analysis below
    - One sentence below the table: "The total cost of ownership is typically 2-3x the headline license fee."
 
-4. **PRICING MODELS EXPLAINED** (200-300 words)
+4. **PRICING MODELS EXPLAINED** (400-600 words)
    - Common models in this category (revenue share, license fee, hybrid, per-transaction, etc.)
    - For each model, use ### H3 heading then `-` bullet list with:
      - ### H3: [Model Name]
@@ -800,7 +800,7 @@ REQUIRED STRUCTURE:
    - "Not disclosed" for anything unverified
    - Add a "Pricing Transparency" column: High / Medium / Low based on what's publicly available
 
-6. **HIDDEN COST ANALYSIS** (300-400 words)
+6. **HIDDEN COST ANALYSIS** (600-900 words)
    - `-` bullet list grouped by cost category:
      - **Implementation and onboarding:** [typical range and what drives variation]
      - **Data migration:** [what's usually charged vs included]
@@ -810,13 +810,13 @@ REQUIRED STRUCTURE:
      - **Currency/FX markups:** [if applicable]
    - Close with: "The true cost is rarely what's in the headline price"
 
-7. **TOTAL COST OF OWNERSHIP FRAMEWORK** (200-300 words)
+7. **TOTAL COST OF OWNERSHIP FRAMEWORK** (400-600 words)
    - Formula: License + Implementation + Hidden Costs + Opportunity Cost (time to value)
    - Markdown table showing 3 operator scenarios:
      - Scenario | Annual GGR | Est. Platform Cost | Hidden Cost Estimate | Total Year 1
    - Be clear these are illustrative, not guaranteed
 
-8. **RED FLAGS IN PRICING CONVERSATIONS** (100-150 words)
+8. **RED FLAGS IN PRICING CONVERSATIONS** (200-300 words)
    - `-` bullet list: 4-5 warning signs during vendor pricing discussions
    - **Bold each red flag**, prose explanation after
    - Examples: bundled pricing that obscures per-unit costs, "custom pricing" with no ballpark, costs that only appear after contract signing, minimum GGR commitments buried in terms
@@ -829,7 +829,7 @@ REQUIRED STRUCTURE:
 10. **FOOTER** - pillar link, directory link, independence statement
 
 REQUIREMENTS:
-- 1,500-2,200 words total
+- 3,500-5,000 words total
 - NEVER state unverified pricing as fact
 - The value is in the hidden cost analysis and TCO framework, not the price table
 - Name specific vendors with directory links
