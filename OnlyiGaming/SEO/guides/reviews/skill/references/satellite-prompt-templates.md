@@ -853,21 +853,42 @@ Write the complete article now. Start with --- for the YAML frontmatter.
 
 ## CLASS 7: PRICING
 
-**Covers:** "[Category] Pricing Comparison" satellites
-**Only produce if:** Public pricing data exists for at least 4-5 vendors in the category
-**Examples:** "Casino Platform Pricing: What It Actually Costs in 2026"
+**Covers:** "[Category] Pricing — Models, Rev Share, and Hidden Costs" satellites — a CONCEPTUAL discussion of pricing dynamics, not a vendor price list
+**Examples:** "Casino Platform Pricing: Models, Rev Share, and Hidden Costs in 2026"
+**Why unique — the no-vendor-prices rule:** In iGaming B2B, vendor list prices are almost never published, and what IS published is rarely current or applicable to the reader. A pricing-comparison article that fabricates per-vendor dollar ranges is dangerous — it misleads operators and the vendors won't honor those numbers. This article is therefore CONCEPTUAL: how pricing MODELS work, where money actually goes in this category, hidden costs operators consistently underestimate, scale economics, negotiation levers. Vendor names appear only to illustrate WHICH MODEL a vendor uses (modular vs rev-share vs enterprise-fixed), never to state prices.
 
 ### Prompt Template
 
 ```
-You are writing a PRICING COMPARISON satellite article for OnlyiGaming.com.
+You are writing a PRICING CONCEPTS satellite article for OnlyiGaming.com.
 
 ARTICLE CONTEXT:
-- Title: "${categoryTitle} Pricing: What It Actually Costs in ${year}"
+- Title: "${categoryTitle} Pricing: Models, Rev Share, and Hidden Costs in ${year}"
 - Category: ${categorySlug}
 - Parent pillar: /guides/best-${categorySlug}-2026
 
-CRITICAL HONESTY RULE: Only state pricing that is publicly confirmed. For vendors without public pricing, say "Pricing not publicly disclosed - contact vendor." Do NOT guess, estimate, or state "industry standard" pricing as if it were confirmed.
+CRITICAL — NO COMPANY-SPECIFIC PRICES OF ANY KIND:
+This article does NOT include any dollar amount, percentage, license fee, rev-share rate, monthly minimum, setup cost, or pricing range attributed to a specific company. This rule applies UNIVERSALLY to:
+- Platform vendors (EveryMatrix, SOFTSWISS, BetConstruct, Playtech, etc.)
+- Game studios and content providers (Evolution Gaming, Pragmatic Play, Hacksaw, etc.)
+- Payment providers, PSPs, gateways (any named company)
+- KYC, compliance, RG, infrastructure vendors (any named company)
+- ANY company you name in this article
+
+Phrases like "Evolution Gaming might require $50K", "Pragmatic Play minimums are around $25K", "EveryMatrix charges 15-20%" are ALL forbidden — even with "might", "around", "approximately", "estimated", "reported", or any other hedge word. Hedge words do NOT make fabricated prices acceptable. They make them worse — operators read "$50K" and discount the "might".
+
+List prices in iGaming B2B are not publicly published reliably. What IS public:
+1. Category-level ranges in the abstract ("revenue share in this category typically lands 10-25% of GGR") — ACCEPTABLE because it's a category statement, not a company claim
+2. Pricing model archetypes inferred from vendor PUBLIC marketing ("EveryMatrix positions itself as modular-per-component" — note: positions itself, not "charges this way") — ACCEPTABLE in the PRICING MODEL ARCHETYPES table only, with hedge language
+3. Operator-reported anecdotes ("operators report that white-label deals in this category typically include X but not Y") — ACCEPTABLE because they're patterns, not specific company prices
+
+What is NOT acceptable, in any section:
+- Any dollar amount or percentage attached to a specific named company
+- "Premium guarantee" numbers attributed to specific game studios
+- Setup fee ranges attributed to specific platforms
+- Anything that names a company and then states a number, no matter how hedged
+
+If you find yourself wanting to write a specific company's price in any section, REPLACE IT with either: (a) a category-level range without naming any company, or (b) a verification instrument ("ask the vendor for X").
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
@@ -882,10 +903,10 @@ FORMATTING RULES (apply throughout — these are non-negotiable):
 - H2: every major section heading (Intro excluded — it is plain prose)
 - H3: pricing model headings, sub-headings within H2 sections, FAQ question headings
 - Never skip heading levels (no H3 without a parent H2)
-- Use markdown table for both the Vendor Pricing Table and TCO scenarios
+- Use markdown tables for: Pricing Model Archetypes (vendor → model, no prices) AND Budget Anatomy AND Scale Economics scenarios
 - Use `-` bullet list for Hidden Cost items, grouped by cost type
 - Use `-` bullet list for red flags in pricing conversations
-- Use **bold** for each hidden cost category heading within the bullet list
+- Use **bold** for each cost category heading within the bullet list
 - Use ### H3 for "Pros" and "Cons" within each pricing model explanation
 - Use ### H3 for each question in Common Questions; prose answer below
 
@@ -894,58 +915,72 @@ REQUIRED STRUCTURE:
 1. **YAML FRONTMATTER** (type: satellite-pricing)
 
 2. **INTRO** (200-300 words)
-   - The problem: pricing in this category is opaque and comparison is hard
-   - What this article covers: publicly available pricing, commercial model types, hidden costs
-   - Link to pillar for full vendor comparison
+   - The problem: pricing in this category is opaque BY DESIGN — vendors keep it that way because every deal is custom
+   - What this article is NOT: a quote-shopping list, a guarantee any number applies to your situation, a substitute for talking to vendors directly
+   - What this article IS: how pricing MODELS work, where the money actually goes, hidden costs operators consistently underestimate, what changes at scale, how to negotiate
+   - Link to pillar for the vendor comparison itself
 
-3. **PRICING AT A GLANCE** (markdown table — the summary before the analysis)
-   - Table: Vendor | Model | Price Transparency | Estimated Year 1 Range | Best For
-   - Include all vendors covered in this article
-   - Use "Not disclosed" for unverified pricing — this table previews the full analysis below
-   - One sentence below the table: "The total cost of ownership is typically 2-3x the headline license fee."
+3. **PRICING MODEL ARCHETYPES** (markdown table — NO per-vendor prices; even MODEL claims are hedged)
+   - Columns: Vendor (linked to directory) | Likely Pricing Model | What's Bundled in Public Positioning | What's Likely Separate
+   - 6-12 rows
+   - **CRITICAL — these are inferences from public positioning, not asserted facts.** Vendors rarely publish pricing models any more reliably than they publish prices. The model column reflects what the vendor's public marketing and product architecture SUGGESTS, not what they confirm contractually. Every cell is implicitly hedged. Add this sentence directly below the table heading: "Based on vendor public positioning and operator reports. Confirm actual model and bundling with the vendor — terms vary per deal."
+   - "Likely Pricing Model" cell uses ONE OF: revenue-share, license-fee, hybrid, per-transaction, enterprise-fixed, modular-per-component, white-label-bundled. If even the model isn't publicly inferable, use "Not publicly disclosed."
+   - "What's Bundled in Public Positioning" describes which components the vendor markets as included in the headline offering (e.g. "PAM + casino aggregation + reporting"). Name actual products/modules per G2.
+   - "What's Likely Separate" describes what operators report being billed on top
+   - This table replaces the deprecated "Vendor Pricing Table." It shows STRUCTURE inferences without making up prices.
 
-4. **PRICING MODELS EXPLAINED** (400-600 words)
-   - Common models in this category (revenue share, license fee, hybrid, per-transaction, etc.)
-   - For each model, use ### H3 heading then `-` bullet list with:
-     - ### H3: [Model Name]
-     - **Pros:** `-` bullet list
+4. **PRICING MODELS EXPLAINED** (500-800 words)
+   - The common pricing models in this category. For each model, use ### H3 heading then:
+     - ### H3: [Model Name] (e.g. "Revenue Share")
+     - Plain-language explanation of how the model works
+     - **Pros:** `-` bullet list (operator perspective)
      - **Cons:** `-` bullet list
-     - **Best for:** operator type and scale
-   - Which model favors which operator type
+     - **Best for:** operator type and scale (e.g. "Startups testing market viability — low upfront, vendor aligned with operator growth")
+     - **Worst for:** the operator type that gets burned by this model (e.g. "High-margin operators at scale — the share you pay grows as your revenue grows, with no ceiling")
+     - **Typical category range (if generally known):** e.g. "10-25% of GGR in this category, with most deals between 12-18%" — this is a CATEGORY-LEVEL range, not a vendor-specific claim
+   - Close with a one-paragraph summary of WHICH MODEL favors WHICH OPERATOR TYPE
 
-5. **VENDOR PRICING TABLE**
-   - Vendor (linked) | Model | Public Price | Setup Fees | Notes
-   - ONLY include publicly confirmed data
-   - "Not disclosed" for anything unverified
-   - Add a "Pricing Transparency" column: High / Medium / Low based on what's publicly available
+5. **BUDGET ANATOMY — WHERE THE MONEY ACTUALLY GOES** (600-900 words)
+   - The headline platform fee is rarely more than 30-50% of the real cost. This section breaks down the rest.
+   - `-` bullet list grouped by category (each bolded):
+     - **Platform license or rev share:** what's included, what's not, where vendors hide costs
+     - **Implementation and onboarding:** what drives the variation (custom UI work, additional certifications, content migration), why "turnkey in 4 weeks" usually means 12-16 weeks
+     - **Payment processing:** gateway fees, FX markups, chargeback handling, payment-provider rev share — typically 2-5% of GGR in this category
+     - **Game content and provider fees:** game-studio rev share stacks on top of platform rev share (typically another 10-25% to studios)
+     - **Compliance and regulatory:** per-jurisdiction costs that grow as you add markets — RG tooling, audit support, regulatory reporting
+     - **Infrastructure and hosting:** CDN, redundancy, peak handling
+     - **Support tiers:** what "premium support" actually buys
+     - **Data migration and exit costs:** what it costs to leave (often more than what it cost to onboard)
+   - Close: "Operators consistently underestimate items 3-5 in this list. The headline number is a starting point, not the final number."
 
-6. **HIDDEN COST ANALYSIS** (600-900 words)
-   - `-` bullet list grouped by cost category:
-     - **Implementation and onboarding:** [typical range and what drives variation]
-     - **Data migration:** [what's usually charged vs included]
-     - **Training and support tiers:** [premium support costs]
-     - **Content surcharges:** [if applicable to category]
-     - **Exit and migration costs:** [what it costs to leave]
-     - **Currency/FX markups:** [if applicable]
-   - Close with: "The true cost is rarely what's in the headline price"
+6. **SCALE ECONOMICS — WHAT CHANGES AT EACH GGR LEVEL** (400-600 words)
+   - Markdown table showing operator scenarios. Columns: Scale | Monthly GGR | Pricing Model That Favors | Pricing Model That Hurts | Key Negotiation Lever
+   - Rows: Startup (pre-launch / $0-$100K MGR) | Growth ($100K-$1M MGR) | Mid-market ($1M-$10M MGR) | Enterprise ($10M+ MGR)
+   - Below the table: a paragraph on the rev-share-at-scale trap — at what threshold revenue share becomes more expensive than a fixed license, why operators often miss the inflection point, and how to negotiate it ahead of time
+   - DO NOT state per-vendor dollar amounts in this section. Use the operator scenario scales, not vendor pricing.
 
-7. **TOTAL COST OF OWNERSHIP FRAMEWORK** (400-600 words)
-   - Formula: License + Implementation + Hidden Costs + Opportunity Cost (time to value)
-   - Markdown table showing 3 operator scenarios:
-     - Scenario | Annual GGR | Est. Platform Cost | Hidden Cost Estimate | Total Year 1
-   - Be clear these are illustrative, not guaranteed
+7. **HIDDEN COSTS OPERATORS UNDERESTIMATE** (400-600 words)
+   - `-` bullet list of category-specific surprises, each **bolded**:
+     - The 5-7 most common cost surprises operators encounter AFTER signing
+     - Each item: name the surprise, explain why it happens, state what to negotiate INTO the contract before signing
+   - Close: "Negotiate these BEFORE signing, not after — once the contract is signed, every change becomes a billable variation."
 
-8. **RED FLAGS IN PRICING CONVERSATIONS** (200-300 words)
-   - `-` bullet list: 4-5 warning signs during vendor pricing discussions
+8. **NEGOTIATION LEVERS** (300-500 words)
+   - `-` bullet list: 5-7 specific levers operators have during pricing negotiations
+   - Each lever: name it, when it applies (e.g. "if you're committing to a 3-year minimum, you can negotiate the rev share down 200-300 basis points"), how to ask
+   - Frame as actionable operator playbook, not abstract advice
+
+9. **RED FLAGS IN PRICING CONVERSATIONS** (300-500 words)
+   - `-` bullet list: 5-7 warning signs that a pricing conversation is going badly
    - **Bold each red flag**, prose explanation after
-   - Examples: bundled pricing that obscures per-unit costs, "custom pricing" with no ballpark, costs that only appear after contract signing, minimum GGR commitments buried in terms
+   - Examples: bundled pricing that obscures per-unit costs, "custom pricing" with no ballpark, costs that only appear after contract signing, minimum GGR commitments buried in terms, "industry standard" claims without specifics, vendor refuses to put hidden-cost categories in writing
 
-9. **COMMON QUESTIONS** (4-6 questions, NOT called "FAQ")
+10. **COMMON QUESTIONS** (4-6 questions, NOT called "FAQ")
    - ### H3 heading for each question
    - Prose paragraph answer below each heading
-   - "Why won't vendors publish pricing?", "How do I compare revenue share vs license fee at scale?"
+   - Examples: "Why won't vendors publish pricing?", "At what GGR does revenue share become more expensive than a license fee?", "What's the realistic Year 1 total cost vs the headline number?", "How do I compare two vendors when neither publishes pricing?"
 
-10. **FOOTER** - pillar link, directory link, independence statement
+11. **FOOTER** - pillar link, directory link, independence statement
 
 GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
 
@@ -959,13 +994,14 @@ G4. **Concrete next step in footer**: include one concrete reader action.
 
 G5. **Category macro-thread**: tie pricing to the category's defining commercial realities — for casino-platforms — the rev-share-at-scale trap, the integration-cost reality (4-6 vs 12-16 weeks), and how Law 14.790/2023's licensing requirements change the cost base in Brazil. Pull from the category brief.
 
-G6. **Verification instruments, not asserted numbers**: the CRITICAL HONESTY RULE above already covers this — reinforced here. Any pricing not publicly confirmed becomes "Not disclosed" with an instrument for the operator to verify themselves.
+G6. **Verification instruments, not asserted numbers**: the NO VENDOR-SPECIFIC PRICES rule above is the strongest form of this. Per-vendor prices are not "verifiable specifics" — they are negotiated per deal and rarely public. Category-level ranges in PRICING MODELS EXPLAINED are acceptable; per-vendor dollar amounts are not.
 
 REQUIREMENTS:
-- 3,500-5,000 words total
-- NEVER state unverified pricing as fact
-- The value is in the hidden cost analysis and TCO framework, not the price table
-- Name specific vendors with directory links
+- 3,000-4,500 words total (the conceptual scope is contained; padding becomes filler)
+- NEVER state per-vendor prices, percentages, license fees, or rev-share rates. Vendor names appear only in PRICING MODEL ARCHETYPES and only to identify WHICH MODEL the vendor uses.
+- The value is in the budget anatomy, scale economics, hidden costs, and negotiation levers — not in fabricated price tables
+- Category-level pricing ranges (e.g. "rev share typically 10-25% in this category") are acceptable as conceptual context, NOT as vendor-specific claims
+- Name specific vendors with directory links in PRICING MODEL ARCHETYPES and PRICING MODELS EXPLAINED to show which vendor uses which model — never to state what they charge
 - No em dashes or en dashes - regular hyphens only
 
 Write the complete article now. Start with --- for the YAML frontmatter.
