@@ -126,6 +126,20 @@ REQUIRED STRUCTURE (in this exact order):
     - Link to directory category page
     - "Last Verified" date and independence statement
 
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every feature, spec, or capability you describe must be paired with its operator consequence (revenue, compliance posture, launch timeline, retention, cost, or migration risk). A feature with no stated consequence is cut from the article. "X has feature Y" alone is not acceptable; "X has feature Y, which means Z for the operator" is.
+
+G2. **Proprietary product naming**: when discussing a vendor capability, name the actual product or module — CasinoEngine, PaymentIQ, BonusEngine, OddsMatrix, MEGA, Spring Platform — not generic descriptors like "their gamification engine" or "their platform." If you cannot verify the product name, flag the uncertainty ("reported as MEGA") rather than asserting it. Generic "their platform supports X" without a product name is a failure.
+
+G3. **Negative definition**: state explicitly what this article is NOT for. Set expectations up front so the wrong reader self-selects out.
+
+G4. **Concrete next step in footer**: the footer must include one concrete reader action (e.g. "request a sandbox demo with three reference operators in your target market") in addition to the independence statement.
+
+G5. **Category macro-thread**: thread the category's defining themes through multiple sections. For casino-platforms specifically — Brazil's Law 14.790/2023 framework (and its prohibition of crypto for licensed operators), the 4-6 week vendor-promised vs 12-16 week operator-reported integration reality, and the revenue-share-at-scale trap. Pull macro-themes from the category brief; do not invent.
+
+G6. **Verification instruments, not asserted numbers**: when technical depth requires specifics (concurrency, latency, uptime, integration speed), express it as a verification instrument — "ask the vendor for X," "time this in the demo," "request the most recent 90-day uptime report" — never as an asserted unsourced number. If you have a sourced number, attribute it. If you don't, convert it to an instrument.
+
 REQUIREMENTS:
 - 4,000-5,500 words total
 - Product-first approach throughout
@@ -179,7 +193,13 @@ FORMATTING RULES (apply throughout — these are non-negotiable):
 - Use markdown `-` bullet lists for "After You Choose" action items
 - Use **bold lead sentence** for each Red Flag item, followed by explanation prose
 - Use markdown table for the Scoring Framework
-- Include at least 2 current-year market context points (regulatory deadlines, enforcement dates, licensing milestones) where publicly verifiable
+
+EVERGREEN MANDATE (critical — this article ages slowly and must avoid date drift):
+- Structural regulatory context is allowed and encouraged: "Brazil's licensed-operator framework exists," "the UK affordability regime applies," "Germany's deposit caps shape the buying calculus." These statements stay valid for 12+ months.
+- Forbidden: dated awards, quarter-specific product launches, current license counts, enforcement dates, this-year company-specific milestones. The pillar is where current vendor data lives — this article points readers to the pillar for that.
+- When in doubt: write the sentence so it would still read accurately 18 months from now.
+- Reinforce the bridge to pillar: "For the up-to-date vendor comparison and current license/proof points, see the pillar."
+- YAML frontmatter `last_verified` should reflect the actual verification date; do not freeze it at draft time.
 
 REQUIRED STRUCTURE (in this exact order):
 
@@ -202,7 +222,7 @@ REQUIRED STRUCTURE (in this exact order):
    - Under each heading: why it matters, how the answer narrows the field
    - Be specific to this category (not generic "what's your budget")
    - Name specific vendors that each answer points toward or eliminates (with links)
-   - Include at least one question about current regulatory environment or market timing
+   - At least one question must address the buyer's regulatory posture (which markets they target, which licenses they hold) — phrased so the question stays valid as licensing landscapes evolve. Do NOT cite current dated enforcement events.
 
 5. **QUESTIONS TO ASK DURING DEMOS** (700-1,100 words)
    - ### H3 for each topic group: Integration, Compliance, Operations, Commercial Terms, Infrastructure
@@ -241,8 +261,22 @@ REQUIRED STRUCTURE (in this exact order):
     - Link to directory category page
     - Independence statement
 
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every feature, spec, or capability you describe must be paired with its operator consequence (revenue, compliance posture, launch timeline, retention, cost, or migration risk). A feature with no stated consequence is cut.
+
+G2. **Proprietary product naming**: when discussing a vendor capability, name the actual product or module (CasinoEngine, PaymentIQ, BonusEngine, OddsMatrix, MEGA, Spring Platform) — not generic descriptors. Flag uncertainty rather than asserting an unverified name.
+
+G3. **Negative definition**: state explicitly what this article is NOT for, beyond the existing "this is NOT a vendor review." Set expectations up front.
+
+G4. **Concrete next step in footer**: include one concrete reader action in the footer in addition to the independence statement.
+
+G5. **Category macro-thread**: thread the category's defining macro-themes through the framework. For casino-platforms — Brazil's Law 14.790/2023, the 4-6 week vs 12-16 week integration reality, the rev-share-at-scale trap. Pull from the category brief; do not invent.
+
+G6. **Verification instruments, not asserted numbers**: technical specifics (concurrency, latency, uptime, integration speed) are expressed as instruments ("ask the vendor for X," "time this in the demo," "request the 90-day uptime report") not as asserted unsourced numbers.
+
 REQUIREMENTS:
-- 3,500-5,000 words total
+- 3,000-4,500 words total (framework articles naturally cap tighter than vendor-comparison articles — actionable concision beats padding)
 - Authoritative but helpful tone - guide the reader, don't lecture
 - Name specific vendors as examples (linking to OnlyiGaming pages) but this is NOT a review
 - At least 3 specific, actionable pieces of advice a buyer won't find elsewhere
@@ -305,7 +339,8 @@ REQUIRED STRUCTURE (in this exact order):
    - Link to pillar for the full market comparison
 
 3. **QUICK VERDICT** (100-150 words, `>` blockquote)
-   - "Choose [Vendor A] if [scenario]. Choose [Vendor B] if [scenario]. If [third scenario], read on."
+   - "Choose [Vendor A] if [scenario]. Choose [Vendor B] if [scenario]. Consider neither if [scenario] — look at [alternative vendor or category]."
+   - The third element must be a redirect (avoid both, look elsewhere) aligning with the "Consider neither if..." section below — not a "read on" hook.
    - No links (featured snippet extraction)
 
 4. **SIDE-BY-SIDE TABLE**
@@ -318,6 +353,7 @@ REQUIRED STRUCTURE (in this exact order):
 
 5. **DIMENSION-BY-DIMENSION COMPARISON** (6-8 sections, H2 each, 350-500 words each)
    - Each section: one dimension from the rubric
+   - One of the dimensions MUST be **Regulatory cross-check** — addresses the category's macro-regulatory theme (per G5) for BOTH vendors and explicitly flags when a vendor's headline strength inverts under a macro-ban or regime constraint (e.g. SOFTSWISS's crypto strength becomes a liability for Brazil-licensed operators because Law 14.790/2023 prohibits crypto for licensed operators).
    - Structure per section:
      - What ${vendorA} offers (specific facts, `-` bullet for 3+ items)
      - What ${vendorB} offers (specific facts, `-` bullet for 3+ items)
@@ -337,6 +373,10 @@ REQUIRED STRUCTURE (in this exact order):
      - "Choose ${vendorA} if you..." (3-4 scenarios, each starting with a concrete condition)
      - "Choose ${vendorB} if you..." (3-4 scenarios)
    - "Consider neither if..." sub-section with 2-3 conditions where both are wrong and what to look for instead
+   - **Operator-type recommendation matrix** (markdown table):
+     - Columns: Operator Type | Recommendation | Why
+     - Rows: Startup operator | Crypto-first operator | Regulated-market operator | Sportsbook-first operator | Operator with strong technical team | Non-technical founder | Multi-market operator
+     - Each "Recommendation" cell: ${vendorA}, ${vendorB}, "Consider neither," or "Either, with caveats" — and the "Why" cell explains in one sentence
 
 8. **RED FLAGS TO WATCH FOR** (200-300 words)
    - `-` bullet list: 4-5 warning signs that apply when evaluating EITHER of these vendors
@@ -352,8 +392,22 @@ REQUIRED STRUCTURE (in this exact order):
 
 10. **FOOTER** - pillar link, directory links for both vendors, independence statement
 
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every feature or spec paired with its operator consequence (revenue, compliance, launch timeline, retention, cost, migration risk). Feature without consequence is cut.
+
+G2. **Proprietary product naming**: name the actual products/modules (CasinoEngine, PaymentIQ, BonusEngine, OddsMatrix, MEGA, Spring Platform) — never generic "their platform." Flag if unverified.
+
+G3. **Negative definition**: state explicitly what this article is NOT for (e.g. operators who haven't shortlisted these two vendors, operators outside this product tier).
+
+G4. **Concrete next step in footer**: include one concrete reader action.
+
+G5. **Category macro-thread**: address the category's defining themes for BOTH vendors. For casino-platforms — Law 14.790/2023, the 4-6 week vs 12-16 week integration reality, rev-share-at-scale. Pull from the category brief.
+
+G6. **Verification instruments, not asserted numbers**: technical specifics expressed as instruments ("time this in the demo," "request the 90-day uptime report") not asserted numbers. Attribute any sourced number; convert any unsourced one.
+
 REQUIREMENTS:
-- 4,000-5,500 words total
+- 3,000-4,500 words total (h2h naturally caps tighter than vendor-cohort articles — opinionated brevity beats padding)
 - Every dimension comparison must declare a winner (or explain exactly why "depends")
 - At least 3 genuinely opinionated statements
 - Honest about weaknesses for both - not balanced for the sake of balance
@@ -450,6 +504,20 @@ REQUIRED STRUCTURE (in this exact order):
 
 9. **FOOTER** - pillar link, directory category page link, independence statement
 
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every capability paired with its operator consequence (revenue, compliance, launch, retention, cost, migration). Newcomer claims especially: "X has Y capability" → "X has Y, which means Z for the operator considering them."
+
+G2. **Proprietary product naming**: when a newcomer has named products/modules, name them. Don't paraphrase to generic "their platform."
+
+G3. **Negative definition**: state explicitly what this article is NOT — not a buying recommendation for production deployment, not a competitive ranking. It is a watchlist with risk flags.
+
+G4. **Concrete next step in footer**: include one concrete reader action (e.g. "before piloting any newcomer, request three operator references operating live, not 'in pilot'").
+
+G5. **Category macro-thread**: even rising stars must address the category's defining themes (for casino-platforms: Law 14.790/2023, integration timelines, rev-share traps). If a newcomer can't address them, flag the gap as a risk.
+
+G6. **Verification instruments, not asserted numbers**: newcomers have limited public data — that's expected. Use instruments ("ask the vendor for X," "request live operator references") rather than asserting unverified scale or uptime numbers.
+
 REQUIREMENTS:
 - 3,500-5,000 words total
 - Tone: exploratory and fair, not promotional
@@ -497,14 +565,14 @@ ${voiceGuide}
 FORMATTING RULES (apply throughout — these are non-negotiable):
 - H1: the article title — rendered by the CMS from the frontmatter title field; do NOT write an H1 in the article body
 - H2: each challenge section heading (format: "Challenge: [Problem Statement]")
-- H3: sub-headings within each H2 challenge (Why it matters / What to look for / Who solves it best / Watch out for), plus FAQ question headings
+- H3: the 8 diagnostic sub-headings within each H2 challenge (see CHALLENGE SECTIONS below), plus FAQ question headings
 - Never skip heading levels (no H3 without a parent H2)
-- Use ### H3 for "Why it matters", "What to look for", "Who solves it best", "Watch out for" sub-headings within each challenge section
-- Use `-` bullet lists for "What to look for", "Who solves it best", and "Watch out for" items
+- Use ### H3 for each of the 8 diagnostic sub-headings within each challenge section
+- Use `-` bullet lists for "Early warning signs," "Who solves it," "Who makes it worse," and demo-question good/red-flag answer items
 - Use **bold vendor name** when naming a solution provider in a bullet item
 - Use markdown table for the Challenge Overview and the Mapping summary
 - Use ### H3 for each question in Common Questions; prose answer below
-- "Watch out for" items must each name a specific vendor claim or behavior to be skeptical of
+- Regulations must be cited by identifier (Law 14.790/2023, UKGC LCCP, GlüStV 2021, Spelinspektionen, iGaming Ontario, MGA, etc.) — never generic "regulatory compliance"
 
 REQUIRED STRUCTURE (in this exact order):
 
@@ -521,22 +589,30 @@ REQUIRED STRUCTURE (in this exact order):
    - Vendor names linked to OnlyiGaming pages
 
 4. **CHALLENGE SECTIONS** (6-8 sections, H2 each, 400-600 words each)
-   Each challenge section follows this exact structure:
+   Each challenge section follows this exact 8-part diagnostic structure:
    - **H2: "Challenge: [Problem Statement]"**
-   - ### H3: "Why it matters"
-     - 2-3 sentences on business impact (revenue, compliance, speed)
-   - ### H3: "What to look for"
-     - `-` bullet list: 3-5 criteria that solve this problem
-   - ### H3: "Who solves it best"
-     - `-` bullet list: 2-4 vendors with **bold name** and specific explanation of HOW they address it
-   - ### H3: "Watch out for"
-     - `-` bullet list: 2-3 vendor claims or behaviors that sound good but don't hold up in practice
-     - Be specific: name the pattern ("vendors who claim X but..."), not a generic warning
+   - ### H3: "Why it happens"
+     - The root cause — categorize it as architectural, commercial, or organizational. Be specific (e.g. "architectural: the platform was built monolithic and retrofitted with modular APIs that share an underlying ORM").
+   - ### H3: "Early warning signs"
+     - `-` bullet list: 3-5 symptoms that appear BEFORE the challenge fully hits (e.g. "vendor quotes integration in weeks but won't commit to a written timeline," "support tickets go through three escalation tiers before reaching engineering").
+   - ### H3: "Business impact"
+     - Revenue, compliance, launch — thresholded where possible. (e.g. "every week of slipped launch costs roughly 1.5% of monthly GGR at steady-state; in a market opening like Brazil under Law 14.790/2023, missing the first 90 days costs significantly more.")
+   - ### H3: "Hidden cost"
+     - The part operators don't expect — e.g. re-certification cost when changing a payment provider in a regulated market; data egress fees during platform migration; mandatory professional-services hours for any custom bonus structure.
+   - ### H3: "Who solves it"
+     - `-` bullet list: 2-4 vendors or vendor types with **bold name** and a one-sentence specific explanation of HOW they address it (G2: name actual products, e.g. "EveryMatrix's PaymentIQ orchestrates payments across providers without re-certification per swap").
+   - ### H3: "Who makes it worse"
+     - `-` bullet list: 1-3 vendor TYPES (e.g. "monolithic all-in-one platforms with no module-level swap-out," "bolt-on payment processors layered on legacy PAMs") that exacerbate this challenge. Name vendor types or architectures, not individual vendors here.
+   - ### H3: "Demo question — auditable instrument"
+     - One concrete verification action the operator can run during a demo or RFP: e.g. "Request public sandbox access for 5 business days," "Request a 12-month uptime report with root-cause analyses for every incident over 30 minutes," "Demand a line-item breakdown of game-vendor pass-through fees in the contract appendix."
+     - Then: "Good answer looks like: [specific format/depth]. Red flag answer: [vague deflection]."
+   - ### H3: "Contract protection"
+     - One concrete clause to negotiate into the contract before signing: e.g. "90-day exit with full data export at no incremental cost," "uptime SLA with financial penalties scaled to monthly revenue," "professional-services hours capped at X with overage rates published in advance."
 
    Example challenges for casino-platforms:
-   - Multi-market compliance complexity
-   - Integration time exceeding projections
-   - Hidden costs in revenue-share models
+   - Multi-market compliance complexity (cite Law 14.790/2023, UKGC LCCP, GlüStV 2021)
+   - Integration time exceeding projections (the 4-6 vs 12-16 week reality)
+   - Hidden costs in revenue-share models (rev-share-at-scale trap above ~$X GGR)
    - Vendor lock-in and data portability
    - Scaling from startup to enterprise
    - Crypto support that actually works in practice
@@ -559,6 +635,20 @@ REQUIRED STRUCTURE (in this exact order):
    - ${kwResearch ? 'Use questions from keyword research' : 'Use questions that operators facing these challenges would search for'}
 
 8. **FOOTER** - pillar link, directory link, independence statement
+
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every challenge AND every solution-vendor mention paired with its operator consequence. Make the operational pain concrete (revenue loss, compliance exposure, launch delay, churn).
+
+G2. **Proprietary product naming**: when a solution involves a specific product/module (CasinoEngine, PaymentIQ, BonusEngine, OddsMatrix, MEGA, Spring Platform), name it. Generic "their platform handles it" is a failure.
+
+G3. **Negative definition**: state explicitly what this article is NOT — beyond the existing "this is NOT a vendor review," it is also not a checklist of features to demand. It is a diagnostic mapping of common failure modes to vendors that demonstrably address them.
+
+G4. **Concrete next step in footer**: include one concrete reader action.
+
+G5. **Category macro-thread**: cite regulations by identifier — Law 14.790/2023, UKGC LCCP, GlüStV 2021, Spelinspektionen, iGaming Ontario — never generic "regulatory compliance." Thread the category's defining themes through multiple challenges.
+
+G6. **Verification instruments, not asserted numbers**: every challenge's auditable instrument should be a verification action ("request public sandbox access," "demand a 12-month uptime report with root-cause analyses," "demand a line-item breakdown of game-vendor pass-through fees") — not an asserted unsourced number.
 
 REQUIREMENTS:
 - 3,500-5,000 words total
@@ -634,6 +724,7 @@ REQUIRED STRUCTURE:
      - Example: how this shows up in vendor comparisons or contracts
      - If a term relates to a specific vendor strength, mention the vendor with directory link
      - "Commonly confused with: [other term]" as a `-` bullet where relevant
+   - **Required disambiguation entry**: include a "Pragmatic Solutions vs Pragmatic Play" entry. These are SEPARATE companies — Pragmatic Solutions is the platform/PAM provider; Pragmatic Play is the game studio. Operators conflate them in RFPs and contract negotiations, with material commercial consequences. Make the distinction explicit.
 
 5. **COMMON QUESTIONS** (3-4 questions, NOT called "FAQ")
    - ### H3 heading for each question
@@ -641,6 +732,20 @@ REQUIRED STRUCTURE:
    - "What is the difference between [Term A] and [Term B]?"
 
 6. **FOOTER** - pillar link, buyer's guide link, directory link
+
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every term's "Why it matters" section must state the operator consequence of getting it wrong (compliance exposure, cost surprise, integration delay, lock-in).
+
+G2. **Proprietary product naming**: when a term maps to a specific vendor product (e.g. "Game aggregator" → Slotegrator's APIgrator, EveryMatrix's CasinoEngine, SOFTSWISS's Game Aggregator), name the vendor products as examples.
+
+G3. **Negative definition**: state explicitly what this article is NOT — not a glossary of generic casino terms, not a beginner's guide to gambling. It is a B2B operator's reference for terms encountered in vendor demos and RFPs.
+
+G4. **Concrete next step in footer**: include one concrete reader action.
+
+G5. **Evergreen mandate**: this article must not contain quarter-specific events, dated awards, license counts, or enforcement dates. Definitions are evergreen. Refer to structural realities ("the Brazilian licensing framework," "the UK affordability regime") not dated events.
+
+G6. **Verification instruments, not asserted numbers**: where a term involves quantitative thresholds (e.g. "what counts as low-latency for a casino platform"), express the answer as a verification instrument ("what to ask the vendor to measure") rather than asserting a number.
 
 REQUIREMENTS:
 - 2,500-3,500 words total
@@ -719,6 +824,20 @@ REQUIRED STRUCTURE:
    - Forward-looking questions operators ask
 
 7. **FOOTER** - pillar link, directory link, independence statement
+
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every trend's "Why it matters" section must state the concrete operator consequence — revenue exposure, compliance shift, competitive risk, migration cost.
+
+G2. **Proprietary product naming**: when a trend is being executed by a vendor, name the actual product/module driving it (CasinoEngine, PaymentIQ, MEGA, Spring Platform). Flag if unverified.
+
+G3. **Negative definition**: state explicitly what this article is NOT — not a buyer's comparison, not a current-month news roundup. It is a structural trend analysis with vendor implications.
+
+G4. **Concrete next step in footer**: include one concrete reader action.
+
+G5. **Category macro-thread**: anchor trends in the category's defining themes (for casino-platforms — Law 14.790/2023's effect on the Brazilian market shape, the industry's modular vs monolithic architectural transition, the rev-share-at-scale economics). Pull from the category brief.
+
+G6. **Verification instruments, not asserted numbers**: trend evidence is sourced (conference / regulatory publication / vendor announcement) or the trend is cut. Don't assert market-size or adoption numbers without attribution.
 
 REQUIREMENTS:
 - 3,000-4,000 words total
@@ -828,6 +947,20 @@ REQUIRED STRUCTURE:
 
 10. **FOOTER** - pillar link, directory link, independence statement
 
+GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
+
+G1. **Operator consequence**: every pricing model, fee, or cost line must be paired with its operator consequence (margin impact at scale, cash-flow timing, exit cost). Pricing without consequence is just numbers.
+
+G2. **Proprietary product naming**: when discussing what's priced, name the actual product/module being licensed (CasinoEngine, PaymentIQ, BonusEngine, Spring Platform). Generic "their platform" hides whether the buyer is paying for one module or the whole stack.
+
+G3. **Negative definition**: state explicitly what this article is NOT — not a quote-comparison shopping list, not a guarantee that listed prices apply to the reader. It is an analysis of pricing model trade-offs and hidden-cost categories operators consistently underestimate.
+
+G4. **Concrete next step in footer**: include one concrete reader action.
+
+G5. **Category macro-thread**: tie pricing to the category's defining commercial realities — for casino-platforms — the rev-share-at-scale trap, the integration-cost reality (4-6 vs 12-16 weeks), and how Law 14.790/2023's licensing requirements change the cost base in Brazil. Pull from the category brief.
+
+G6. **Verification instruments, not asserted numbers**: the CRITICAL HONESTY RULE above already covers this — reinforced here. Any pricing not publicly confirmed becomes "Not disclosed" with an instrument for the operator to verify themselves.
+
 REQUIREMENTS:
 - 3,500-5,000 words total
 - NEVER state unverified pricing as fact
@@ -853,10 +986,12 @@ The category rubric provides category-specific dimensions. Profiles provide angl
 **Subtype buyer concerns:**
 - Native crypto operations vs bolt-on cashier (matters for fraud, settlement speed, on-chain receipts)
 - Coin breadth — BTC/ETH/USDT plus altcoins; relevance varies by player geography
+- Stablecoin network/protocol specificity — which chain USDT settles on (TRON/TRC-20 vs Ethereum/ERC-20 vs Solana) materially changes per-transaction fee and confirmation latency. Vendors describing "USDT support" without naming the network are obscuring this.
 - Hybrid fiat-crypto cashier quality (concurrent flows without conversion delays)
 - Wallet management — custodial vs non-custodial, hot wallet exposure, withdrawal speed
+- Wallet/ledger portability on migration — what wallet and ledger data exports, in what format, on what timeline, at what cost if the operator switches platforms
 - Settlement speed and on-chain finality vs internal ledger reconciliation
-- Regulatory posture, especially Brazil's 2026 crypto gambling ban for licensed operators (this disqualifies hybrid crypto for Brazil licensees — a category-defining constraint)
+- Regulatory posture, especially Brazil's Law 14.790/2023 (and the prohibition of crypto for licensed operators — disqualifies hybrid crypto for Brazil licensees, a category-defining constraint)
 - KYC complexity when crypto deposits arrive from mixers, exchanges, or non-custodial wallets
 - FX markup on coin-to-fiat conversion — often hidden in spread, not in stated fee
 
@@ -865,9 +1000,11 @@ Crypto-native platforms (SOFTSWISS leads), turnkey crypto operations (GR8 Tech),
 
 **What to verify:**
 - Request a live on-chain crypto withdrawal demo (not a sandbox transaction) — settlement time, network fee handling, confirmation count
+- For each supported stablecoin, get the network/protocol explicitly named (USDT on TRC-20 vs ERC-20 vs Solana) and the per-network fee and confirmation latency in writing. Ask which network the vendor's withdrawal layer defaults to and why.
 - Get the published list of supported coins and the date each was added (signals platform investment vs marketing claim)
 - Ask for the FX spread on the top 3 coins for fiat conversion — get it in writing, not "competitive rates"
-- For licensed operators: confirm jurisdiction allowlist for crypto operations. Brazil under 2026 framework prohibits crypto gambling for licensed operators — vendor must demonstrate geo-fencing or alternative product for that market
+- For licensed operators: confirm jurisdiction allowlist for crypto operations. Brazil under Law 14.790/2023 prohibits crypto gambling for licensed operators — vendor must demonstrate geo-fencing or alternative product for that market
+- **Wallet/ledger portability on full migration**: get in writing what wallet, ledger, and player-transaction-history data exports if the operator leaves, in what format (CSV, JSON, API), on what timeline (24h vs 30-day), and at what cost. "Available on request" is not an answer.
 - Verify KYC flow on crypto deposits with provable evidence — show a deposit from an exchange hot wallet, a non-custodial wallet, and a mixer to see how each is handled
 
 **Trap questions:**
@@ -998,6 +1135,45 @@ Enterprise platforms with deep license portfolios (Playtech, EveryMatrix, SOFTSW
 - Responsible Gaming Toolkit by Jurisdiction
 - Regulator References and Engagement
 - RGS Certification Coverage
+
+---
+
+### PROFILE: gamification
+
+**Matches:** slugs/titles containing "gamification", "retention", "loyalty", "engagement", "tournaments"
+
+**Subtype buyer concerns:**
+- Retention-mechanic depth: tournaments, missions, loyalty progression, achievement systems — how sophisticated, how customizable, how often updated
+- Native engine vs bolt-on/third-party module — a native engine integrates with the platform's player data, wallet, and CRM; a bolt-on requires extra integration work and often duplicates player state
+- Bonus-abuse controls — how the engine detects and prevents farming, multi-accounting, and reverse-engineering of tournament reward mechanics
+- Conflict with responsible-gambling limits — what happens to a player mid-tournament when they hit deposit, time, or loss limits; this is a real compliance edge case in regulated markets
+- CRM and segmentation integration — does the gamification engine read player segments from the CRM and trigger feature variants per segment, or does it operate independently
+- Retention-ROI attribution — can the platform attribute revenue lift to specific gamification features (before/after, A/B, holdout cohorts), or is "retention" just a vibe
+- Tournament scalability under real load — leaderboard updates, concurrent player count, latency during peak — these break under load if not built for it
+
+**Expected vendor cohort:**
+Native gamification leaders: Soft2Bet (MEGA — built operator-side, then commercialized), EveryMatrix (BonusEngine — modular but requires development effort), SOFTSWISS, BetConstruct (Spring Platform's integrated tournament + loyalty features). Content-first or basic-turnkey providers (Slotegrator, NuxGame, BlueOcean Gaming) included as limited or cautionary cohort — they offer surface-level gamification without the depth a retention-led operator needs.
+
+**What to verify:**
+- Load-test results at YOUR projected peak concurrency, with timestamps and methodology — not a 500-player demo
+- Live walkthrough of the gamification engine, showing whether it is native (reads platform player data directly) or bolt-on (a third-party module integrated via API). Ask to see an operator running it standalone.
+- Bonus-abuse control demo: show how the engine identifies and blocks farming patterns, multi-accounting, and reverse-engineered tournament play
+- How the engine handles a player hitting an RG deposit or time limit mid-tournament — does it freeze the player's entry, refund the entry fee, exclude them from leaderboards
+- Retention attribution reporting: ask for a before/after comparison of a specific gamification feature's impact on retention metrics, with operator name and methodology
+
+**Trap questions:**
+- "Show load-test data at our peak concurrency — not a 500-player demo. What was the leaderboard update latency at the 99th percentile?"
+- "Is this gamification engine native to your platform or a third-party module — show us an operator running it standalone outside your platform"
+- "How do you stop bonus abuse in tournaments? Show an actual case where your controls blocked a farming attempt."
+- "What happens to a player mid-tournament when they hit their RG deposit limit? Walk through the player experience and the platform's compliance log."
+- "Show retention attribution tied to a specific gamification feature: which feature, which operator, what was the before/after lift, what was the methodology?"
+
+**Section name hints:**
+- Retention Mechanics Depth
+- Native vs Bolt-On Engine
+- Bonus-Abuse and Responsible-Gambling Controls
+- CRM and Segmentation Integration
+- Measuring Retention ROI
 
 ---
 

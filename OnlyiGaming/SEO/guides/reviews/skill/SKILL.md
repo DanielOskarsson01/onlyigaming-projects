@@ -139,8 +139,8 @@ Each class has its own detailed prompt in `skill/references/satellite-prompt-tem
 | Class | Class ID | Covers | Word target | Detection cues |
 |---|---|---|---|---|
 | Best-For | `best-for` | Dimension-specific, audience-based, market-specific ("Best [category] for [angle]") | **4,000-5,500** | Default fallback. Uses a niche profile (see below). |
-| Buyer's Guide | `buyers-guide` | "How to choose", multi-vs comparison decision frameworks | **3,500-5,000** | `how-to-choose`, multi-`-vs-`, "which do you need" |
-| Head-to-Head | `head-to-head` | Two-vendor deep comparison | **4,000-5,500** | `-vs-` exactly once |
+| Buyer's Guide | `buyers-guide` | "How to choose", multi-vs comparison decision frameworks | **3,000-4,500** | `how-to-choose`, multi-`-vs-`, "which do you need" |
+| Head-to-Head | `head-to-head` | Two-vendor deep comparison | **3,000-4,500** | `-vs-` exactly once |
 | Newcomers | `newcomers` | Rising stars, companies to watch | **3,500-5,000** | `to-watch`, `rising-stars`, `to-look-out-for` |
 | Challenges | `challenges` | Common challenges, problems-find-companies | **3,500-5,000** | `challenges` in slug/title |
 | Educational (Glossary) | `educational-glossary` | Terminology / glossary articles | **2,500-3,500** | `terminology`, `glossary`, `-explained` |
