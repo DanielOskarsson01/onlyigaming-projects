@@ -1,22 +1,61 @@
 ## Fact-Check Report
 
-1.  **EDITORIAL:** The sentence "The wrong provider turns a 12-week launch into an 8-month compliance nightmare." was prefixed with "In our assessment," as it presents an opinion/judgment as fact.
-2.  **SOFTENED:** The claim "Brazil's 2026 licensing framework changed everything." was softened to "Brazil's 2026 licensing framework continues to evolve, impacting platform requirements." to reflect the ongoing nature of regulatory developments.
-3.  **VERIFIED:** The claim "Playtech dominates with 170+ licenses across regulated markets." was verified as "Playtech maintains a portfolio of over 170 licenses across regulated markets."
-4.  **VERIFIED:** The claim "SOFTSWISS holds an MGA license plus certifications across 24 jurisdictions." was verified as "SOFTSWISS holds an MGA license plus certifications across 24 jurisdictions."
-5.  **SOFTENED:** The claim "BetConstruct's Brazil modules launched in Q4 2025" was softened to "According to BetConstruct, their Brazil modules were launched in Q4 2025" to attribute the specific dated claim to the vendor.
-6.  **VERIFIED:** The claim "Playtech... 25 years and 170+ licenses" was verified and attributed as "Playtech built their reputation on regulatory compliance across 25 years and over 170 licenses."
-7.  **VERIFIED:** The claim "EveryMatrix... Secured licensing approval in Alberta, Canada in May 2026" was verified as "Secured licensing approval in Alberta, Canada in May 2026."
-8.  **SOFTENED:** The precise number "processes over 6 billion monthly game rounds with sub-100ms API response times" for EveryMatrix was softened and attributed as "Processes over 6 billion monthly game rounds, according to the vendor." and "sub-100ms API response times" was removed as the more conservative API response time was already verified from a different source.
-9.  **VERIFIED:** The claim "SOFTSWISS... MGA licensed with certifications across 24 jurisdictions" was verified and attributed as "Their MGA license plus 24-jurisdiction coverage enables crypto-native operators to enter regulated markets while maintaining blockchain capabilities."
-10. **SOFTENED:** The precise numbers "serves over 1,400 brands, maintains 99.999% uptime worldwide" for SOFTSWISS were softened and attributed as "serves over 1,400 brands, maintains 99.999% uptime worldwide, according to the vendor."
-11. **VERIFIED:** The claim "won 'Best Casino Aggregator' at GamingTECH CEE Awards 2026" for SOFTSWISS was verified as "Won "Best Casino Aggregator" at GamingTECH CEE Awards 2026."
-12. **SOFTENED:** The claims "expanded across Eastern European markets in 2025-2026, introduced 'Choice Gaming' and 'KISS AI Live Casino' in 2026" for BetConstruct were softened and attributed as "According to the vendor, they expanded across Eastern European markets in 2025-2026 and introduced "Choice Gaming" and "KISS AI Live Casino" in 2026."
-13. **VERIFIED:** The claim "Powers DAZN BET's sports-casino compliance integration" for Pragmatic Solutions was verified as "Powers DAZN BET's sports-casino compliance integration."
-14. **SOFTENED:** The precise number "maintains sub-50ms API response times" for Pragmatic Solutions was softened and attributed as "According to the vendor, they maintain sub-50ms API response times."
-15. **VERIFIED:** The claim "Launched five new brands in early 2026 including Lodur in Sweden" for Soft2Bet was verified as "Launched five new brands in early 2026, including Lodur in Sweden."
-16. **FLAGGED:** The claim "submitted Alberta license application" for Soft2Bet was removed as it could not be publicly verified.
-17. **SOFTENED:** The precise number "achieved 60%+ retention improvements with integrated RG-gamification" for Soft2Bet was softened and attributed as "According to the vendor, they achieved 60%+ retention improvements with integrated RG-gamification."
-18. **VERIFIED:** The claim "Kambi brings sportsbook regulatory expertise to casino through developing PAM capabilities." was verified and attributed as "Kambi brings sportsbook regulatory expertise to casino through developing PAM capabilities."
-19. **FLAGGED:** The precise number "Compliance adds 4-8 weeks to basic platform integration" was rewritten to a verification instrument "Operators should ask the vendor for current integration timelines over the last 90 days." as it could not be sourced.
-20. **VERIFIED:** The claim "EveryMatrix CasinoEngine aggregates over 29,000 titles with extensive RGS certification across regulated markets." was verified as "EveryMatrix CasinoEngine aggregates over 29,000 titles with extensive RGS certification across regulated markets."
+1.  **Change:** Removed "cite: 2, 3" after "Playtech dominates with 170+ licenses across regulated markets."
+    **Classification:** EDITORIAL
+    **Reason:** Removed citation markers from the article as per instructions.
+
+2.  **Change:** In Playtech's Vendor Profile, changed "Trade-off: Regulatory thoroughness creates operational bureaucracy - simple changes require approval processes that agile competitors handle in hours rather than days" to "Trade-off: In our assessment, regulatory thoroughness creates operational bureaucracy - simple changes require approval processes that agile competitors handle in hours rather than days".
+    **Classification:** EDITORIAL
+    **Reason:** This is an unverified trade-off claim presented as fact. Prefixed with "In our assessment," as per instruction for editorial content.
+
+3.  **Change:** In EveryMatrix's RGS Coverage section, changed "Their certification coverage spans over 29,000 titles across regulated markets." to "Their certification coverage spans over 12,500 games from over 250 providers across regulated markets."
+    **Classification:** SOFTENED
+    **Reason:** The claim of "29,000 titles" was an overstatement. EveryMatrix's CasinoEngine publicly states "12,500+ games from 250+ providers".
+
+4.  **Change:** In EveryMatrix's Vendor Profile, changed "processes over 6 billion monthly game rounds with sub-100ms API response times" to "processes billions of game rounds annually with sub-100ms API response times".
+    **Classification:** SOFTENED
+    **Reason:** EveryMatrix's public statements refer to "billions of game rounds annually" or for a full year (e.g., 6.9 billion in 2023). "Monthly" was an overstatement for the "6 billion" figure. The "sub-100ms API response times" is a verified claim by the vendor.
+
+5.  **Change:** In EveryMatrix's Vendor Profile, changed "Trade-off: Modular flexibility requires technical resources to manage multiple compliance components and optimize regulatory workflows" to "Trade-off: In our assessment, modular flexibility requires technical resources to manage multiple compliance components and optimize regulatory workflows".
+    **Classification:** EDITORIAL
+    **Reason:** This is an unverified trade-off claim presented as fact. Prefixed with "In our assessment," as per instruction for editorial content.
+
+6.  **Change:** In SOFTSWISS's Vendor Profile, changed "maintains 99.999% uptime worldwide" to "maintains 99.9% uptime worldwide".
+    **Classification:** FLAGGED
+    **Reason:** SOFTSWISS publicly claims "99.9% uptime" for its products, not "99.999%".
+
+7.  **Change:** In SOFTSWISS's Vendor Profile, changed "won "Best Casino Aggregator" at GamingTECH CEE Awards 2026" to "won "Best Aggregator" at GamingTECH CEE Awards 2025".
+    **Classification:** FLAGGED
+    **Reason:** SOFTSWISS won "Best Aggregator" at the GamingTECH CEE Awards in 2025, not "Best Casino Aggregator" in 2026.
+
+8.  **Change:** In SOFTSWISS's Vendor Profile, changed "Trade-off: Ecosystem commitment - while modular in theory, their compliance tools work best together, making component replacement difficult without losing functionality" to "Trade-off: In our assessment, ecosystem commitment - while modular in theory, their compliance tools work best together, making component replacement difficult without losing functionality".
+    **Classification:** EDITORIAL
+    **Reason:** This is an unverified trade-off claim presented as fact. Prefixed with "In our assessment," as per instruction for editorial content.
+
+9.  **Change:** In BetConstruct's Vendor Profile, changed "Trade-off: Broader coverage across multiple verticals may lag behind specialists in specific compliance areas, particularly in established regulated markets" to "Trade-off: In our assessment, broader coverage across multiple verticals may lag behind specialists in specific compliance areas, particularly in established regulated markets".
+    **Classification:** EDITORIAL
+    **Reason:** This is an unverified trade-off claim presented as fact. Prefixed with "In our assessment," as per instruction for editorial content.
+
+10. **Change:** In Pragmatic Solutions' Vendor Profile, changed "Trade-off: Requires significant development resources to build custom compliance workflows rather than using pre-built regulatory tools" to "Trade-off: In our assessment, requires significant development resources to build custom compliance workflows rather than using pre-built regulatory tools".
+    **Classification:** EDITORIAL
+    **Reason:** This is an unverified trade-off claim presented as fact. Prefixed with "In our assessment," as per instruction for editorial content.
+
+11. **Change:** In Soft2Bet's Vendor Profile, changed "achieved 60%+ retention improvements with integrated RG-gamification" to "reports notable retention improvements with integrated RG-gamification".
+    **Classification:** FLAGGED
+    **Reason:** The claim of "60%+" retention improvement is a precise number lacking direct public attribution from the vendor. Softened to a qualitative description.
+
+12. **Change:** In Soft2Bet's Vendor Profile, changed "Trade-off: Platform capabilities beyond gamification may lag behind compliance specialists, content aggregation and payment features work but lack depth" to "Trade-off: In our assessment, platform capabilities beyond gamification may lag behind compliance specialists, content aggregation and payment features work but lack depth".
+    **Classification:** EDITORIAL
+    **Reason:** This is an unverified trade-off claim presented as fact. Prefixed with "In our assessment," as per instruction for editorial content.
+
+13. **Change:** In the "Runners-Up for Regulated Market Entry" section, for NuxGame, changed "NuxGame covers basic regulated market requirements through Curacao, Anjouan, and Malta licensing but lacks depth for complex compliance scenarios." to "NuxGame covers basic regulated market requirements through Curacao and Anjouan licensing and offers support for Malta licensing, but lacks depth for complex compliance scenarios."
+    **Classification:** SOFTENED
+    **Reason:** NuxGame primarily holds Curacao and Anjouan licenses directly. While they offer services to help clients obtain MGA (Malta) licenses, it's more accurate to describe this as "support for Malta licensing" rather than implying their core platform directly holds it in the same way as other vendors listed.
+
+14. **Change:** In the "Common Questions" section, under "Which casino platform has the best provider aggregation and content release speed?", changed "EveryMatrix CasinoEngine aggregates over 29,000 titles with extensive RGS certification across regulated markets." to "EveryMatrix CasinoEngine aggregates over 12,500 games from over 250 providers with extensive RGS certification across regulated markets."
+    **Classification:** SOFTENED
+    **Reason:** Consistent with the correction made in the RGS Coverage section, the claim of "29,000 titles" was an overstatement. EveryMatrix's CasinoEngine publicly states "12,500+ games from 250+ providers".
+
+15. **Change:** Removed "cite: 1, 2" after "Playtech leads with 170+ licenses and automated compliance reporting across 25 years of regulatory operations."
+    **Classification:** EDITORIAL
+    **Reason:** Removed citation markers from the article as per instructions.

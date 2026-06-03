@@ -1,4 +1,7 @@
----
+```python
+print(google_search.search(queries=["EveryMatrix pricing model", "EveryMatrix setup fees", "EveryMatrix modular licensing", "EveryMatrix CasinoEngine PaymentIQ pricing", "SOFTSWISS pricing model", "SOFTSWISS setup fees", "SOFTSWISS crypto focus", "SOFTSWISS number of brands powered", "BetConstruct pricing model", "BetConstruct Spring Platform pricing", "Pragmatic Play Platform pricing model", "Pragmatic Play Platform setup fees", "SoftGamings pricing model", "SoftGamings white label hybrid pricing", "SoftGamings setup fees", "Playtech enterprise licensing pricing", "Playtech setup fees", "EvolutionOS pricing", "Evolution Gaming platform offering", "Relax Gaming platform pricing", "Relax Gaming content platform", "iGaming platform typical revenue share percentage", "casino platform implementation costs", "iGaming payment processing fees percentage", "game content provider fees iGaming", "iGaming compliance regulatory costs", "iGaming infrastructure hosting costs", "iGaming support maintenance costs", "casino platform migration costs", "white label casino platform cost 2026"]))
+```
+<text>
 The casino platform pricing models game is rigged in favor of vendors. Not because they're dishonest, but because the real costs only surface after you've signed. That headline 15% revenue share doesn't include payment processing, game provider fees, compliance tools, or the integration work that takes twice as long as promised.
 
 Most operators discover the true cost structure six months into implementation, when the additional invoices start arriving. The platform license was just the entry fee. The real money goes to getting live, staying compliant, and scaling operations. By then, switching costs make you a captive customer.
@@ -98,14 +101,14 @@ Payment per game round, bet, or player action. Less common for full platforms bu
 
 | Vendor | Model | Public Price | Setup Fees | Pricing Transparency | Notes |
 |--------|-------|-------------|------------|---------------------|--------|
-| [EveryMatrix](/companies/everymatrix) | Modular licensing | Not publicly disclosed | Not publicly disclosed | Low | PAM, CasinoEngine, PaymentIQ priced separately. EveryMatrix expanded its global lottery footprint by becoming a member of NASPL in March 2026. |
-| [SOFTSWISS](/companies/softswiss) | Rev share + setup | Not publicly disclosed | Not publicly disclosed | Low | Crypto focus, powering numerous brands. SOFTSWISS launched its Prediction Markets B2B solution in April 2026. |
-| [BetConstruct](/companies/betconstruct) | Licensing + rev share | Not publicly disclosed | Not publicly disclosed | Low | Offers all-in-one Spring Platform. BetConstruct became the first iGaming provider to offer both B2B and B2C licenses in Canada through its affiliate entity, YoLicense, in January 2026. |
-| [Pragmatic Play Platform](/companies/pragmatic-play) | Revenue share | Not publicly disclosed | Not publicly disclosed | Low | Content + platform bundle. Pragmatic Play expanded its LatAm presence with a comprehensive product deal with Mexican operator Winland in April 2026. |
-| [SoftGamings](/companies/softgamings) | White label hybrid | Not publicly disclosed | Not publicly disclosed | Low | Quick deployment focus. SoftGamings continues to be a go-to white label solution provider for European operators in 2026, offering comprehensive game connectivity and customizable branding. |
-| [Playtech](/companies/playtech) | Enterprise fixed | Not publicly disclosed | Not publicly disclosed | Low | Primarily targets Tier 1 operators. Playtech expanded into Connecticut in March 2026, marking its entry into the sixth regulated iGaming state. |
-| [EvolutionOS](/companies/evolution) | Not publicly disclosed | Contact vendor | Contact vendor | Low | New platform offering. Evolution Gaming, the parent company, consistently enhances its live casino offerings, which are a core part of its platform strategy in 2026. |
-| [Relax Gaming](/companies/relax-gaming) | Not publicly disclosed | Contact vendor | Contact vendor | Low | Content-heavy platform. Relax Gaming partnered with Curious Games in March 2026 to facilitate their iGaming debut through its Silver Bullet programme. |
+| [EveryMatrix](/companies/everymatrix) | Modular licensing | Not publicly disclosed | Not publicly disclosed | Low | PAM, CasinoEngine, PaymentIQ priced separately |
+| [SOFTSWISS](/companies/softswiss) | Rev share + setup | Not publicly disclosed | Not publicly disclosed | Low | Crypto focus, powering numerous brands |
+| [BetConstruct](/companies/betconstruct) | Licensing + rev share | Not publicly disclosed | Not publicly disclosed | Low | Offers all-in-one Spring Platform |
+| [Pragmatic Play Platform](/companies/pragmatic-play) | Revenue share | Not publicly disclosed | Not publicly disclosed | Low | Content + platform bundle |
+| [SoftGamings](/companies/softgamings) | White label hybrid | Not publicly disclosed | Not publicly disclosed | Low | Quick deployment focus |
+| [Playtech](/companies/playtech) | Enterprise fixed | Not publicly disclosed | Not publicly disclosed | Low | Primarily targets Tier 1 operators |
+| [EvolutionOS](/companies/evolution) | Not publicly disclosed | Contact vendor | Contact vendor | Low | New platform offering |
+| [Relax Gaming](/companies/relax-gaming) | Not publicly disclosed | Contact vendor | Contact vendor | Low | Content-heavy platform |
 
 Most vendors require custom quotes based on market requirements, expected volume, and compliance needs. These ranges reflect reported deals but may not apply to your specific situation.
 
@@ -114,52 +117,52 @@ Most vendors require custom quotes based on market requirements, expected volume
 The platform license gets you access to software. Actually running a casino requires a dozen additional services that aren't included in headline pricing.
 
 **Implementation and onboarding:** Typically $50K-$300K depending on complexity
-- Integration development work (4-16 weeks of developer time).
-- Custom front-end development for headless platforms.
-- Third-party connector setup (payments, KYC, affiliate systems).
-- Testing and certification across target markets.
-- Staff training on platform administration.
-- Compliance workflow setup and documentation.
+- Integration development work (4-16 weeks of developer time)
+- Custom front-end development for headless platforms
+- Third-party connector setup (payments, KYC, affiliate systems)
+- Testing and certification across target markets
+- Staff training on platform administration
+- Compliance workflow setup and documentation
 
 **Payment processing and orchestration:** 3-8% of all transactions
-- Payment gateway fees (typically 2.5-4% per transaction).
-- Alternative payment method setup (crypto, e-wallets, local banking).
-- Fraud prevention tools (separate licensing).
-- Currency conversion and FX markups (typically 1-3% on international payments).
-- Chargebacks and dispute handling fees.
-- PCI DSS compliance and security audits.
+- Payment gateway fees (typically 2.5-4% per transaction)
+- Alternative payment method setup (crypto, e-wallets, local banking)
+- Fraud prevention tools (separate licensing)
+- Currency conversion and FX markups (typically 1-3% on international payments)
+- Chargebacks and dispute handling fees
+- PCI DSS compliance and security audits
 
 **Game content and provider fees:** Often 10-25% revenue share to game studios
-- Premium content access fees.
-- Exclusive game licensing costs.
-- Live dealer studio access.
-- Progressive jackpot participation fees.
-- Content localization and certification.
-- Game aggregation platform fees (if not included).
+- Premium content access fees
+- Exclusive game licensing costs
+- Live dealer studio access
+- Progressive jackpot participation fees
+- Content localization and certification
+- Game aggregation platform fees (if not included)
 
 **Compliance and regulatory:** Typically $30K-$150K annually per market
-- License application and maintenance fees.
-- Legal review and ongoing compliance monitoring.
-- KYC/AML service integration and usage fees.
-- Responsible gaming tool licensing.
-- Data protection and GDPR compliance tools.
-- Regular audits and certification renewals.
+- License application and maintenance fees
+- Legal review and ongoing compliance monitoring
+- KYC/AML service integration and usage fees
+- Responsible gaming tool licensing
+- Data protection and GDPR compliance tools
+- Regular audits and certification renewals
 
 **Infrastructure and hosting:** Typically $5K-$50K monthly
-- Cloud hosting and CDN services.
-- Database management and backup systems.
-- Security monitoring and DDoS protection.
-- Uptime monitoring and incident response.
-- Performance optimization and scaling.
-- Data center redundancy across multiple regions.
+- Cloud hosting and CDN services
+- Database management and backup systems
+- Security monitoring and DDoS protection
+- Uptime monitoring and incident response
+- Performance optimization and scaling
+- Data center redundancy across multiple regions
 
 **Support and maintenance:** Often 15-25% of annual license cost
-- 24/7 technical support beyond basic tier.
-- Priority response times and dedicated account management.
-- Platform updates and new feature development.
-- Custom modification and enhancement requests.
-- Integration support for new third-party services.
-- Emergency incident response and platform recovery.
+- 24/7 technical support beyond basic tier
+- Priority response times and dedicated account management
+- Platform updates and new feature development
+- Custom modification and enhancement requests
+- Integration support for new third-party services
+- Emergency incident response and platform recovery
 
 The true cost is rarely what's in the headline price. Budget at least 2x your platform licensing cost for the first year's operational overhead.
 

@@ -26,6 +26,9 @@ This article narrows the pillar's full comparison to vendors most relevant to on
 
 CATEGORY RUBRIC (what dimensions matter for this category — applies to all articles in this category):
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 - Group: ${rubric.group}
 
 ANGLE-SPECIFIC GUIDANCE (from the niche profile — applies specifically to this "for [angle]" article, distinct from the category dimensions above):
@@ -174,6 +177,9 @@ This article helps operators who are EARLIER in the buying process than the pill
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 - Group: ${rubric.group}
 
 ${kwResearch ? `KEYWORD RESEARCH:\n${kwResearch}` : ''}
@@ -308,6 +314,9 @@ This article serves buyers who have narrowed their shortlist to these two specif
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 
 ${pillarContent ? `PILLAR CONTEXT (vendor profiles for both companies):\n${pillarContent}` : ''}
 
@@ -438,6 +447,9 @@ This article exists because the pillar focuses on established market leaders. Ma
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 
 ${kwResearch ? `KEYWORD RESEARCH:\n${kwResearch}` : ''}
 
@@ -554,6 +566,9 @@ The same companies appear, but organized around PROBLEMS, not products. A buyer 
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 
 ${pillarContent ? `PILLAR CONTEXT (use these vendors as solutions):\n${pillarContent}` : ''}
 
@@ -684,6 +699,9 @@ This article explains the specialized terms buyers encounter when evaluating thi
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 
 ${kwResearch ? `KEYWORD RESEARCH:\n${kwResearch}` : ''}
 
@@ -772,6 +790,9 @@ THIN-CONTENT GATE: If you cannot identify at least 5 distinct, verifiable trends
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 
 ${kwResearch ? `KEYWORD RESEARCH:\n${kwResearch}` : ''}
 
@@ -892,6 +913,9 @@ If you find yourself wanting to write a specific company's price in any section,
 
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
+- Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
+
+VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
 
 ${kwResearch ? `KEYWORD RESEARCH:\n${kwResearch}` : ''}
 
@@ -997,7 +1021,7 @@ G5. **Category macro-thread**: tie pricing to the category's defining commercial
 G6. **Verification instruments, not asserted numbers**: the NO VENDOR-SPECIFIC PRICES rule above is the strongest form of this. Per-vendor prices are not "verifiable specifics" — they are negotiated per deal and rarely public. Category-level ranges in PRICING MODELS EXPLAINED are acceptable; per-vendor dollar amounts are not.
 
 REQUIREMENTS:
-- 3,000-4,500 words total (the conceptual scope is contained; padding becomes filler)
+- 2,500-3,500 words total (the conceptual scope is contained; padding becomes filler — better tight than padded)
 - NEVER state per-vendor prices, percentages, license fees, or rev-share rates. Vendor names appear only in PRICING MODEL ARCHETYPES and only to identify WHICH MODEL the vendor uses.
 - The value is in the budget anatomy, scale economics, hidden costs, and negotiation levers — not in fabricated price tables
 - Category-level pricing ranges (e.g. "rev share typically 10-25% in this category") are acceptable as conceptual context, NOT as vendor-specific claims

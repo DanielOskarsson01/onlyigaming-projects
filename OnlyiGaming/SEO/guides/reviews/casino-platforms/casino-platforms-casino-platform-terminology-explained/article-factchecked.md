@@ -10,9 +10,9 @@ last_updated: 2026-06-02
 featured_image: /images/casino-platforms-terminology.jpg
 ---
 
-Casino platform vendors love their jargon. "Smooth API orchestration." "Modular PAM architecture." "Turnkey white-label solution with full regulatory coverage."
+Casino platform vendors love their jargon. "Seamless API orchestration." "Modular PAM architecture." "Turnkey white-label solution with full regulatory coverage."
 
-If you're evaluating platforms for the first time, or a commercial decision-maker decoding your technical team's arguments, this casino platform terminology glossary translates vendor-speak into operator reality.
+If you're evaluating platforms for the first time - or you're a commercial decision-maker trying to decode what your technical team is arguing about - this casino platform terminology glossary translates vendor-speak into operator reality.
 
 This isn't a dictionary of basic gambling terms. It's a reference for the B2B platform terminology you'll encounter in demos, RFPs, and contract negotiations. The kind of words that sound impressive in sales presentations but mean different things to different vendors.
 
@@ -41,9 +41,9 @@ For broader platform comparisons, see our [comprehensive casino platforms guide]
 
 A platform designed around application programming interfaces (APIs) from the ground up, rather than a traditional monolithic system with APIs bolted on afterward.
 
-**Why it matters**: This determines how easily you can integrate third-party tools, swap platform components, or build custom features. An API-first platform means connecting your preferred payment processor, CRM, or analytics tool requires minimal development.
+**Why it matters**: Determines how easily you can integrate third-party tools, swap platform components, or build custom features. An API-first platform lets you connect your preferred payment processor, CRM, or analytics tool without major development work.
 
-**Example**: [EveryMatrix](/companies/everymatrix) built their entire stack API-first. You can use their game aggregator with a competitor's PAM, or vice versa. In Q1 2026, they expanded their OddsMatrix sportsbook with new data feeds for niche markets. Compare that to older platforms where everything is tightly coupled - want to switch your payment orchestrator? Good luck.
+**Example**: [EveryMatrix](/companies/everymatrix) built their entire stack API-first. You can use their game aggregator with a competitor's PAM, or vice versa. Compare that to older platforms where everything is tightly coupled - want to switch your payment orchestrator? Good luck.
 
 **What to ask vendors**: Request API documentation before the technical demo. Real API-first platforms have comprehensive, publicly available docs. If they won't share documentation without an NDA, that's a red flag.
 
@@ -54,11 +54,11 @@ A platform designed around application programming interfaces (APIs) from the gr
 
 A casino platform built specifically for cryptocurrency operations, rather than traditional fiat platforms with crypto payment options added later.
 
-**Why it matters**: If you're targeting crypto players, bolt-on solutions rarely work well. Crypto-native platforms handle wallet integrations, blockchain confirmations, and regulatory reporting specifically for digital assets.
+**Why it matters**: If you're targeting crypto players, bolt-on solutions rarely work well. Crypto-native platforms handle wallet integrations, blockchain confirmations, and regulatory reporting designed for digital assets.
 
-**Example**: SOFTSWISS reports over 1,400 brands use their software, including many crypto casino brands. Their platform handles Bitcoin, Ethereum, and multiple altcoins natively. In early 2026, they launched an enhanced multi-currency wallet, supporting even more altcoins and fiat pairings. Traditional platforms like Playtech, in our assessment, may require more customization for comprehensive crypto support.
+**Example**: SOFTSWISS reports that over 1,400 brands use their software, including many crypto casino brands. Their platform handles Bitcoin, Ethereum, and multiple altcoins natively. In our assessment, traditional platforms like Playtech may require more customization for comprehensive crypto support compared to crypto-native solutions.
 
-**Operator consequence**: Launching crypto operations on a fiat-first platform often leads to poor player experience. Expect slow deposits, confusing wallet flows, and limited coin support. Players notice and leave.
+**Operator consequence**: Launching crypto operations on a fiat-first platform often leads to poor player experience - slow deposits, confusing wallet flows, and limited coin support. Players notice and leave.
 
 **What to verify**: Ask for a demo of the actual crypto deposit and withdrawal flow, not just screenshots. Many vendors promise crypto support but deliver clunky experiences.
 
@@ -66,9 +66,9 @@ A casino platform built specifically for cryptocurrency operations, rather than 
 
 A unified integration that provides access to multiple game providers through a single API connection, rather than integrating each game studio separately.
 
-**Why it matters**: This determines your content library size and how quickly you can add new games. Direct integrations with 50+ game providers would take months and demand ongoing maintenance. A good aggregator delivers thousands of games through one integration.
+**Why it matters**: Determines your content library size and how quickly you can add new games. Direct integrations with 50+ game providers would take months and ongoing maintenance. A good aggregator gives you thousands of games through one integration.
 
-**Example**: EveryMatrix CasinoEngine provides over 22,500 games from over 300 studios, having added 20 new ones in early 2026 alone. Slotegrator APIgrator, the vendor states, offers 10,000+ games from 100+ studios. Building direct integrations for even a 10-provider library can take 6+ months.
+**Example**: EveryMatrix CasinoEngine provides over 22,500 games from over 300 studios. Slotegrator APIgrator, according to the vendor, offers 10,000+ games from 100+ studios. Compare that to building direct integrations - even a 10-provider library takes 6+ months.
 
 **Operator consequence**: Poor aggregation means limited content, slow time-to-market for new releases, and higher technical maintenance costs. Players expect the latest games from top providers.
 
@@ -82,11 +82,11 @@ A unified integration that provides access to multiple game providers through a 
 
 Platform design where the front-end (player-facing website/app) is completely separated from the back-end systems, connected only through APIs.
 
-**Why it matters**: This gives you complete control over player experience and user interface design. You're not stuck with the platform provider's standard casino design or limited customization options.
+**Why it matters**: Gives you complete control over player experience and user interface design. You're not stuck with the platform provider's standard casino design or limited customization options.
 
-**Example**: [BetConstruct](/companies/betconstruct) offers flexible deployment options. This includes API-driven solutions that support operators building custom front-ends while using their back-office, payments, and game delivery infrastructure. In Q2 2026, they further enhanced this with new API extensions for their sports betting module.
+**Example**: [BetConstruct](/companies/betconstruct) offers flexible deployment options, including API-driven solutions that support operators building custom front-ends while using their back-office, payments, and game delivery infrastructure.
 
-**Operator consequence**: More development freedom comes with higher upfront costs and longer launch timelines. You need front-end developers and designers. Not ideal if you want to launch quickly with minimal technical resources.
+**Operator consequence**: More development freedom but higher upfront costs and longer launch timelines. You need front-end developers and designers. Not ideal if you want to launch quickly with minimal technical resources.
 
 **Trade-off**: Full customization control vs faster deployment with standard templates.
 
@@ -94,7 +94,7 @@ Platform design where the front-end (player-facing website/app) is completely se
 
 A casino platform where core components (PAM, wallet, CRM, game aggregation) can function independently and be mixed with third-party solutions.
 
-**Why it matters**: This prevents vendor lock-in and lets you build best-of-breed technology stacks. If you're unhappy with one component, you can replace it without rebuilding everything.
+**Why it matters**: Prevents vendor lock-in and lets you build best-of-breed technology stacks. If you're unhappy with one component, you can replace it without rebuilding everything.
 
 **Example**: [EveryMatrix](/companies/everymatrix) sells their PAM, game aggregator, sportsbook, and payment orchestrator as separate products. Use one, some, or all. [SOFTSWISS](/companies/softswiss) offers similar modularity.
 
@@ -110,33 +110,33 @@ A casino platform where core components (PAM, wallet, CRM, game aggregation) can
 
 A single platform instance that serves multiple operator brands, with each operator's data and configuration isolated but running on shared infrastructure.
 
-**Why it matters**: This affects costs, security, and customization options. Multi-tenant platforms are cheaper to operate but may limit your ability to customize features or guarantee data isolation.
+**Why it matters**: Affects costs, security, and customization options. Multi-tenant platforms are cheaper to operate but may limit your ability to customize features or guarantee data isolation.
 
-**Example**: Most white-label providers use multi-tenant architecture to keep costs down. [BetConstruct](/companies/betconstruct) runs many operators on its infrastructure, often in a multi-tenant setup. In early 2026, they confirmed ISO 27001 compliance for data isolation in their multi-tenant environment.
+**Example**: Most white-label providers use multi-tenant architecture to keep costs down. [BetConstruct](/companies/betconstruct) runs many operators on its infrastructure, often in a multi-tenant setup.
 
-**Operator consequence**: Cheaper monthly fees come with potential security concerns if you're handling high-value transactions. Some regulated markets require dedicated infrastructure for compliance.
+**Operator consequence**: Cheaper monthly fees but potential security concerns if you're handling high-value transactions. Some regulated markets require dedicated infrastructure for compliance.
 
-**Security consideration**: Ask about data isolation practices and whether you can audit your tenant security. Shared infrastructure means trusting the provider's security for all their clients.
+**Security consideration**: Ask about data isolation practices and whether you can audit your tenant security. Shared infrastructure means you're trusting the provider's security for all their clients.
 
 ### PAM (Player Account Management)
 
 The core system managing player registration, authentication, account balances, session management, and player data across the entire platform.
 
-**Why it matters**: Everything connects to the PAM: games, payments, bonuses, reporting. Choose poorly, and you'll face integration headaches, performance issues, and limited scalability.
+**Why it matters**: Everything connects to the PAM - games, payments, bonuses, reporting. Choose poorly and you'll face integration headaches, performance issues, and limited scalability.
 
-**Example**: [EveryMatrix](/companies/everymatrix) provides GamMatrix for player management. [SOFTSWISS](/companies/softswiss) built their PAM specifically for crypto operations with multi-currency wallet support, further integrating advanced fraud detection AI in Q1 2026.
+**Example**: [EveryMatrix](/companies/everymatrix) provides GamMatrix for player management. [SOFTSWISS](/companies/softswiss) built their PAM specifically for crypto operations with multi-currency wallet support.
 
-**Operator consequence**: A weak PAM creates cascading problems: slow logins, payment processing delays, inaccurate reporting, and poor player experience. This isn't a component you can easily swap later.
+**Operator consequence**: A weak PAM creates cascading problems - slow logins, payment processing delays, inaccurate reporting, and poor player experience. This isn't a component you can easily swap later.
 
 **Critical questions**: Ask about concurrent player limits, database performance under load, and disaster recovery procedures. Request references from operators with similar player volumes.
 
 ### Pragmatic Solutions vs Pragmatic Play
 
-**Pragmatic Solutions** is a casino platform and PAM provider offering back-office systems for operators. **Pragmatic Play** is a game development studio, creating slots and live casino content.
+**Pragmatic Solutions** is a casino platform and PAM provider offering back-office systems for operators. **Pragmatic Play** is a game development studio creating slots and live casino content.
 
 **Why this matters**: Operators frequently confuse these companies in RFPs and contract negotiations, leading to miscommunication about platform capabilities vs game content licensing.
 
-**Commercial consequence**: You might negotiate a great rate for Pragmatic Play games but still need a separate platform provider. Or you might evaluate Pragmatic Solutions' platform capabilities, when you meant to assess their game portfolio.
+**Commercial consequence**: You might negotiate a great rate for Pragmatic Play games but still need a separate platform provider. Or you might evaluate Pragmatic Solutions' platform capabilities when you meant to assess their game portfolio.
 
 **Example**: Pragmatic Solutions provides the technical infrastructure to run an online casino. Pragmatic Play creates the "Sweet Bonanza" slot game. Completely different companies, different contracts, different negotiations.
 
@@ -146,11 +146,11 @@ The core system managing player registration, authentication, account balances, 
 
 Infrastructure that hosts casino games and delivers them to players through the platform, handling game logic, random number generation, and player interactions.
 
-**Why it matters**: This affects game loading speeds, uptime during peak traffic, and regulatory compliance across different markets. Poor RGS performance means frustrated players and lost revenue.
+**Why it matters**: Affects game loading speeds, uptime during peak traffic, and regulatory compliance across different markets. Poor RGS performance means frustrated players and lost revenue.
 
-**Example**: [EveryMatrix](/companies/everymatrix) maintains a solid infrastructure to support low-latency game delivery, reporting 99.99% uptime for their RGS infrastructure in Q1 2026. Game providers often run their own RGS but integrate through platform APIs.
+**Example**: [EveryMatrix](/companies/everymatrix) maintains a robust infrastructure to support low-latency game delivery. Game providers often run their own RGS but integrate through platform APIs.
 
-**Performance impact**: Players expect games to load quickly, ideally in a few seconds. RGS infrastructure quality directly affects this, especially for mobile players on slower connections.
+**Performance impact**: Players expect games to load quickly, ideally in a few seconds. RGS infrastructure quality directly affects this metric, especially for mobile players on slower connections.
 
 **Regulatory note**: Some jurisdictions require game servers to be located within specific geographic regions. Verify RGS deployment options for your target markets.
 
@@ -160,9 +160,9 @@ Contractual guarantees for platform uptime, performance metrics, and support res
 
 **Why it matters**: Your recourse when the platform fails during peak traffic periods. Without strong SLAs, you have no leverage when technical issues cost you revenue.
 
-**Example**: Enterprise platforms typically guarantee 99.9% uptime (approximately 8.7 hours downtime per year maximum). Premium providers may offer 99.99% SLAs with revenue compensation for breaches. This translates to approximately 52 minutes of downtime per year.
+**Example**: Enterprise platforms typically guarantee 99.9% uptime (approximately 8.7 hours downtime per year maximum). Premium providers may offer 99.99% SLAs with revenue compensation for breaches, translating to approximately 52 minutes of downtime per year.
 
-**Operator consequence**: Platform downtime during major sporting events or promotional campaigns can cost thousands in lost revenue per hour. Weak SLAs mean no compensation or expedited support.
+**Operator consequence**: Platform downtime during major sporting events or promotional campaigns can cost thousands in lost revenue per hour. Weak SLAs leave you without compensation or expedited support.
 
 **What to negotiate**: Uptime guarantees, maximum response times for critical issues, compensation structures for SLA breaches, and escalation procedures for major incidents.
 
@@ -170,11 +170,11 @@ Contractual guarantees for platform uptime, performance metrics, and support res
 
 A complete casino platform ready to launch with minimal customization, including games, payments, back-office, website template, and regulatory setup.
 
-**Why it matters**: This is a speed-to-market versus flexibility tradeoff. Turnkey solutions can have you live in 2-6 weeks but limit your ability to differentiate or customize player experience.
+**Why it matters**: Speed to market vs flexibility tradeoff. Turnkey solutions can have you live in 2-6 weeks but limit your ability to differentiate or customize player experience.
 
-**Example**: [SOFTSWISS](/companies/softswiss) offers turnkey crypto casino packages with over 40,000 games, payment processing, and standard website themes. In Q1 2026, they launched a new turnkey package specifically for the LatAm market, pre-configured with local payment methods. Customize branding and you're live quickly.
+**Example**: [SOFTSWISS](/companies/softswiss) offers turnkey crypto casino packages with over 40,000 games, payment processing, and standard website themes. Customize branding and you're live quickly.
 
-**Operator consequence**: A fast launch is appealing, but you'll look similar to dozens of other operators using the same turnkey package. It's harder to build brand differentiation or optimize conversion funnels.
+**Operator consequence**: Fast launch but you look similar to dozens of other operators using the same turnkey package. Harder to build brand differentiation or optimize conversion funnels.
 
 **Hidden costs**: Turnkey packages often exclude premium game providers, advanced CRM features, or custom payment methods. Budget for add-ons after launch.
 
@@ -182,13 +182,13 @@ A complete casino platform ready to launch with minimal customization, including
 
 A complete casino platform operated and maintained by the provider, where you license their technology under your own branding but don't control the underlying infrastructure.
 
-**Why it matters**: This means lowest startup costs and fastest time-to-market. However, you're essentially a reseller rather than a platform operator. Revenue sharing arrangements typically favor the platform provider.
+**Why it matters**: Lowest startup costs and fastest time-to-market, but you're essentially a reseller rather than a platform operator. Revenue sharing arrangements typically favor the platform provider.
 
-**Example**: Many operators use [BetConstruct](/companies/betconstruct) white-label solutions to enter new markets quickly without technical investment, reporting a 15% increase in their African and Asian client base in early 2026. The trade-off is limited control and higher long-term costs.
+**Example**: Many operators use [BetConstruct](/companies/betconstruct) white-label solutions to enter new markets quickly without technical investment. The trade-off is limited control and higher long-term costs.
 
 **Ownership consideration**: You don't own player data, game integrations, or payment relationships. Switching providers later means rebuilding everything from scratch.
 
-**Revenue impact**: White-label arrangements typically involve 10-50% revenue sharing with the platform provider, with common ranges between 10-30%. Calculate long-term costs versus building your own stack.
+**Revenue impact**: White-label arrangements typically involve 10-50% revenue sharing with the platform provider, with common ranges between 10-30%. Calculate long-term costs vs building your own stack.
 
 ### API Orchestration
 
@@ -196,7 +196,7 @@ The coordination and management of multiple API connections across different pla
 
 **Why it matters**: Poor API orchestration leads to data inconsistencies, failed transactions, and integration maintenance nightmares. Good orchestration makes complex multi-vendor stacks work smoothly.
 
-**Example**: When a player makes a deposit, orchestration ensures the payment processor, wallet system, bonus engine, and reporting dashboard all receive consistent data. This happens in the correct sequence.
+**Example**: When a player makes a deposit, orchestration ensures the payment processor, wallet system, bonus engine, and reporting dashboard all receive consistent data in the correct sequence.
 
 **Failure consequence**: Without proper orchestration, you might see successful payments that don't credit player accounts, or bonus triggers that don't connect to game sessions.
 
@@ -204,7 +204,7 @@ The coordination and management of multiple API connections across different pla
 
 Native connection between the casino platform and cryptocurrency wallets, enabling direct blockchain transactions without third-party payment processors.
 
-**Why it matters**: True crypto-native operations require direct wallet integration. Payment processor intermediaries add fees, delays, and compliance complications crypto players want to avoid.
+**Why it matters**: True crypto-native operations require direct wallet integration. Payment processor intermediaries add fees, delays, and compliance complications that crypto players want to avoid.
 
 **Technical requirement**: Platform must handle blockchain confirmations, gas fee calculations, multi-currency support, and wallet address validation across different cryptocurrencies.
 
@@ -226,7 +226,7 @@ The estimated time required to connect all platform components, complete regulat
 
 **Why it matters**: Vendors consistently underestimate integration complexity. Budget a generous buffer (e.g., 40-60%) beyond the promised timeline for realistic planning.
 
-**Reality check**: "2-week integration" usually means basic setup with standard configuration. Custom requirements, regulatory compliance, and payment setup typically add weeks or months.
+**Reality check**: "2-week integration" usually means basic setup with standard configuration. Custom requirements, regulatory compliance, and payment setup add weeks or months.
 
 **Risk factors**: Third-party integrations, custom game providers, regulatory approvals, and payment processor onboarding often cause delays beyond platform provider control.
 
@@ -236,9 +236,9 @@ Intelligent routing of payment transactions across multiple processors, payment 
 
 **Why it matters**: Single payment processors have geographic limitations, currency restrictions, and varying approval rates. Orchestration maximizes transaction success.
 
-**Example**: You might route UK Visa cards through Processor A (95% approval rate), German Mastercard through Processor B (better fees), and all crypto through direct wallet integration.
+**Example**: Route UK Visa cards through Processor A (95% approval rate), German Mastercard through Processor B (better fees), and all crypto through direct wallet integration.
 
-**Revenue impact**: Poor payment orchestration can cost a significant portion of potential revenue through failed transactions and suboptimal routing. Some reports indicate improvements of 5-10% in approval rates with better orchestration.
+**Revenue impact**: Poor payment orchestration can cost a significant portion of potential revenue through failed transactions and suboptimal routing, with some reports indicating improvements of 5-10% in approval rates.
 
 ### Player Journey Analytics
 
@@ -256,35 +256,35 @@ Tracking and analysis of player behavior across the entire casino experience, fr
 
 ### What is a casino platform?
 
-A casino platform is the core technology infrastructure powering online gambling operations. It includes player account management, game delivery, payment processing, regulatory compliance tools, and back-office systems. The platform connects game providers, payment processors, and other third-party services into a unified system for operators to run their casino business.
+A casino platform is the core technology infrastructure that powers online gambling operations. It includes player account management, game delivery, payment processing, regulatory compliance tools, and back-office systems. The platform connects game providers, payment processors, and other third-party services into a unified system that operators use to run their casino business.
 
 ### What does casino platform mean in iGaming?
 
-In iGaming, a casino platform refers to the complete software solution enabling operators to launch and manage online casino operations. This covers both customer-facing functionality (website, games, payments) and operator tools (reporting, player management, compliance monitoring). Platforms can be turnkey solutions, modular systems, or white-label offerings, depending on operator needs.
+In iGaming, a casino platform refers to the complete software solution that enables operators to launch and manage online casino operations. This includes both customer-facing functionality (website, games, payments) and operator tools (reporting, player management, compliance monitoring). Platforms can be turnkey solutions, modular systems, or white-label offerings depending on the operator's needs.
 
 ### What are the main casino platform features?
 
-Essential casino platform features include player account management (PAM), game aggregation from multiple providers, payment orchestration, bonus engines, CRM, reporting and analytics, regulatory compliance tools, and back-office administration systems. Advanced platforms may add features like AI-powered fraud detection, personalization engines, and multi-currency support.
+Essential casino platform features include player account management (PAM), game aggregation from multiple providers, payment orchestration, bonus engines, customer relationship management (CRM), reporting and analytics, regulatory compliance tools, and back-office administration systems. Advanced platforms add features like AI-powered fraud detection, personalization engines, and multi-currency support.
 
 ### How do I choose a casino platform for my online casino?
 
-Define your target markets, regulatory requirements, and technical capabilities first. Evaluate platforms based on game content quality, payment method coverage, compliance support for your jurisdictions, integration timeline, ongoing costs, and scalability. Request demos of actual player journeys, not just back-office screenshots. Always budget a generous buffer (e.g., 40-60%) beyond the vendor's estimated integration time.
+Start by defining your target markets, regulatory requirements, and technical capabilities. Evaluate platforms based on game content quality, payment method coverage, compliance support for your jurisdictions, integration timeline, ongoing costs, and scalability. Request demos of actual player journeys, not just back-office screenshots. Always budget a generous buffer (e.g., 40-60%) beyond the vendor's estimated integration time.
 
 ### What is the difference between modular vs monolithic casino platform?
 
-Modular platforms let you use individual components independently. You can swap them for alternatives without rebuilding your entire system; for instance, using one vendor's game aggregator with another's PAM. Monolithic platforms bundle everything together - faster to deploy but creating vendor lock-in. Changing payment processing on a monolithic platform often means rebuilding everything.
+Modular platforms let you use individual components independently and swap them for alternatives without rebuilding your entire system. You might use one vendor's game aggregator with another's PAM system. Monolithic platforms bundle everything together - faster to deploy but create vendor lock-in. If you want to change payment processing on a monolithic platform, you often need to rebuild everything.
 
 ### How long does it take to integrate a casino platform?
 
-Integration timelines vary dramatically based on customization requirements and regulatory complexity. Basic turnkey deployments can go live in 2-6 weeks. Custom integrations, however, with multiple game providers, payment processors, and compliance requirements typically take 3-6 months. Always add buffer time for regulatory approvals and third-party integration delays beyond the platform provider's control.
+Integration timelines vary dramatically based on customization requirements and regulatory complexity. Basic turnkey deployments can go live in 2-6 weeks, but custom integrations with multiple game providers, payment processors, and compliance requirements typically take 3-6 months. Always add buffer time for regulatory approvals and third-party integration delays beyond the platform provider's control.
 
 ### What does turnkey casino platform include?
 
-Turnkey casino platforms include pre-integrated games from multiple providers, standard website templates, basic payment processing, essential back-office tools, and regulatory compliance frameworks. They typically exclude premium game providers, advanced CRM features, custom payment methods, and sophisticated analytics. You're trading customization for speed to market.
+Turnkey casino platforms include pre-integrated games from multiple providers, standard website templates, basic payment processing, essential back-office tools, and regulatory compliance frameworks. However, they typically exclude premium game providers, advanced CRM features, custom payment methods, and sophisticated analytics. You're trading customization for speed to market.
 
 ### How do casino platform APIs work?
 
-Casino platform APIs enable different systems to communicate and share data in real-time. When a player makes a deposit, APIs coordinate between the payment processor, wallet system, bonus engine, and reporting tools, ensuring everything updates correctly. API-first platforms are built around these connections, making it easier to integrate third-party tools or swap components.
+Casino platform APIs enable different systems to communicate and share data in real-time. When a player makes a deposit, APIs coordinate between the payment processor, wallet system, bonus engine, and reporting tools to ensure everything updates correctly. API-first platforms are built around these connections, making it easier to integrate third-party tools or swap components.
 
 ---
 

@@ -145,7 +145,7 @@ Each class has its own detailed prompt in `skill/references/satellite-prompt-tem
 | Challenges | `challenges` | Common challenges, problems-find-companies | **3,500-5,000** | `challenges` in slug/title |
 | Educational (Glossary) | `educational-glossary` | Terminology / glossary articles | **2,500-3,500** | `terminology`, `glossary`, `-explained` |
 | Educational (Trends) | `educational-trends` | Industry trends, what's changing | **3,000-4,000** | `-trends` |
-| Pricing | `pricing` | Conceptual pricing discussion — models, archetypes, budget anatomy, hidden costs, scale economics, negotiation levers. NO per-vendor prices. | **3,000-4,500** | `pricing`, `-cost` |
+| Pricing | `pricing` | Conceptual pricing discussion — models, archetypes, budget anatomy, hidden costs, scale economics, negotiation levers. NO per-vendor prices. | **2,500-3,500** | `pricing`, `-cost` |
 
 All satellites: same voice guide, same linking rules, same quality bar as pillar.
 
