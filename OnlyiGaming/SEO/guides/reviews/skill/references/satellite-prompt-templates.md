@@ -911,11 +911,49 @@ What is NOT acceptable, in any section:
 
 If you find yourself wanting to write a specific company's price in any section, REPLACE IT with either: (a) a category-level range without naming any company, or (b) a verification instrument ("ask the vendor for X").
 
+FINAL SELF-CHECK BEFORE OUTPUT (MANDATORY):
+Before producing the final article, perform a binary scan of your own draft:
+1. Identify EVERY sentence that contains BOTH a number (dollar amount, percentage, basis points, thousand/million/k/M suffix, or "X-Y range") AND a named company (any vendor — platform, game studio, payment provider, KYC vendor, infrastructure).
+2. For each such sentence, rewrite it before output to remove the pairing. Two acceptable rewrites:
+   - Strip the company name and convert to an anonymous category-level range: "Platforms in this category typically charge X-Y% rev share" (no company)
+   - Strip the number and convert to a verification instrument: "EveryMatrix's standard rev share varies by deal — ask for the bracket that applies to your projected GGR" (no number)
+3. Count the number of rewrites you performed and **report the count as a YAML frontmatter field** at the top of the article. Add a line `pricing_self_check_count: N` to the YAML frontmatter (where N is the integer count of rewrites performed). If the count is zero, set `pricing_self_check_count: 0`. The YAML frontmatter survives the SEO-edit step (frontmatter is explicitly locked at that stage), so the self-check field reaches the published output. Do NOT use an HTML comment for the count — HTML comments do not survive the pipeline.
+4. The self-check is binary. Even ONE sentence with both a number and a vendor name surviving into the output is a binary failure for this article, regardless of hedge language.
+
 CATEGORY RUBRIC:
 - Dimensions: ${rubric.dimensions}
 - Curated vendor roster (USE ONLY these vendors — they are the canonical OnlyiGaming directory cohort for this category): ${rubric.vendors}
 
 VENDOR ROSTER RULE (non-negotiable): When naming vendors anywhere in this article — comparison tables, profiles, examples, "who solves it" lists, recommendations — use ONLY vendors from the curated roster above. Do NOT invent vendor names, do NOT pull vendors from other categories, do NOT name vendors from general knowledge that aren't in the roster (e.g. acquired/defunct companies, vendors from adjacent categories). If you genuinely need a vendor not in the roster to make a point, flag it inline as `[VENDOR NOT IN ROSTER: <name>]` with a one-sentence reason — but prefer to make your point using only the curated vendors.
+
+OFF-ROSTER VENDOR + NUMBER RULE (PRICING-specific, non-negotiable): No game studios, payment providers, KYC vendors, or any off-roster company may be paired with a price, range, percentage, or dollar figure — even as "illustrative examples" or "industry benchmarks." If you need an illustrative number, use an anonymous archetype ("a mid-tier modular platform," "a white-label provider") with no company name attached. This rule is stricter than the general VENDOR ROSTER RULE above: even where the general rule would allow a one-time `[VENDOR NOT IN ROSTER: <name>]` flag for narrative reasons, the off-roster-plus-number combination is still forbidden in a pricing article. Examples of forbidden phrasings: "Studios like Evolution Gaming and Pragmatic Play charge 10-25%", "Payment providers typically charge 2.5-3% — Stripe and Adyen are the dominant options at this rate", "KYC vendors like Onfido and Veriff price per-check around $1-3". Replace these with anonymous archetypes: "Game studios in this category typically take 10-25% of game-specific GGR via revenue share — confirm the studio mix in your vendor's content catalog."
+
+PRICING TABLE RULE
+Do not create a vendor-by-vendor pricing table — including a pricing-MODEL table that attributes a model (e.g. revenue-share, fixed license, hybrid, per-check, per-conversion) to a named vendor — unless that vendor publicly publishes the pricing OR the category rubric supplies verified commercial-model data.
+
+For B2B iGaming categories, pricing is private, negotiated, and depends on factors that vary by category (volume, markets, modules, support tier, compliance scope, integration scope, contract length, negotiation leverage). Attributing a fixed model to a vendor overstates certainty and may be wrong for a specific deal.
+
+Use a pricing-model / procurement-risk table instead, with these columns:
+  Pricing Model | Usually Looks Cheap Because | Hidden Risk | Best For | Contract Protection
+
+THE PRICING MODELS DEPEND ON THE CATEGORY. Identify the dominant commercial models for the category this article covers, and use only those. DO NOT force-fit platform pricing models onto a category that uses a different commercial structure. Reference examples (not exhaustive, not category labels you must match):
+
+- Platform categories (e.g. casino-platforms, sportsbook-platform, crm-platforms, white-label-solutions, turnkey-solutions): revenue share, fixed license, hybrid, managed service / white label, modular-per-component, transaction or usage-based.
+- KYC / verification / compliance tooling: per-check or per-verification, tiered-by-volume, monthly minimum, annual subscription.
+- Affiliate tracking: per-conversion / CPA, revenue share of NGR, hybrid, flat monthly platform fee.
+- Payment processing: per-transaction (flat or percent), interchange-plus, monthly gateway fee, FX spread, settlement fee.
+- Game aggregators / studios / content: revenue share on game GGR, royalty per game, fixed monthly content fee, hybrid.
+
+For any other category, use the actual dominant commercial structures of that category — not a platform-flavored default. If the dominant models for the category are unclear, name fewer models accurately rather than listing many that don't apply.
+
+Vendor mentions in a pricing article may appear ONLY as verification prompts, not pricing claims. Acceptable phrasings:
+  "Ask [vendor] whether…"
+  "Confirm whether [vendor]…"
+  "Get in writing from [vendor]…"
+  "Do not assume [vendor]…"
+Unacceptable: any sentence asserting a vendor's pricing model, range, rate, percentage, or fee — including as an "estimate," "typical," or "industry benchmark."
+
+EVERGREEN MANDATE (pricing-specific): Pricing content must be evergreen. Do not include time-sensitive promotional facts: current-quarter promos ("3 months free," "50% off setup"), current-year awards, recent license grants, or quarter-specific product launches. These age out within months and break the evergreen contract of this class.
 
 ${kwResearch ? `KEYWORD RESEARCH:\n${kwResearch}` : ''}
 
@@ -944,23 +982,28 @@ REQUIRED STRUCTURE:
    - What this article IS: how pricing MODELS work, where the money actually goes, hidden costs operators consistently underestimate, what changes at scale, how to negotiate
    - Link to pillar for the vendor comparison itself
 
-3. **PRICING MODEL ARCHETYPES** (markdown table — NO per-vendor prices; even MODEL claims are hedged)
-   - Columns: Vendor (linked to directory) | Likely Pricing Model | What's Bundled in Public Positioning | What's Likely Separate
-   - 6-12 rows
-   - **CRITICAL — these are inferences from public positioning, not asserted facts.** Vendors rarely publish pricing models any more reliably than they publish prices. The model column reflects what the vendor's public marketing and product architecture SUGGESTS, not what they confirm contractually. Every cell is implicitly hedged. Add this sentence directly below the table heading: "Based on vendor public positioning and operator reports. Confirm actual model and bundling with the vendor — terms vary per deal."
-   - "Likely Pricing Model" cell uses ONE OF: revenue-share, license-fee, hybrid, per-transaction, enterprise-fixed, modular-per-component, white-label-bundled. If even the model isn't publicly inferable, use "Not publicly disclosed."
-   - "What's Bundled in Public Positioning" describes which components the vendor markets as included in the headline offering (e.g. "PAM + casino aggregation + reporting"). Name actual products/modules per G2.
-   - "What's Likely Separate" describes what operators report being billed on top
-   - This table replaces the deprecated "Vendor Pricing Table." It shows STRUCTURE inferences without making up prices.
+3. **PRICING MODEL / PROCUREMENT-RISK TABLE** (markdown table — NO vendor column, NO per-vendor prices; this is the table format MANDATED by the PRICING TABLE RULE above)
+   - Columns: Pricing Model | Usually Looks Cheap Because | Hidden Risk | Best For | Contract Protection
+   - 4-7 rows — one row per dominant commercial model in this category (see PRICING TABLE RULE above for category-aware model lists; do not force-fit platform models onto a non-platform category)
+   - "Pricing Model" cell names the model in plain language (e.g. "Revenue share on GGR", "Fixed monthly license", "Per-check tiered by volume", "Per-conversion / CPA", "Per-transaction with FX spread"). Use only models that actually apply to this article's category.
+   - "Usually Looks Cheap Because" cell decodes the surface-appeal of the model — why operators sign it before they understand its full cost structure
+   - "Hidden Risk" cell names the specific failure mode operators encounter once they're on the model (rev-share-at-scale trap, fixed-fee dead weight at low GGR, per-check overage on growth spikes, etc.)
+   - "Best For" cell names the operator archetype the model genuinely suits (be specific — not "everyone")
+   - "Contract Protection" cell names ONE concrete contract clause to demand if accepting this model (e.g. "cap clause at X monthly GGR", "exit-without-fee after month 12", "per-check overage rate published in advance")
+   - **NO VENDOR COLUMN.** The table describes MODELS, not vendors. Per the PRICING TABLE RULE above, attributing a model to a named vendor overstates certainty about a private, negotiated deal. Vendor names appear ONLY in the body of the article as verification prompts ("ask [vendor] whether..."), never in this table.
+   - This table replaces the deprecated "Vendor Pricing Table" and the earlier vendor-attribution "Pricing Model Archetypes" format.
 
-4. **PRICING MODELS EXPLAINED** (500-800 words)
-   - The common pricing models in this category. For each model, use ### H3 heading then:
+4. **PRICING MODELS EXPLAINED** (700-1,100 words — note the slightly higher target because the per-model structure is richer)
+   - The common pricing models in this category. For each model, use ### H3 heading then the following 7-part structure (every field required — a model entry missing any of these is incomplete):
      - ### H3: [Model Name] (e.g. "Revenue Share")
-     - Plain-language explanation of how the model works
-     - **Pros:** `-` bullet list (operator perspective)
-     - **Cons:** `-` bullet list
-     - **Best for:** operator type and scale (e.g. "Startups testing market viability — low upfront, vendor aligned with operator growth")
-     - **Worst for:** the operator type that gets burned by this model (e.g. "High-margin operators at scale — the share you pay grows as your revenue grows, with no ceiling")
+     - **How it works:** plain-language explanation of the mechanic
+     - **Who it benefits:** operator type and scale that comes out ahead under this model
+     - **Who it punishes:** operator type and scale that gets burned — be specific about the inflection (e.g. "operators above $5M MGR where the rev share line item starts to exceed what a flat license would cost")
+     - **When it becomes expensive:** the threshold or scenario that flips the model from favorable to punishing — typically a GGR level, a market expansion, or a contract anniversary trigger
+     - **Hidden cost in this model:** the line item operators most commonly miss when they evaluate this model (e.g. game-studio rev share stacking on top, payment-provider rev share, mandatory professional-services minimums)
+     - **Contract clause to demand:** ONE concrete clause operators should insist on when accepting this model (e.g. "cap clause: rev share frozen at X% above $Y MGR", "exit clause: 90-day notice with no break fee after month 18")
+     - **Trap question for vendors using this model:** ONE concrete question that exposes how the vendor's version of this model differs from the textbook version — e.g. "At what monthly GGR does our rev share start to exceed what a flat license would have cost? Show us the spreadsheet."
+     - **Anonymous example scenario:** ONE worked example using anonymized operator and vendor labels — "A $2M MGR operator on a 15% rev share pays $300K monthly; if their content library doubles in month 13 and pushes GGR to $4M MGR, the bill jumps to $600K." Use placeholder labels (Operator A, Vendor X), generic ranges, NO real vendor names paired with numbers.
      - **Typical category range (if generally known):** e.g. "10-25% of GGR in this category, with most deals between 12-18%" — this is a CATEGORY-LEVEL range, not a vendor-specific claim
    - Close with a one-paragraph summary of WHICH MODEL favors WHICH OPERATOR TYPE
 
@@ -983,28 +1026,51 @@ REQUIRED STRUCTURE:
    - Below the table: a paragraph on the rev-share-at-scale trap — at what threshold revenue share becomes more expensive than a fixed license, why operators often miss the inflection point, and how to negotiate it ahead of time
    - DO NOT state per-vendor dollar amounts in this section. Use the operator scenario scales, not vendor pricing.
 
-7. **HIDDEN COSTS OPERATORS UNDERESTIMATE** (400-600 words)
+7. **HIDDEN COSTS OPERATORS UNDERESTIMATE** (500-750 words — slightly larger because every category now requires a negotiation lever)
    - `-` bullet list of category-specific surprises, each **bolded**:
      - The 5-7 most common cost surprises operators encounter AFTER signing
-     - Each item: name the surprise, explain why it happens, state what to negotiate INTO the contract before signing
-   - Close: "Negotiate these BEFORE signing, not after — once the contract is signed, every change becomes a billable variation."
+     - Every item is structured as a mini-block (no exceptions):
+       - **The surprise (bolded):** name what it is, in one short sentence
+       - **Why it happens:** the structural reason vendors price this separately or vaguely
+       - **What it usually costs at scale:** category-level range (not vendor-specific) so operators can size the exposure
+       - **Negotiation lever (mandatory):** the SPECIFIC pre-signing action that neutralizes this surprise — a contract clause to demand, a pricing commitment to insist on, a line-item breakdown to require in the schedule of fees. Every category gets exactly one named lever — no vague "negotiate this before signing" — give the operator the lever as a concrete asking line.
+   - Close: "Negotiate these BEFORE signing, not after — once the contract is signed, every change becomes a billable variation. The negotiation levers above are the asking lines operators use during the final commercial round."
 
 8. **NEGOTIATION LEVERS** (300-500 words)
    - `-` bullet list: 5-7 specific levers operators have during pricing negotiations
    - Each lever: name it, when it applies (e.g. "if you're committing to a 3-year minimum, you can negotiate the rev share down 200-300 basis points"), how to ask
    - Frame as actionable operator playbook, not abstract advice
 
-9. **RED FLAGS IN PRICING CONVERSATIONS** (300-500 words)
+9. **QUOTE NORMALIZATION CHECKLIST** (350-500 words) — MANDATORY new section
+   - Operators reading this article are usually comparing 2-4 vendor quotes that arrive in different formats and bundle different things. This checklist is the apples-to-apples normalization tool. Without it, operators sign the quote that LOOKS cheapest rather than the one that IS cheapest.
+   - Open with one short paragraph framing the section: vendors quote in different shapes deliberately — normalize before signing.
+   - Then a markdown table with these columns: **Item to normalize** | **What to look for in each quote** | **Why quotes diverge here** | **What to ask vendors to confirm in writing**
+   - Required rows (8-12 — every operator needs all of these normalized before signing):
+     - Headline platform fee (rev share vs license vs hybrid — convert each quote into a comparable Year-1 dollar figure at your projected GGR)
+     - Game-studio rev share stack (whether the headline number includes studio pass-through or excludes it)
+     - Payment processing fees (gateway, FX, chargeback handling — whether bundled, separate, or pass-through)
+     - Implementation and onboarding cost (one-time fees, customization minimums, certification work)
+     - Compliance and regulatory cost (per-jurisdiction, RG tooling, audit support)
+     - Support tier definition (response SLA, escalation path, account manager)
+     - Contract minimum and exit cost (months committed, break fee, data export cost)
+     - Volume threshold triggers (when rev share rate steps up, when minimums apply, when overages trigger)
+     - Custom feature billing (professional services hourly rate, minimum hours, lead time)
+     - Renewal and price-increase terms (auto-renew, cap on annual increase, repricing triggers)
+     - Data ownership and portability cost
+     - Termination-for-convenience cost
+   - Close with one sentence: the operator running this checklist BEFORE signing will renegotiate the average deal by 5-15% — not from a vendor concession, but from the normalization itself surfacing line items the vendor would have charged post-signature.
+
+10. **RED FLAGS IN PRICING CONVERSATIONS** (300-500 words)
    - `-` bullet list: 5-7 warning signs that a pricing conversation is going badly
    - **Bold each red flag**, prose explanation after
    - Examples: bundled pricing that obscures per-unit costs, "custom pricing" with no ballpark, costs that only appear after contract signing, minimum GGR commitments buried in terms, "industry standard" claims without specifics, vendor refuses to put hidden-cost categories in writing
 
-10. **COMMON QUESTIONS** (4-6 questions, NOT called "FAQ")
+11. **COMMON QUESTIONS** (4-6 questions, NOT called "FAQ")
    - ### H3 heading for each question
    - Prose paragraph answer below each heading
    - Examples: "Why won't vendors publish pricing?", "At what GGR does revenue share become more expensive than a license fee?", "What's the realistic Year 1 total cost vs the headline number?", "How do I compare two vendors when neither publishes pricing?"
 
-11. **FOOTER** - pillar link, directory link, independence statement
+12. **FOOTER** - pillar link, directory link, independence statement
 
 GLOBAL EDITORIAL RULES (apply everywhere — non-negotiable):
 
