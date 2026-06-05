@@ -22,17 +22,38 @@ Other ammo: full-stack ownership (marketing + CRM + product + ops + BI), ambassa
 
 ---
 
-## SHARPEST QUESTIONS (ask 5-7, in order)
+## QUESTIONS — Four areas, in this order
 
-1. *"How did Igor's team come to engage Talent SDK? Your background is gaming/AI/defense — curious how this role landed with you."*
-2. *"What's the legal entity name and jurisdiction of incorporation?"*
-3. *"Of the four founders, who's run a regulated betting operation before? How is product/engineering staffed below Peter?"*
-4. *"How is the $3.5M structured — pre-seed, seed, SAFE? Who's the lead investor? What's the Series A target?"*
-5. *"Why hire a CMO 4-6 weeks before launch rather than 4-6 months ago? Who's been doing marketing until now?"*
-6. *"What does Igor expect the CMO to own on day one — brand + growth only, or also CRM, retention, ops, analytics?"*
-7. *"Comp structure — base, equity, cash bonus, token allocation if there's a token? OTE range?"*
-8. *(If room) "What's the licensing strategy for EU, AU, Brazil — protocol with third-party frontends or own licensed frontend?"*
-9. *(Close) "What's the process from here, timeline, who I'd meet at each stage?"*
+**Goal: find out what JustGames actually IS. If Nathan can answer A and B with specifics, this is real.**
+
+### A. PRODUCT — what am I selling, to whom?
+1. *"Walk me through the product — is JustGames a B2C sportsbook on its own protocol, a B2B infrastructure layer operators plug into, or both — protocol + flagship frontend?"*
+2. *"Who's the customer the CMO acquires — end-users, operators, or developer teams building frontends?"*
+3. *"Is there a thought about JustGames running its own branded B2C sportsbook on top of the protocol, or is the strategy strictly to enable other operators?"*
+
+### B. LICENSING — can the customer legally touch it?
+4. *"Geographic strategy — which countries on day one, which geo-blocked? Licensed regulated markets, gray markets, or both with different stacks?"*
+5. *"B2B side — selling to licensed operators (MGA, UKGC, ADM, Brazilian Bets, Ontario) or gray-market crypto operators? Sales motion and certifications are different worlds."*
+6. *"Can the product be licensed at all? Is the protocol itself something you'd put through MGA Class 2 / Brazilian Bets, or deliberately outside licensing — let frontends carry licenses?"*
+7. *"What does legal say about Brazil specifically — going through Bets licensing or geo-blocking Brazil at launch?"*
+
+### C. AMBASSADORS — who and for what?
+8. *"Who are the ambassadors — poker world, crypto/Web3, sports, or a mix?"*
+9. *"What's the ambassador's actual role on launch — drive B2C signups, lend credibility to operator sales, or distribute through their content audience? The work with Phil Hellmuth to drive B2C is completely different from using him at a B2B conference."*
+10. *"If this is B2B, what would an ambassador actually do? Operators don't buy infrastructure from poker pros — they buy from a sales team with certifications and references."*
+11. *"Ambassadors equity holders, paid spokespeople, or token allocation? Deal structure shapes how aggressively I can ask them to work."*
+
+### D. THE $1M BUDGET — what does Igor see it spent on?
+12. *"What does Igor see the $1M spent on — conferences and industry sales, influencer deals, crypto KOLs and points, paid acquisition, cold outbound to operators?"*
+13. *"What's the rough split between B2B sales motion (conferences, trade press, cold outbound) versus B2C acquisition (paid, affiliates, ambassador-driven trial)? $1M is plenty for one, tight for both."*
+14. *"Is $1M for pre-launch awareness only, or first 6 months of operating spend?"*
+15. *"What channels are off the table given the regulatory posture? Google/Meta closed for unlicensed; sports sponsorships need an operator license."*
+
+### Close-out (90 sec max)
+16. *"Legal entity name and jurisdiction of incorporation?"*
+17. *"$3.5M structure, lead investor, Series A milestone?"*
+18. *"Process from here, timeline, who I'd meet?"*
+19. *"What would make a candidate stand out to Igor specifically?"*
 
 ---
 

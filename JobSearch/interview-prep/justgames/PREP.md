@@ -141,32 +141,102 @@ When Nathan asks "what about this role excites you" or "why are you a fit," pick
 
 ---
 
-## 7. Questions to Ask Nathan (Pick 5-7, in This Order)
+## 7. Questions to Ask Nathan — The Four Things That Decide Everything
 
-Lead with the easy/qualifying ones; save the sharpest for once rapport is established.
+Your job in this call is to find out **what JustGames actually is** so you can decide if the CMO role is real. Four areas decide it. The four are sequenced — the answer to each one shapes the next. **You don't need to ask all of these — pick the live ones in order, until you have enough signal.**
 
-### Qualifying questions (start here)
-1. "How did Igor's team come to engage Talent SDK for this search? I noticed your background is gaming/AI/defense — curious how this role landed with you." *(Polite. Surfaces the iGaming gap. Gives Nathan a chance to explain the founder relationship.)*
-2. "What's the legal entity name and jurisdiction of incorporation? I want to read up properly before any deeper conversation." *(Establishes you do due diligence. Forces him to either give specifics or admit he doesn't have them.)*
-3. "Can you walk me through the team? You named Igor, Dan Coleman, Tom Martell, Peter Kravtsov — of these four, who's run a regulated betting operation before, and how is product/engineering staffed below Peter?" *(Surfaces the founder-team gap without insulting it.)*
+If Nathan can answer Areas A and B with specifics, this is a real opportunity. If he can answer A but not B, the founders haven't built the GTM yet (which is fine, that's why they're hiring a CMO — but you need to know). If he can't answer A clearly, walk away politely.
 
-### Funding/runway questions
-4. "How is the $3.5M structured — pre-seed, seed, SAFE, equity? Who are the lead investors, and what's the Series A target?" *(You need to know if this is real institutional money or angel/poker-world money. The answer shapes everything.)*
-5. "How long does $3.5M extend the runway, and what's the milestone to Series A — revenue, user count, regulatory milestone, token launch?" *(Tests whether they have a real plan or are vibes-based.)*
+---
 
-### Role-shape questions
-6. "Why hire a CMO 4-6 weeks before launch rather than 4-6 months ago? Who's been doing marketing strategy until now?" *(Reverses the question on them. The answer reveals whether the role is greenfield, replacement, or 'we ran out of band-aid.')*
-7. "What does Igor expect the CMO to own on day one? Brand and growth, or also CRM, retention, ops, analytics — given $3.5M runway you can't hire a 30-person org." *(Sets up your full-stack angle.)*
-8. "What's the comp structure — base, equity, cash bonus, token allocation if there's a token? And what's the realistic OTE total comp given the stage?" *(Don't dance around comp at the screen. Get the range out.)*
+### AREA A — What is the product, and who is the customer? (B2B, B2C, or both?)
 
-### Strategic/red-flag questions (use 1-2 sparingly)
-9. "What's the licensing strategy for EU, Australia, and Brazil — are we operating as a protocol with third-party licensed frontends, or running our own?" *(This is the question that separates 'we know what we're doing' from 'we're winging it.')*
-10. "Is there a token, an airdrop, or points-based GTM in the marketing plan?" *(Crypto-native launches are increasingly token/points-led. You want to know if this is the GTM lever.)*
-11. "How is the 'lowest fees' claim benchmarked — against Pinnacle's 2-3%, against Stake's house edge, or against zero-commission like SX Bet and Hyperliquid HIP-4?" *(This is the question that signals 'I know the market and you can't bluff me.' Use only if Nathan is sophisticated enough to engage with it. Otherwise save for Igor.)*
+This is the question that breaks everything else open. A "betting protocol" can be sold to three completely different customers, and the CMO job is unrecognizably different depending on which:
 
-### Process questions (close with these)
-12. "What's the interview process from here? Who would I meet at each stage and what's the timeline?"
-13. "What would make a candidate stand out to Igor in particular?" *(Lets Nathan share what he knows about Igor's preferences. Useful if you advance.)*
+- **B2B to operators** — JustGames is infrastructure, like Azuro. Customers are sportsbooks who plug into the protocol for liquidity / lower vig / odds feed. CMO sells to procurement/CTO/CEO at iGaming operators. Channel: conferences (ICE, SBC, iGB Live), industry press, cold outbound, partnerships, affiliate-style integration deals.
+- **B2C protocol with own frontend** — JustGames runs its own consumer sportsbook on top of the protocol. CMO does what you did at MrGreen/ComeOn — brand, acquisition, CRM, retention, gamification, ambassadors-as-trial-drivers. Channel: paid acquisition (where allowed), affiliates, ambassador-driven, content/community.
+- **Protocol layer + third-party frontends** — Azuro/Hyperliquid model. JustGames builds the rails; independent teams build the consumer brands. CMO has a hybrid job: market the protocol to frontend builders (developer relations, hackathons, grants) AND build awareness in the end-user community to give frontends customers to acquire.
+
+The recruiter email is ambiguous on which of these it is. "Top ambassadors" and "$1M marketing budget" sound B2C. "Open-source protocol" sounds B2B/infrastructure. "Lowest fees" could be either pitch. **You need to know.**
+
+1. **"Walk me through the product. Is JustGames a B2C sportsbook running on its own protocol, a B2B infrastructure layer that licensed operators plug into, or both — protocol plus a flagship frontend?"** *(The single most important question. The answer reshapes everything else.)*
+
+2. **"Who's the customer the CMO is responsible for acquiring? End-users placing bets, operators integrating the protocol, or developer teams building frontends? Or is it all three at different stages?"** *(Forces him to name the GTM target. If he says "all three," that's a $3.5M-doesn't-cover-it flag.)*
+
+3. **"Is there a thought about JustGames running its own branded sportsbook on top of the protocol — a flagship B2C product? Or is the strategy strictly to enable other operators?"** *(Specifically your question. Pins down whether you'd be building a brand or selling to procurement.)*
+
+---
+
+### AREA B — Who exactly is the customer, and can they be served legally?
+
+Once you know what the product is, ask who can buy it and where they're allowed to use it. **"Lowest fees" is irrelevant if the customer can't legally touch the product.** Three customer-tier questions:
+
+- If B2C: which countries can players legally access this from? MGA-regulated (Malta-licensed players)? UKGC? German GlüStV? Italian ADM? Brazilian Bets? Or is it offshore-only, geo-blocking everywhere licensed and serving the gray markets (LATAM ex-Brazil, SEA, Africa, etc.)?
+- If B2B: are you selling to **licensed operators** (MGA, UKGC, ADM, Brazilian Bets, Ontario AGCO, etc.) who'll want certifications (GLI-19, ISO 27001, RNG audits, MGA approval letters)? Or are you selling to **gray-market crypto operators** (Curaçao sub-license era operators, offshore crypto books) who don't need those certs but have shrinking access as Curaçao reforms close the loophole?
+- If protocol: is the protocol itself licensable, or by design unlicensable (decentralized, no central operator to license)?
+
+4. **"Geographic strategy — which countries does the product target on day one, and which does it geo-block? Are you operating in licensed regulated markets, the gray markets, or both with different stacks?"** *(The honest answer to this tells you the entire regulatory posture. If he says "global, no geo-blocks" — that's gray-market, full stop, and you should know that's the bet.)*
+
+5. **"On the B2B side, are you targeting licensed operators (MGA, UKGC, ADM, Brazilian Bets, Ontario) or gray-market crypto operators? Because the sales motion and the product certifications are different worlds."** *(Signals you understand the regulated B2B landscape and forces him to commit to a tier.)*
+
+6. **"Can this product be licensed at all? Is the protocol itself something you'd put through MGA Class 2 or Brazilian Bets, or is the model deliberately outside licensing — operate as a protocol, let frontends carry licenses where they need them?"** *(The architecture question. Some protocols are designed to be unlicensable; others can wrap a licensed entity around them. The answer affects everything from the marketing language to whether you can put a logo on a Premier League sleeve.)*
+
+7. **"What does the legal team say about Brazil specifically? Brazil's Bets framework launched 2024 and the regulated market is massive — are you going through Bets licensing or geo-blocking Brazil at launch?"** *(Brazil is the marquee LATAM opportunity. The answer reveals whether they have real legal counsel or are vibes-on-LATAM.)*
+
+---
+
+### AREA C — The ambassadors. Who are they and what are they actually for?
+
+The recruiter said "top ambassadors, already signed." Given Igor's network, the ambassadors are **almost certainly poker pros or crypto influencers** (Phil Hellmuth, Daniel Negreanu, Doug Polk, Phil Galfond on the poker side; Vitalik, crypto Twitter KOLs on the Web3 side). Possibly Liv Boeree. Maybe pro-EA figures.
+
+**Ambassadors do completely different work depending on whether this is B2B or B2C — and the answer reveals which the company really thinks it is:**
+
+- **B2C ambassadors** → trial drivers. The ambassador's audience comes and tries the product. CMO measures CAC, conversion, retention. Standard playbook from your MrGreen days.
+- **B2B ambassadors** → almost meaningless. Operators don't care that Phil Hellmuth shills a protocol. They care about latency, liquidity, settlement, certifications. Ambassadors at conferences (keynote panels, dinners) are useful for awareness but not for closing deals.
+- **Crypto/protocol ambassadors** → distribution and credibility in the onchain community. They drive token holders, frontend builders, governance participation. Different from sportsbook ambassadors.
+
+8. **"Who are the ambassadors? Poker world, crypto/Web3, sports, or a mix?"** *(Concrete. Forces him to name names or admit he doesn't know.)*
+
+9. **"What is the ambassador's actual role on launch — drive end-user signups, lend credibility to operator sales, or distribute through their content/social audience? Because the work I'd do with a poker pro to drive B2C trial is completely different from how I'd use them at a B2B conference."** *(This is your question, sharpened. It surfaces whether the team has thought through ambassador economics or just signed people because Igor knows them.)*
+
+10. **"If this is B2B, what would an ambassador actually do for the company? Operators don't buy infrastructure from Phil Hellmuth — they buy it from a sales team with certifications and references. Is the ambassador role for awareness, or do you see it as a sales channel?"** *(Polite version of "Igor may have signed ambassadors without a clear job for them in B2B." Surfaces the gap if it exists.)*
+
+11. **"Are the ambassadors equity holders, paid spokespeople, or token allocation? The deal structure shapes how aggressively I can ask them to work."** *(Real CMO question. Tells you how much leverage you'd actually have over them.)*
+
+---
+
+### AREA D — The $1M marketing budget. What does Igor want it spent on?
+
+The $1M number is the most concrete thing in the email and the most testable. **There are roughly four buckets a $1M launch budget could go into, and the founder's instinct here reveals whether they understand the marketing reality:**
+
+- **B2B operator acquisition** — conferences (SBC Barcelona, ICE Barcelona, iGB Live Amsterdam, SBC Lisbon, SiGMA Malta/Cyprus/Eurasia — booth + sponsorship runs €50-200K per major event), trade press, cold outbound sales (BDR team, $200-400K/year per BDR), industry awards, key account partnerships.
+- **B2C player acquisition** — paid digital (where legal — Google/Meta closed for unlicensed; programmatic limited), affiliate networks (Income Access, Better Collective, Catena Media — 30-50% rev share or CPA $50-300/depositor), influencer/KOL deals, content/SEO, gamified acquisition (referral programs, missions).
+- **Crypto-native distribution** — Crypto Twitter/X presence, Telegram/Discord communities, points/airdrop campaigns, KOL deals with crypto influencers, hackathon sponsorships if developer-targeting.
+- **Brand and event marketing** — sponsorships (sports teams, leagues — closed without license), launch events, PR campaigns, content production.
+
+A serious founder will have at least a rough split in mind. A vibes founder will say "growth marketing" or "spend it where it works."
+
+12. **"What does Igor see the $1M being spent on, roughly? Conferences and industry sales? Influencer deals? Crypto KOLs and points campaigns? Paid acquisition? Cold outbound to operators? I want to understand the channel mix he's already imagining."** *(The single most diagnostic question of the call. The answer tells you what Igor thinks the business is.)*
+
+13. **"For example — what's the rough split between B2B sales motion (conferences, trade press, cold outbound to operators) versus B2C acquisition (paid, affiliates, ambassador-driven trial)? Because $1M is plenty for one but tight for both."** *(Specifically forces a B2B/B2C ratio. The number tells you everything.)*
+
+14. **"Is the $1M for pre-launch awareness only, or does it cover the first 6 months of operating spend? Because '$1M launch budget' and '$1M for the year' are very different planning exercises."** *(Tests whether he or the founders have thought about pacing. Many first-time founders mistake one-off launch spend for ongoing marketing budget.)*
+
+15. **"What channels are explicitly off the table given the regulatory posture? Google and Meta are closed for unlicensed gambling brands; sports sponsorships need an operator license. Has the team mapped that, or am I going to need to make those tradeoffs?"** *(Signals you know what's actually closed to you and surfaces whether they've thought it through.)*
+
+---
+
+### Quick close-out (after the four areas — 90 seconds max)
+
+16. **"What's the legal entity name and jurisdiction of incorporation?"** *(Basic due diligence. Establishes seriousness.)*
+
+17. **"How is the $3.5M structured, who's the lead investor, and what's the milestone to Series A?"** *(Funding reality check.)*
+
+18. **"What's the process from here, timeline, and who I'd meet at each stage?"**
+
+19. **"What would make a candidate stand out to Igor in particular?"** *(Lets Nathan share intel for the next stage if you advance.)*
+
+**Comp range goes in section 8 — don't dance, but don't make it the loudest note of the screen either. Ask once, clearly, then move on.**
 
 ---
 

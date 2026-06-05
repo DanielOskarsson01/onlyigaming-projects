@@ -313,6 +313,64 @@
     margin: 0;
   }
 
+  /* Area blocks (four-area question structure) */
+  .area {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--blue);
+  }
+  .area h3 {
+    margin-top: 0;
+    color: var(--navy);
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .area h3 .letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--blue);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .area .intro {
+    color: var(--gray-700);
+    font-size: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+  .area ul.options {
+    margin: 8px 0 16px 0;
+    padding-left: 20px;
+    font-size: 13.5px;
+    color: var(--gray-700);
+  }
+  .area ul.options li { margin-bottom: 6px; }
+
+  .close-out {
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-top: 16px;
+  }
+  .close-out h3 {
+    margin-top: 0;
+    font-size: 14px;
+    color: var(--gray-700);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
   /* STAR stories */
   .star {
     background: white;
@@ -838,81 +896,192 @@
 </section>
 
 <section id="questions">
-  <h2><span class="num">7</span>Questions to Ask Nathan (Pick 5-7, in This Order)</h2>
+  <h2><span class="num">7</span>Questions to Ask Nathan — The Four Things That Decide Everything</h2>
 
-  <p>Lead with the easy/qualifying ones; save the sharpest for once rapport is established.</p>
+  <p>Your job in this call is to find out <strong>what JustGames actually is</strong> so you can decide if
+  the CMO role is real. Four areas decide it. The four are sequenced — the answer to each one shapes
+  the next.</p>
 
-  <h3>Qualifying questions (start here)</h3>
-  <ol class="question-list">
-    <li>
-      <p class="quote">"How did Igor's team come to engage Talent SDK for this search? I noticed your background is gaming/AI/defense — curious how this role landed with you."</p>
-      <p class="meta">Polite. Surfaces the iGaming gap. Gives Nathan a chance to explain the founder relationship.</p>
-    </li>
-    <li>
-      <p class="quote">"What's the legal entity name and jurisdiction of incorporation? I want to read up properly before any deeper conversation."</p>
-      <p class="meta">Establishes you do due diligence. Forces him to either give specifics or admit he doesn't have them.</p>
-    </li>
-    <li>
-      <p class="quote">"Can you walk me through the team? You named Igor, Dan Coleman, Tom Martell, Peter Kravtsov — of these four, who's run a regulated betting operation before, and how is product/engineering staffed below Peter?"</p>
-      <p class="meta">Surfaces the founder-team gap without insulting it.</p>
-    </li>
-  </ol>
+  <div class="callout verdict">
+    <div class="label">How to use this section</div>
+    <p>You don't need to ask all of these — <strong>pick the live ones in order, until you have enough
+    signal</strong>. If Nathan can answer Areas A and B with specifics, this is a real opportunity. If he
+    can answer A but not B, the founders haven't built the GTM yet (that's why they're hiring a CMO — but
+    you need to know). If he can't answer A clearly, walk away politely.</p>
+  </div>
 
-  <h3>Funding / runway questions</h3>
-  <ol class="question-list" start="4">
-    <li>
-      <p class="quote">"How is the $3.5M structured — pre-seed, seed, SAFE, equity? Who are the lead investors, and what's the Series A target?"</p>
-      <p class="meta">You need to know if this is real institutional money or angel/poker-world money. The answer shapes everything.</p>
-    </li>
-    <li>
-      <p class="quote">"How long does $3.5M extend the runway, and what's the milestone to Series A — revenue, user count, regulatory milestone, token launch?"</p>
-      <p class="meta">Tests whether they have a real plan or are vibes-based.</p>
-    </li>
-  </ol>
+  <div class="area">
+    <h3><span class="letter">A</span>What is the product, and who is the customer? (B2B, B2C, or both?)</h3>
+    <p class="intro">This question breaks everything else open. A "betting protocol" can be sold to three
+    completely different customers, and the CMO job is unrecognizably different for each:</p>
+    <ul class="options">
+      <li><strong>B2B to operators</strong> — JustGames is infrastructure (like Azuro). Customers are
+      sportsbooks who plug in for liquidity / lower vig / odds feed. CMO sells to procurement/CTO/CEO at
+      iGaming operators. Channel: conferences (ICE, SBC, iGB Live), industry press, cold outbound,
+      partnerships.</li>
+      <li><strong>B2C protocol with own frontend</strong> — JustGames runs its own consumer sportsbook on
+      the protocol. CMO does what you did at MrGreen/ComeOn — brand, acquisition, CRM, retention,
+      gamification, ambassadors-as-trial-drivers. Channel: paid where allowed, affiliates,
+      ambassador-driven, content/community.</li>
+      <li><strong>Protocol + third-party frontends</strong> — Azuro/Hyperliquid model. JustGames builds
+      rails; independent teams build consumer brands. CMO has a hybrid job: market to frontend builders
+      (DevRel, hackathons, grants) AND build awareness in the end-user community to give frontends customers
+      to acquire.</li>
+    </ul>
+    <p><strong>The recruiter email is ambiguous.</strong> "Top ambassadors" and "$1M marketing budget" sound
+    B2C. "Open-source protocol" sounds B2B/infrastructure. "Lowest fees" could be either. You need to know.</p>
 
-  <h3>Role-shape questions</h3>
-  <ol class="question-list" start="6">
-    <li>
-      <p class="quote">"Why hire a CMO 4-6 weeks before launch rather than 4-6 months ago? Who's been doing marketing strategy until now?"</p>
-      <p class="meta">Reverses the question on them. The answer reveals whether the role is greenfield, replacement, or 'we ran out of band-aid.'</p>
-    </li>
-    <li>
-      <p class="quote">"What does Igor expect the CMO to own on day one? Brand and growth, or also CRM, retention, ops, analytics — given $3.5M runway you can't hire a 30-person org."</p>
-      <p class="meta">Sets up your full-stack angle.</p>
-    </li>
-    <li>
-      <p class="quote">"What's the comp structure — base, equity, cash bonus, token allocation if there's a token? And what's the realistic OTE total comp given the stage?"</p>
-      <p class="meta">Don't dance around comp at the screen. Get the range out.</p>
-    </li>
-  </ol>
+    <ol class="question-list">
+      <li>
+        <p class="quote">"Walk me through the product. Is JustGames a B2C sportsbook running on its own protocol, a B2B infrastructure layer that licensed operators plug into, or both — protocol plus a flagship frontend?"</p>
+        <p class="meta">The single most important question. The answer reshapes everything else.</p>
+      </li>
+      <li>
+        <p class="quote">"Who's the customer the CMO is responsible for acquiring? End-users placing bets, operators integrating the protocol, or developer teams building frontends? Or is it all three at different stages?"</p>
+        <p class="meta">Forces him to name the GTM target. If he says "all three," that's a $3.5M-doesn't-cover-it flag.</p>
+      </li>
+      <li>
+        <p class="quote">"Is there a thought about JustGames running its own branded sportsbook on top of the protocol — a flagship B2C product? Or is the strategy strictly to enable other operators?"</p>
+        <p class="meta">Pins down whether you'd be building a brand or selling to procurement.</p>
+      </li>
+    </ol>
+  </div>
 
-  <h3>Strategic / red-flag questions (use 1-2 sparingly)</h3>
-  <ol class="question-list" start="9">
-    <li>
-      <p class="quote">"What's the licensing strategy for EU, Australia, and Brazil — are we operating as a protocol with third-party licensed frontends, or running our own?"</p>
-      <p class="meta">This is the question that separates 'we know what we're doing' from 'we're winging it.'</p>
-    </li>
-    <li>
-      <p class="quote">"Is there a token, an airdrop, or points-based GTM in the marketing plan?"</p>
-      <p class="meta">Crypto-native launches are increasingly token/points-led. You want to know if this is the GTM lever.</p>
-    </li>
-    <li>
-      <p class="quote">"How is the 'lowest fees' claim benchmarked — against Pinnacle's 2-3%, against Stake's house edge, or against zero-commission like SX Bet and Hyperliquid HIP-4?"</p>
-      <p class="meta">This is the question that signals 'I know the market and you can't bluff me.' Use only if Nathan is sophisticated enough to engage with it. Otherwise save for Igor.</p>
-    </li>
-  </ol>
+  <div class="area">
+    <h3><span class="letter">B</span>Who exactly is the customer, and can they be served legally?</h3>
+    <p class="intro">Once you know what the product is, ask who can buy it and where they're allowed to use
+    it. <strong>"Lowest fees" is irrelevant if the customer can't legally touch the product.</strong></p>
+    <ul class="options">
+      <li><strong>B2C:</strong> which countries can players legally access from? MGA, UKGC, German GlüStV,
+      Italian ADM, Brazilian Bets? Or offshore-only, geo-blocking everywhere licensed and serving the gray
+      markets (LATAM ex-Brazil, SEA, Africa)?</li>
+      <li><strong>B2B:</strong> selling to <strong>licensed operators</strong> (MGA, UKGC, ADM, Brazilian Bets,
+      Ontario AGCO) who'll want certifications (GLI-19, ISO 27001, RNG audits, MGA approval letters)? Or
+      <strong>gray-market crypto operators</strong> (Curaçao sub-license era, offshore crypto books) who
+      don't need those certs but have shrinking access as Curaçao reforms close the loophole?</li>
+      <li><strong>Protocol:</strong> is the protocol itself licensable, or by design unlicensable
+      (decentralized, no central operator)?</li>
+    </ul>
 
-  <h3>Process questions (close with these)</h3>
-  <ol class="question-list" start="12">
-    <li>
-      <p class="quote">"What's the interview process from here? Who would I meet at each stage and what's the timeline?"</p>
-      <p class="meta"></p>
-    </li>
-    <li>
-      <p class="quote">"What would make a candidate stand out to Igor in particular?"</p>
-      <p class="meta">Lets Nathan share what he knows about Igor's preferences. Useful if you advance.</p>
-    </li>
-  </ol>
+    <ol class="question-list" start="4">
+      <li>
+        <p class="quote">"Geographic strategy — which countries does the product target on day one, and which does it geo-block? Are you operating in licensed regulated markets, the gray markets, or both with different stacks?"</p>
+        <p class="meta">The honest answer reveals the entire regulatory posture. "Global, no geo-blocks" = gray-market, full stop. Know that's the bet.</p>
+      </li>
+      <li>
+        <p class="quote">"On the B2B side, are you targeting licensed operators (MGA, UKGC, ADM, Brazilian Bets, Ontario) or gray-market crypto operators? Because the sales motion and the product certifications are different worlds."</p>
+        <p class="meta">Signals you understand the regulated B2B landscape and forces him to commit to a tier.</p>
+      </li>
+      <li>
+        <p class="quote">"Can this product be licensed at all? Is the protocol itself something you'd put through MGA Class 2 or Brazilian Bets, or is the model deliberately outside licensing — operate as a protocol, let frontends carry licenses where they need them?"</p>
+        <p class="meta">The architecture question. Some protocols are designed to be unlicensable; others wrap a licensed entity around them. Affects everything from marketing language to whether you can put a logo on a Premier League sleeve.</p>
+      </li>
+      <li>
+        <p class="quote">"What does the legal team say about Brazil specifically? Bets framework launched 2024 and the regulated market is massive — are you going through Bets licensing or geo-blocking Brazil at launch?"</p>
+        <p class="meta">Brazil is the marquee LATAM opportunity. Answer reveals whether they have real legal counsel or are vibes-on-LATAM.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="area">
+    <h3><span class="letter">C</span>The ambassadors. Who are they and what are they actually for?</h3>
+    <p class="intro">The recruiter said "top ambassadors, already signed." Given Igor's network, they're
+    <strong>almost certainly poker pros or crypto influencers</strong> (Phil Hellmuth, Daniel Negreanu,
+    Doug Polk, Phil Galfond on poker; Vitalik, crypto KOLs on Web3). Possibly Liv Boeree. Maybe pro-EA figures.</p>
+    <ul class="options">
+      <li><strong>B2C ambassadors</strong> → trial drivers. Their audience comes and tries the product.
+      CMO measures CAC, conversion, retention. Standard playbook from your MrGreen days.</li>
+      <li><strong>B2B ambassadors</strong> → almost meaningless. Operators don't care that Phil Hellmuth shills
+      a protocol. They care about latency, liquidity, settlement, certifications. Useful for conference
+      panels and dinners — not for closing deals.</li>
+      <li><strong>Crypto/protocol ambassadors</strong> → distribution and credibility in the onchain
+      community. They drive token holders, frontend builders, governance participation. Different from
+      sportsbook ambassadors entirely.</li>
+    </ul>
+
+    <ol class="question-list" start="8">
+      <li>
+        <p class="quote">"Who are the ambassadors? Poker world, crypto/Web3, sports, or a mix?"</p>
+        <p class="meta">Concrete. Forces him to name names or admit he doesn't know.</p>
+      </li>
+      <li>
+        <p class="quote">"What is the ambassador's actual role on launch — drive end-user signups, lend credibility to operator sales, or distribute through their content/social audience? Because the work I'd do with a poker pro to drive B2C trial is completely different from how I'd use them at a B2B conference."</p>
+        <p class="meta">This is your sharpened question. Surfaces whether the team has thought through ambassador economics or just signed people because Igor knows them.</p>
+      </li>
+      <li>
+        <p class="quote">"If this is B2B, what would an ambassador actually do for the company? Operators don't buy infrastructure from Phil Hellmuth — they buy from a sales team with certifications and references. Is the ambassador role for awareness, or do you see it as a sales channel?"</p>
+        <p class="meta">Polite version of "Igor may have signed ambassadors without a clear job for them in B2B." Surfaces the gap if it exists.</p>
+      </li>
+      <li>
+        <p class="quote">"Are the ambassadors equity holders, paid spokespeople, or token allocation? The deal structure shapes how aggressively I can ask them to work."</p>
+        <p class="meta">Real CMO question. Tells you how much leverage you'd actually have over them.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="area">
+    <h3><span class="letter">D</span>The $1M marketing budget. What does Igor want it spent on?</h3>
+    <p class="intro">The $1M number is the most concrete thing in the email — and the most testable. Roughly
+    four buckets a $1M launch budget could go into. The founder's instinct here reveals whether they
+    understand the marketing reality:</p>
+    <ul class="options">
+      <li><strong>B2B operator acquisition</strong> — conferences (SBC Barcelona, ICE Barcelona, iGB Live
+      Amsterdam, SBC Lisbon, SiGMA — booth + sponsorship €50-200K per major event), trade press, cold
+      outbound BDR team ($200-400K/yr per BDR), industry awards, key account partnerships.</li>
+      <li><strong>B2C player acquisition</strong> — paid digital where legal (Google/Meta closed for
+      unlicensed; programmatic limited), affiliate networks (Income Access, Better Collective, Catena
+      Media — 30-50% rev share or CPA $50-300/depositor), influencer/KOL deals, content/SEO, referral programs.</li>
+      <li><strong>Crypto-native distribution</strong> — Crypto Twitter/X, Telegram/Discord, points/airdrop
+      campaigns, KOL deals with crypto influencers, hackathon sponsorships if developer-targeting.</li>
+      <li><strong>Brand and event marketing</strong> — sponsorships (sports teams/leagues — closed without
+      license), launch events, PR campaigns, content production.</li>
+    </ul>
+    <p><strong>A serious founder will have at least a rough split in mind. A vibes founder will say "growth
+    marketing" or "spend it where it works."</strong></p>
+
+    <ol class="question-list" start="12">
+      <li>
+        <p class="quote">"What does Igor see the $1M being spent on, roughly? Conferences and industry sales? Influencer deals? Crypto KOLs and points campaigns? Paid acquisition? Cold outbound to operators? I want to understand the channel mix he's already imagining."</p>
+        <p class="meta">The single most diagnostic question of the call. The answer tells you what Igor thinks the business is.</p>
+      </li>
+      <li>
+        <p class="quote">"For example — what's the rough split between B2B sales motion (conferences, trade press, cold outbound to operators) versus B2C acquisition (paid, affiliates, ambassador-driven trial)? Because $1M is plenty for one but tight for both."</p>
+        <p class="meta">Forces a B2B/B2C ratio. The number tells you everything.</p>
+      </li>
+      <li>
+        <p class="quote">"Is the $1M for pre-launch awareness only, or does it cover the first 6 months of operating spend? Because '$1M launch budget' and '$1M for the year' are very different planning exercises."</p>
+        <p class="meta">Tests whether the founders have thought about pacing. First-time founders often mistake one-off launch spend for ongoing marketing budget.</p>
+      </li>
+      <li>
+        <p class="quote">"What channels are explicitly off the table given the regulatory posture? Google and Meta are closed for unlicensed gambling brands; sports sponsorships need an operator license. Has the team mapped that, or am I going to need to make those tradeoffs?"</p>
+        <p class="meta">Signals you know what's actually closed to you and surfaces whether they've thought it through.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="close-out">
+    <h3>Close-out (after the four areas — 90 seconds max)</h3>
+    <ol class="question-list" start="16">
+      <li>
+        <p class="quote">"What's the legal entity name and jurisdiction of incorporation?"</p>
+        <p class="meta">Basic due diligence. Establishes seriousness.</p>
+      </li>
+      <li>
+        <p class="quote">"How is the $3.5M structured, who's the lead investor, and what's the milestone to Series A?"</p>
+        <p class="meta">Funding reality check.</p>
+      </li>
+      <li>
+        <p class="quote">"What's the process from here, timeline, and who I'd meet at each stage?"</p>
+        <p class="meta"></p>
+      </li>
+      <li>
+        <p class="quote">"What would make a candidate stand out to Igor in particular?"</p>
+        <p class="meta">Lets Nathan share intel for the next stage if you advance.</p>
+      </li>
+    </ol>
+    <p style="margin-top:14px; font-size:13px; color:var(--gray-500);"><strong>Comp range goes in section 8</strong> —
+    don't dance, but don't make it the loudest note of the screen either. Ask once, clearly, then move on.</p>
+  </div>
 </section>
 
 <section id="comp">
