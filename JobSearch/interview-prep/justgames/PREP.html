@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JustGames CMO Interview Prep — Nathan Clauss / Talent SDK</title>
+<style>
+  :root {
+    --navy: #0a1f44;
+    --navy-light: #1a3160;
+    --blue: #2563eb;
+    --blue-light: #dbeafe;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --green: #059669;
+    --green-light: #d1fae5;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --sidebar-width: 280px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    line-height: 1.6;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  aside.sidebar {
+    background: var(--navy);
+    color: white;
+    padding: 28px 22px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+  }
+  aside.sidebar::-webkit-scrollbar { width: 6px; }
+  aside.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+  aside.sidebar h1 {
+    font-size: 16px;
+    margin: 0 0 4px 0;
+    color: white;
+    line-height: 1.3;
+  }
+  aside.sidebar .subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+  aside.sidebar .meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  aside.sidebar .meta strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+  aside.sidebar nav {
+    margin-top: 8px;
+  }
+  aside.sidebar nav .nav-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.4);
+    margin: 16px 0 8px 0;
+    font-weight: 600;
+  }
+  aside.sidebar nav a {
+    display: block;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 2px;
+    transition: background 0.15s, color 0.15s;
+  }
+  aside.sidebar nav a:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+  }
+  aside.sidebar nav a.active {
+    background: var(--blue);
+    color: white;
+    font-weight: 500;
+  }
+  aside.sidebar nav a .num {
+    display: inline-block;
+    width: 22px;
+    color: rgba(255,255,255,0.5);
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+  }
+  aside.sidebar nav a.active .num { color: rgba(255,255,255,0.85); }
+
+  aside.sidebar .read-order {
+    margin-top: 20px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+  }
+  aside.sidebar .read-order strong {
+    display: block;
+    color: white;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  aside.sidebar .read-order ol {
+    margin: 0;
+    padding-left: 18px;
+    line-height: 1.5;
+  }
+
+  /* Main */
+  main {
+    padding: 48px 56px 80px 56px;
+    max-width: 920px;
+  }
+
+  main header.doc-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--gray-200);
+  }
+  main header.doc-header h1 {
+    font-size: 28px;
+    color: var(--navy);
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  main header.doc-header .lede {
+    color: var(--gray-500);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  main header.doc-header .lede strong { color: var(--gray-700); }
+
+  section {
+    margin-bottom: 56px;
+    scroll-margin-top: 20px;
+  }
+  section h2 {
+    font-size: 22px;
+    color: var(--navy);
+    margin: 0 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-200);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  section h2 .num {
+    color: var(--blue);
+    font-weight: 800;
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  section h3 {
+    font-size: 17px;
+    color: var(--navy-light);
+    margin: 28px 0 10px 0;
+    font-weight: 600;
+  }
+
+  section p { margin: 0 0 14px 0; }
+  section ul, section ol { margin: 0 0 14px 0; padding-left: 22px; }
+  section li { margin-bottom: 6px; }
+  section strong { color: var(--gray-900); }
+  section em { color: var(--gray-700); }
+
+  section a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--blue);
+  }
+  section a:hover { border-bottom-style: solid; }
+
+  section code {
+    background: var(--gray-100);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 90%;
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    color: var(--gray-900);
+  }
+
+  /* Callouts */
+  .callout {
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+    border-left: 4px solid;
+  }
+  .callout.verdict {
+    background: var(--blue-light);
+    border-color: var(--blue);
+  }
+  .callout.verdict .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .callout.warning {
+    background: var(--amber-light);
+    border-color: var(--amber);
+  }
+  .callout.danger {
+    background: var(--red-light);
+    border-color: var(--red);
+  }
+  .callout.success {
+    background: var(--green-light);
+    border-color: var(--green);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+  th {
+    background: var(--gray-100);
+    font-weight: 600;
+    color: var(--navy);
+    border-bottom: 2px solid var(--gray-300);
+    font-size: 13px;
+  }
+  tr:hover td { background: var(--gray-50); }
+
+  /* Question lists */
+  .question-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: q;
+  }
+  .question-list > li {
+    counter-increment: q;
+    padding: 14px 0 14px 44px;
+    border-bottom: 1px solid var(--gray-100);
+    position: relative;
+  }
+  .question-list > li::before {
+    content: counter(q);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 28px;
+    height: 28px;
+    background: var(--blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .question-list .quote {
+    color: var(--navy);
+    font-weight: 500;
+    margin: 0 0 6px 0;
+  }
+  .question-list .meta {
+    color: var(--gray-500);
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* STAR stories */
+  .star {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .star h3 { margin-top: 0; color: var(--navy); }
+  .star .likely-q {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+  .star .likely-q strong { color: var(--gray-700); }
+  .star .label {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+    vertical-align: 1px;
+  }
+  .star p { margin-bottom: 10px; }
+  .star .for-nathan {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--blue-light);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .star .for-nathan strong { color: var(--blue); }
+
+  /* Pitch box */
+  .pitch {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .pitch .label {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--navy);
+    color: white;
+    padding: 3px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    border-radius: 3px;
+  }
+  .pitch p {
+    font-style: italic;
+    color: var(--gray-700);
+  }
+  .pitch p:last-child { margin-bottom: 0; }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+  .checklist li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-size: 18px;
+    color: var(--gray-300);
+  }
+
+  /* Person card */
+  .person {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+  }
+  .person h3 {
+    margin: 0 0 8px 0;
+    color: var(--navy);
+    font-size: 16px;
+  }
+  .person h3 .tag {
+    display: inline-block;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: 2px;
+  }
+  .person h3 .tag.verified { background: var(--green-light); color: var(--green); }
+  .person h3 .tag.cipher { background: var(--gray-200); color: var(--gray-700); }
+  .person h3 .tag.sensitive { background: var(--red-light); color: var(--red); }
+  .person ul { margin: 8px 0 0 0; }
+
+  /* Top bar */
+  .topbar {
+    position: sticky;
+    top: 0;
+    background: rgba(249, 250, 251, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 12px 56px;
+    border-bottom: 1px solid var(--gray-200);
+    z-index: 10;
+    font-size: 12px;
+    color: var(--gray-500);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .topbar .crumb { color: var(--blue); font-weight: 500; }
+  .topbar .right { font-variant-numeric: tabular-nums; }
+
+  /* Print */
+  @media print {
+    aside.sidebar, .topbar { display: none; }
+    main { padding: 0; max-width: none; }
+    .layout { grid-template-columns: 1fr; }
+    section { page-break-inside: avoid; }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    aside.sidebar {
+      position: relative;
+      height: auto;
+      top: auto;
+    }
+    main { padding: 32px 24px; }
+    .topbar { padding: 12px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <h1>JustGames CMO</h1>
+  <div class="subtitle">Interview Prep — Nathan Clauss screen</div>
+
+  <div class="meta">
+    <strong>Date:</strong> 2026-06-05<br>
+    <strong>Stage:</strong> Recruiter screen<br>
+    <strong>With:</strong> Nathan Clauss<br>
+    <strong>Firm:</strong> Talent SDK<br>
+    <strong>Role:</strong> CMO, stealth<br>
+    <strong>Reports to:</strong> Igor Kurganov
+  </div>
+
+  <nav>
+    <div class="nav-label">Read first</div>
+    <a href="#verdict"><span class="num">1.</span>90-second verdict</a>
+    <a href="#people"><span class="num">2.</span>Who you're meeting</a>
+    <a href="#company"><span class="num">3.</span>What JustGames is</a>
+    <a href="#red-flags"><span class="num">4.</span>Five red flags</a>
+
+    <div class="nav-label">During the call</div>
+    <a href="#pitch"><span class="num">5.</span>Your pitch (90 sec)</a>
+    <a href="#angles"><span class="num">6.</span>Sharpest fit angles</a>
+    <a href="#questions"><span class="num">7.</span>Questions to ask</a>
+    <a href="#comp"><span class="num">8.</span>Comp / deal-shape</a>
+
+    <div class="nav-label">Reference</div>
+    <a href="#stars"><span class="num">9.</span>STAR stories</a>
+    <a href="#avoid"><span class="num">10.</span>Topics to avoid</a>
+    <a href="#logistics"><span class="num">11.</span>Logistics</a>
+    <a href="#decision"><span class="num">12.</span>Post-call decision</a>
+    <a href="#sources"><span class="num">13.</span>Sources</a>
+  </nav>
+
+  <div class="read-order">
+    <strong>15-min read order</strong>
+    <ol>
+      <li>§1 verdict</li>
+      <li>§2 people</li>
+      <li>§4 red flags</li>
+      <li>§5 pitch (aloud)</li>
+      <li>§7 questions</li>
+    </ol>
+  </div>
+</aside>
+
+<div>
+
+<div class="topbar">
+  <div><span class="crumb">JobSearch</span> / interview-prep / justgames / PREP.html</div>
+  <div class="right">Interview today · ≤2 hours</div>
+</div>
+
+<main>
+
+<header class="doc-header">
+  <h1>JustGames CMO — Interview Prep</h1>
+  <div class="lede">
+    Recruiter screen with <strong>Nathan Clauss</strong> (CEO, Talent SDK) for a stealth-mode
+    CMO role reporting to <strong>Igor Kurganov</strong>. Stated $3.5M funding, $1M initial
+    marketing budget, "open-source betting protocol" pitch, 4-6 week launch targeting
+    Europe, South America, and Australia.
+  </div>
+</header>
+
+<section id="verdict">
+  <h2><span class="num">1</span>The 90-Second Verdict</h2>
+
+  <p>This is a real recruiter (verified), probably representing a real stealth company tied
+  to Igor Kurganov (poker pro, ex-Musk Foundation Chief Strategy Officer, REG charity co-founder).
+  The opportunity is <strong>interesting but high-risk</strong>, and the numbers don't quite
+  add up. Walk in curious, not desperate. Your job in this call is to <strong>qualify them</strong>
+  as much as they qualify you.</p>
+
+  <div class="callout verdict">
+    <div class="label">Three things to keep in your head</div>
+    <ol>
+      <li><strong>You are not a junior candidate.</strong> You scaled MrGreen from 7 to 250 and
+      ComeOn marketing from 1 to 100. You built Coinhero from zero. You are the seller as much
+      as the buyer.</li>
+      <li><strong>$3.5M total + $1M marketing + 4-6 week launch + EU/SA/AU = the math does
+      not work</strong> for a regulated betting product. Either the protocol is gray-market
+      (Polymarket pre-CFTC playbook), or the timeline is fantasy, or both. You need to ask,
+      not assume.</li>
+      <li><strong>Nathan is a real, competent boutique recruiter — but from gaming/AI/aerospace,
+      not iGaming.</strong> This is Talent SDK's first visible iGaming search. Probable
+      explanation: Igor hired Nathan from his personal network (Riot/PUBG/gaming world),
+      not via a betting specialist. Sign of an under-networked founder team in iGaming.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="people">
+  <h2><span class="num">2</span>Who You're Meeting With</h2>
+
+  <div class="person">
+    <h3>Nathan Clauss <span class="tag verified">verified</span> <span class="tag">sector-mismatched</span></h3>
+    <ul>
+      <li>LA-based. BA Cal State Fullerton (2014). 21K LinkedIn followers, ~880 company followers.</li>
+      <li>Career: BOB Search (exec search 2011-15) → <strong>Riot Games</strong> (recruiter 2015-18)
+      → <strong>PUBG Corp</strong> (Head of NA Recruiting, 2018) → founded Talent SDK 2018.</li>
+      <li>Talent SDK: ~17 people, real website, real testimonials (Yuga Labs, Phaze, System Era, Raid Base, Doctronic).</li>
+      <li><strong>Sectors: video games, AI/tech, aerospace/defense. NOT iGaming.</strong> No public
+      placements in gambling, sportsbook, casino, or crypto-betting.</li>
+      <li><strong>Verdict:</strong> legit boutique, but he probably doesn't know iGaming CMO competencies
+      in depth. Don't expect him to grill you on affiliate networks, MGA license structures, or CRM
+      cohort retention curves. He's screening for senior generalist credibility, communication,
+      "would this person work with Igor."</li>
+    </ul>
+  </div>
+
+  <div class="person">
+    <h3>Igor Kurganov <span class="tag">CEO</span> <span class="tag sensitive">handle carefully</span></h3>
+    <ul>
+      <li>Russian/German, born 1988, professional poker player with $18.5M+ in live tournament winnings.
+      Left Team PokerStars Nov 2019.</li>
+      <li>Co-founded <strong>Raising for Effective Giving (REG)</strong> in 2014 — Effective Altruism-aligned
+      poker charity.</li>
+      <li>Married Liv Boeree at Burning Man 2025. Liv is a vocal prediction-markets advocate and EA figure.</li>
+      <li><strong>2021-2024:</strong> Chief Strategy Officer at the Musk Foundation — hired to deploy $5.7B
+      in charitable donations. May 2024 WSJ report says he was ousted by Musk's wealth manager Jared Birchall;
+      the report mentioned an FBI inquiry but no wrongdoing was alleged.</li>
+      <li class="warning-li"><strong>DO NOT BRING UP THE MUSK FOUNDATION EXIT.</strong> It's sensitive and
+      only borderline-public. If Nathan or Igor mentions it, listen and move on.</li>
+      <li>Late 2024: TEDAI San Francisco panel. Multiple secondary mentions of him "founding a DeFi company"
+      — that's plausibly JustGames.</li>
+      <li>Network: Vitalik Buterin (via REG/EA), Liv Boeree, broader EA/longtermist DeFi crowd.</li>
+      <li>Active on X as <a href="https://twitter.com/igorkurganov">@IgorKurganov</a>.</li>
+    </ul>
+  </div>
+
+  <div class="person">
+    <h3>Dan Coleman → almost certainly Dan <strong>Colman</strong> (one L) <span class="tag">President / Head of Product</span></h3>
+    <ul>
+      <li>American, born 1990. Poker pro, $28.9M+ in tournament winnings, won 2014 Big One for One Drop ($15.3M).</li>
+      <li>Famously <strong>criticized poker as net-harmful in 2014</strong>, which is the irony to note:
+      he's now listed as "President / Head of Product" at a betting protocol.</li>
+      <li>Igor publicly rebutted his 2014 essay on the REG blog — so they know each other well.</li>
+      <li><strong>No verifiable startup or tech product role.</strong> Confirm spelling and current
+      title in the call.</li>
+      <li>Won a $200K cash game event in Oct 2025 — still actively playing.</li>
+    </ul>
+  </div>
+
+  <div class="person">
+    <h3>Tom Martell <span class="tag cipher">cipher</span> <span class="tag">COO</span></h3>
+    <ul>
+      <li>A Tom Martell exists on LinkedIn in Las Vegas. Cannot verify iGaming/crypto/poker/ops background.</li>
+      <li>Ask Nathan what Tom did before, what kind of ops experience he brings.</li>
+    </ul>
+  </div>
+
+  <div class="person">
+    <h3>Peter Kravtsov <span class="tag cipher">cipher</span> <span class="tag">CTO</span></h3>
+    <ul>
+      <li>Russian name. Multiple Peter Kravtsovs exist on LinkedIn. No public profile connects to
+      crypto/betting protocols.</li>
+      <li>Ask: did he build the protocol, or is he overseeing engineers who did? Where did he build before?</li>
+    </ul>
+  </div>
+
+  <div class="callout warning">
+    <strong>Pattern:</strong> Two named principals (Igor, Dan) are world-class poker players.
+    Two principals (Tom, Peter) are unverifiable in public. This is a <strong>poker-world founder team</strong>,
+    not a tech/iGaming/regulated-betting founder team. That shapes everything below.
+  </div>
+</section>
+
+<section id="company">
+  <h2><span class="num">3</span>What "JustGames" Probably Is (You Can't Confirm)</h2>
+
+  <p><strong>Zero public footprint.</strong> No Crunchbase. No funding announcement. No GitHub org. No
+  domain footprint tied to this team. Note: there is a separate, unrelated <strong>JustBet (just.bet)</strong>
+  — a WINR Protocol product on Arbitrum. That's not them.</p>
+
+  <h3>Most likely technical model</h3>
+  <p>Based on the "open-source protocol" + "lowest fees" pitch + Igor's network:</p>
+  <ul>
+    <li><strong>Hyperliquid-style onchain orderbook</strong> (most plausible) — HIP-4 launched May 2026
+    with zero opening-trade fees on event contracts. Same engine as Hyperliquid's perps. If JustGames is
+    "the orderbook for sports/events on a new chain," this is the template.</li>
+    <li><strong>SX Bet-style peer-to-peer orderbook</strong> — SX cut commissions to 0% on singles, 5% only
+    on winning parlays. Mature category, hasn't broken through on liquidity.</li>
+    <li><strong>Azuro-style liquidity layer</strong> — frontends earn share of LP profits, no fixed
+    commission. Polygon/Gnosis. ~36 frontends, ~$10M TVL.</li>
+    <li><strong>Polymarket-style binary YES/NO with oracle</strong> — but Polymarket already won the
+    prediction-market category (97.5% mindshare, $238B 2025 volume after CFTC approval in Dec 2025).</li>
+  </ul>
+
+  <h3>The competition is brutal</h3>
+  <ul>
+    <li><strong>Polymarket</strong> got CFTC approval Dec 2025 and is now legal in the US. They dominate
+    prediction markets.</li>
+    <li><strong>Kalshi</strong> is fighting state-vs-CFTC battle, sports event contracts may go to SCOTUS.</li>
+    <li><strong>Hyperliquid (HIP-4)</strong> just entered with deeper liquidity than any sports-specific
+    protocol — same engine as their perps, ~200k orders/sec.</li>
+    <li><strong>Azuro</strong> has the liquidity-layer position.</li>
+    <li><strong>SX Bet</strong> has the P2P sportsbook position.</li>
+    <li><strong>Overtime Markets</strong> has the parlay position.</li>
+  </ul>
+
+  <h3>The regulatory reality (matters for your CMO job)</h3>
+  <ul>
+    <li><strong>EU:</strong> MGA won't license a decentralized protocol. Germany/France/Italy/Spain block
+    at IP/payment level. UK UKGC treats it as unlicensed gambling.</li>
+    <li><strong>Curaçao:</strong> 2024-2026 LOK reform closed the master-sublicense era. CGA direct
+    licensing, 38% rejection rate. The old loophole is gone.</li>
+    <li><strong>Brazil (the big SA market):</strong> regulated 2024 (Bets framework). Requires
+    Brazil-licensed operators with Brazilian KYC. A protocol fails this on day one.</li>
+    <li><strong>Australia:</strong> ACMA blocked 400+ offshore crypto gambling domains in Q1 2026
+    alone. Most aggressive blocker globally for crypto books.</li>
+  </ul>
+
+  <p><strong>Realistic path for JustGames:</strong> operate gray, geoblock the worst jurisdictions, target
+  crypto-native users in LATAM/SEA, hope for an eventual regulated wrapper. Mainstream marketing channels
+  (Google, Meta, sports sponsorships) are closed to unlicensed protocols. The playbook is Crypto Twitter/X,
+  Telegram/Discord, KOL deals, airdrop/points campaigns, frontend partnerships.</p>
+
+  <div class="callout warning">
+    This shapes how you talk about your marketing background. Most of what built MrGreen and ComeOn
+    (TV, affiliates, regulated digital channels, MGA-licensed operations) won't apply directly. Translate it.
+  </div>
+</section>
+
+<section id="red-flags">
+  <h2><span class="num">4</span>The Five Red Flags You Need to Surface (Politely)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:24px;">#</th>
+        <th style="width:28%;">Red flag</th>
+        <th style="width:35%;">Why it matters</th>
+        <th>How to ask</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>$3.5M for a worldwide EU+SA+AU launch in 4-6 weeks is implausibly small</strong></td>
+        <td>MGA license alone: €25-50K + 4-6 months. UKGC longer. ACMA blocks offshore. $3.5M is seed
+        money, not three-continent launch money.</td>
+        <td><em>"Can you walk me through how the $3.5M is split between licensing, tech, marketing, and
+        runway? And what's the Series A target/timeline?"</em></td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>"Open-source protocol + lowest fees + EU/AU markets" is regulatorily contradictory</strong></td>
+        <td>Decentralized + MGA/UKGC/ACMA don't combine. Either gray-market or "open-source" is marketing.</td>
+        <td><em>"What's the licensing strategy? Are we operating as a protocol with third-party frontends,
+        or running a single licensed frontend ourselves?"</em></td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Hiring a CMO 4-6 weeks pre-launch is reversed sequencing</strong></td>
+        <td>A CMO normally arrives 3-9 months pre-launch to build brand, partnerships, positioning.
+        T-minus-weeks suggests crisis hiring or "we have ambassadors, we just need someone to execute."</td>
+        <td><em>"Who's been leading marketing until now, and why is the hire happening at this stage
+        of the launch?"</em></td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>Recruiter category mismatch</strong></td>
+        <td>Talent SDK is gaming/AI/defense. No iGaming track record. Igor probably picked Nathan from
+        his personal Riot/PUBG world, not via Pentasia/BettingJobs. Suggests founder team is under-networked
+        in iGaming.</td>
+        <td>(Don't surface to Nathan directly. Internal flag.)</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Founder team is poker-world, not betting-platform-world</strong></td>
+        <td>Igor and Dan are world-class poker players. Neither has built a regulated iGaming operator.
+        Tom and Peter are unverifiable. They likely underestimate the regulatory/affiliate/CRM complexity.</td>
+        <td><em>"Of the founding four, who's run a regulated betting operation before? I want to understand
+        where the CMO bridges the team's experience gaps."</em></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="pitch">
+  <h2><span class="num">5</span>Your Pitch (90-120 Seconds, Spoken)</h2>
+
+  <p>This is what you say to <em>"Tell me about yourself / why are you the right CMO for this."</em></p>
+
+  <div class="pitch">
+    <span class="label">Pitch — read aloud once</span>
+    <p>"I'm an iGaming executive with 15+ years building betting and gaming businesses from zero. My pattern
+    is the same one Igor needs: founding-team, build-the-function-from-nothing, scale-with-the-company.</p>
+
+    <p>At <strong>MrGreen</strong> I was on the founding team — seven people in a Malta apartment. I built
+    the brand, the CRM department, the country operations. We grew 400% in active users in one year on a CRM
+    strategy I designed, and we listed on NASDAQ. That's where I learned how to launch a regulated betting
+    brand from nothing.</p>
+
+    <p>At <strong>ComeOn</strong> I was CMO, CPO, and COO across five years. I scaled the marketing org
+    from 1 person to over 100 across acquisition, retention, affiliates, CRM, creative, and analytics.
+    We were the world's second-fastest-growing listed iGaming company in 2015 and won Best Operator four
+    years running. That's where I learned how to run a multi-brand, multi-market betting business at scale.</p>
+
+    <p>Most recently at <strong>Coinhero</strong> I built a crypto-native iGaming operator from zero —
+    strategy, licensing across multiple jurisdictions, brand, product, team, the whole stack. That's where
+    I learned what it actually takes to launch a betting product where the customer pays in crypto.</p>
+
+    <p>What I bring to JustGames specifically: <strong>0-to-1 launch experience in regulated betting, plus
+    the crypto-native operational reality of Coinhero, plus full-stack ownership across brand, product,
+    CRM, and ops.</strong> I've built two NASDAQ-listed companies from founding teams. I know what works
+    on $1M of launch marketing and what doesn't.</p>
+
+    <p>What I'd want to understand on this call is whether the role and the company are set up to use
+    that experience — particularly around licensing, channel access, and timeline."</p>
+  </div>
+
+  <div class="callout verdict">
+    <div class="label">Why this works</div>
+    <p>It pattern-matches Nathan's outreach paragraph almost exactly (he called out MrGreen 7 → NASDAQ,
+    ComeOn 1 → 100, Coinhero, Betclic). It ends with a sharp qualification flag. It positions you as
+    senior — you finish by saying "I'd want to understand whether this is set up to use my experience,"
+    not "I'd love to be considered."</p>
+  </div>
+
+  <p><strong>Bridge sentence if Nathan opens with small talk first:</strong>
+  <em>"Nathan, I've read your outreach. Before we dive in — what time pressure are you under for the screen,
+  and what would you most want to cover?"</em></p>
+</section>
+
+<section id="angles">
+  <h2><span class="num">6</span>Your Sharpest Fit Angles (Lead With These)</h2>
+
+  <p>When Nathan asks "what about this role excites you" or "why are you a fit," pick 2-3 of these:</p>
+
+  <ol>
+    <li><strong>Founding-team 0-to-1 launch experience, twice.</strong> MrGreen (7 → 250 → NASDAQ) and
+    ComeOn (12 → 250 → NASDAQ). <em>"Hiring a CMO 4-6 weeks pre-launch is exactly the moment I've
+    optimized for twice."</em></li>
+
+    <li><strong>Building the entire marketing function from one person.</strong> ComeOn went from
+    "first marketing hire" to 100+ people. Most CMOs scale an existing org; you've twice built one
+    from the first hire.</li>
+
+    <li><strong>Crypto-native operator experience.</strong> Coinhero — full CEO/founder of a crypto-paying
+    iGaming brand. You understand the operational reality (custody, AML, KYC, geo-blocking, crypto-rail
+    payments) that most traditional iGaming CMOs don't.</li>
+
+    <li><strong>Cross-stack ownership.</strong> Marketing, product, CRM, operations, BI, gamification —
+    you've owned all five. For a small founding team ($3.5M, 4-6 week timeline), they need a CMO who can
+    also handle CRM, retention product, and analytics without a 30-person org behind them.</li>
+
+    <li><strong>Ambassador-led launch experience.</strong> MrGreen and ComeOn both used personality-driven
+    brand at launch (Mr Green as the character, ComeOn cultural marketing). You know how to build a brand
+    around already-signed ambassadors instead of building it from a blank brief.</li>
+
+    <li><strong>Multi-market international launch.</strong> You've launched and managed brands in 20+
+    markets and 4+ country-management roles. EU + SA + AU launch in parallel is hard but you've done
+    multi-market simultaneously at Betclic (intrapreneur, casino division across Europe).</li>
+  </ol>
+
+  <div class="callout verdict">
+    <strong>Pattern-match Nathan's exact language back at him.</strong> He used "0 to 1 experience",
+    "full-stack executive ownership", "marketing organizations and brands from scratch", "brand development,
+    customer communication, CRM, gamification, UX, analytics, and product strategy." If you echo his framing,
+    he'll feel heard and the screen advances quickly.
+  </div>
+</section>
+
+<section id="questions">
+  <h2><span class="num">7</span>Questions to Ask Nathan (Pick 5-7, in This Order)</h2>
+
+  <p>Lead with the easy/qualifying ones; save the sharpest for once rapport is established.</p>
+
+  <h3>Qualifying questions (start here)</h3>
+  <ol class="question-list">
+    <li>
+      <p class="quote">"How did Igor's team come to engage Talent SDK for this search? I noticed your background is gaming/AI/defense — curious how this role landed with you."</p>
+      <p class="meta">Polite. Surfaces the iGaming gap. Gives Nathan a chance to explain the founder relationship.</p>
+    </li>
+    <li>
+      <p class="quote">"What's the legal entity name and jurisdiction of incorporation? I want to read up properly before any deeper conversation."</p>
+      <p class="meta">Establishes you do due diligence. Forces him to either give specifics or admit he doesn't have them.</p>
+    </li>
+    <li>
+      <p class="quote">"Can you walk me through the team? You named Igor, Dan Coleman, Tom Martell, Peter Kravtsov — of these four, who's run a regulated betting operation before, and how is product/engineering staffed below Peter?"</p>
+      <p class="meta">Surfaces the founder-team gap without insulting it.</p>
+    </li>
+  </ol>
+
+  <h3>Funding / runway questions</h3>
+  <ol class="question-list" start="4">
+    <li>
+      <p class="quote">"How is the $3.5M structured — pre-seed, seed, SAFE, equity? Who are the lead investors, and what's the Series A target?"</p>
+      <p class="meta">You need to know if this is real institutional money or angel/poker-world money. The answer shapes everything.</p>
+    </li>
+    <li>
+      <p class="quote">"How long does $3.5M extend the runway, and what's the milestone to Series A — revenue, user count, regulatory milestone, token launch?"</p>
+      <p class="meta">Tests whether they have a real plan or are vibes-based.</p>
+    </li>
+  </ol>
+
+  <h3>Role-shape questions</h3>
+  <ol class="question-list" start="6">
+    <li>
+      <p class="quote">"Why hire a CMO 4-6 weeks before launch rather than 4-6 months ago? Who's been doing marketing strategy until now?"</p>
+      <p class="meta">Reverses the question on them. The answer reveals whether the role is greenfield, replacement, or 'we ran out of band-aid.'</p>
+    </li>
+    <li>
+      <p class="quote">"What does Igor expect the CMO to own on day one? Brand and growth, or also CRM, retention, ops, analytics — given $3.5M runway you can't hire a 30-person org."</p>
+      <p class="meta">Sets up your full-stack angle.</p>
+    </li>
+    <li>
+      <p class="quote">"What's the comp structure — base, equity, cash bonus, token allocation if there's a token? And what's the realistic OTE total comp given the stage?"</p>
+      <p class="meta">Don't dance around comp at the screen. Get the range out.</p>
+    </li>
+  </ol>
+
+  <h3>Strategic / red-flag questions (use 1-2 sparingly)</h3>
+  <ol class="question-list" start="9">
+    <li>
+      <p class="quote">"What's the licensing strategy for EU, Australia, and Brazil — are we operating as a protocol with third-party licensed frontends, or running our own?"</p>
+      <p class="meta">This is the question that separates 'we know what we're doing' from 'we're winging it.'</p>
+    </li>
+    <li>
+      <p class="quote">"Is there a token, an airdrop, or points-based GTM in the marketing plan?"</p>
+      <p class="meta">Crypto-native launches are increasingly token/points-led. You want to know if this is the GTM lever.</p>
+    </li>
+    <li>
+      <p class="quote">"How is the 'lowest fees' claim benchmarked — against Pinnacle's 2-3%, against Stake's house edge, or against zero-commission like SX Bet and Hyperliquid HIP-4?"</p>
+      <p class="meta">This is the question that signals 'I know the market and you can't bluff me.' Use only if Nathan is sophisticated enough to engage with it. Otherwise save for Igor.</p>
+    </li>
+  </ol>
+
+  <h3>Process questions (close with these)</h3>
+  <ol class="question-list" start="12">
+    <li>
+      <p class="quote">"What's the interview process from here? Who would I meet at each stage and what's the timeline?"</p>
+      <p class="meta"></p>
+    </li>
+    <li>
+      <p class="quote">"What would make a candidate stand out to Igor in particular?"</p>
+      <p class="meta">Lets Nathan share what he knows about Igor's preferences. Useful if you advance.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="comp">
+  <h2><span class="num">8</span>Compensation / Deal-Shape Notes</h2>
+
+  <p>You're a senior exec talking to a pre-seed/seed crypto-betting protocol. The comp structure is
+  fundamentally different from a regulated EU operator. Walk in knowing this.</p>
+
+  <h3>What to expect (realistic ranges, 2026 market)</h3>
+  <ul>
+    <li><strong>Base salary:</strong> $180-250K USD for a stealth pre-Series A CMO. Could be lower for
+    crypto-native shop ($150K) or higher for an experienced operator like you ($250-300K).</li>
+    <li><strong>Equity:</strong> 1-3% of common, 4-year vest with 1-year cliff, typical pre-seed CMO.
+    Closer to 2-3% if you're the first commercial hire and not just one of the early leadership.</li>
+    <li><strong>Token allocation (if token exists):</strong> this is the wild card. Crypto founders sometimes
+    offer 0.5-2% of token supply with multi-year vest and cliff. Could be worth 0, could be worth a lot.
+    Treat tokens as lottery tickets, not comp.</li>
+    <li><strong>Cash bonus:</strong> probably none at this stage. Performance bonus tied to launch milestones
+    is reasonable to negotiate.</li>
+    <li><strong>Severance / acceleration:</strong> critical at this stage. Ask for double-trigger acceleration
+    on change of control and at least 6-month severance if terminated without cause.</li>
+  </ul>
+
+  <h3>What to ask for at the screen</h3>
+  <p>Don't negotiate at the screen. Just gather. But signal range:</p>
+
+  <div class="pitch">
+    <span class="label">Signal range</span>
+    <p>"For context — for a role like this I'd expect base in the $200-280K range plus meaningful equity
+    (2-3% common) plus any token allocation if one exists. Severance and acceleration would matter at this
+    stage given the runway. Does that sit within the range Igor's authorized?"</p>
+  </div>
+
+  <ul>
+    <li>If Nathan says "yes that's in range" → good signal, advance.</li>
+    <li>If Nathan says "we're thinking more like $150K base, 0.5% equity, no token, no severance" → that's
+    a flag the founders are either underfunded or undervaluing the role. Probe.</li>
+    <li>If Nathan deflects ("Igor would discuss directly") → fair, but don't let him skip the question.
+    "Understood. Can you tell me even a range so we don't waste each other's time?"</li>
+  </ul>
+
+  <h3>Risk factors to weigh into comp</h3>
+  <ul>
+    <li><strong>Regulatory wipeout risk:</strong> ACMA blocks, MGA refuses, Brazil shuts the door → company
+    can be revenue-zero overnight. Demand more equity to offset.</li>
+    <li><strong>Token dilution risk:</strong> if token launches, your common equity may dilute. Want
+    anti-dilution or token allocation in addition to equity.</li>
+    <li><strong>Founder team risk:</strong> poker-world founders may not bring iGaming operating maturity.
+    You absorb the operational deficit. Demand title/scope clarity.</li>
+    <li><strong>Runway risk:</strong> $3.5M is short. If Series A doesn't close in 9-12 months, you're
+    job-hunting again. Bake severance into the offer.</li>
+  </ul>
+</section>
+
+<section id="stars">
+  <h2><span class="num">9</span>STAR Stories — Three Tailored to Likely Questions</h2>
+
+  <div class="star">
+    <h3>Story 1 — Building a marketing org from one person to 100 (ComeOn)</h3>
+    <p class="likely-q"><strong>Likely question:</strong> "Tell me about scaling a marketing function from scratch."</p>
+
+    <p><span class="label">Situation</span> I joined ComeOn in 2012 when the company was 12 people, no real
+    marketing function. We had one brand, one market, and no growth engine.</p>
+
+    <p><span class="label">Task</span> Build the marketing organization end-to-end while the company scaled
+    from 12 to 250+ employees toward a NASDAQ listing. Every function — acquisition, CRM, affiliates,
+    creative, analytics — had to be built and scaled with the company.</p>
+
+    <p><span class="label">Action</span> I built in phases keyed to company stage. Phase 1 (first 18 months):
+    I hired the first acquisition lead, the first CRM lead, the first affiliate manager. We worked from one
+    office, one process, no formal hierarchy. Phase 2 (years 2-3): I built the BI team from scratch — no
+    board budget approved, so I proved value with MVPs then secured budget for scale. Once BI was real,
+    every other function flipped from gut-feel to data-driven. Phase 3 (years 4-5): I separated brand teams
+    from performance teams, set up country-specific marketing pods, and moved from 1 brand to 20+ brands
+    across regulated and emerging markets.</p>
+
+    <p><span class="label">Result</span> Marketing org went from 1 to 100+ people. We achieved consistent
+    monthly growth across all KPIs — new customers, revenue, LTV — for every brand. ComeOn was named Best
+    Operator four years running (2014-2017, IGA Awards). We were the world's second-fastest-growing listed
+    iGaming company in 2015. The NASDAQ listing closed.</p>
+
+    <div class="for-nathan">
+      <strong>For Nathan:</strong> "The pattern at JustGames will be different because of the protocol model
+      and the crypto-native channels, but the org-building methodology — build BI first, prove value with
+      MVPs, separate brand from performance once you have signal — translates directly. And I've done it
+      on small founding teams."
+    </div>
+  </div>
+
+  <div class="star">
+    <h3>Story 2 — 0-to-1 brand launch on a tight budget with ambassadors (MrGreen)</h3>
+    <p class="likely-q"><strong>Likely question:</strong> "Tell me about launching a brand from nothing,
+    especially with personalities or ambassadors involved."</p>
+
+    <p><span class="label">Situation</span> 2009. MrGreen was seven people in a two-bedroom apartment in
+    Malta. No brand, no CRM, no customers, no playbook. We had a character — "Mr Green" — and conviction
+    that personality-led iGaming branding would beat generic operator branding.</p>
+
+    <p><span class="label">Task</span> Build the brand from zero. Get to product-market fit in Sweden first,
+    then scale.</p>
+
+    <p><span class="label">Action</span> I wrote the brand book, the CI, the communication manual, the tone
+    of voice. We built monthly campaign sites with gamification features — badges, missions, narrative —
+    three years before Casumo launched and made that approach famous. As acting Swedish Country Manager I
+    hit our two-year revenue target in six months by running culturally-localized CRM, not just translated
+    emails. I built the CRM department from one person. Within a year of that CRM overhaul, we'd grown
+    active users by nearly 400% — by replacing batch-and-blast with behavior-triggered, segmented
+    communication.</p>
+
+    <p><span class="label">Result</span> MrGreen went from 7 to 250+ people and NASDAQ-listed. Best casino
+    site in Sweden five years running (Internetworld). Online Casino of the Year 2011 and 2013. The brand
+    was successful enough that 888 acquired it in 2018.</p>
+
+    <div class="for-nathan">
+      <strong>For Nathan:</strong> "The relevant lesson for JustGames is: when you have ambassadors and a
+      thin budget, the brand is the multiplier. The ambassadors get you trial; the brand, CRM, and
+      gamification get you retention. I'd want to know what role Igor wants the ambassadors to play, because
+      that decides what kind of brand we build around them."
+    </div>
+  </div>
+
+  <div class="star">
+    <h3>Story 3 — Crypto-native operator from zero (Coinhero)</h3>
+    <p class="likely-q"><strong>Likely question:</strong> "Tell me about Coinhero — what's relevant for a
+    crypto-paying betting product?"</p>
+
+    <p><span class="label">Situation</span> 2023. I was brought in by the Coinhero founders as CEO/founder
+    to build a crypto-native iGaming operator from scratch — casino, sportsbook, and cryptocurrency rails.
+    No team, no licenses, no brand, no platform.</p>
+
+    <p><span class="label">Task</span> Full operational ownership from zero. Strategy, licensing across
+    multiple jurisdictions, recruitment, brand, product, vendor selection, and team management. Build the
+    company so it could be either a single-brand operator or the foundation for multi-brand expansion.</p>
+
+    <p><span class="label">Action</span> I led the licensing and compliance process across multiple
+    jurisdictions — regulated and gray market — which is non-trivial when your customer pays in crypto and
+    you have AML/KYC obligations that don't fit standard fiat tooling. I created the brand identity from
+    concept through UX/UI for acquisition and retention. I selected and integrated platform, content, and
+    crypto payment providers. I built the gamification and loyalty foundation. I led development of an
+    internal platform designed for future multi-brand expansion. I structured the org around the realities
+    of crypto operations — geo-blocking, custody, AML, multi-jurisdiction compliance.</p>
+
+    <p><span class="label">Result</span> Coinhero was operational with strategy, license track, team, brand,
+    and product in place. The crypto-rail operational stack worked.</p>
+
+    <div class="for-nathan">
+      <strong>For Nathan:</strong> "The reason this matters for JustGames: most iGaming CMOs haven't dealt
+      with the operational reality of crypto-paying customers. If JustGames is going to operate gray with
+      crypto rails — which I assume given the protocol model — the work I did at Coinhero is directly
+      applicable. If JustGames intends to license like a traditional operator, it's still applicable but
+      the regulatory work I did at Coinhero is the more useful translation."
+    </div>
+  </div>
+</section>
+
+<section id="avoid">
+  <h2><span class="num">10</span>Topics to Avoid or Handle Carefully</h2>
+
+  <table>
+    <thead>
+      <tr><th style="width:32%;">Topic</th><th>Why avoid / how to handle</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Igor's Musk Foundation exit and the WSJ/FBI mention</strong></td>
+        <td>Borderline public. Sensitive. Don't bring up. If Nathan or Igor mentions it, listen, acknowledge
+        briefly, move on. Don't speculate.</td>
+      </tr>
+      <tr>
+        <td><strong>Dan Colman's 2014 anti-poker essay</strong></td>
+        <td>Public but ironic given his current role. Don't surface to Nathan. If you meet Dan and it comes
+        up, treat it as the past being prologue — "people's views evolve" — and pivot to product.</td>
+      </tr>
+      <tr>
+        <td><strong>The Stake.com sponsorship model</strong></td>
+        <td>Stake is a centralized competitor and a sensitive comparison. Don't suggest "we should be Stake
+        but a protocol" — that signals regulatory naïveté.</td>
+      </tr>
+      <tr>
+        <td><strong>Naming specific Polymarket or Hyperliquid intel</strong></td>
+        <td>You know enough to ask sharp questions. Don't lecture Nathan on prediction market category
+        dynamics — show by question, not by monologue.</td>
+      </tr>
+      <tr>
+        <td><strong>Numeric fabrication in your CV stories</strong></td>
+        <td>Stick to the verified numbers: 400% active user growth at MrGreen, 7 → 250 employees, 1 → 100+
+        marketing at ComeOn, 20+ brands. Don't inflate. If asked for a number you're unsure of, say "I'd
+        have to check the exact figure but the order of magnitude was X."</td>
+      </tr>
+      <tr>
+        <td><strong>"I'm desperate / I really need this"</strong></td>
+        <td>You're not desperate. You have OnlyiGaming and a consulting practice. You're evaluating this
+        opportunity, not begging for it. Carry that energy.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="logistics">
+  <h2><span class="num">11</span>Logistics — Before the Call</h2>
+
+  <ol>
+    <li><strong>Open the LinkedIn profile for Nathan Clauss</strong>
+    (<a href="https://www.linkedin.com/in/nateclauss/">linkedin.com/in/nateclauss/</a>) in a tab. Verify
+    face/name match when he joins.</li>
+    <li><strong>Have your CMO CV (<code>CV_Daniel_Oskarsson_CMO_2026.pdf</code>) open</strong> in another
+    tab. Reference if Nathan asks "what's your most recent role."</li>
+    <li><strong>Notes app or paper for capturing:</strong> Igor's actual current title, legal entity name,
+    jurisdiction, who the lead investor is, what the comp range actually is, who other interviewers would
+    be, timeline.</li>
+    <li><strong>Time the call.</strong> Most recruiter screens run 25-30 minutes. If Nathan tries to extend
+    past 45, he's interested — slow down and use the extra time to ask your strategic questions. If he
+    wraps at 20, he's batching screens — get the qualifying answers fast.</li>
+    <li><strong>Have a polite exit ready</strong> if you decide mid-call this isn't worth advancing:
+    <em>"Nathan, thanks for the context. I want to be honest — I'm not sure the stage and runway are the
+    right fit for me. Let me think about it and come back to you within 24 hours."</em> Don't burn the
+    relationship; you might meet him on a future search where the fit is better.</li>
+  </ol>
+</section>
+
+<section id="decision">
+  <h2><span class="num">12</span>After the Call — Decision Checklist</h2>
+
+  <p>Within 1 hour of hanging up, score on each:</p>
+
+  <table>
+    <thead>
+      <tr><th>Signal</th><th>Strong</th><th>Weak</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Nathan answered the legal entity / jurisdiction question with specifics</strong></td>
+        <td>Yes</td>
+        <td>Vague / deflected</td>
+      </tr>
+      <tr>
+        <td><strong>Nathan named at least one institutional lead investor</strong></td>
+        <td>Yes</td>
+        <td>"Angel network / poker friends"</td>
+      </tr>
+      <tr>
+        <td><strong>Comp range matched senior-CMO expectations</strong></td>
+        <td>Yes ($200K+ base, 2%+ equity)</td>
+        <td>Below ($150K, 0.5%)</td>
+      </tr>
+      <tr>
+        <td><strong>Founder team has at least one regulated-betting operator under Peter</strong></td>
+        <td>Yes</td>
+        <td>All cipher / all poker</td>
+      </tr>
+      <tr>
+        <td><strong>Licensing strategy is articulated, not vibes</strong></td>
+        <td>Yes (named jurisdictions)</td>
+        <td>"We'll figure it out"</td>
+      </tr>
+      <tr>
+        <td><strong>Igor is doing the next interview</strong></td>
+        <td>Yes</td>
+        <td>"We'll see" / "we have other candidates first"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <strong>Decision rule:</strong> If 4+ signals are strong, advance to Igor. If 3 or fewer are strong,
+    take 24h before responding. If 1-2 are strong, politely decline.
+  </div>
+</section>
+
+<section id="sources">
+  <h2><span class="num">13</span>Sources (For Your Own Verification)</h2>
+
+  <h3>Igor Kurganov</h3>
+  <ul>
+    <li><a href="https://en.wikipedia.org/wiki/Igor_Kurganov">Wikipedia</a></li>
+    <li><a href="https://www.thedailybeast.com/jared-birchall-ousted-igor-kurganov-from-elon-musk-inner-circle-wsj/">Daily Beast on WSJ Musk Foundation report</a></li>
+    <li><a href="https://reg-charity.org/about/team/">REG team page</a></li>
+    <li><a href="https://twitter.com/igorkurganov">@IgorKurganov on X</a></li>
+  </ul>
+
+  <h3>Dan Colman</h3>
+  <ul>
+    <li><a href="https://en.wikipedia.org/wiki/Dan_Colman">Wikipedia</a></li>
+    <li><a href="https://reg-charity.org/helping-people-through-poker-a-reply-to-dan-colman/">REG reply to Colman</a></li>
+  </ul>
+
+  <h3>Nathan Clauss / Talent SDK</h3>
+  <ul>
+    <li><a href="https://www.linkedin.com/in/nateclauss/">LinkedIn</a></li>
+    <li><a href="https://www.talent-sdk.com/about">Talent SDK About</a></li>
+    <li><a href="https://thebusinessofesports.com/2022/05/13/podcast-228-nate-clauss-get-a-job-in-gaming-new-level-recruiting-esports-hiring/">Business of Esports podcast #228</a></li>
+  </ul>
+
+  <h3>Market context</h3>
+  <ul>
+    <li><a href="https://reason.com/2026/01/04/the-return-of-polymarket/">Polymarket CFTC approval (Reason, Jan 2026)</a></li>
+    <li><a href="https://www.skadden.com/insights/publications/2026/04/third-circuit-affirms-kalshis-preliminary-injunction">Kalshi Third Circuit (Skadden)</a></li>
+    <li><a href="https://www.coindesk.com/markets/2026/05/26/hyperliquid-takes-aim-at-polymarket-with-launch-of-offchain-event-contracts">Hyperliquid HIP-4 launch (CoinDesk, May 2026)</a></li>
+    <li><a href="https://defillama.com/protocol/azuro">Azuro TVL (DefiLlama)</a></li>
+    <li><a href="https://medium.com/sportx-bet/eliminating-vig-d517f7a06f01">SX Bet zero-fee</a></li>
+    <li><a href="https://beincrypto.com/zkasino-crypto-betting-platform-rug-pull/">ZKasino $32M rug (BeInCrypto)</a></li>
+    <li><a href="https://brightsideofnews.com/gambling/curacao-gaming-license-reform-2026/">Curaçao LOK 2026 reform (BSN)</a></li>
+  </ul>
+</section>
+
+<footer style="margin-top:64px; padding-top:24px; border-top:1px solid var(--gray-200); color:var(--gray-500); font-size:12px;">
+  End of prep doc. Read §1, §2, §4, §5, §7, §8 before the call. §3, §9, §11, §12 are reference.
+</footer>
+
+</main>
+</div>
+
+</div>
+
+<script>
+  // Active-link highlighting in sidebar
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('aside.sidebar nav a');
+  const linkById = {};
+  navLinks.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    linkById[id] = a;
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const id = entry.target.getAttribute('id');
+        if (linkById[id]) linkById[id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
